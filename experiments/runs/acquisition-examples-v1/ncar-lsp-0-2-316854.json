@@ -1,0 +1,168 @@
+{
+  "case_hash": "013fd736d3a3df4e267396ec498abb94598896d6f7dd8924c2b70023d265da2e",
+  "actions": [
+    {
+      "id": "measure-query",
+      "kind": "interval",
+      "cost": "1",
+      "start": 1672639200,
+      "end": 1672660800,
+      "attribute": null
+    },
+    {
+      "id": "measure-half",
+      "kind": "interval",
+      "cost": "1",
+      "start": 1672639200,
+      "end": 1672650000,
+      "attribute": null
+    }
+  ],
+  "bundle": {
+    "result": {
+      "status": "ok",
+      "actions": [
+        {
+          "id": "measure-query",
+          "cost": "1",
+          "worst_remaining_width": "0",
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-half",
+          "cost": "1",
+          "worst_remaining_width": "0",
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "certificate_id": "994eeb29ecfd8bf326fa80d0e480dcf05c9d238030b6afe57c5356304416f742"
+    },
+    "certificate": {
+      "version": "continuous-acquisition-1",
+      "case_hash": "013fd736d3a3df4e267396ec498abb94598896d6f7dd8924c2b70023d265da2e",
+      "actions_hash": "610b86c4ba516e8dadd3d6fd453ecaaf6aabe9ad67d1e331d858f9360b5cfe6c",
+      "worlds": {
+        "native-hourly-period": {
+          "feasible": true,
+          "point": {
+            "1672639200": "0",
+            "1672642800": "0",
+            "1672646400": "0",
+            "1672650000": "0",
+            "1672653600": "0",
+            "1672657200": "0",
+            "1672660800": "0"
+          }
+        }
+      },
+      "pairs": [
+        [
+          {
+            "left": "native-hourly-period",
+            "right": "native-hourly-period",
+            "kind": "finite",
+            "value": "0",
+            "dual_paths": [],
+            "point": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0"
+            }
+          }
+        ],
+        [
+          {
+            "left": "native-hourly-period",
+            "right": "native-hourly-period",
+            "kind": "finite",
+            "value": "0",
+            "dual_paths": [
+              {
+                "start": 13,
+                "end": 6,
+                "edges": [
+                  "ecad888f5df387548ab5deb9",
+                  "6c9bba3ad15a591f0aa3624a",
+                  "251dd3c904e2223cfbfb6f46",
+                  "021c1c8a9a17823d20fe1b9e",
+                  "820033af0b63991526c752f9",
+                  "2cbeac31c941624f379ce390",
+                  "e7696a509031fb536549d4e8",
+                  "8593c3b592ef6f639d542723",
+                  "f90c40ac2b5cfcf41c8c03b3",
+                  "9c7ef8e40793e3bf6988836f",
+                  "af63def91280da72a5cdce84",
+                  "67115453b6b19e5d285727f6"
+                ]
+              }
+            ],
+            "point": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "8": "0",
+              "9": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0"
+            }
+          }
+        ]
+      ]
+    },
+    "checker": {
+      "valid": true,
+      "checker_version": "continuous-acquisition-1",
+      "conditional_on_complete_H": true
+    },
+    "metrics": {
+      "seconds": 0.004093300001841271,
+      "method": "terminal",
+      "cache_hit": false,
+      "endpoints": 7,
+      "hypotheses": 1,
+      "pairs": 2,
+      "operations": {
+        "bellman_ford_calls": 14,
+        "edge_relaxation_attempts": 474
+      }
+    }
+  },
+  "paired_lp": {
+    "actions": [
+      {
+        "id": "measure-query",
+        "width": -0.0,
+        "width_kind": "finite",
+        "guarantees_resolution": true
+      },
+      {
+        "id": "measure-half",
+        "width": -0.0,
+        "width_kind": "finite",
+        "guarantees_resolution": true
+      }
+    ],
+    "numerical_only": true,
+    "threshold_tolerance": 1e-09,
+    "metrics": {
+      "seconds": 0.0040773999971861485,
+      "lp_calls": 3
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "actions": [
+    {
+      "id": "measure-16-32",
+      "width": -0.0,
+      "width_kind": "finite",
+      "guarantees_resolution": true
+    },
+    {
+      "id": "measure-1-23",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-22-24",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-6-9",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-6-20",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-7-19",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-25-31",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-17-31",
+      "width": 49.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-6-19",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-0-31",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-23-28",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-11-25",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-11-16",
+      "width": 38.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-16-26",
+      "width": 43.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-0-15",
+      "width": 23.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-1-26",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-15-29",
+      "width": 49.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-2-32",
+      "width": 49.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-3-14",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-1-8",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-4-25",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-11-27",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-5-6",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    },
+    {
+      "id": "measure-1-24",
+      "width": 55.0,
+      "width_kind": "finite",
+      "guarantees_resolution": false
+    }
+  ],
+  "numerical_only": true,
+  "threshold_tolerance": 1e-09,
+  "metrics": {
+    "seconds": 1.0533417000006011,
+    "lp_calls": 388
+  }
+}

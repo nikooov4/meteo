@@ -1,0 +1,62 @@
+{
+  "development": {
+    "daily": [
+      "data\\fixtures\\conflict.json",
+      "data\\fixtures\\daily-total.json",
+      "data\\fixtures\\insufficient-data.json"
+    ],
+    "cumulative": [
+      "data\\fixtures\\cumulative.json"
+    ],
+    "metadata-label": [
+      "data\\fixtures\\incomplete-h.json",
+      "data\\fixtures\\metadata-label.json"
+    ],
+    "overlap": [
+      "data\\fixtures\\overlap-bounded.json",
+      "data\\fixtures\\overlap-exact.json",
+      "data\\fixtures\\threshold-true.json",
+      "data\\fixtures\\threshold-unknown.json"
+    ],
+    "unbounded": [
+      "data\\fixtures\\unbounded.json"
+    ],
+    "DWD:00191": [
+      "benchmark\\cases\\dwd-00191-20230101-07-1672534800-1672578000-assumed-end.json",
+      "benchmark\\cases\\dwd-00191-20230101-07-1672534800-1672578000-native-pending.json",
+      "benchmark\\cases\\dwd-00191-20230101-07-1672621200-1672664400-assumed-end.json",
+      "benchmark\\cases\\dwd-00191-20230101-07-1672621200-1672664400-native-pending.json",
+      "benchmark\\cases\\dwd-00191-20230101-07-1672707600-1672750800-assumed-end.json",
+      "benchmark\\cases\\dwd-00191-20230101-07-1672707600-1672750800-native-pending.json",
+      "benchmark\\cases\\dwd-00191-20230101-07-1672794000-1672837200-assumed-end.json",
+      "benchmark\\cases\\dwd-00191-20230101-07-1672794000-1672837200-native-pending.json"
+    ],
+    "DWD:00433": [
+      "benchmark\\cases\\dwd-00433-20230101-07-1672534800-1672578000-assumed-end.json",
+      "benchmark\\cases\\dwd-00433-20230101-07-1672534800-1672578000-native-pending.json",
+      "benchmark\\cases\\dwd-00433-20230101-07-1672621200-1672664400-assumed-end.json",
+      "benchmark\\cases\\dwd-00433-20230101-07-1672621200-1672664400-native-pending.json",
+      "benchmark\\cases\\dwd-00433-20230101-07-1672707600-1672750800-assumed-end.json",
+      "benchmark\\cases\\dwd-00433-20230101-07-1672707600-1672750800-native-pending.json",
+      "benchmark\\cases\\dwd-00433-20230101-07-1672794000-1672837200-assumed-end.json",
+      "benchmark\\cases\\dwd-00433-20230101-07-1672794000-1672837200-native-pending.json"
+    ],
+    "DWD:01048": [
+      "benchmark\\cases\\dwd-01048-20230101-07-1672534800-1672578000-assumed-end.json",
+      "benchmark\\cases\\dwd-01048-20230101-07-1672534800-1672578000-native-pending.json",
+      "benchmark\\cases\\dwd-01048-20230101-07-1672621200-1672664400-assumed-end.json",
+      "benchmark\\cases\\dwd-01048-20230101-07-1672621200-1672664400-native-pending.json",
+      "benchmark\\cases\\dwd-01048-20230101-07-1672707600-1672750800-assumed-end.json",
+      "benchmark\\cases\\dwd-01048-20230101-07-1672707600-1672750800-native-pending.json",
+      "benchmark\\cases\\dwd-01048-20230101-07-1672794000-1672837200-assumed-end.json",
+      "benchmark\\cases\\dwd-01048-20230101-07-1672794000-1672837200-native-pending.json"
+    ],
+    "ncar-era5-lsp": [
+      "benchmark\\cases\\ncar-lsp-0-0-316852.json",
+      "benchmark\\cases\\ncar-lsp-0-1-316853.json",
+      "benchmark\\cases\\ncar-lsp-0-2-316854.json"
+    ]
+  },
+  "test": {},
+  "status": "development pilot; no independently annotated held-out test frozen"
+}

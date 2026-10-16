@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "4c53dc1c971bde6d15f0b731bc1488f40a979c34b758702767c4e57631d2b3ad",
+    "source_snapshot": "experiments\\source_snapshots\\4c53dc1c971bde6d15f0b731bc1488f40a979c34b758702767c4e57631d2b3ad.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "not_a_git_repository",
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792177955.3895378
+  },
+  "url": "http://127.0.0.1:55035",
+  "local_checker": {
+    "valid": true,
+    "checker_version": "continuous-acquisition-1",
+    "conditional_on_complete_H": true
+  },
+  "bundle_sha256": "9efaf74d199c83f5b8eeab7fc3b022cad907ee97533dedd5c842a1a30551837f",
+  "client_sha256": "2eedea8ff66f5e4aed2498c0d754612aac7cba727cf442c6f81d63d333b274a7",
+  "server_stopped": true
+}

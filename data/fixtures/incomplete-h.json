@@ -1,0 +1,103 @@
+{
+  "id": "incomplete-h",
+  "observations": [
+    {
+      "id": "labelled",
+      "series": {
+        "quantity": "precipitation",
+        "location": "fixture",
+        "spatial_support": "point",
+        "product": "hand-calculated",
+        "version": "1",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "2",
+      "original_timestamp": null,
+      "lower": "2",
+      "upper": "2",
+      "interval": {
+        "start": 0,
+        "end": 3600,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": []
+    },
+    {
+      "id": "other",
+      "series": {
+        "quantity": "precipitation",
+        "location": "fixture",
+        "spatial_support": "point",
+        "product": "hand-calculated",
+        "version": "1",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "5",
+      "original_timestamp": null,
+      "lower": "5",
+      "upper": "5",
+      "interval": {
+        "start": 3600,
+        "end": 7200,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": []
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "end",
+      "assignments": {
+        "label": "end"
+      },
+      "intervals": {},
+      "evidence_ids": [],
+      "assumptions": [],
+      "compiler_version": "1",
+      "completeness_scope": "declared alternatives"
+    }
+  ],
+  "query": {
+    "series": {
+      "quantity": "precipitation",
+      "location": "fixture",
+      "spatial_support": "point",
+      "product": "hand-calculated",
+      "version": "1",
+      "member": "deterministic",
+      "vertical_support": "surface",
+      "cycle": null
+    },
+    "start": 0,
+    "end": 3600,
+    "unit": "mm",
+    "timezone": "UTC",
+    "calendar": "proleptic_gregorian",
+    "objective": "amount",
+    "eps": "0",
+    "threshold": null,
+    "permitted_assumptions": []
+  },
+  "h_complete": false,
+  "completeness_basis": "top-k; truth may be omitted",
+  "assumptions": [
+    "nonnegative precipitation increments"
+  ],
+  "revision": 0,
+  "evidence": [],
+  "family_id": "metadata-label",
+  "origin": "synthetic",
+  "source_manifests": []
+}

@@ -1,0 +1,54 @@
+{
+  "status": "paused_by_user",
+  "dataset_status": "complete",
+  "data_bytes": 200040947956,
+  "files": 476,
+  "profiles": [
+    {
+      "target_bytes": 1000000000,
+      "status": "complete",
+      "data_bytes": 1278907323,
+      "peak_process_tree_rss": 199213056
+    },
+    {
+      "target_bytes": 10000000000,
+      "status": "complete",
+      "data_bytes": 10231257624,
+      "peak_process_tree_rss": 203649024
+    },
+    {
+      "target_bytes": 50000000000,
+      "status": "complete",
+      "data_bytes": 50318700487,
+      "peak_process_tree_rss": 204779520
+    }
+  ],
+  "checkpoints": [
+    {
+      "path": "reports\\scale\\1000000000-bytes-checkpoint.json",
+      "completed_files": 3,
+      "rows": 141557760,
+      "scan_wall_s": 21.915973999997732
+    },
+    {
+      "path": "reports\\scale\\10000000000-bytes-checkpoint.json",
+      "completed_files": 24,
+      "rows": 1132462080,
+      "scan_wall_s": 153.1922512000001
+    },
+    {
+      "path": "reports\\scale\\200000000000-bytes-checkpoint.json",
+      "completed_files": 2,
+      "rows": 94371840,
+      "scan_wall_s": 25.081205300000875
+    },
+    {
+      "path": "reports\\scale\\50000000000-bytes-checkpoint.json",
+      "completed_files": 119,
+      "rows": 5569597440,
+      "scan_wall_s": 774.9376202999811
+    }
+  ],
+  "acceptance": "pending; 200-GB acceptance not claimed",
+  "resume_command": "uv run meteo benchmark scale --manifest data/scale/synthetic-200gb/manifest.json --memory-limit 16GiB --output reports/scale --resume"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "criteria": {
+    "actual_data_bytes_at_least_200GB": true,
+    "actual_file_bytes_match_manifest": true,
+    "full_byte_verification": true,
+    "complete_full_scan": true,
+    "query_batch_checked": true,
+    "LP_samples_checked": true,
+    "all_size_profiles_completed": true,
+    "benchmark_RAM_within_16GiB": true,
+    "recorded_generator_runs_RAM_within_2GiB": true,
+    "generation_resume_exercised": true,
+    "scan_resume_exercised": true,
+    "no_duplicate_completed_shards": true,
+    "no_unexpected_benchmark_errors": true
+  },
+  "scope": "synthetic scale only; sampled RSS, interrupted generator peak unavailable; OS cache uncontrolled; no real-200GB claim",
+  "report_sha256": "97a5b0c6a6dbec7c7d6a1fae3ba771348e44f0cae22edbe80fd6e9d432be1896"
+}

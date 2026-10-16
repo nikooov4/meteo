@@ -1,0 +1,1187 @@
+{
+  "protocol": {
+    "protocol": "continuous-acquisition-v1",
+    "seed": 20261016,
+    "regimes": [
+      {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      }
+    ],
+    "replicates": 3,
+    "methods": [
+      "paired_lp",
+      "graph",
+      "cache_cold",
+      "cache_warm",
+      "terminal"
+    ],
+    "primary": "cold complete-batch seconds including certificate generation and verification; paired LP is numerical and has no exact certificate",
+    "agreement_tolerance": 1e-07,
+    "go": "all independent LP comparisons and exact checkers pass; terminal median cold batch latency below graph in at least two of three regimes",
+    "failure_policy": "retain failures; no post-result regime/seed tuning; no replacement of previous Gate A",
+    "scope": "development synthetic oracle experiment, one exact interval measurement or deterministic metadata answer; no policy superiority or external validity claim"
+  },
+  "protocol_sha256": "6bce757631f4a0c651262ea018eac23983f1ed5e75f96f74c8e34a2d5680caab",
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "763083d0193a98d940db1b35c86a6737f33678140d8b59f9e8d5b170ac3b63b2",
+    "source_snapshot": "experiments\\source_snapshots\\763083d0193a98d940db1b35c86a6737f33678140d8b59f9e8d5b170ac3b63b2.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "not_a_git_repository",
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792177502.7622945
+  },
+  "records": [
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 0,
+      "seed": 20261016,
+      "method": "paired_lp",
+      "input_hash": "f6c084990a089432f6bfbb2ae70a1fe19db1ad911a23e56faa446a83530dedba",
+      "seconds": 0.015089399999851594,
+      "metrics": {
+        "seconds": 0.015065399999002693,
+        "lp_calls": 9
+      },
+      "bundle": "n8-h1-rep0-paired_lp.json",
+      "sha256": "382e34f82eeb6046386f2cbea2d7d2943b606d9486e732c9492047fc06e91e63",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 0,
+      "seed": 20261016,
+      "method": "terminal",
+      "input_hash": "f6c084990a089432f6bfbb2ae70a1fe19db1ad911a23e56faa446a83530dedba",
+      "seconds": 0.016825900002004346,
+      "metrics": {
+        "seconds": 0.016776000000390923,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 40,
+          "edge_relaxation_attempts": 4226
+        }
+      },
+      "bundle": "n8-h1-rep0-terminal.json",
+      "sha256": "a93036e38d8861d9df376015c0913e406081c593a295fa6191f3e80061873206",
+      "proof_bytes": 4185,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 0,
+      "seed": 20261016,
+      "method": "cache_cold",
+      "input_hash": "f6c084990a089432f6bfbb2ae70a1fe19db1ad911a23e56faa446a83530dedba",
+      "seconds": 0.013255799996841233,
+      "metrics": {
+        "seconds": 0.013031899998168228,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 31,
+          "edge_relaxation_attempts": 5863
+        }
+      },
+      "bundle": "n8-h1-rep0-cache_cold.json",
+      "sha256": "18093d19a9fdc5117c57cef96fa7cb038b18db090ad2151849b5dc17eecb3c21",
+      "proof_bytes": 4185,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 0,
+      "seed": 20261016,
+      "method": "cache_warm",
+      "input_hash": "f6c084990a089432f6bfbb2ae70a1fe19db1ad911a23e56faa446a83530dedba",
+      "seconds": 0.0030101000011200085,
+      "metrics": {
+        "seconds": 0.00300250000145752,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n8-h1-rep0-cache_warm.json",
+      "sha256": "8645f0f777a5d0ed872b3afe993b3d2de74e0e9c00f1be3562dca3b74efdbed3",
+      "proof_bytes": 4185,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 0,
+      "seed": 20261016,
+      "method": "graph",
+      "input_hash": "f6c084990a089432f6bfbb2ae70a1fe19db1ad911a23e56faa446a83530dedba",
+      "seconds": 0.013537899998482317,
+      "metrics": {
+        "seconds": 0.0135152000002563,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 31,
+          "edge_relaxation_attempts": 5863
+        }
+      },
+      "bundle": "n8-h1-rep0-graph.json",
+      "sha256": "f8719c266c5f7c23176c6a1c298488483d139c77e84292091266b5cc6e4ef85a",
+      "proof_bytes": 4185,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 1,
+      "seed": 20261017,
+      "method": "terminal",
+      "input_hash": "e07220ebb71a9ac411df6bd5fef3b35da9ccfce6ed36b57fa88b43bd6b90a9fa",
+      "seconds": 0.014261299998906907,
+      "metrics": {
+        "seconds": 0.014223700000002282,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 40,
+          "edge_relaxation_attempts": 3046
+        }
+      },
+      "bundle": "n8-h1-rep1-terminal.json",
+      "sha256": "678e289394cd5b2eab75e33a43d70c99044d66d0c520cb2e635caa546d9a1b8e",
+      "proof_bytes": 3962,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 1,
+      "seed": 20261017,
+      "method": "cache_warm",
+      "input_hash": "e07220ebb71a9ac411df6bd5fef3b35da9ccfce6ed36b57fa88b43bd6b90a9fa",
+      "seconds": 0.00283819999822299,
+      "metrics": {
+        "seconds": 0.00283060000219848,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n8-h1-rep1-cache_warm.json",
+      "sha256": "9e6b57a280dcdd66a6c8616c93751225c7eb5fbe3b5c9ff1547ca5e69fd02044",
+      "proof_bytes": 3962,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 1,
+      "seed": 20261017,
+      "method": "graph",
+      "input_hash": "e07220ebb71a9ac411df6bd5fef3b35da9ccfce6ed36b57fa88b43bd6b90a9fa",
+      "seconds": 0.012095699999917997,
+      "metrics": {
+        "seconds": 0.012075200000253972,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 31,
+          "edge_relaxation_attempts": 4949
+        }
+      },
+      "bundle": "n8-h1-rep1-graph.json",
+      "sha256": "5fe6bef87802397943fe7ff6c811fb1c0031b623f0d116bc6806e114c5f80e53",
+      "proof_bytes": 3962,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 1,
+      "seed": 20261017,
+      "method": "paired_lp",
+      "input_hash": "e07220ebb71a9ac411df6bd5fef3b35da9ccfce6ed36b57fa88b43bd6b90a9fa",
+      "seconds": 0.014355899998918176,
+      "metrics": {
+        "seconds": 0.014343000002554618,
+        "lp_calls": 9
+      },
+      "bundle": "n8-h1-rep1-paired_lp.json",
+      "sha256": "5dfd7c023f91f7650c83d5e3842bb95f9c9720c412ec9c0411d4f327daec256f",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 1,
+      "seed": 20261017,
+      "method": "cache_cold",
+      "input_hash": "e07220ebb71a9ac411df6bd5fef3b35da9ccfce6ed36b57fa88b43bd6b90a9fa",
+      "seconds": 0.01271439999982249,
+      "metrics": {
+        "seconds": 0.012340199999016477,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 31,
+          "edge_relaxation_attempts": 4949
+        }
+      },
+      "bundle": "n8-h1-rep1-cache_cold.json",
+      "sha256": "936d4a646825e100924bba20351437dfbfc0d8c86c07f041c83b4bbb378b162e",
+      "proof_bytes": 3962,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 2,
+      "seed": 20261018,
+      "method": "cache_warm",
+      "input_hash": "d8fd95137a0929cac24d9c6804d3e2c5f1a36fc3264edbce2c6a9c566d313a77",
+      "seconds": 0.002653800002008211,
+      "metrics": {
+        "seconds": 0.0026354000001447275,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n8-h1-rep2-cache_warm.json",
+      "sha256": "7aae823f9c1937218f0f04549bb76bc7a44258ccbf779d92b4bb29eb7ea06d62",
+      "proof_bytes": 3386,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 2,
+      "seed": 20261018,
+      "method": "terminal",
+      "input_hash": "d8fd95137a0929cac24d9c6804d3e2c5f1a36fc3264edbce2c6a9c566d313a77",
+      "seconds": 0.012998499998502666,
+      "metrics": {
+        "seconds": 0.012956800001120428,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 38,
+          "edge_relaxation_attempts": 3070
+        }
+      },
+      "bundle": "n8-h1-rep2-terminal.json",
+      "sha256": "5af6dc3f82fbd143d63ee676d40b498c7afde013fba56231f339444ec912ddb5",
+      "proof_bytes": 3386,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 2,
+      "seed": 20261018,
+      "method": "paired_lp",
+      "input_hash": "d8fd95137a0929cac24d9c6804d3e2c5f1a36fc3264edbce2c6a9c566d313a77",
+      "seconds": 0.022214399999938905,
+      "metrics": {
+        "seconds": 0.02219129999866709,
+        "lp_calls": 9
+      },
+      "bundle": "n8-h1-rep2-paired_lp.json",
+      "sha256": "4429a586606abe1ec07089860a5c4dc063ab848d4bc900288dc0f05732f45f6c",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 2,
+      "seed": 20261018,
+      "method": "cache_cold",
+      "input_hash": "d8fd95137a0929cac24d9c6804d3e2c5f1a36fc3264edbce2c6a9c566d313a77",
+      "seconds": 0.013486499999999069,
+      "metrics": {
+        "seconds": 0.01327839999794378,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 29,
+          "edge_relaxation_attempts": 4550
+        }
+      },
+      "bundle": "n8-h1-rep2-cache_cold.json",
+      "sha256": "a315b4787a6dc30182e1fa60aa1ef7deb533b8af69eedc4a8c24051686b21d1e",
+      "proof_bytes": 3386,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "replicate": 2,
+      "seed": 20261018,
+      "method": "graph",
+      "input_hash": "d8fd95137a0929cac24d9c6804d3e2c5f1a36fc3264edbce2c6a9c566d313a77",
+      "seconds": 0.012839200000598794,
+      "metrics": {
+        "seconds": 0.012817599999834783,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 9,
+        "hypotheses": 1,
+        "pairs": 8,
+        "operations": {
+          "bellman_ford_calls": 29,
+          "edge_relaxation_attempts": 4550
+        }
+      },
+      "bundle": "n8-h1-rep2-graph.json",
+      "sha256": "84c208312f075d298e16b0670bd285b4516b4bf5036d7cf06f6d3a7dad0220c6",
+      "proof_bytes": 3386,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 0,
+      "seed": 20262016,
+      "method": "paired_lp",
+      "input_hash": "ae3fc4b96ecf1d04e78a55621046b3cfb223f986a13ad8ade63e55e6cbc7c58b",
+      "seconds": 0.13519280000036815,
+      "metrics": {
+        "seconds": 0.13514740000027814,
+        "lp_calls": 66
+      },
+      "bundle": "n16-h2-rep0-paired_lp.json",
+      "sha256": "eab6c71567e36c7fd6612ba889779e7763d23cea9af6d89e6ab4cb1037ba14e4",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 0,
+      "seed": 20262016,
+      "method": "terminal",
+      "input_hash": "ae3fc4b96ecf1d04e78a55621046b3cfb223f986a13ad8ade63e55e6cbc7c58b",
+      "seconds": 0.186746100000164,
+      "metrics": {
+        "seconds": 0.18660129999989294,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 16,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 272,
+          "edge_relaxation_attempts": 50612
+        }
+      },
+      "bundle": "n16-h2-rep0-terminal.json",
+      "sha256": "5f6f297dcd4daf960a7d99a070614e34452069dac789004cf812e80f51df870a",
+      "proof_bytes": 41291,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 0,
+      "seed": 20262016,
+      "method": "cache_warm",
+      "input_hash": "ae3fc4b96ecf1d04e78a55621046b3cfb223f986a13ad8ade63e55e6cbc7c58b",
+      "seconds": 0.039886099999421276,
+      "metrics": {
+        "seconds": 0.039866900002380135,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n16-h2-rep0-cache_warm.json",
+      "sha256": "ad32772a602667b62e6ab129236ea57600242c6af428bf3490cfd3c701f2bc41",
+      "proof_bytes": 41291,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 0,
+      "seed": 20262016,
+      "method": "graph",
+      "input_hash": "ae3fc4b96ecf1d04e78a55621046b3cfb223f986a13ad8ade63e55e6cbc7c58b",
+      "seconds": 0.2132820000006177,
+      "metrics": {
+        "seconds": 0.21325010000145994,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 16,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 240,
+          "edge_relaxation_attempts": 101298
+        }
+      },
+      "bundle": "n16-h2-rep0-graph.json",
+      "sha256": "1a9e61d4dbaf75a7067718a32014a27b91fef51db7d156368000150fbb8f3537",
+      "proof_bytes": 41291,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 0,
+      "seed": 20262016,
+      "method": "cache_cold",
+      "input_hash": "ae3fc4b96ecf1d04e78a55621046b3cfb223f986a13ad8ade63e55e6cbc7c58b",
+      "seconds": 0.20901239999875543,
+      "metrics": {
+        "seconds": 0.20732539999880828,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 16,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 240,
+          "edge_relaxation_attempts": 101298
+        }
+      },
+      "bundle": "n16-h2-rep0-cache_cold.json",
+      "sha256": "b1e6f29e8626b3b54b09d0ff9779d1ea2854ad35d60be787a1257b29cb66d09a",
+      "proof_bytes": 41291,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 1,
+      "seed": 20262017,
+      "method": "terminal",
+      "input_hash": "4a88aa2ab20ce6b670d5b009ee6177a3f3a219dbf833bb6f78ad870889db854c",
+      "seconds": 0.19364979999954812,
+      "metrics": {
+        "seconds": 0.1933837999968091,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 16,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 272,
+          "edge_relaxation_attempts": 53036
+        }
+      },
+      "bundle": "n16-h2-rep1-terminal.json",
+      "sha256": "29402624580c2ac86d7c211103cdc2b71f3ac6f97ee7fd135fee6e4a026fecc6",
+      "proof_bytes": 44125,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 1,
+      "seed": 20262017,
+      "method": "graph",
+      "input_hash": "4a88aa2ab20ce6b670d5b009ee6177a3f3a219dbf833bb6f78ad870889db854c",
+      "seconds": 0.24229149999882793,
+      "metrics": {
+        "seconds": 0.24225920000026235,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 16,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 240,
+          "edge_relaxation_attempts": 114752
+        }
+      },
+      "bundle": "n16-h2-rep1-graph.json",
+      "sha256": "2325781216fa0e8cc1c5295a83dff064c13c1fec77593d10ac114fd36847a818",
+      "proof_bytes": 44125,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 1,
+      "seed": 20262017,
+      "method": "paired_lp",
+      "input_hash": "4a88aa2ab20ce6b670d5b009ee6177a3f3a219dbf833bb6f78ad870889db854c",
+      "seconds": 0.12210209999830113,
+      "metrics": {
+        "seconds": 0.12208140000075218,
+        "lp_calls": 66
+      },
+      "bundle": "n16-h2-rep1-paired_lp.json",
+      "sha256": "4fd5a8e8601e4a47f262d995c4e099582fd4245dafd7491f04e36dff592faa7c",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 1,
+      "seed": 20262017,
+      "method": "cache_cold",
+      "input_hash": "4a88aa2ab20ce6b670d5b009ee6177a3f3a219dbf833bb6f78ad870889db854c",
+      "seconds": 0.2470945999994001,
+      "metrics": {
+        "seconds": 0.24524970000129542,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 16,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 240,
+          "edge_relaxation_attempts": 114752
+        }
+      },
+      "bundle": "n16-h2-rep1-cache_cold.json",
+      "sha256": "0c07e3309ad03a10a9266155bf77ad025a1e8c74aae0ca8ceffb85352980d723",
+      "proof_bytes": 44125,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 1,
+      "seed": 20262017,
+      "method": "cache_warm",
+      "input_hash": "4a88aa2ab20ce6b670d5b009ee6177a3f3a219dbf833bb6f78ad870889db854c",
+      "seconds": 0.03826199999821256,
+      "metrics": {
+        "seconds": 0.03824650000024121,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n16-h2-rep1-cache_warm.json",
+      "sha256": "4be4a34da93561aca1d96f680dd9bc867e49cbe604f42d386f8e460c61a17085",
+      "proof_bytes": 44125,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 2,
+      "seed": 20262018,
+      "method": "cache_cold",
+      "input_hash": "4fcea5b74d36dc9c501d06b0f0217e540a802b9790aa4fbeb309e18e67bdd655",
+      "seconds": 0.26663530000223545,
+      "metrics": {
+        "seconds": 0.264647200001491,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 17,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 248,
+          "edge_relaxation_attempts": 121312
+        }
+      },
+      "bundle": "n16-h2-rep2-cache_cold.json",
+      "sha256": "79404468bc536fa304b2d53cd5017da762208bc177221229dde96972654d6ccf",
+      "proof_bytes": 46273,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 2,
+      "seed": 20262018,
+      "method": "graph",
+      "input_hash": "4fcea5b74d36dc9c501d06b0f0217e540a802b9790aa4fbeb309e18e67bdd655",
+      "seconds": 0.24685169999793288,
+      "metrics": {
+        "seconds": 0.24681970000165165,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 17,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 248,
+          "edge_relaxation_attempts": 121312
+        }
+      },
+      "bundle": "n16-h2-rep2-graph.json",
+      "sha256": "6b92057553f262a6ace08094f56414dac766cc32df161468dab0026b043fdba4",
+      "proof_bytes": 46273,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 2,
+      "seed": 20262018,
+      "method": "paired_lp",
+      "input_hash": "4fcea5b74d36dc9c501d06b0f0217e540a802b9790aa4fbeb309e18e67bdd655",
+      "seconds": 0.1212907000008272,
+      "metrics": {
+        "seconds": 0.12126609999904758,
+        "lp_calls": 66
+      },
+      "bundle": "n16-h2-rep2-paired_lp.json",
+      "sha256": "389572c82f976f742cba09f9e64913fa63e0f380f5b8358abb06443b1746bd1c",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 2,
+      "seed": 20262018,
+      "method": "terminal",
+      "input_hash": "4fcea5b74d36dc9c501d06b0f0217e540a802b9790aa4fbeb309e18e67bdd655",
+      "seconds": 0.22556820000318112,
+      "metrics": {
+        "seconds": 0.2253926000012143,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 17,
+        "hypotheses": 2,
+        "pairs": 64,
+        "operations": {
+          "bellman_ford_calls": 282,
+          "edge_relaxation_attempts": 60296
+        }
+      },
+      "bundle": "n16-h2-rep2-terminal.json",
+      "sha256": "34854cea877f55d5420747a710f5399996c53ecb001725fb26088ba53caa0cca",
+      "proof_bytes": 46273,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "replicate": 2,
+      "seed": 20262018,
+      "method": "cache_warm",
+      "input_hash": "4fcea5b74d36dc9c501d06b0f0217e540a802b9790aa4fbeb309e18e67bdd655",
+      "seconds": 0.03837999999814201,
+      "metrics": {
+        "seconds": 0.038363900002877926,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n16-h2-rep2-cache_warm.json",
+      "sha256": "c162fef3f177658d0101e6e50b44628dd02614a6479b317d637ca667b0f0ef37",
+      "proof_bytes": 46273,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 0,
+      "seed": 20263016,
+      "method": "cache_warm",
+      "input_hash": "6b1aca16a2ced120408133ef2c8c2ce51e0e340662e5d11bd29841ac42501db9",
+      "seconds": 0.36495900000227266,
+      "metrics": {
+        "seconds": 0.3647729000003892,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n32-h4-rep0-cache_warm.json",
+      "sha256": "55665b68d340f2e5166cb56d640e774fab59627b4df5fb0eeef563faf51d77af",
+      "proof_bytes": 386435,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 0,
+      "seed": 20263016,
+      "method": "paired_lp",
+      "input_hash": "6b1aca16a2ced120408133ef2c8c2ce51e0e340662e5d11bd29841ac42501db9",
+      "seconds": 0.9208657999988645,
+      "metrics": {
+        "seconds": 0.9208206999974209,
+        "lp_calls": 388
+      },
+      "bundle": "n32-h4-rep0-paired_lp.json",
+      "sha256": "78a3f807e11c3b96f84ec02a8654b671597239a008e2420f274e442ad993cd13",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 0,
+      "seed": 20263016,
+      "method": "cache_cold",
+      "input_hash": "6b1aca16a2ced120408133ef2c8c2ce51e0e340662e5d11bd29841ac42501db9",
+      "seconds": 3.0884484999987762,
+      "metrics": {
+        "seconds": 3.071862200002215,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 29,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1512,
+          "edge_relaxation_attempts": 1440080
+        }
+      },
+      "bundle": "n32-h4-rep0-cache_cold.json",
+      "sha256": "8e1ee8932ffcecc93a85961dcd5f65e0dbfa8b0ccec983093ccd06f369a8ee88",
+      "proof_bytes": 386435,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 0,
+      "seed": 20263016,
+      "method": "graph",
+      "input_hash": "6b1aca16a2ced120408133ef2c8c2ce51e0e340662e5d11bd29841ac42501db9",
+      "seconds": 3.0431674999999814,
+      "metrics": {
+        "seconds": 3.0430935000003956,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 29,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1512,
+          "edge_relaxation_attempts": 1440080
+        }
+      },
+      "bundle": "n32-h4-rep0-graph.json",
+      "sha256": "fdfe054833d8a65f994a722fde9978f88a7c00b3e30f09604493c927f42ebf25",
+      "proof_bytes": 386435,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 0,
+      "seed": 20263016,
+      "method": "terminal",
+      "input_hash": "6b1aca16a2ced120408133ef2c8c2ce51e0e340662e5d11bd29841ac42501db9",
+      "seconds": 1.8789376999993692,
+      "metrics": {
+        "seconds": 1.8783308000020043,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 29,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1628,
+          "edge_relaxation_attempts": 571626
+        }
+      },
+      "bundle": "n32-h4-rep0-terminal.json",
+      "sha256": "f02115c0a9db46df9d67082074db328842422c02181c2eef7ebc09485ffbe49f",
+      "proof_bytes": 386435,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 1,
+      "seed": 20263017,
+      "method": "paired_lp",
+      "input_hash": "b3152e04aa9f54ab8afe54370f682eae6579b19a70a129025c125ba4a58cd2e7",
+      "seconds": 1.0788031999982195,
+      "metrics": {
+        "seconds": 1.0779586999997264,
+        "lp_calls": 388
+      },
+      "bundle": "n32-h4-rep1-paired_lp.json",
+      "sha256": "f9dd60c0bf8b89a02056927b212188181bad81b7fc347537600a26fc1c335dcc",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 1,
+      "seed": 20263017,
+      "method": "graph",
+      "input_hash": "b3152e04aa9f54ab8afe54370f682eae6579b19a70a129025c125ba4a58cd2e7",
+      "seconds": 3.7965038000002096,
+      "metrics": {
+        "seconds": 3.79644990000088,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 30,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1528,
+          "edge_relaxation_attempts": 1985996
+        }
+      },
+      "bundle": "n32-h4-rep1-graph.json",
+      "sha256": "f28f702bab4a0029c521a778b7c939d59f62856237085a2fa4ea6d69bc6e351d",
+      "proof_bytes": 414587,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 1,
+      "seed": 20263017,
+      "method": "cache_cold",
+      "input_hash": "b3152e04aa9f54ab8afe54370f682eae6579b19a70a129025c125ba4a58cd2e7",
+      "seconds": 3.79037949999838,
+      "metrics": {
+        "seconds": 3.7674536000013177,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 30,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1528,
+          "edge_relaxation_attempts": 1985996
+        }
+      },
+      "bundle": "n32-h4-rep1-cache_cold.json",
+      "sha256": "519606e7548e2702cd3ee8a230e5ad98799e2cf556e077ad241ff38154657964",
+      "proof_bytes": 414587,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 1,
+      "seed": 20263017,
+      "method": "terminal",
+      "input_hash": "b3152e04aa9f54ab8afe54370f682eae6579b19a70a129025c125ba4a58cd2e7",
+      "seconds": 2.172629099997721,
+      "metrics": {
+        "seconds": 2.1718780000010156,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 30,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1648,
+          "edge_relaxation_attempts": 768240
+        }
+      },
+      "bundle": "n32-h4-rep1-terminal.json",
+      "sha256": "ad2c1ee59cfded1884b528a1e26c231531fbd4d8c3c53246518f27ff21444de6",
+      "proof_bytes": 414587,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 1,
+      "seed": 20263017,
+      "method": "cache_warm",
+      "input_hash": "b3152e04aa9f54ab8afe54370f682eae6579b19a70a129025c125ba4a58cd2e7",
+      "seconds": 0.3390605000022333,
+      "metrics": {
+        "seconds": 0.33904099999926984,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n32-h4-rep1-cache_warm.json",
+      "sha256": "fcca333e2c67104c29f718cbce1e4c981a2f54cc04dd4e9bcc71ba87e65c158c",
+      "proof_bytes": 414587,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 2,
+      "seed": 20263018,
+      "method": "cache_warm",
+      "input_hash": "f2b35a390639937cbc5e0b4a1e86a7f9ba3b9d288332080ae1bddbb63a19e59a",
+      "seconds": 0.4078015000013693,
+      "metrics": {
+        "seconds": 0.4067347999989579,
+        "method": "cache",
+        "cache_hit": true
+      },
+      "bundle": "n32-h4-rep2-cache_warm.json",
+      "sha256": "ed8f56e1f813af79a11eb8ffd61faa41c38878b14c2a209fe722860775c1d1a1",
+      "proof_bytes": 497067,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 2,
+      "seed": 20263018,
+      "method": "cache_cold",
+      "input_hash": "f2b35a390639937cbc5e0b4a1e86a7f9ba3b9d288332080ae1bddbb63a19e59a",
+      "seconds": 4.294112999999925,
+      "metrics": {
+        "seconds": 4.276645199999621,
+        "method": "cache",
+        "cache_hit": false,
+        "endpoints": 32,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1464,
+          "edge_relaxation_attempts": 2242730
+        }
+      },
+      "bundle": "n32-h4-rep2-cache_cold.json",
+      "sha256": "d99754d2015cd262c5eb254e08c2502a4b7398e2eccd59e37230f2f1d8c33d91",
+      "proof_bytes": 497067,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 2,
+      "seed": 20263018,
+      "method": "graph",
+      "input_hash": "f2b35a390639937cbc5e0b4a1e86a7f9ba3b9d288332080ae1bddbb63a19e59a",
+      "seconds": 4.243458599998121,
+      "metrics": {
+        "seconds": 4.243388999999297,
+        "method": "graph",
+        "cache_hit": false,
+        "endpoints": 32,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1464,
+          "edge_relaxation_attempts": 2242730
+        }
+      },
+      "bundle": "n32-h4-rep2-graph.json",
+      "sha256": "92edeb2dd584e60320d26609f591776941157f7c2c61b020902f3f4e44fa73f0",
+      "proof_bytes": 497067,
+      "agrees_with_lp": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 2,
+      "seed": 20263018,
+      "method": "paired_lp",
+      "input_hash": "f2b35a390639937cbc5e0b4a1e86a7f9ba3b9d288332080ae1bddbb63a19e59a",
+      "seconds": 1.0533973999990849,
+      "metrics": {
+        "seconds": 1.0533417000006011,
+        "lp_calls": 388
+      },
+      "bundle": "n32-h4-rep2-paired_lp.json",
+      "sha256": "582a4b360bb8de62fb4d68c37b58f2ce550dec2682554067ee3ce6615cbb0782",
+      "proof_bytes": 2,
+      "agrees_with_lp": null
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "replicate": 2,
+      "seed": 20263018,
+      "method": "terminal",
+      "input_hash": "f2b35a390639937cbc5e0b4a1e86a7f9ba3b9d288332080ae1bddbb63a19e59a",
+      "seconds": 2.4952718000022287,
+      "metrics": {
+        "seconds": 2.494397000002209,
+        "method": "terminal",
+        "cache_hit": false,
+        "endpoints": 32,
+        "hypotheses": 4,
+        "pairs": 384,
+        "operations": {
+          "bellman_ford_calls": 1592,
+          "edge_relaxation_attempts": 981896
+        }
+      },
+      "bundle": "n32-h4-rep2-terminal.json",
+      "sha256": "9a88512dc1f483e28a96b220c9ca98cfbbc9a7b10a9bcf2209b9b1975574f14a",
+      "proof_bytes": 497067,
+      "agrees_with_lp": true
+    }
+  ],
+  "errors": [],
+  "scope": "synthetic development oracle; no policy comparison"
+}

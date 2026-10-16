@@ -1,0 +1,15 @@
+bucket_url: https://nsf-ncar-era5.s3.us-west-2.amazonaws.com
+collection: e5.oper.fc.sfc.accumu
+variable_pattern: .128_142_lsp.
+start_month: '2023-01'
+end_month: '2023-01'
+max_objects: 2
+max_list_pages: 1
+license_url: https://www.ucar.edu/terms-of-use/data
+documentation: https://gdex.ucar.edu/datasets/d633000/
+registry: https://registry.opendata.aws/nsf-ncar-era5/
+region_selection: global_source_objects
+cycle_selection: all_initializations_kept_separate
+concurrency: 1
+timeout_seconds: 120
+semantics: ERA5_HRES_previous_hour_amount

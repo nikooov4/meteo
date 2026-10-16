@@ -1,0 +1,18 @@
+{
+  "normalization_version": "interval-stream-v1",
+  "subset_hash": "73d94a6741fa5981fe3fc6bf9a5d0f9a873050773c5b6fd6b7c2695a2f784520",
+  "completed": [
+    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+  ],
+  "rows": 737280,
+  "accepted": 729239,
+  "missing": 7262,
+  "rejected": 779,
+  "normalized_partition_digests": [
+    "c8d395e08900b86afd04cc4a042457eb5a069d383dc7d61ab5879e928171544e"
+  ],
+  "resume_count": 0,
+  "scan_wall_s": 0.041115400001217495,
+  "checksum_wall_s": 0.007309899998290348,
+  "peak_process_tree_rss": 149782528
+}

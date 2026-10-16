@@ -1,0 +1,634 @@
+{
+  "case": {
+    "id": "acquisition-20263017-n32-h4",
+    "observations": [
+      {
+        "id": "total",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "125",
+        "original_timestamp": null,
+        "lower": "125",
+        "upper": "125",
+        "interval": {
+          "start": 0,
+          "end": 115200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-0",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "61",
+        "original_timestamp": null,
+        "lower": "61",
+        "upper": "67",
+        "interval": {
+          "start": 43200,
+          "end": 104400,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-1",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "75",
+        "original_timestamp": null,
+        "lower": "75",
+        "upper": "81",
+        "interval": {
+          "start": 3600,
+          "end": 75600,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-2",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "54",
+        "original_timestamp": null,
+        "lower": "54",
+        "upper": "60",
+        "interval": {
+          "start": 43200,
+          "end": 97200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-3",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "24",
+        "original_timestamp": null,
+        "lower": "24",
+        "upper": "30",
+        "interval": {
+          "start": 46800,
+          "end": 75600,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-4",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "30",
+        "original_timestamp": null,
+        "lower": "30",
+        "upper": "36",
+        "interval": {
+          "start": 86400,
+          "end": 115200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-5",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "83",
+        "original_timestamp": null,
+        "lower": "83",
+        "upper": "89",
+        "interval": {
+          "start": 7200,
+          "end": 90000,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-6",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "5",
+        "original_timestamp": null,
+        "lower": "5",
+        "upper": "11",
+        "interval": {
+          "start": 0,
+          "end": 7200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-7",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "28",
+        "original_timestamp": null,
+        "lower": "28",
+        "upper": "34",
+        "interval": {
+          "start": 90000,
+          "end": 115200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-8",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "25",
+        "original_timestamp": null,
+        "lower": "25",
+        "upper": "31",
+        "interval": {
+          "start": 61200,
+          "end": 90000,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-9",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "69",
+        "original_timestamp": null,
+        "lower": "69",
+        "upper": "75",
+        "interval": {
+          "start": 3600,
+          "end": 72000,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "ambiguous",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0",
+        "original_timestamp": null,
+        "lower": "0",
+        "upper": "48",
+        "interval": {
+          "start": 0,
+          "end": 28800,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "h0",
+        "assignments": {
+          "label": "0"
+        },
+        "intervals": {
+          "ambiguous": {
+            "start": 0,
+            "end": 28800,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      },
+      {
+        "id": "h1",
+        "assignments": {
+          "label": "1"
+        },
+        "intervals": {
+          "ambiguous": {
+            "start": 3600,
+            "end": 32400,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      },
+      {
+        "id": "h2",
+        "assignments": {
+          "label": "2"
+        },
+        "intervals": {
+          "ambiguous": {
+            "start": 7200,
+            "end": 36000,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      },
+      {
+        "id": "h3",
+        "assignments": {
+          "label": "3"
+        },
+        "intervals": {
+          "ambiguous": {
+            "start": 10800,
+            "end": 39600,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      }
+    ],
+    "query": {
+      "series": {
+        "quantity": "precipitation",
+        "location": "fixture",
+        "spatial_support": "point",
+        "product": "hand-calculated",
+        "version": "1",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "start": 0,
+      "end": 57600,
+      "unit": "mm",
+      "timezone": "UTC",
+      "calendar": "proleptic_gregorian",
+      "objective": "amount",
+      "eps": "0",
+      "threshold": null,
+      "permitted_assumptions": []
+    },
+    "h_complete": true,
+    "completeness_basis": "all finite generated layouts; synthetic development scope",
+    "assumptions": [
+      "nonnegative precipitation increments"
+    ],
+    "revision": 0,
+    "evidence": [],
+    "family_id": "acquisition-development-20263017",
+    "origin": "synthetic",
+    "source_manifests": []
+  },
+  "actions": [
+    {
+      "id": "measure-16-32",
+      "kind": "interval",
+      "cost": "5",
+      "start": 57600,
+      "end": 115200,
+      "attribute": null
+    },
+    {
+      "id": "measure-1-19",
+      "kind": "interval",
+      "cost": "5",
+      "start": 3600,
+      "end": 68400,
+      "attribute": null
+    },
+    {
+      "id": "measure-6-18",
+      "kind": "interval",
+      "cost": "4",
+      "start": 21600,
+      "end": 64800,
+      "attribute": null
+    },
+    {
+      "id": "measure-2-13",
+      "kind": "interval",
+      "cost": "3",
+      "start": 7200,
+      "end": 46800,
+      "attribute": null
+    },
+    {
+      "id": "measure-3-9",
+      "kind": "interval",
+      "cost": "2",
+      "start": 10800,
+      "end": 32400,
+      "attribute": null
+    },
+    {
+      "id": "measure-4-24",
+      "kind": "interval",
+      "cost": "6",
+      "start": 14400,
+      "end": 86400,
+      "attribute": null
+    },
+    {
+      "id": "measure-10-29",
+      "kind": "interval",
+      "cost": "5",
+      "start": 36000,
+      "end": 104400,
+      "attribute": null
+    },
+    {
+      "id": "measure-17-24",
+      "kind": "interval",
+      "cost": "2",
+      "start": 61200,
+      "end": 86400,
+      "attribute": null
+    },
+    {
+      "id": "measure-17-23",
+      "kind": "interval",
+      "cost": "2",
+      "start": 61200,
+      "end": 82800,
+      "attribute": null
+    },
+    {
+      "id": "measure-7-19",
+      "kind": "interval",
+      "cost": "4",
+      "start": 25200,
+      "end": 68400,
+      "attribute": null
+    },
+    {
+      "id": "measure-5-24",
+      "kind": "interval",
+      "cost": "5",
+      "start": 18000,
+      "end": 86400,
+      "attribute": null
+    },
+    {
+      "id": "measure-23-29",
+      "kind": "interval",
+      "cost": "2",
+      "start": 82800,
+      "end": 104400,
+      "attribute": null
+    },
+    {
+      "id": "measure-9-30",
+      "kind": "interval",
+      "cost": "6",
+      "start": 32400,
+      "end": 108000,
+      "attribute": null
+    },
+    {
+      "id": "measure-4-12",
+      "kind": "interval",
+      "cost": "3",
+      "start": 14400,
+      "end": 43200,
+      "attribute": null
+    },
+    {
+      "id": "measure-10-26",
+      "kind": "interval",
+      "cost": "5",
+      "start": 36000,
+      "end": 93600,
+      "attribute": null
+    },
+    {
+      "id": "measure-9-12",
+      "kind": "interval",
+      "cost": "1",
+      "start": 32400,
+      "end": 43200,
+      "attribute": null
+    },
+    {
+      "id": "measure-24-27",
+      "kind": "interval",
+      "cost": "1",
+      "start": 86400,
+      "end": 97200,
+      "attribute": null
+    },
+    {
+      "id": "measure-21-28",
+      "kind": "interval",
+      "cost": "2",
+      "start": 75600,
+      "end": 100800,
+      "attribute": null
+    },
+    {
+      "id": "measure-6-12",
+      "kind": "interval",
+      "cost": "2",
+      "start": 21600,
+      "end": 43200,
+      "attribute": null
+    },
+    {
+      "id": "measure-13-27",
+      "kind": "interval",
+      "cost": "4",
+      "start": 46800,
+      "end": 97200,
+      "attribute": null
+    },
+    {
+      "id": "measure-27-28",
+      "kind": "interval",
+      "cost": "1",
+      "start": 97200,
+      "end": 100800,
+      "attribute": null
+    },
+    {
+      "id": "measure-13-14",
+      "kind": "interval",
+      "cost": "1",
+      "start": 46800,
+      "end": 50400,
+      "attribute": null
+    },
+    {
+      "id": "measure-7-26",
+      "kind": "interval",
+      "cost": "5",
+      "start": 25200,
+      "end": 93600,
+      "attribute": null
+    },
+    {
+      "id": "measure-6-9",
+      "kind": "interval",
+      "cost": "1",
+      "start": 21600,
+      "end": 32400,
+      "attribute": null
+    }
+  ]
+}

@@ -1,0 +1,3682 @@
+{
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "f4e970f5f8dee5e42b83b2959ae1c7d9684e7b9c976cc5de0f22a46689af5b99",
+    "source_snapshot": "experiments\\source_snapshots\\f4e970f5f8dee5e42b83b2959ae1c7d9684e7b9c976cc5de0f22a46689af5b99.zip",
+    "git_revision": "not_a_git_repository",
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792162596.7682834
+  },
+  "manifest_sha256": "8a6a3c3d34da04628e07975576a61d729dc4ad54ffe6991310d553812e99e601",
+  "profiles": [
+    {
+      "target_bytes": 6692799,
+      "data_bytes": 6692799,
+      "data_GB": 0.006692799,
+      "data_GiB": 0.0062331547960639,
+      "files": 1,
+      "status": "complete",
+      "queries": [
+        {
+          "case_hash": "fbb39dd4dc91b874384cf02112253cd2fa15fec94e6cc8737c51f35b34485673",
+          "logical_bytes_read": 54,
+          "cache_condition": "first_process_query_OS_cache_uncontrolled",
+          "latency_s": 0.009860399999524816,
+          "os_io_delta": {
+            "read_count": 38,
+            "write_count": 0,
+            "read_bytes": 4476042,
+            "write_bytes": 0,
+            "other_count": 97,
+            "other_bytes": 3810
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.007044300000416115,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s0-h1",
+              "observations": [
+                {
+                  "id": "s0-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672542000",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672545600",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672549200",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672552800",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672556400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:0",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s0-h1",
+              "revision": 0,
+              "case_hash": "fbb39dd4dc91b874384cf02112253cd2fa15fec94e6cc8737c51f35b34485673",
+              "unit": "mm",
+              "lower": "0",
+              "upper": "0",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "0",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "494a844e433a89effa4545e26d1ee5dcb22d892e365cc873dbf04aebf478e459"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "fbb39dd4dc91b874384cf02112253cd2fa15fec94e6cc8737c51f35b34485673",
+              "query_hash": "2ded7ba3af5558507ba3f9b7f5dc6f5107b46803905709dfd79c148a7e049643",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "0",
+                  "upper": "0",
+                  "lower_path": [
+                    "60aebb13ed4508895127716c",
+                    "609059e46148bbe61b1af51c",
+                    "26be3879190fe2429c58474f",
+                    "089d207b039c6581df74855c",
+                    "e6a2c91e27f19eeef0348e55",
+                    "41d8b5632f2a6c782994d354"
+                  ],
+                  "upper_path": [
+                    "8f8bf314048d5537291313bd",
+                    "c9cd418eeaca9a88d503e4fe",
+                    "8d53a61b52e0b4f1db743292",
+                    "bf9f1277efcb5b95c0f61b64",
+                    "329b7c9fff765c42b2561f8a",
+                    "7d0760f6bcf85e318fa29ad5"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "8f8bf314048d5537291313bd",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "c9cd418eeaca9a88d503e4fe",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "8d53a61b52e0b4f1db743292",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "bf9f1277efcb5b95c0f61b64",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "329b7c9fff765c42b2561f8a",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "7d0760f6bcf85e318fa29ad5",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s0-h1": "e7f249cf96d62933ec6ff80e5e259ce08ff26a8de699d04d8970d49fa0961de7",
+                "s0-h2": "c5d87ce0f8319553e63c161ba2ac1a47ad2fced58d8cd8aa0fa9c4abce746995",
+                "s0-h3": "a15050e123f785fa9835771ea7b45675e8a5de37b48ca7d5a356c217db91dae9",
+                "s0-h4": "4ae88ea8365d6de400c7dda35aeb1765bdc5be9133e81924389bb00879904c13",
+                "s0-h5": "4e0ed9200ad53efd3ec22a0751f74807bd2f144890e1ce5c73386db3bdb2091f",
+                "s0-h6": "ef1e16971f9295b0369ac3c292637ed843867b2826ec560f4ddacf55507daca6"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 160,
+              "world_evaluations": 1,
+              "latency_s": 0.0022164000001794193
+            }
+          }
+        },
+        {
+          "case_hash": "fbb39dd4dc91b874384cf02112253cd2fa15fec94e6cc8737c51f35b34485673",
+          "logical_bytes_read": 54,
+          "cache_condition": "repeat",
+          "latency_s": 0.008079100000031758,
+          "os_io_delta": {
+            "read_count": 33,
+            "write_count": 0,
+            "read_bytes": 4475533,
+            "write_bytes": 0,
+            "other_count": 54,
+            "other_bytes": 2388
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.004508500000156346,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s0-h1",
+              "observations": [
+                {
+                  "id": "s0-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672542000",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672545600",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672549200",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672552800",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s0-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:0",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672556400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:0",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s0-h1",
+              "revision": 0,
+              "case_hash": "fbb39dd4dc91b874384cf02112253cd2fa15fec94e6cc8737c51f35b34485673",
+              "unit": "mm",
+              "lower": "0",
+              "upper": "0",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "0",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "494a844e433a89effa4545e26d1ee5dcb22d892e365cc873dbf04aebf478e459"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "fbb39dd4dc91b874384cf02112253cd2fa15fec94e6cc8737c51f35b34485673",
+              "query_hash": "2ded7ba3af5558507ba3f9b7f5dc6f5107b46803905709dfd79c148a7e049643",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "0",
+                  "upper": "0",
+                  "lower_path": [
+                    "60aebb13ed4508895127716c",
+                    "609059e46148bbe61b1af51c",
+                    "26be3879190fe2429c58474f",
+                    "089d207b039c6581df74855c",
+                    "e6a2c91e27f19eeef0348e55",
+                    "41d8b5632f2a6c782994d354"
+                  ],
+                  "upper_path": [
+                    "8f8bf314048d5537291313bd",
+                    "c9cd418eeaca9a88d503e4fe",
+                    "8d53a61b52e0b4f1db743292",
+                    "bf9f1277efcb5b95c0f61b64",
+                    "329b7c9fff765c42b2561f8a",
+                    "7d0760f6bcf85e318fa29ad5"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "8f8bf314048d5537291313bd",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "c9cd418eeaca9a88d503e4fe",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "8d53a61b52e0b4f1db743292",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "bf9f1277efcb5b95c0f61b64",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "329b7c9fff765c42b2561f8a",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "7d0760f6bcf85e318fa29ad5",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s0-h1": "e7f249cf96d62933ec6ff80e5e259ce08ff26a8de699d04d8970d49fa0961de7",
+                "s0-h2": "c5d87ce0f8319553e63c161ba2ac1a47ad2fced58d8cd8aa0fa9c4abce746995",
+                "s0-h3": "a15050e123f785fa9835771ea7b45675e8a5de37b48ca7d5a356c217db91dae9",
+                "s0-h4": "4ae88ea8365d6de400c7dda35aeb1765bdc5be9133e81924389bb00879904c13",
+                "s0-h5": "4e0ed9200ad53efd3ec22a0751f74807bd2f144890e1ce5c73386db3bdb2091f",
+                "s0-h6": "ef1e16971f9295b0369ac3c292637ed843867b2826ec560f4ddacf55507daca6"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 160,
+              "world_evaluations": 1,
+              "latency_s": 0.0016940999994403683
+            }
+          }
+        },
+        {
+          "case_hash": "73261b4d6eb386b1e6d91a7d07e432585031b94b3f089495991f9cad427744dd",
+          "logical_bytes_read": 54,
+          "cache_condition": "first_process_query_OS_cache_uncontrolled",
+          "latency_s": 0.007022100000540377,
+          "os_io_delta": {
+            "read_count": 33,
+            "write_count": 0,
+            "read_bytes": 4475533,
+            "write_bytes": 0,
+            "other_count": 54,
+            "other_bytes": 2388
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.003799500000241096,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s1-h1",
+              "observations": [
+                {
+                  "id": "s1-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672542000",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672545600",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672549200",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672552800",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672556400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:1",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s1-h1",
+              "revision": 0,
+              "case_hash": "73261b4d6eb386b1e6d91a7d07e432585031b94b3f089495991f9cad427744dd",
+              "unit": "mm",
+              "lower": "0",
+              "upper": "0",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "0",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "7c3e07071c5b5aa36d1f071edd8b4cfb14d381e75ea7063f7dcb296b68138f65"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "73261b4d6eb386b1e6d91a7d07e432585031b94b3f089495991f9cad427744dd",
+              "query_hash": "ed22d9f916bb576e97b71323ab892f31b141d8b6d5499f108f29ca94c8c57682",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "0",
+                  "upper": "0",
+                  "lower_path": [
+                    "60aebb13ed4508895127716c",
+                    "609059e46148bbe61b1af51c",
+                    "26be3879190fe2429c58474f",
+                    "089d207b039c6581df74855c",
+                    "e6a2c91e27f19eeef0348e55",
+                    "41d8b5632f2a6c782994d354"
+                  ],
+                  "upper_path": [
+                    "8f8bf314048d5537291313bd",
+                    "c9cd418eeaca9a88d503e4fe",
+                    "8d53a61b52e0b4f1db743292",
+                    "bf9f1277efcb5b95c0f61b64",
+                    "329b7c9fff765c42b2561f8a",
+                    "7d0760f6bcf85e318fa29ad5"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "8f8bf314048d5537291313bd",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "c9cd418eeaca9a88d503e4fe",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "8d53a61b52e0b4f1db743292",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "bf9f1277efcb5b95c0f61b64",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "329b7c9fff765c42b2561f8a",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "7d0760f6bcf85e318fa29ad5",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s1-h1": "d5b07353f5faf3af26df4adeb7fcd31fe32f35ff14de36598ca7548e9fbc355f",
+                "s1-h2": "d7a95cbb0960f037559b70cd1a971f35915a8a03959130bb6098b6b24fc98682",
+                "s1-h3": "91b45434a5bbcab32ab870a36ed8aa41b639111fff76532a6d4dc940ff7e93aa",
+                "s1-h4": "2d911a19b6676c27cd79418fd11eba8c0f568fa0c0e127d930d6436a81eda318",
+                "s1-h5": "0ec26ada7713e60db3656973d08fc4bc54a5168db1c9c4bc5da4224ba4591666",
+                "s1-h6": "8135284166aee56834ba04ea46bbbc9a50560653d8cb07c5f9c655fb3dc0c3ba"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 160,
+              "world_evaluations": 1,
+              "latency_s": 0.0015925000006973278
+            }
+          }
+        },
+        {
+          "case_hash": "73261b4d6eb386b1e6d91a7d07e432585031b94b3f089495991f9cad427744dd",
+          "logical_bytes_read": 54,
+          "cache_condition": "repeat",
+          "latency_s": 0.01401840000107768,
+          "os_io_delta": {
+            "read_count": 33,
+            "write_count": 0,
+            "read_bytes": 4475533,
+            "write_bytes": 0,
+            "other_count": 54,
+            "other_bytes": 2388
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.0056179000002885005,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s1-h1",
+              "observations": [
+                {
+                  "id": "s1-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672542000",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672545600",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672549200",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672552800",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s1-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:1",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.0",
+                  "original_timestamp": "1672556400",
+                  "lower": "0.0",
+                  "upper": "0.0",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:1",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s1-h1",
+              "revision": 0,
+              "case_hash": "73261b4d6eb386b1e6d91a7d07e432585031b94b3f089495991f9cad427744dd",
+              "unit": "mm",
+              "lower": "0",
+              "upper": "0",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "0",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "7c3e07071c5b5aa36d1f071edd8b4cfb14d381e75ea7063f7dcb296b68138f65"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "73261b4d6eb386b1e6d91a7d07e432585031b94b3f089495991f9cad427744dd",
+              "query_hash": "ed22d9f916bb576e97b71323ab892f31b141d8b6d5499f108f29ca94c8c57682",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "0",
+                  "upper": "0",
+                  "lower_path": [
+                    "60aebb13ed4508895127716c",
+                    "609059e46148bbe61b1af51c",
+                    "26be3879190fe2429c58474f",
+                    "089d207b039c6581df74855c",
+                    "e6a2c91e27f19eeef0348e55",
+                    "41d8b5632f2a6c782994d354"
+                  ],
+                  "upper_path": [
+                    "8f8bf314048d5537291313bd",
+                    "c9cd418eeaca9a88d503e4fe",
+                    "8d53a61b52e0b4f1db743292",
+                    "bf9f1277efcb5b95c0f61b64",
+                    "329b7c9fff765c42b2561f8a",
+                    "7d0760f6bcf85e318fa29ad5"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "0",
+                    "1672542000": "0",
+                    "1672545600": "0",
+                    "1672549200": "0",
+                    "1672552800": "0",
+                    "1672556400": "0"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "8f8bf314048d5537291313bd",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "c9cd418eeaca9a88d503e4fe",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "8d53a61b52e0b4f1db743292",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "bf9f1277efcb5b95c0f61b64",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "329b7c9fff765c42b2561f8a",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "7d0760f6bcf85e318fa29ad5",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s1-h1": "d5b07353f5faf3af26df4adeb7fcd31fe32f35ff14de36598ca7548e9fbc355f",
+                "s1-h2": "d7a95cbb0960f037559b70cd1a971f35915a8a03959130bb6098b6b24fc98682",
+                "s1-h3": "91b45434a5bbcab32ab870a36ed8aa41b639111fff76532a6d4dc940ff7e93aa",
+                "s1-h4": "2d911a19b6676c27cd79418fd11eba8c0f568fa0c0e127d930d6436a81eda318",
+                "s1-h5": "0ec26ada7713e60db3656973d08fc4bc54a5168db1c9c4bc5da4224ba4591666",
+                "s1-h6": "8135284166aee56834ba04ea46bbbc9a50560653d8cb07c5f9c655fb3dc0c3ba"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 160,
+              "world_evaluations": 1,
+              "latency_s": 0.002198599999246653
+            }
+          }
+        },
+        {
+          "case_hash": "5bfc8c478a583b83b9156a1093fb3e254c008e1ffa48331a9398b9628d60085e",
+          "logical_bytes_read": 54,
+          "cache_condition": "first_process_query_OS_cache_uncontrolled",
+          "latency_s": 0.009760400000232039,
+          "os_io_delta": {
+            "read_count": 33,
+            "write_count": 0,
+            "read_bytes": 4475533,
+            "write_bytes": 0,
+            "other_count": 54,
+            "other_bytes": 2388
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.005986699999994016,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s2-h1",
+              "observations": [
+                {
+                  "id": "s2-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.06",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.06",
+                  "upper": "0.06",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.64",
+                  "original_timestamp": "1672542000",
+                  "lower": "0.64",
+                  "upper": "0.64",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.19",
+                  "original_timestamp": "1672545600",
+                  "lower": "0.19",
+                  "upper": "0.19",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.21",
+                  "original_timestamp": "1672549200",
+                  "lower": "1.21",
+                  "upper": "1.21",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.18",
+                  "original_timestamp": "1672552800",
+                  "lower": "1.18",
+                  "upper": "1.18",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.81",
+                  "original_timestamp": "1672556400",
+                  "lower": "0.81",
+                  "upper": "0.81",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:2",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s2-h1",
+              "revision": 0,
+              "case_hash": "5bfc8c478a583b83b9156a1093fb3e254c008e1ffa48331a9398b9628d60085e",
+              "unit": "mm",
+              "lower": "409/100",
+              "upper": "409/100",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "409/100",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "eabab2371a57f11af508219b9588f85ac7a7aff891b93809865ac780ae67f67d"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "5bfc8c478a583b83b9156a1093fb3e254c008e1ffa48331a9398b9628d60085e",
+              "query_hash": "b4654f1d073b27fbfc5533ff6403d345cd6e5f8731528ec4053bd6b413189977",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "409/100",
+                  "upper": "409/100",
+                  "lower_path": [
+                    "ed0d1e67b965389d6188e166",
+                    "0a569c7058ef25e44e157a7d",
+                    "cb5d10dea0d1fe4b59f83f39",
+                    "29bf4b870792c9b56aa63dd4",
+                    "51c49af08b2614887690de32",
+                    "7c0ff1f30810a16b92a69c89"
+                  ],
+                  "upper_path": [
+                    "feaad80091b4029169b2f6ea",
+                    "fd3f976fa09fad146da00d33",
+                    "463e17ab16f24217a54ce3b2",
+                    "20540fc0d48cee7d1504ff3e",
+                    "7db4d165c72c2fca6fdbff42",
+                    "86324cada24b8a03eaf0e670"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "3/50",
+                    "1672542000": "7/10",
+                    "1672545600": "89/100",
+                    "1672549200": "21/10",
+                    "1672552800": "82/25",
+                    "1672556400": "409/100"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "3/50",
+                    "1672542000": "7/10",
+                    "1672545600": "89/100",
+                    "1672549200": "21/10",
+                    "1672552800": "82/25",
+                    "1672556400": "409/100"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "3/50",
+                    "1672542000": "7/10",
+                    "1672545600": "89/100",
+                    "1672549200": "21/10",
+                    "1672552800": "82/25",
+                    "1672556400": "409/100"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "feaad80091b4029169b2f6ea",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "3/50"
+                  },
+                  {
+                    "id": "7c0ff1f30810a16b92a69c89",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "-3/50"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "fd3f976fa09fad146da00d33",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "16/25"
+                  },
+                  {
+                    "id": "51c49af08b2614887690de32",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "-16/25"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "463e17ab16f24217a54ce3b2",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "19/100"
+                  },
+                  {
+                    "id": "29bf4b870792c9b56aa63dd4",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "-19/100"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "20540fc0d48cee7d1504ff3e",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "121/100"
+                  },
+                  {
+                    "id": "cb5d10dea0d1fe4b59f83f39",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "-121/100"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "7db4d165c72c2fca6fdbff42",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "59/50"
+                  },
+                  {
+                    "id": "0a569c7058ef25e44e157a7d",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "-59/50"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "86324cada24b8a03eaf0e670",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "81/100"
+                  },
+                  {
+                    "id": "ed0d1e67b965389d6188e166",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "-81/100"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s2-h1": "229a775659aad63c5063f3aafe768dce62a20f5f9f96e2e38c070eeb75e76d2d",
+                "s2-h2": "008e83548b8686d1badf0f52c1659944c67d6f63af336b793e28daae74e68022",
+                "s2-h3": "eaeddb5674e1d0e5ebe1a93e01060f6b2997e1dc6fc4258951709200fcbbc2ef",
+                "s2-h4": "9b18f49d53e53f926c16be6ded8d2c101606b8cde3224689c46abd4902514a75",
+                "s2-h5": "c4baf646e50215581922708adfd268ed7729c98e3fe9f2333d0ce9f322001d28",
+                "s2-h6": "6be497ab779a28dcd6599c6f2a1b4e3e8dbbd6e973f7abc8f50d4486dc548278"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 534,
+              "world_evaluations": 1,
+              "latency_s": 0.003339400000186288
+            }
+          }
+        },
+        {
+          "case_hash": "5bfc8c478a583b83b9156a1093fb3e254c008e1ffa48331a9398b9628d60085e",
+          "logical_bytes_read": 54,
+          "cache_condition": "repeat",
+          "latency_s": 0.014002400001118076,
+          "os_io_delta": {
+            "read_count": 33,
+            "write_count": 0,
+            "read_bytes": 4475533,
+            "write_bytes": 0,
+            "other_count": 54,
+            "other_bytes": 2388
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.00698740000007092,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s2-h1",
+              "observations": [
+                {
+                  "id": "s2-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.06",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.06",
+                  "upper": "0.06",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.64",
+                  "original_timestamp": "1672542000",
+                  "lower": "0.64",
+                  "upper": "0.64",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.19",
+                  "original_timestamp": "1672545600",
+                  "lower": "0.19",
+                  "upper": "0.19",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.21",
+                  "original_timestamp": "1672549200",
+                  "lower": "1.21",
+                  "upper": "1.21",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.18",
+                  "original_timestamp": "1672552800",
+                  "lower": "1.18",
+                  "upper": "1.18",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s2-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:2",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.81",
+                  "original_timestamp": "1672556400",
+                  "lower": "0.81",
+                  "upper": "0.81",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:2",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s2-h1",
+              "revision": 0,
+              "case_hash": "5bfc8c478a583b83b9156a1093fb3e254c008e1ffa48331a9398b9628d60085e",
+              "unit": "mm",
+              "lower": "409/100",
+              "upper": "409/100",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "409/100",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "eabab2371a57f11af508219b9588f85ac7a7aff891b93809865ac780ae67f67d"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "5bfc8c478a583b83b9156a1093fb3e254c008e1ffa48331a9398b9628d60085e",
+              "query_hash": "b4654f1d073b27fbfc5533ff6403d345cd6e5f8731528ec4053bd6b413189977",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "409/100",
+                  "upper": "409/100",
+                  "lower_path": [
+                    "ed0d1e67b965389d6188e166",
+                    "0a569c7058ef25e44e157a7d",
+                    "cb5d10dea0d1fe4b59f83f39",
+                    "29bf4b870792c9b56aa63dd4",
+                    "51c49af08b2614887690de32",
+                    "7c0ff1f30810a16b92a69c89"
+                  ],
+                  "upper_path": [
+                    "feaad80091b4029169b2f6ea",
+                    "fd3f976fa09fad146da00d33",
+                    "463e17ab16f24217a54ce3b2",
+                    "20540fc0d48cee7d1504ff3e",
+                    "7db4d165c72c2fca6fdbff42",
+                    "86324cada24b8a03eaf0e670"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "3/50",
+                    "1672542000": "7/10",
+                    "1672545600": "89/100",
+                    "1672549200": "21/10",
+                    "1672552800": "82/25",
+                    "1672556400": "409/100"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "3/50",
+                    "1672542000": "7/10",
+                    "1672545600": "89/100",
+                    "1672549200": "21/10",
+                    "1672552800": "82/25",
+                    "1672556400": "409/100"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "3/50",
+                    "1672542000": "7/10",
+                    "1672545600": "89/100",
+                    "1672549200": "21/10",
+                    "1672552800": "82/25",
+                    "1672556400": "409/100"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "feaad80091b4029169b2f6ea",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "3/50"
+                  },
+                  {
+                    "id": "7c0ff1f30810a16b92a69c89",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "-3/50"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "fd3f976fa09fad146da00d33",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "16/25"
+                  },
+                  {
+                    "id": "51c49af08b2614887690de32",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "-16/25"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "463e17ab16f24217a54ce3b2",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "19/100"
+                  },
+                  {
+                    "id": "29bf4b870792c9b56aa63dd4",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "-19/100"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "20540fc0d48cee7d1504ff3e",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "121/100"
+                  },
+                  {
+                    "id": "cb5d10dea0d1fe4b59f83f39",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "-121/100"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "7db4d165c72c2fca6fdbff42",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "59/50"
+                  },
+                  {
+                    "id": "0a569c7058ef25e44e157a7d",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "-59/50"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "86324cada24b8a03eaf0e670",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "81/100"
+                  },
+                  {
+                    "id": "ed0d1e67b965389d6188e166",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "-81/100"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s2-h1": "229a775659aad63c5063f3aafe768dce62a20f5f9f96e2e38c070eeb75e76d2d",
+                "s2-h2": "008e83548b8686d1badf0f52c1659944c67d6f63af336b793e28daae74e68022",
+                "s2-h3": "eaeddb5674e1d0e5ebe1a93e01060f6b2997e1dc6fc4258951709200fcbbc2ef",
+                "s2-h4": "9b18f49d53e53f926c16be6ded8d2c101606b8cde3224689c46abd4902514a75",
+                "s2-h5": "c4baf646e50215581922708adfd268ed7729c98e3fe9f2333d0ce9f322001d28",
+                "s2-h6": "6be497ab779a28dcd6599c6f2a1b4e3e8dbbd6e973f7abc8f50d4486dc548278"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 534,
+              "world_evaluations": 1,
+              "latency_s": 0.009429599998838967
+            }
+          }
+        },
+        {
+          "case_hash": "e0436def4e1399ad58de3f20dff92eeb0c21061b1dd1c4f6fe9b98d5cdbc8997",
+          "logical_bytes_read": 54,
+          "cache_condition": "first_process_query_OS_cache_uncontrolled",
+          "latency_s": 0.008723700000700774,
+          "os_io_delta": {
+            "read_count": 33,
+            "write_count": 0,
+            "read_bytes": 4475533,
+            "write_bytes": 0,
+            "other_count": 54,
+            "other_bytes": 2388
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.007005999999819323,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s3-h1",
+              "observations": [
+                {
+                  "id": "s3-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.74",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.74",
+                  "upper": "0.74",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.64",
+                  "original_timestamp": "1672542000",
+                  "lower": "1.64",
+                  "upper": "1.64",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.06",
+                  "original_timestamp": "1672545600",
+                  "lower": "1.06",
+                  "upper": "1.06",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "2.1",
+                  "original_timestamp": "1672549200",
+                  "lower": "2.1",
+                  "upper": "2.1",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.25",
+                  "original_timestamp": "1672552800",
+                  "lower": "1.25",
+                  "upper": "1.25",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "3.4",
+                  "original_timestamp": "1672556400",
+                  "lower": "3.4",
+                  "upper": "3.4",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:3",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s3-h1",
+              "revision": 0,
+              "case_hash": "e0436def4e1399ad58de3f20dff92eeb0c21061b1dd1c4f6fe9b98d5cdbc8997",
+              "unit": "mm",
+              "lower": "1019/100",
+              "upper": "1019/100",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "1019/100",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "091e9e374951aec0b0b04483a1e075a3a59e735c6d9b26eef73d0ba27b29f073"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "e0436def4e1399ad58de3f20dff92eeb0c21061b1dd1c4f6fe9b98d5cdbc8997",
+              "query_hash": "27ea03a25a72f3fbc431f377f718d65cbabbf12bcee78b2b1c6716de2fbf93c2",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "1019/100",
+                  "upper": "1019/100",
+                  "lower_path": [
+                    "98a904888d1f60c09158ca30",
+                    "91071f27caf185503720a856",
+                    "0743a8016919e079774f9b80",
+                    "afb73ad48837ba19915ca660",
+                    "bcc954afd38362dad6b4b750",
+                    "4ee7b95b596d7471c453cb86"
+                  ],
+                  "upper_path": [
+                    "d5c21a532b4b20d14eeaae7a",
+                    "e5c8e6e036c418b43878ed7a",
+                    "da5cc98f6820d26f0f789e82",
+                    "52fe101fe10574bac61a99bd",
+                    "9143642afe02c35b47cbec39",
+                    "1b2fbd6a21d746a1f5340734"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "37/50",
+                    "1672542000": "119/50",
+                    "1672545600": "86/25",
+                    "1672549200": "277/50",
+                    "1672552800": "679/100",
+                    "1672556400": "1019/100"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "37/50",
+                    "1672542000": "119/50",
+                    "1672545600": "86/25",
+                    "1672549200": "277/50",
+                    "1672552800": "679/100",
+                    "1672556400": "1019/100"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "37/50",
+                    "1672542000": "119/50",
+                    "1672545600": "86/25",
+                    "1672549200": "277/50",
+                    "1672552800": "679/100",
+                    "1672556400": "1019/100"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "d5c21a532b4b20d14eeaae7a",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "37/50"
+                  },
+                  {
+                    "id": "4ee7b95b596d7471c453cb86",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "-37/50"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "e5c8e6e036c418b43878ed7a",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "41/25"
+                  },
+                  {
+                    "id": "bcc954afd38362dad6b4b750",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "-41/25"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "da5cc98f6820d26f0f789e82",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "53/50"
+                  },
+                  {
+                    "id": "afb73ad48837ba19915ca660",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "-53/50"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "52fe101fe10574bac61a99bd",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "21/10"
+                  },
+                  {
+                    "id": "0743a8016919e079774f9b80",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "-21/10"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "9143642afe02c35b47cbec39",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "5/4"
+                  },
+                  {
+                    "id": "91071f27caf185503720a856",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "-5/4"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "1b2fbd6a21d746a1f5340734",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "17/5"
+                  },
+                  {
+                    "id": "98a904888d1f60c09158ca30",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "-17/5"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s3-h1": "e655cfdbc1767d74489b1fc3fd4c50bb9d26b69d9ac06c59218977c58dc63ce1",
+                "s3-h2": "f03cc9016d7ab660b78be1b6873ad18a9a15562be36c16cd25c564f43559e816",
+                "s3-h3": "aac91c56cfd37185abe4799ee662c94075af306af953ba1ae3765e0ce4178bbf",
+                "s3-h4": "5329d3864f62693d14e69865c14809eaa78cdc498aa289042879a2e76a1cea41",
+                "s3-h5": "95c24feca8befd7ad3fa60ab3c98b1a2b5cbc460edd5680afcecfc4b55658f6b",
+                "s3-h6": "6045e1a3fb172f31b1d7110b519a2b189819890d4e0db19de73f86666e0b7215"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 534,
+              "world_evaluations": 1,
+              "latency_s": 0.003649599999334896
+            }
+          }
+        },
+        {
+          "case_hash": "e0436def4e1399ad58de3f20dff92eeb0c21061b1dd1c4f6fe9b98d5cdbc8997",
+          "logical_bytes_read": 54,
+          "cache_condition": "repeat",
+          "latency_s": 0.008766700000705896,
+          "os_io_delta": {
+            "read_count": 33,
+            "write_count": 0,
+            "read_bytes": 4475533,
+            "write_bytes": 0,
+            "other_count": 54,
+            "other_bytes": 2388
+          },
+          "lp_checked": true,
+          "lp_validation_s": 0.004536299999017501,
+          "generating_truth_in_bounds": true,
+          "bundle": {
+            "case": {
+              "id": "scale-s3-h1",
+              "observations": [
+                {
+                  "id": "s3-h1",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "0.74",
+                  "original_timestamp": "1672538400",
+                  "lower": "0.74",
+                  "upper": "0.74",
+                  "interval": {
+                    "start": 1672534800,
+                    "end": 1672538400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h2",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.64",
+                  "original_timestamp": "1672542000",
+                  "lower": "1.64",
+                  "upper": "1.64",
+                  "interval": {
+                    "start": 1672538400,
+                    "end": 1672542000,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h3",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.06",
+                  "original_timestamp": "1672545600",
+                  "lower": "1.06",
+                  "upper": "1.06",
+                  "interval": {
+                    "start": 1672542000,
+                    "end": 1672545600,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h4",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "2.1",
+                  "original_timestamp": "1672549200",
+                  "lower": "2.1",
+                  "upper": "2.1",
+                  "interval": {
+                    "start": 1672545600,
+                    "end": 1672549200,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h5",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "1.25",
+                  "original_timestamp": "1672552800",
+                  "lower": "1.25",
+                  "upper": "1.25",
+                  "interval": {
+                    "start": 1672549200,
+                    "end": 1672552800,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                },
+                {
+                  "id": "s3-h6",
+                  "series": {
+                    "quantity": "precipitation",
+                    "location": "cell:3",
+                    "spatial_support": "synthetic grid cell",
+                    "product": "synthetic-precipitation",
+                    "version": "1",
+                    "member": "deterministic",
+                    "vertical_support": "surface",
+                    "cycle": null
+                  },
+                  "original_value": "3.4",
+                  "original_timestamp": "1672556400",
+                  "lower": "3.4",
+                  "upper": "3.4",
+                  "interval": {
+                    "start": 1672552800,
+                    "end": 1672556400,
+                    "unit": "mm",
+                    "statistic": "amount",
+                    "reset_start": null
+                  },
+                  "qc": "accepted",
+                  "reset_group": null,
+                  "evidence_ids": [
+                    "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+                  ]
+                }
+              ],
+              "hypotheses": [
+                {
+                  "id": "documented",
+                  "assignments": {},
+                  "intervals": {},
+                  "evidence_ids": [],
+                  "assumptions": [],
+                  "compiler_version": "1",
+                  "completeness_scope": "declared alternatives"
+                }
+              ],
+              "query": {
+                "series": {
+                  "quantity": "precipitation",
+                  "location": "cell:3",
+                  "spatial_support": "synthetic grid cell",
+                  "product": "synthetic-precipitation",
+                  "version": "1",
+                  "member": "deterministic",
+                  "vertical_support": "surface",
+                  "cycle": null
+                },
+                "start": 1672534800,
+                "end": 1672556400,
+                "unit": "mm",
+                "timezone": "UTC",
+                "calendar": "proleptic_gregorian",
+                "objective": "amount",
+                "eps": "0",
+                "threshold": null,
+                "permitted_assumptions": []
+              },
+              "h_complete": true,
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "revision": 0,
+              "evidence": [],
+              "family_id": "synthetic-group-0",
+              "origin": "synthetic",
+              "source_manifests": []
+            },
+            "result": {
+              "case_id": "scale-s3-h1",
+              "revision": 0,
+              "case_hash": "e0436def4e1399ad58de3f20dff92eeb0c21061b1dd1c4f6fe9b98d5cdbc8997",
+              "unit": "mm",
+              "lower": "1019/100",
+              "upper": "1019/100",
+              "bound_kind": {
+                "lower": "finite",
+                "upper": "finite"
+              },
+              "point_estimate": "1019/100",
+              "decision": null,
+              "reason_flags": [],
+              "witnesses": [],
+              "suggested_actions": [],
+              "scope": [
+                "documented"
+              ],
+              "completeness_basis": "generator v1 schema and deterministic partition plan",
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "h_complete": true,
+              "status": "certified",
+              "certificate_id": "091e9e374951aec0b0b04483a1e075a3a59e735c6d9b26eef73d0ba27b29f073"
+            },
+            "certificate": {
+              "version": "1",
+              "case_hash": "e0436def4e1399ad58de3f20dff92eeb0c21061b1dd1c4f6fe9b98d5cdbc8997",
+              "query_hash": "27ea03a25a72f3fbc431f377f718d65cbabbf12bcee78b2b1c6716de2fbf93c2",
+              "unit": "mm",
+              "scope": [
+                "documented"
+              ],
+              "h_complete": true,
+              "revision": 0,
+              "assumptions": [
+                "nonnegative precipitation increments"
+              ],
+              "numerical_policy": "exact-rational-v1",
+              "worlds": {
+                "documented": {
+                  "feasible": true,
+                  "lower": "1019/100",
+                  "upper": "1019/100",
+                  "lower_path": [
+                    "98a904888d1f60c09158ca30",
+                    "91071f27caf185503720a856",
+                    "0743a8016919e079774f9b80",
+                    "afb73ad48837ba19915ca660",
+                    "bcc954afd38362dad6b4b750",
+                    "4ee7b95b596d7471c453cb86"
+                  ],
+                  "upper_path": [
+                    "d5c21a532b4b20d14eeaae7a",
+                    "e5c8e6e036c418b43878ed7a",
+                    "da5cc98f6820d26f0f789e82",
+                    "52fe101fe10574bac61a99bd",
+                    "9143642afe02c35b47cbec39",
+                    "1b2fbd6a21d746a1f5340734"
+                  ],
+                  "point": {
+                    "1672534800": "0",
+                    "1672538400": "37/50",
+                    "1672542000": "119/50",
+                    "1672545600": "86/25",
+                    "1672549200": "277/50",
+                    "1672552800": "679/100",
+                    "1672556400": "1019/100"
+                  },
+                  "lower_point": {
+                    "1672534800": "0",
+                    "1672538400": "37/50",
+                    "1672542000": "119/50",
+                    "1672545600": "86/25",
+                    "1672549200": "277/50",
+                    "1672552800": "679/100",
+                    "1672556400": "1019/100"
+                  },
+                  "upper_point": {
+                    "1672534800": "0",
+                    "1672538400": "37/50",
+                    "1672542000": "119/50",
+                    "1672545600": "86/25",
+                    "1672549200": "277/50",
+                    "1672552800": "679/100",
+                    "1672556400": "1019/100"
+                  }
+                }
+              },
+              "normalized_constraints": {
+                "documented": [
+                  {
+                    "id": "d5c21a532b4b20d14eeaae7a",
+                    "u": 1672534800,
+                    "v": 1672538400,
+                    "w": "37/50"
+                  },
+                  {
+                    "id": "4ee7b95b596d7471c453cb86",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "-37/50"
+                  },
+                  {
+                    "id": "41d8b5632f2a6c782994d354",
+                    "u": 1672538400,
+                    "v": 1672534800,
+                    "w": "0"
+                  },
+                  {
+                    "id": "e5c8e6e036c418b43878ed7a",
+                    "u": 1672538400,
+                    "v": 1672542000,
+                    "w": "41/25"
+                  },
+                  {
+                    "id": "bcc954afd38362dad6b4b750",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "-41/25"
+                  },
+                  {
+                    "id": "e6a2c91e27f19eeef0348e55",
+                    "u": 1672542000,
+                    "v": 1672538400,
+                    "w": "0"
+                  },
+                  {
+                    "id": "da5cc98f6820d26f0f789e82",
+                    "u": 1672542000,
+                    "v": 1672545600,
+                    "w": "53/50"
+                  },
+                  {
+                    "id": "afb73ad48837ba19915ca660",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "-53/50"
+                  },
+                  {
+                    "id": "089d207b039c6581df74855c",
+                    "u": 1672545600,
+                    "v": 1672542000,
+                    "w": "0"
+                  },
+                  {
+                    "id": "52fe101fe10574bac61a99bd",
+                    "u": 1672545600,
+                    "v": 1672549200,
+                    "w": "21/10"
+                  },
+                  {
+                    "id": "0743a8016919e079774f9b80",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "-21/10"
+                  },
+                  {
+                    "id": "26be3879190fe2429c58474f",
+                    "u": 1672549200,
+                    "v": 1672545600,
+                    "w": "0"
+                  },
+                  {
+                    "id": "9143642afe02c35b47cbec39",
+                    "u": 1672549200,
+                    "v": 1672552800,
+                    "w": "5/4"
+                  },
+                  {
+                    "id": "91071f27caf185503720a856",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "-5/4"
+                  },
+                  {
+                    "id": "609059e46148bbe61b1af51c",
+                    "u": 1672552800,
+                    "v": 1672549200,
+                    "w": "0"
+                  },
+                  {
+                    "id": "1b2fbd6a21d746a1f5340734",
+                    "u": 1672552800,
+                    "v": 1672556400,
+                    "w": "17/5"
+                  },
+                  {
+                    "id": "98a904888d1f60c09158ca30",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "-17/5"
+                  },
+                  {
+                    "id": "60aebb13ed4508895127716c",
+                    "u": 1672556400,
+                    "v": 1672552800,
+                    "w": "0"
+                  }
+                ]
+              },
+              "observation_hashes": {
+                "s3-h1": "e655cfdbc1767d74489b1fc3fd4c50bb9d26b69d9ac06c59218977c58dc63ce1",
+                "s3-h2": "f03cc9016d7ab660b78be1b6873ad18a9a15562be36c16cd25c564f43559e816",
+                "s3-h3": "aac91c56cfd37185abe4799ee662c94075af306af953ba1ae3765e0ce4178bbf",
+                "s3-h4": "5329d3864f62693d14e69865c14809eaa78cdc498aa289042879a2e76a1cea41",
+                "s3-h5": "95c24feca8befd7ad3fa60ab3c98b1a2b5cbc460edd5680afcecfc4b55658f6b",
+                "s3-h6": "6045e1a3fb172f31b1d7110b519a2b189819890d4e0db19de73f86666e0b7215"
+              }
+            },
+            "checker": {
+              "valid": true,
+              "checker_version": "1",
+              "conditional_on_complete_H": true
+            },
+            "metrics": {
+              "solver_calls": 1,
+              "cache_hits": 0,
+              "bellman_ford_calls": 6,
+              "edge_relaxation_attempts": 534,
+              "world_evaluations": 1,
+              "latency_s": 0.0021891000014875317
+            }
+          }
+        }
+      ],
+      "peak_process_tree_rss": 149782528,
+      "scan": {
+        "normalization_version": "interval-stream-v1",
+        "subset_hash": "73d94a6741fa5981fe3fc6bf9a5d0f9a873050773c5b6fd6b7c2695a2f784520",
+        "completed": [
+          "9f5d9327377ce1cd30eee9d81081ff146f7396ea1f9d5045a1ce379be92d59f7"
+        ],
+        "rows": 737280,
+        "accepted": 729239,
+        "missing": 7262,
+        "rejected": 779,
+        "normalized_partition_digests": [
+          "c8d395e08900b86afd04cc4a042457eb5a069d383dc7d61ab5879e928171544e"
+        ],
+        "resume_count": 0,
+        "scan_wall_s": 0.041115400001217495,
+        "checksum_wall_s": 0.007309899998290348,
+        "peak_process_tree_rss": 149782528
+      },
+      "scan_bytes": 6692799,
+      "scan_throughput_MB_s": 162.78083150843273,
+      "normalized_digest": "09a075dfb7a815a487599f562d4e41df57e93a27981a4cca4a1330058f5d5547",
+      "io_before": {
+        "read_count": 2369,
+        "write_count": 146,
+        "read_bytes": 35273885,
+        "write_bytes": 121219,
+        "other_count": 15489,
+        "other_bytes": 842262
+      },
+      "io_after": {
+        "read_count": 2702,
+        "write_count": 148,
+        "read_bytes": 88616916,
+        "write_bytes": 122373,
+        "other_count": 16099,
+        "other_bytes": 867006
+      },
+      "io_delta": {
+        "read_count": 333,
+        "write_count": 2,
+        "read_bytes": 53343031,
+        "write_bytes": 1154,
+        "other_count": 610,
+        "other_bytes": 24744
+      },
+      "application_spill_bytes": 0,
+      "latency_p50_s": 0.009263550000468967,
+      "latency_p95_s": 0.014012800001091818,
+      "solver_query_count": 8,
+      "wall_s_this_invocation": 0.2963873999997304
+    }
+  ],
+  "memory_limit": 17179869184,
+  "cache_conditions": "first query in process then repeated; OS cache not flushed",
+  "disk_type": "not automatically determined; local filesystem",
+  "errors": [],
+  "verification": {
+    "status": "full_verified",
+    "mode": "full",
+    "manifest_sha256": "8a6a3c3d34da04628e07975576a61d729dc4ad54ffe6991310d553812e99e601",
+    "data_bytes": 6692799,
+    "data_GB": 0.006692799,
+    "data_GiB": 0.0062331547960639,
+    "logical_array_bytes": 6635520,
+    "allocated_bytes": 6692799,
+    "files": 1,
+    "errors": [],
+    "placement_note": "allocated bytes measured; filesystem deduplication/sharing not independently audited",
+    "checksum_method": "all shards SHA256, integrated with streaming scan",
+    "files_sha256_checked": 1
+  },
+  "wall_s_this_invocation": 0.43674970000029134
+}

@@ -1,0 +1,38 @@
+{
+  "H1": {
+    "agreed": 213,
+    "total": 213
+  },
+  "H2": {
+    "demonstrated": true,
+    "cases": [
+      "daily-total",
+      "threshold-true"
+    ],
+    "interpretation": "known query can be determined without hourly reconstruction"
+  },
+  "H3": {
+    "cold_median_seconds": {
+      "cache": 0.017128600000432925,
+      "shared": 0.02903779999996914
+    },
+    "supported_on_pilot": false,
+    "novelty": "not established; known incremental STN specialization"
+  },
+  "H4": {
+    "mean_conditional_cost": {
+      "fixed": 2.435,
+      "random": 3.333333333333333,
+      "entropy": 2.3183333333333334,
+      "voi": 2.5833333333333335,
+      "drd": 2.1933333333333334,
+      "witness": 1.9533333333333331,
+      "optimal": 1.9433333333333331
+    },
+    "supported_on_pilot": true
+  },
+  "H5": "pending independent real-source annotation",
+  "run_sha256": "92a6c79417e28fa61464c219146564d401d318630678da81e6b34ffaf5bc1b7d",
+  "external_validity": "small synthetic diagnostic suite; no independent annotation or generalization claim",
+  "errors": []
+}

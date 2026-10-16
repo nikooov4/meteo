@@ -1,0 +1,3 @@
+# Saved runs bind raw file SHA256s and measured Python source bytes.
+# Disable automatic CRLF conversion so clones preserve those exact bytes.
+* -text

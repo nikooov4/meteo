@@ -1,0 +1,53 @@
+{
+  "regimes": [
+    {
+      "regime": {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      "median_seconds": {
+        "paired_lp": 0.015089399999851594,
+        "graph": 0.012839200000598794,
+        "cache_cold": 0.013255799996841233,
+        "cache_warm": 0.00283819999822299,
+        "terminal": 0.014261299998906907
+      },
+      "terminal_below_graph": false
+    },
+    {
+      "regime": {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      "median_seconds": {
+        "paired_lp": 0.12210209999830113,
+        "graph": 0.24229149999882793,
+        "cache_cold": 0.2470945999994001,
+        "cache_warm": 0.03837999999814201,
+        "terminal": 0.19364979999954812
+      },
+      "terminal_below_graph": true
+    },
+    {
+      "regime": {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      },
+      "median_seconds": {
+        "paired_lp": 1.0533973999990849,
+        "graph": 3.7965038000002096,
+        "cache_cold": 3.79037949999838,
+        "cache_warm": 0.36495900000227266,
+        "terminal": 2.172629099997721
+      },
+      "terminal_below_graph": true
+    }
+  ],
+  "all_agree": true,
+  "go_criterion_met": true,
+  "method_novelty": "unestablished; classical reductions, focused prior-art review still required",
+  "Gate_B": "pending independent annotation and external evaluation"
+}

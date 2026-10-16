@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "b4641acdea32921f285e558845d20d3caebde4ac4b0ed5a65a03f50d936174e4",
+    "source_snapshot": "experiments\\source_snapshots\\b4641acdea32921f285e558845d20d3caebde4ac4b0ed5a65a03f50d936174e4.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "unborn_or_unavailable",
+    "git_dirty": null,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792180713.3476174
+  },
+  "tests": "112 passed, zero failures/errors",
+  "validation_xml_sha256": "0af9660aef00cda88b5c626a7df704ccd5e2ebc2dbc709a4eadad381cae1b250",
+  "ruff": "whole workspace passed",
+  "remote": "https://github.com/nikooov4/meteo.git",
+  "branch": "main",
+  "publication_scope": "code, docs, compact fixtures/results, source snapshots and dataset manifests; no bulk arrays/env/credentials",
+  "note": "recorded before first commit; historical measured runs unchanged"
+}

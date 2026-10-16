@@ -1,0 +1,170 @@
+# Progress
+
+Current status after user resume: engineering prototype completed; synthetic
+200-GB acceptance PASSED, 476 files / 200040947956 bytes fully scanned and
+SHA256-verified, 24 checked Query invocations in each 1/10/50/200-GB profile.
+Full suite: 79 passed. External HTTP client checked the final 200-GB partition.
+Final report: reports/delivery.md. Gate B / human annotation pending;
+real-200GB data run not_run. History and limitations follow below.
+
+2026-10-16: Read supplied plan v2.1 and literature review. Workspace empty;
+no Git repository, AGENTS.md, user files or version-1 code existed here.
+Original documents preserved under docs/input with hashes. No files removed.
+Implementation order: core/oracle/checker → baselines/pilot/Gate A → source
+conventions/minimal UI/API → bounded scale smoke and resource-qualified runs.
+
+Initial disk check: NTFS D:, 453214920704 bytes free. Python initially installed:
+3.14; project selects managed 3.12. uv cache and interpreter are workspace-local.
+WMI hardware query denied; later measurements use psutil, not guessed hardware.
+
+Core: independent increment LP, exact sparse Bellman–Ford, 64-entry semantic-effect
+LRU, bounded incremental STN candidate, portable independent proof/witness/ray
+checker and strict threshold semantics implemented. No LLM, GPU or credential
+dependency. Whole-cycle future halo added for cumulative Queries with missing
+early records; different cycles remain separate.
+
+Gate A initial and final runs retained. Final H1: 213/213 agreements, observed
+false certifications 0/12 certified outputs. H2 demonstrated by hand fixtures.
+H3 not supported: cold medians graph+cache 0.0129344 s vs shared 0.0260376 s.
+H4 base expected cost: witness 1.9533333, VOI2 2.0683333, DRD 2.1933333, tiny
+optimal 1.9433333; six constructed finite families only, no policy novelty claim.
+Full priors/actions/costs/stopping/traces and sensitivity profiles are saved.
+
+DWD: three seven-day station excerpts, 168 rows each, with raw/subset checksums.
+Period/mm/UTC checked; native historical end-label remains incomplete. Controlled
+assumed-end cases are clearly labeled. One 269320412-byte NCAR ERA5 LSP NetCDF
+downloaded and inspected: separate initialization/hour/grid axes, m, previous-hour
+processing. Expected TP key absent in checked folder; no fabricated TP mirror.
+Local cumulative CSV is synthetic and substitutes for CDS credentials explicitly.
+28 saved real/controlled/local cases passed checker and LP. Gate B pending human review.
+
+Interfaces: Streamlit AppTest covers exact/range/metadata views; FastAPI stores
+revisions in SQLite, supports bounded uploads and registered manifest Queries.
+External client actually exercised loopback HTTP for fixture and 1-GB manifest,
+then checked certificates locally. Inherited proxy initially broke localhost;
+reference client now disables proxy inheritance. No arbitrary server paths/code.
+
+Validation: initial 61 core tests passed. Expanded suite first found two test
+errors (AppTest relative path, Fraction-to-float conversion), fixed; 72-test full
+suite passed. Later storage/halo/accounting additions receive targeted smoke
+verification; see reports/validation. Native startup sometimes stalled under
+concurrent HDD IO/restricted sandbox; diagnostics and unsandboxed checks retained.
+
+Scale: initial 1-GB profile has 1278907323 data bytes, full scan/query batch and
+successful coordinated generation and scan resume. Deliberate worker crash at
+78910996660 bytes in the 200-GB profile preserved completed shards; resume SHA
+checks passed and generation continued. Final acceptance remains pending until
+reports/scale/acceptance.json explicitly says passed. HDD model verified through
+Get-Partition/Get-Disk: ST1000LM048-2E7172, NTFS. Scripts/CI use small smoke only.
+The large run uses four workers, 32-MiB chunks and 2-GiB generator budget.
+
+2026-10-16, pause/resume: the explicit user pause stopped the API and scale monitor.
+Pause state/processes are saved in reports/pause-state.json and reports/pause-processes.json.
+Synthetic generation completed: 200040947956 useful serialized data bytes in 476 shards.
+1/10/50-GB full scans and Query batches completed before pause; 200-GB checkpoint had 2 completed files.
+Final validation finished before pause: 78 tests, zero failures/errors, 88.127 s (reports/validation/delivery.xml).
+User resumed work. Continuing benchmark with --resume, unchanged data and shard normalization.
+Command: uv run --frozen --offline meteo benchmark scale --manifest data/scale/synthetic-200gb/manifest.json --memory-limit 16GiB --output reports/scale --resume
+Pre-pause report preserved in reports/scale/archive/pre-pause-scale_report.json.
+200-GB acceptance remains pending until full scan, queries and acceptance checks finish.
+
+Resume verification: the first restricted benchmark invocation made no checkpoint
+progress during native initialization. Its own process tree was stopped and the
+same offline command was restarted outside the sandbox. Diagnostic metadata is
+in reports/scale/sandbox-restart.json; the exact cause is not established.
+The restarted invocation has advanced through 1/10-GB profiles. Full hashes are
+rechecked even for already normalized shards; completed scan counters are reused.
+
+Real subset was rerun against the current exact encoded-float import: 28/28
+checker-valid outputs with independent LP comparison. Earlier results remain in
+experiments/runs/real-subset/run-initial.json, current results in run.json. Native
+DWD H remains incomplete; this rerun does not supply human annotation or pass Gate B.
+
+Added paper/methods.md documenting the actual fragment and known algorithms.
+Scale finalizer now supports --acceptance-only and --previous-report, preserves
+source lineage, and distinguishes precipitation/QC payload, all numeric NetCDF
+arrays and auxiliary/partial files. It explicitly reports the missing peak RSS
+measurement of the deliberately killed generator invocation. No full crash-spanning
+generation peak/time is inferred. A 200-GB real-profile LIST/HEAD dry-run is being
+checked; no real-200GB download/scan is claimed.
+
+NCAR 200-GB metadata dry-run completed: 735 LSP objects, 200208579407 selected bytes, LIST/HEAD verified; disk resource check passed. Full pinned plan in data/manifests/ncar-200gb-download-plan.json, summary in reports/ncar-profile.json. Real-200GB data download/scan remains not_run.
+Header-only storage-accounting smoke passed on the existing small uncompressed dataset; reports/validation/storage-accounting-smoke.json. Whole-workspace Ruff check passed after finalizer/report/dry-run persistence changes.
+
+Final maintenance checks: Streamlit now keys source state by full Case digest and checks registered manifest hash, fixing stale selection when duration/dataset changes under the same case ID. Targeted UI/evidence checks: 2 passed; full suite after fixes: 79 passed, zero failures/errors, 56.81 s (reports/validation/resumed-final.xml). TestClient deprecation warning retained in console log. Context/source snapshot is saved in resumed-final-context.json.
+Standalone offline Plotly figures are generated by scripts/plot_results.py solely from saved runs; initial development figure excludes the unfinished 200-GB profile. No fitted scaling law or synthetic-to-real extrapolation is shown.
+
+Completed after resume: synthetic scale acceptance PASSED (reports/scale/acceptance.json). All 476 files / 200040947956 data bytes / 22141808640 rows fully scanned and SHA256 verified. All 1/10/50/200-GB profiles complete, each with 24 checked Query invocations; largest has 8 LP checks and generating-truth inclusion 24/24.
+Largest scan: 3936.506 seconds, 50.817 MB/s, 207966208 peak sampled tree RSS bytes; Query p50/p95 0.148562/0.439900 seconds.
+Current 200-GB archive registered; external HTTP client queried final partition and locally verified its certificate, temporary server stopped. Full source snapshot now includes UI/tests. 79-test full suite and Ruff passed. Figures and paper tables regenerated from saved runs. Final report with commands, Gate A/B, hashes and limitations: reports/delivery.md.
+Engineering synthetic-scale acceptance passed; Gate B / independent real annotation remains pending, real-200GB data run not_run. No method novelty, new complexity, unconditional soundness/optimality or A* claim. Interrupted generator peak/time and OS cache limitations remain explicit.
+
+2026-10-16, new authorized research implementation: inspected workspace and source;
+no AGENTS.md found and this is still not a Git checkout. Preserved historical
+Gate A, reports, source snapshots and scale evidence. Added continuous-outcome
+single-action acquisition domain, independent paired increment LP, exact full
+pair graph, whole-batch LRU baseline, terminal-projection candidate and independent
+path/point/ray checker. Metadata cannot resolve within-h underdetermination.
+W and the projection/flow ingredients are treated as known foundations.
+
+Pre-timing protocol: configs/experiments/acquisition-continuous-v1.json, synthetic
+development regimes, no policy claim. CLI/API/Streamlit call the same oracle.
+Initial core validation: 29 passed. First integration invocation retained 29 passes
+and two temp-directory PermissionErrors; rerun with workspace-local basetemp:
+31 passed (continuous-integration-localtmp.xml). Full new pilot is running in its
+own directory; old negative H3 is not replaced. Scientific derivation and scope
+limits are documented in docs/continuous_acquisition.md.
+
+New development oracle pilot completed: 45 measured batches (9 LP, 36 exact
+graph/cache/terminal), all 576 action-value comparisons agree. Zero recorded
+pilot errors. Complete graph/terminal medians yield ratios 0.900/1.251/1.747;
+2/3 predeclared regimes support proceeding, smallest loses. Warm cache and
+numerical LP remain faster. Peak sampled process-tree RSS: 107405312 bytes.
+Frozen inputs/bundles/hashes/versions/source ZIP retained in
+experiments/runs/acquisition-continuous-v1. This is not a policy result, a new
+complexity result, proof of priority, or Gate B pass.
+
+Offline diagnostic and 27 original/controlled DWD/NCAR compatibility cases passed
+paired LP and checker; acquisition-examples-v1. Native DWD retains incomplete_H;
+new measurement availability is hypothetical, not an annotated archive action.
+First full regression after integration: 110 passed, one existing TestClient
+deprecation warning (continuous-full.xml). Added cached-deadline and unbounded
+threshold/rate checks afterwards; final validation is running separately.
+
+Final research validation completed: 111 passed, zero failures/errors, 34.72 s;
+reports/validation/continuous-final.xml. Whole-workspace Ruff passed. Real
+loopback HTTP external client exercised the new acquisition endpoint and verified
+the certificate locally; temporary service stopped (acquisition-http/context.json).
+CLI evaluate/export/independent verify passed. All 45 saved pilot bundle hashes
+and all 36 exact certificates replayed without running a solver; acquisition-replay.json.
+Validation history includes the earlier temp PermissionErrors rather than erasing
+them. Context, versions, hashes and final source ZIP: continuous-final-context.json;
+source SHA256 d694897b921334b9bc79c67cc50006f29620ae610ac4ca3df20580d11d41c504.
+
+New results/commands/limitations: reports/continuous_acquisition.md; README links
+the new report. Original reports/delivery.md and old Gate A runs were not edited.
+Known negative results and scientific limits remain explicit: small-regime loss,
+faster numerical LP and warm cache, no continuous-policy superiority, no established
+priority, no independently annotated Gate B, real-200GB not_run. Existing storage
+pipeline and synthetic 200-GB evidence were preserved; no new archive-wide scale
+experiment is claimed for the bounded acquisition oracle.
+
+2026-10-16, GitHub delivery requested: initialized main, checked the empty remote
+https://github.com/nikooov4/meteo.git, retained existing README. Added
+docs/novelty_validation_plan.md with precise prior-art/proof/strong-baseline/Gate B
+requirements and explicit no-go conditions. Prepared credential/data exclusions
+and byte-preserving .gitattributes because existing run/source checksums must
+survive Windows/Linux clones unchanged. Bulk arrays and local environments stay
+on disk outside Git; compact evidence/source snapshots are included.
+Experiment metadata now detects actual Git revision/dirty state rather than
+hardcoding the historical pre-Git state. Earlier saved runs are unchanged.
+
+GitHub delivery validation: 112 tests passed, zero failures/errors, 34.59 s
+(reports/validation/github-delivery.xml), whole-workspace Ruff passed. Warnings:
+existing TestClient deprecation and an inaccessible optional pytest cache; test
+execution completed. Credentials scan found no project credentials; the string
+matches in embedded Plotly HTML were confirmed identical to the installed public
+Plotly library. Added byte-identical 1/200-GB manifest provenance snapshots for
+publication without raw arrays. Windows prevents changing the sandbox-owned .git
+owner; a single-path safe.directory entry for this explicitly authorized workspace
+allows ordinary Git under the user's account. No wildcard/global trust disable.

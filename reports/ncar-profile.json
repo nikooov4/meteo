@@ -1,0 +1,18 @@
+{
+  "status": "metadata_profile_verified",
+  "source": "NSF NCAR ERA5 LSP",
+  "objects_LIST_HEAD_checked": 735,
+  "selected_bytes": 200208579407,
+  "plan": "data\\manifests\\ncar-200gb-download-plan.json",
+  "plan_sha256": "00eccfa9906711dcb06ba9935599e64e39699d7755f6802841887f0703a9ef93",
+  "small_downloaded_data_bytes": 269320412,
+  "real_200GB_download": "not_run",
+  "real_200GB_scan": "not_run",
+  "source_field": "large_scale_precipitation; not total_precipitation",
+  "resource_check": true,
+  "notes": [
+    "Sufficiency is a metadata selection result, not local data bytes.",
+    "Native reader/conventions checked on the separate small downloaded object.",
+    "Source snapshot/version is recorded in the download plan."
+  ]
+}

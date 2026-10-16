@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "schema": "meteobridge-synthetic-v1",
+  "origin": "synthetic",
+  "config": {
+    "schema": "meteobridge-synthetic-v1",
+    "seed": 42,
+    "format": "netcdf",
+    "compression": "none",
+    "series": 4000000,
+    "regions": 1,
+    "series_per_shard": 65536,
+    "hours_per_shard": 720,
+    "start": 1672531200,
+    "hours": 8760,
+    "chunk_bytes": 67108864,
+    "missing_fraction": 0.01,
+    "defect_fraction": 0.001
+  },
+  "config_hash": "6c835a5b61cb41e8ae0db1a671a088f30d44324068e0fa655b8ca3563dd535d2",
+  "target_bytes": 1000000000,
+  "shards": [
+    {
+      "path": "part-000000.nc",
+      "bytes": 426302439,
+      "sha256": "c8e795461d498e2657a8c357ae6046deb343b2e03cc5d042ab481e9fb453a892",
+      "rows": 47185920,
+      "logical_bytes": 424673280,
+      "series_start": 0,
+      "series_end": 65536,
+      "first_hour": 0,
+      "hours": 720,
+      "scheme": 0,
+      "partition": [
+        0,
+        0
+      ],
+      "origin": "synthetic",
+      "schema": "meteobridge-synthetic-v1"
+    },
+    {
+      "path": "part-000001.nc",
+      "bytes": 426302443,
+      "sha256": "989e4d45c25393fab2722db2b2d234c11c97c98924ff7c7d9aa0d4f6260f231a",
+      "rows": 47185920,
+      "logical_bytes": 424673280,
+      "series_start": 65536,
+      "series_end": 131072,
+      "first_hour": 0,
+      "hours": 720,
+      "scheme": 1,
+      "partition": [
+        1,
+        0
+      ],
+      "origin": "synthetic",
+      "schema": "meteobridge-synthetic-v1"
+    },
+    {
+      "path": "part-000002.nc",
+      "bytes": 426302441,
+      "sha256": "24e299cc4cf6b6dfe3f4524a7b226ea73f5829657d1877974727d35829772a50",
+      "rows": 47185920,
+      "logical_bytes": 424673280,
+      "series_start": 131072,
+      "series_end": 196608,
+      "first_hour": 0,
+      "hours": 720,
+      "scheme": 2,
+      "partition": [
+        2,
+        0
+      ],
+      "origin": "synthetic",
+      "schema": "meteobridge-synthetic-v1"
+    }
+  ],
+  "status": "complete",
+  "resume_count": 1,
+  "data_bytes": 1278907323,
+  "generation_run": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "0f8b931d7c15fe94f893a421ea307a5440914c7e782b1503c3307bc16f792487",
+    "git_revision": "not_a_git_repository",
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792156371.2486343,
+    "wall_s": 19.738236000000143,
+    "written_bytes_this_run": 852604884,
+    "peak_process_tree_rss": 253698048,
+    "workers": 1,
+    "memory_limit": 2147483648
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "case": {
+    "id": "acquisition-20261017-n8-h1",
+    "observations": [
+      {
+        "id": "total",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "26",
+        "original_timestamp": null,
+        "lower": "26",
+        "upper": "26",
+        "interval": {
+          "start": 0,
+          "end": 28800,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-0",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "7",
+        "original_timestamp": null,
+        "lower": "7",
+        "upper": "13",
+        "interval": {
+          "start": 18000,
+          "end": 28800,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "interval-1",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "14",
+        "original_timestamp": null,
+        "lower": "14",
+        "upper": "20",
+        "interval": {
+          "start": 7200,
+          "end": 25200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "ambiguous",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0",
+        "original_timestamp": null,
+        "lower": "0",
+        "upper": "12",
+        "interval": {
+          "start": 0,
+          "end": 7200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "h0",
+        "assignments": {
+          "label": "0"
+        },
+        "intervals": {
+          "ambiguous": {
+            "start": 0,
+            "end": 7200,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      }
+    ],
+    "query": {
+      "series": {
+        "quantity": "precipitation",
+        "location": "fixture",
+        "spatial_support": "point",
+        "product": "hand-calculated",
+        "version": "1",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "start": 0,
+      "end": 14400,
+      "unit": "mm",
+      "timezone": "UTC",
+      "calendar": "proleptic_gregorian",
+      "objective": "amount",
+      "eps": "0",
+      "threshold": null,
+      "permitted_assumptions": []
+    },
+    "h_complete": true,
+    "completeness_basis": "all finite generated layouts; synthetic development scope",
+    "assumptions": [
+      "nonnegative precipitation increments"
+    ],
+    "revision": 0,
+    "evidence": [],
+    "family_id": "acquisition-development-20261017",
+    "origin": "synthetic",
+    "source_manifests": []
+  },
+  "actions": [
+    {
+      "id": "measure-4-8",
+      "kind": "interval",
+      "cost": "2",
+      "start": 14400,
+      "end": 28800,
+      "attribute": null
+    },
+    {
+      "id": "measure-2-7",
+      "kind": "interval",
+      "cost": "2",
+      "start": 7200,
+      "end": 25200,
+      "attribute": null
+    },
+    {
+      "id": "measure-2-4",
+      "kind": "interval",
+      "cost": "1",
+      "start": 7200,
+      "end": 14400,
+      "attribute": null
+    },
+    {
+      "id": "measure-0-2",
+      "kind": "interval",
+      "cost": "1",
+      "start": 0,
+      "end": 7200,
+      "attribute": null
+    },
+    {
+      "id": "measure-1-6",
+      "kind": "interval",
+      "cost": "2",
+      "start": 3600,
+      "end": 21600,
+      "attribute": null
+    },
+    {
+      "id": "measure-1-7",
+      "kind": "interval",
+      "cost": "2",
+      "start": 3600,
+      "end": 25200,
+      "attribute": null
+    },
+    {
+      "id": "measure-2-3",
+      "kind": "interval",
+      "cost": "1",
+      "start": 7200,
+      "end": 10800,
+      "attribute": null
+    },
+    {
+      "id": "measure-1-3",
+      "kind": "interval",
+      "cost": "1",
+      "start": 3600,
+      "end": 10800,
+      "attribute": null
+    }
+  ]
+}

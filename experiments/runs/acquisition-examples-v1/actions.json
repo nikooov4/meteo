@@ -1,0 +1,26 @@
+[
+  {
+    "id": "first6",
+    "kind": "interval",
+    "cost": "1",
+    "start": 0,
+    "end": 21600,
+    "attribute": null
+  },
+  {
+    "id": "last12",
+    "kind": "interval",
+    "cost": "1",
+    "start": 43200,
+    "end": 86400,
+    "attribute": null
+  },
+  {
+    "id": "label",
+    "kind": "metadata",
+    "cost": "1",
+    "start": null,
+    "end": null,
+    "attribute": "label"
+  }
+]

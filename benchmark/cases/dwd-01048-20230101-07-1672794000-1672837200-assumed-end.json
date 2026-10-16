@@ -1,0 +1,457 @@
+{
+  "id": "dwd-01048-20230101-07-1672794000-1672837200-assumed-end",
+  "observations": [
+    {
+      "id": "2023010401",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010401",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672790400,
+        "end": 1672794000,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010402",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010402",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672794000,
+        "end": 1672797600,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010403",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010403",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672797600,
+        "end": 1672801200,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010404",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010404",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672801200,
+        "end": 1672804800,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010405",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010405",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672804800,
+        "end": 1672808400,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010406",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010406",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672808400,
+        "end": 1672812000,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010407",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010407",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672812000,
+        "end": 1672815600,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010408",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010408",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672815600,
+        "end": 1672819200,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010409",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.0",
+      "original_timestamp": "2023010409",
+      "lower": "0.0",
+      "upper": "0.0",
+      "interval": {
+        "start": 1672819200,
+        "end": 1672822800,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010410",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.2",
+      "original_timestamp": "2023010410",
+      "lower": "0.2",
+      "upper": "0.2",
+      "interval": {
+        "start": 1672822800,
+        "end": 1672826400,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010411",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.3",
+      "original_timestamp": "2023010411",
+      "lower": "0.3",
+      "upper": "0.3",
+      "interval": {
+        "start": 1672826400,
+        "end": 1672830000,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010412",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.2",
+      "original_timestamp": "2023010412",
+      "lower": "0.2",
+      "upper": "0.2",
+      "interval": {
+        "start": 1672830000,
+        "end": 1672833600,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    },
+    {
+      "id": "2023010413",
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:01048",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "original_value": "0.6",
+      "original_timestamp": "2023010413",
+      "lower": "0.6",
+      "upper": "0.6",
+      "interval": {
+        "start": 1672833600,
+        "end": 1672837200,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "QN_8=3"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "end-label",
+      "assignments": {
+        "time_label": "end"
+      },
+      "intervals": {},
+      "evidence_ids": [],
+      "assumptions": [],
+      "compiler_version": "1",
+      "completeness_scope": "declared alternatives"
+    }
+  ],
+  "query": {
+    "series": {
+      "quantity": "precipitation",
+      "location": "DWD:01048",
+      "spatial_support": "point",
+      "product": "DWD CDC hourly R1",
+      "version": "historical archive listing 2026-06-10",
+      "member": "deterministic",
+      "vertical_support": "surface",
+      "cycle": null
+    },
+    "start": 1672794000,
+    "end": 1672837200,
+    "unit": "mm",
+    "timezone": "UTC",
+    "calendar": "proleptic_gregorian",
+    "objective": "amount",
+    "eps": "0",
+    "threshold": null,
+    "permitted_assumptions": []
+  },
+  "h_complete": true,
+  "completeness_basis": "end-hour convention explicitly assumed by annotator",
+  "assumptions": [
+    "nonnegative precipitation increments",
+    "reported R1 values used as exact serialized inputs; not a physical instrument guarantee"
+  ],
+  "revision": 0,
+  "evidence": [],
+  "family_id": "DWD:01048",
+  "origin": "controlled",
+  "source_manifests": [
+    {
+      "dataset_id": "01048-20230101-07",
+      "provider": "DWD",
+      "product_kind": "station_observation",
+      "upstream": [],
+      "version": "historical archive listing 2026-06-10",
+      "request": {
+        "days": "2023-01-01/07"
+      },
+      "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/historical/stundenwerte_RR_01048_19950901_20251231_hist.zip",
+      "license": "CC-BY-4.0",
+      "downloaded_at": null,
+      "sha256": "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+      "extents": {},
+      "documentation_version": "DWD v24.03, updated 2024-05-06"
+    }
+  ]
+}

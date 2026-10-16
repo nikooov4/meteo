@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "d694897b921334b9bc79c67cc50006f29620ae610ac4ca3df20580d11d41c504",
+    "source_snapshot": "experiments\\source_snapshots\\d694897b921334b9bc79c67cc50006f29620ae610ac4ca3df20580d11d41c504.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "not_a_git_repository",
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792178046.240145
+  },
+  "validation_history": [
+    {
+      "path": "reports\\validation\\continuous-initial.xml",
+      "sha256": "e5d584adc964f7fe50cf6fd14115076d0a7e274a8af08959bc2cf6e1bc877058",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "29",
+      "time": "2.763",
+      "timestamp": "2026-10-16T22:01:34.219571+03:00",
+      "hostname": "Lemon"
+    },
+    {
+      "path": "reports\\validation\\continuous-integration.xml",
+      "sha256": "54ef5c960af67513c30c6fcd42cb0f54ab4a6bf149ac722b90935c32d8057761",
+      "name": "pytest",
+      "errors": "2",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "31",
+      "time": "2.450",
+      "timestamp": "2026-10-16T22:03:43.028071+03:00",
+      "hostname": "Lemon"
+    },
+    {
+      "path": "reports\\validation\\continuous-integration-localtmp.xml",
+      "sha256": "11354bdfaaaa0ac82668ab98eb7b3f96a3bd65399dab41c8b0e9b705e42688de",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "31",
+      "time": "14.182",
+      "timestamp": "2026-10-16T22:03:54.449805+03:00",
+      "hostname": "Lemon"
+    },
+    {
+      "path": "reports\\validation\\continuous-full.xml",
+      "sha256": "3a2b9072d2330358f1db7921fd59e026e41e25b8b241929ebdd5978760c7890a",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "110",
+      "time": "38.598",
+      "timestamp": "2026-10-16T22:07:00.906101+03:00",
+      "hostname": "Lemon"
+    },
+    {
+      "path": "reports\\validation\\continuous-final.xml",
+      "sha256": "bde167b59e73342fa2d7e7f504e898a5729b07dbb2b99839da919147cf8a2b3d",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "111",
+      "time": "34.721",
+      "timestamp": "2026-10-16T22:10:31.832499+03:00",
+      "hostname": "Lemon"
+    }
+  ],
+  "ruff": "passed; whole workspace",
+  "script_checks": [
+    "CLI evaluate/verify passed",
+    "external HTTP/local checker passed; temporary server stopped",
+    "45 saved bundle hashes, 36 exact certificates replayed",
+    "27 original/controlled source cases paired-LP matched"
+  ],
+  "source_note": "Core/UI/API unchanged since 111-test suite; ancillary replay/report/client scripts additionally executed afterwards. Example client hash recorded separately.",
+  "client_sha256": "2eedea8ff66f5e4aed2498c0d754612aac7cba727cf442c6f81d63d333b274a7",
+  "pilot_run_sha256": "01c2f13276a7f2872f64ce06038884f074d20ef5e02430c04bebb22e0478f27b",
+  "report_sha256": "0b2882a4ecf81c06a03be5b4340b3cf74dff94a98902e8f1a3ffc77b722c3e5f",
+  "preserved_delivery_sha256": "45dfb22f8ac7e9b02f8cbdc29570c8ebf9323246f8bd1ff340b72a776d257d3d",
+  "old_gate_a_sha256": "d7d3e5527095f4515ca115f4562e4a5ef322d8d2273692de0aef9a3a8180642c"
+}

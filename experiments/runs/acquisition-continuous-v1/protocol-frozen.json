@@ -1,0 +1,61 @@
+{
+  "protocol": {
+    "protocol": "continuous-acquisition-v1",
+    "seed": 20261016,
+    "regimes": [
+      {
+        "segments": 8,
+        "hypotheses": 1,
+        "actions": 8
+      },
+      {
+        "segments": 16,
+        "hypotheses": 2,
+        "actions": 16
+      },
+      {
+        "segments": 32,
+        "hypotheses": 4,
+        "actions": 24
+      }
+    ],
+    "replicates": 3,
+    "methods": [
+      "paired_lp",
+      "graph",
+      "cache_cold",
+      "cache_warm",
+      "terminal"
+    ],
+    "primary": "cold complete-batch seconds including certificate generation and verification; paired LP is numerical and has no exact certificate",
+    "agreement_tolerance": 1e-07,
+    "go": "all independent LP comparisons and exact checkers pass; terminal median cold batch latency below graph in at least two of three regimes",
+    "failure_policy": "retain failures; no post-result regime/seed tuning; no replacement of previous Gate A",
+    "scope": "development synthetic oracle experiment, one exact interval measurement or deterministic metadata answer; no policy superiority or external validity claim"
+  },
+  "protocol_sha256": "6bce757631f4a0c651262ea018eac23983f1ed5e75f96f74c8e34a2d5680caab",
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "763083d0193a98d940db1b35c86a6737f33678140d8b59f9e8d5b170ac3b63b2",
+    "source_snapshot": "experiments\\source_snapshots\\763083d0193a98d940db1b35c86a6737f33678140d8b59f9e8d5b170ac3b63b2.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "not_a_git_repository",
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792177502.7622945
+  },
+  "records": [],
+  "errors": [],
+  "scope": "synthetic development oracle; no policy comparison"
+}
