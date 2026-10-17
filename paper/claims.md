@@ -1,5 +1,18 @@
 # Claims ledger
 
+2026-10-17 substantive prior-art follow-up:
+[novelty statement](novelty_statement_ru.md),
+[detailed comparison](../reports/novelty_justification.md),
+[inspection record](../reports/novelty_prior_art_check.json).
+Proposed author-level contribution is the concrete constructive interval/H
+precision-frontier method together with its full-domain certificate. It is not a
+claim that finite unions, the modulus W, parametric graph methods or certifying
+algorithms were invented here. Identity of the full output contract was not
+identified in the inspected sections; global priority and nontriviality beyond
+standard composition remain unestablished. No new benchmark changed that status.
+External review checks criticism/correctness; Gate B checks external validity;
+neither alone creates novelty or is a logical prerequisite to stating the claim.
+
 ## Precision-frontier extension, 2026-10-17
 
 | Claim | Status / saved evidence |

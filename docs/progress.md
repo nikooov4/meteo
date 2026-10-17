@@ -1,5 +1,27 @@
 # Progress
 
+2026-10-17, substantive novelty justification after user feedback: stopped adding
+solver features and separated author contribution from established global priority.
+Prepared reports/novelty_justification.md (claim-level comparison, known-object
+mapping, strongest standard-composition objection, limited conclusion) and
+paper/novelty_statement_ru.md (usable contribution statement with supported scope).
+Inspection log: reports/novelty_prior_art_check.json. Additional nearest overlaps
+checked directly: Juditsky/Nemirovski finite convex unions (v5, sections 2.1/3.1-3.2),
+Evans/Stark modulus formula (4.46), Donoho abstract only, McConnell et al. certifying
+algorithms sections 1/2.4; revisited STN, Barber, Young/Tarjan/Orlin, Ettehad/Foucart
+and determinacy passages. Did not claim full-paper/full-algorithm reproduction.
+Corrected YTO final remarks/generalizations reference from section 5 to section 6.
+
+Outcome: finite H, bounded noise, W/modulus definition, parametric paths and generic
+certificate checking rejected as standalone novelty. Proposed narrow contribution
+is the concrete constructive interval/H full-precision-profile method plus its
+full-domain certificate and endpoint inclusion. No identical full output contract
+identified in inspected passages, but general priority/nontriviality beyond known
+composition unestablished. Explicitly separated prior art, correctness, expert
+review and Gate B: absence of a reviewer does not forbid stating an author result;
+passing Gate B does not establish priority. No new solver, tests or timings in
+this documentation-only audit; historical runs, metrics and pending reviews intact.
+
 2026-10-17, precision-frontier research extension (historical entries below retained).
 User requested all feasible novelty validation work and an extensive explanation.
 Closest sources read at definition/algorithm level: STN projection, Young/Tarjan/

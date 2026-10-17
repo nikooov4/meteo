@@ -1,5 +1,16 @@
 # Focused prior-art audit: 2026-10-17
 
+Follow-up substantive assessment, same date:
+[novelty_justification.md](../reports/novelty_justification.md),
+[author contribution statement](../paper/novelty_statement_ru.md),
+[inspection protocol](../reports/novelty_prior_art_check.json).
+Additional direct overlap checks: Juditsky/Nemirovski finite convex unions,
+Evans/Stark equation (4.46) and Donoho abstract on the modulus of continuity,
+McConnell et al. sections 1/2.4 on certifying algorithms. Finite H, the W formula
+and a separate checker are explicitly excluded as standalone novelty claims.
+No new implementation/benchmark was introduced to replace this comparison.
+Reviewer availability and Gate B concern different evidence than priority.
+
 Purpose: test an algorithmic claim, not collect impressive citations. The previous
 six-terminal exact-acquisition implementation remains a specialization of known
 ideas. The current extension studies a proof-carrying all-noise precision frontier
@@ -12,7 +23,7 @@ focused search is not proof that no predecessor exists.
 | Primary source / inspection | Established overlap | Candidate difference and remaining risk |
 |---|---|---|
 | [Dechter, Meiri, Pearl, Temporal Constraint Networks, 1991](https://ftp.cs.ucla.edu/pub/stat_ser/r113-L-reprint.pdf), section 3 and minimal-network discussion | Consistency and tight difference bounds by shortest paths; graph decomposition/projection foundations | No STN novelty. Per-world closure and terminal elimination are applications of this foundation |
-| [Young, Tarjan, Orlin, Faster Parametric Shortest Path and Minimum Balance Algorithms](https://arxiv.org/pdf/cs/0205041), PDF journal header: Networks 21(2), 1991; arXiv deposit 2002; section 2 and generalizations in section 5 | A parameter modifies a subset of edge costs; finite shortest-path regimes and breakpoints are already algorithmic objects | Our two opposite noise edges and at most two units of dual flow form a restricted case. A short affine list is not a new general parametric algorithm. Full semantic-union proof/frontier contract is the candidate, not parameterization itself |
+| [Young, Tarjan, Orlin, Faster Parametric Shortest Path and Minimum Balance Algorithms](https://arxiv.org/pdf/cs/0205041), PDF journal header: Networks 21(2), 1991; arXiv deposit 2002; section 2 and generalizations in section 6 (corrected section reference) | A parameter modifies a subset of edge costs; finite shortest-path regimes and breakpoints are already algorithmic objects | Our two opposite noise edges and at most two units of dual flow form a restricted case. A short affine list is not a new general parametric algorithm. Full semantic-union proof/frontier contract is the candidate, not parameterization itself |
 | [Ettehad, Foucart, Instances of Computational Optimal Recovery: Dealing with Observation Errors](https://arxiv.org/pdf/2004.00192), definitions in section 1, section 2.1 equations 10–19/Theorem 1 and proof; Theorem 4 model checked | Bounded observation errors, local worst-case recovery, Chebyshev centers and LP-dual computational constructions for polytope models already exist | Generic noisy LP formulation and minimax error are not ours. Our finite H union, interval-network specialization and all-error certificate are narrower. The paper does not by itself establish that the specialization is unpublished |
 | [MIT 6.854 duality notes](https://ocw.mit.edu/courses/6-854j-advanced-algorithms-fall-2005/99eac3e02c1e1c317f20ef3cad4f6a28_dualitynotes.pdf), shortest-path potential/flow example | Potential constraints and min-cost-flow duality are textbook material | Two path matchings and weak-duality certificates are classical tools; no new duality claim |
 | [Javdani et al., Near Optimal Bayesian Active Learning for Decision Making, 2014](https://proceedings.mlr.press/v33/javdani14.html), original abstract/record; earlier review already read problem model | Decision-region identification without identifying the complete hidden state is established | No new policy or DRD guarantee follows from this oracle study; continuous priors/approximations require a separate fair experiment |
