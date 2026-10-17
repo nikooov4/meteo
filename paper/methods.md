@@ -1,5 +1,44 @@
 # Implemented methods and scope
 
+## Additional bounded-error precision-profile operation (2026-10-17)
+
+For one candidate interval functional m and closed, full error support |y-m|<=eta,
+the worst posterior Query diameter equals the maximum q(C)-q(D) over all ordered
+interpretation pairs and feasible trajectories with |m(C)-m(D)|<=2*eta. No reply
+prior or simulator answer is used. The two temporal networks share only the
+arbitrary cumulative origin at the action start; opposite symbolic edges of
+weight rho=2*eta join their end copies. Pair feasibility starts at an explicitly
+certified activation radius. The classical potential/flow dual has at most two
+units, yielding at most three candidate affine bounds of slopes 0,1,2 per pair.
+The global maximum may jump when a previously excluded pair activates, so the
+safe precision output records whether its supremum is included. No tightness or
+priority of this specialization is asserted. Full derivation: ../docs/precision_frontier.md.
+
+The exact checker reconstructs raw constraints independently, verifies symbolic
+dual paths and activation cycles, and checks full attaining potentials at each
+segment endpoint. Convex interpolation proves attainment throughout bounded
+segments; an affine feasible direction proves the final unbounded parameter
+interval. A recession ray handles unbounded objective values. All H-pairs and
+the complete parameter domain are checked; H completeness remains an input
+assumption. This is a conditional proof contract, not external/formal review.
+
+The compiled baseline operates on each full pair graph using SciPy Johnson
+predecessor proposals. Raw Fraction path sums, all edge inequalities and reachability
+closure are checked before use; failure invokes exact Bellman-Ford. The terminal
+candidate reuses per-world paths across the action batch and operates on <=7 value
+vertices, while retaining full proof construction/checking in timed work. An
+ablation recomputes per-world paths per action. All four methods build all-noise
+certificates; paired nonnegative-increment LP on six radii is numerical validation
+only. Fixed protocol, seed, three repeats/regime and shuffled method order precede
+measurements; no retuning. See ../reports/precision_frontier.md for saved results.
+
+The new study neither replaces the original negative H3 nor compares acquisition
+policies. It supports one amount Query and one interval acquisition with a supplied
+deterministic error radius, bounded Case sizes, and a complete declared H for
+conditional guarantees. Correlated/multiple acquisitions, noisy threshold profiles,
+continuous Bayesian VOI/DRD, calibration and independently annotated external
+validity are outside the implemented extension.
+
 These are working engineering notes for the implemented fragment. They are not a
 new soundness theorem, publication, or claim of method novelty. Results come from
 the source snapshots attached to each saved run; later maintenance changes do not

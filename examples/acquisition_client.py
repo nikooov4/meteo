@@ -9,6 +9,7 @@ import httpx
 from meteo_bridge.acquisition_checker import verify_acquisition
 from meteo_bridge.action_domain import AcquisitionAction
 from meteo_bridge.domain import Case
+from meteo_bridge.precision_checker import verify_precision_profiles
 from meteo_bridge.resources import atomic_json
 
 
@@ -18,6 +19,7 @@ def main():
     parser.add_argument("--case", type=Path, default=Path("experiments/runs/acquisition-examples-v1/case.json"))
     parser.add_argument("--actions", type=Path, default=Path("experiments/runs/acquisition-examples-v1/actions.json"))
     parser.add_argument("--output", type=Path, default=Path("outputs/acquisition-http.json"))
+    parser.add_argument("--precision", action="store_true", help="Request a complete bounded-error precision profile")
     args = parser.parse_args()
     case = Case.model_validate_json(args.case.read_text(encoding="utf8"))
     actions = [AcquisitionAction.model_validate(a) for a in json.loads(args.actions.read_text(encoding="utf8"))]
@@ -28,11 +30,13 @@ def main():
         response = client.post("/queries", json={"dataset_id": dataset})
         response.raise_for_status()
         qid = response.json()["id"]
-        response = client.post(f"/queries/{qid}/acquisition",
+        endpoint = "precision" if args.precision else "acquisition"
+        response = client.post(f"/queries/{qid}/{endpoint}",
                                json={"actions": [a.model_dump() for a in actions], "method": "terminal"})
         response.raise_for_status()
         bundle = response.json()
-    verdict = verify_acquisition(case, actions, bundle["result"], bundle["certificate"])
+    checker = verify_precision_profiles if args.precision else verify_acquisition
+    verdict = checker(case, actions, bundle["result"], bundle["certificate"])
     atomic_json(args.output, {"case": case.model_dump(), "actions": [a.model_dump() for a in actions],
                               "server_bundle": bundle, "local_checker": verdict})
     print(json.dumps({"local_checker": verdict, "result": bundle["result"]}, indent=2))

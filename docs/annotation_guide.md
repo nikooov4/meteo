@@ -1,5 +1,21 @@
 # Annotation guide
 
+2026-10-17 precision extension: no independent reviewer is currently available
+(user-confirmed). Status remains pending; do not replace review with generated
+labels. review/annotation_blind contains four DEVELOPMENT family packets with raw
+records/provenance but without our H, predictions, inferred intervals or completeness
+decisions; annotation_template.csv has zero completed annotations. These already
+used families are not a held-out Gate B test. See review/README.md and
+review/proof_checklist.md for the actual review procedure and unanswered questions.
+
+For bounded-error acquisitions, annotate the supplied eta meaning, closed/full
+reply support, units, endpoint conventions and actual availability/cost. Separate
+deterministic coarsening from instrument calibration. Controlled missing-record
+cases keep their original family_id and split; restoring a removed local encoded
+record does not establish a new independent source family. An open safe eta
+boundary must remain open. New profiles support one interval action and amount
+Query, not correlated multi-measurement noise or continuous Bayesian policies.
+
 Unit of analysis is an original physical series/product/schema family and a
 Query, not adjacent rows. Record origin as original, controlled or synthetic.
 Derived/masked versions retain family_id and the same split. Hand overlap cases

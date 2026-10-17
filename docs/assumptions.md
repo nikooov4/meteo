@@ -1,5 +1,18 @@
 # Assumptions and supported fragment
 
+Precision extension (2026-10-17): ONE acquired interval amount has reply y with
+|y-m|<=eta, any real error in that closed interval possible. Eta>=0 is supplied,
+not estimated from real sensors. No Gaussian distribution, quantization grid,
+independence/calibration guarantee, bias model or multiple-acquisition gluing.
+Two worlds share a possible reply iff |m(C)-m(D)|<=2*eta. Query objective is amount;
+the output covers every finite eta>=0 and explicitly marks inclusion of a finite
+safe supremum. A supremum alone need not be an attainable safe precision.
+Incomplete H always prevents a conditional guarantee even when the modeled
+frontier is nonempty. Operational action availability still requires evidence.
+Limits: 128 endpoints, 16 H, 128 actions, 4096 action*ordered H-pairs. This bounded
+model is separate from chunked archive reading and prior synthetic 200-GB scan.
+Full mathematical contract: precision_frontier.md.
+
 One nonnegative precipitation series per case, intervals in integer UTC seconds,
 decimal rational input bounds, amount in mm/m or interval mean in mm/h, m/s,
 kg m-2 s-1 (liquid-water equivalence explicitly assumed). No instantaneous rate

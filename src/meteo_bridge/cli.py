@@ -65,6 +65,54 @@ def acquisition_pilot(
     emit(run_acquisition_pilot(config, output))
 
 
+@acquisition_app.command("precision")
+def acquisition_precision(
+    case: Annotated[Path, typer.Option()],
+    actions: Annotated[Path, typer.Option()],
+    method: str = "terminal",
+    radii: str = "0,1/2,1,6",
+    output: Path = Path("outputs/precision"),
+):
+    from .action_domain import AcquisitionAction
+    from .precision_frontier import build_precision_profiles, precision_values
+    from .resources import atomic_json
+
+    model = load_dataset(case)
+    choices = [AcquisitionAction.model_validate(a) for a in json.loads(actions.read_text(encoding="utf8"))]
+    bundle = build_precision_profiles(model, choices, method)
+    values = precision_values(model, choices, bundle, radii.split(","))
+    output.mkdir(parents=True, exist_ok=True)
+    atomic_json(output / "case.json", model.model_dump())
+    atomic_json(output / "actions.json", [a.model_dump() for a in choices])
+    atomic_json(output / "bundle.json", bundle)
+    atomic_json(output / "values.json", values)
+    emit({"result": bundle["result"], "checker": bundle["checker"], "values": values})
+
+
+@acquisition_app.command("precision-verify")
+def acquisition_precision_verify(directory: Path = Path("outputs/precision")):
+    from .action_domain import AcquisitionAction
+    from .precision_checker import verify_precision_profiles
+
+    case = load_dataset(directory / "case.json")
+    actions = [AcquisitionAction.model_validate(a) for a in json.loads((directory / "actions.json").read_text(encoding="utf8"))]
+    bundle = json.loads((directory / "bundle.json").read_text(encoding="utf8"))
+    verdict = verify_precision_profiles(case, actions, bundle["result"], bundle["certificate"])
+    emit(verdict)
+    if not verdict["valid"]:
+        raise typer.Exit(1)
+
+
+@acquisition_app.command("precision-pilot")
+def acquisition_precision_pilot(
+    config: Path = Path("configs/experiments/precision-frontier-v1.json"),
+    output: Path = Path("experiments/runs/precision-frontier-v1"),
+):
+    from .precision_experiment import run_precision_pilot
+
+    emit(run_precision_pilot(config, output))
+
+
 @app.command()
 def demo(case: str = "overlap-exact", solver: str = "graph", output: Path | None = None):
     bundle = solve_query(fixture(case), solver)

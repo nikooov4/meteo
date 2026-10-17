@@ -232,3 +232,22 @@ with st.expander("Оценить дополнительное измерение
                                 ensure_ascii=False, indent=2), "acquisition.json", "application/json")
         except (ValueError, KeyError, TimeoutError, NotImplementedError) as exc:
             st.error(f"Оценка не завершена, гарантия не выдана: {exc}")
+    st.caption("Профиль точности поддерживает amount Query и interval-действия. Погрешность — заданная граница, не оценка прибора.")
+    noise_radii = st.text_input("Погрешности нового измерения ±η, mm, через запятую", "0,0.1,0.5,1,6")
+    if st.button("Определить достаточную точность измерения", key="evaluate-precision-profile"):
+        from meteo_bridge.action_domain import AcquisitionAction
+        from meteo_bridge.precision_frontier import build_precision_profiles, precision_values
+
+        try:
+            choices = [AcquisitionAction.model_validate(a) for a in json.loads(action_json)]
+            precision = build_precision_profiles(case, choices)
+            values = precision_values(case, choices, precision, noise_radii.split(","))
+            st.write("Scope:", precision["result"]["status"], "Checker:", precision["checker"])
+            st.dataframe(pd.DataFrame(precision["result"]["actions"]), hide_index=True)
+            st.caption("safe_at_supremum=false означает строгую границу η < radius_supremum. При неполном H гарантия отсутствует.")
+            st.json(values, expanded=False)
+            st.download_button("precision.json", json.dumps({"case": case.model_dump(),
+                                "actions": [a.model_dump() for a in choices], **precision, "values": values},
+                                ensure_ascii=False, indent=2), "precision.json", "application/json")
+        except (ValueError, KeyError, TimeoutError, NotImplementedError) as exc:
+            st.error(f"Профиль не завершён, гарантия не выдана: {exc}")

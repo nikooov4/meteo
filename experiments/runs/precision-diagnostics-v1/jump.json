@@ -1,0 +1,760 @@
+{
+  "case": {
+    "id": "metadata-activation-jump",
+    "observations": [
+      {
+        "id": "q",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0",
+        "original_timestamp": null,
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 0,
+          "end": 3600,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "m",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0",
+        "original_timestamp": null,
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 3600,
+          "end": 7200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "ten",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "10",
+        "original_timestamp": null,
+        "lower": "10",
+        "upper": "10",
+        "interval": {
+          "start": 7200,
+          "end": 10800,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      },
+      {
+        "id": "two",
+        "series": {
+          "quantity": "precipitation",
+          "location": "fixture",
+          "spatial_support": "point",
+          "product": "hand-calculated",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "2",
+        "original_timestamp": null,
+        "lower": "2",
+        "upper": "2",
+        "interval": {
+          "start": 10800,
+          "end": 14400,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": []
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "h0",
+        "assignments": {},
+        "intervals": {},
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      },
+      {
+        "id": "h1",
+        "assignments": {},
+        "intervals": {
+          "q": {
+            "start": 7200,
+            "end": 10800,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "ten": {
+            "start": 0,
+            "end": 3600,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "m": {
+            "start": 10800,
+            "end": 14400,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "two": {
+            "start": 3600,
+            "end": 7200,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      }
+    ],
+    "query": {
+      "series": {
+        "quantity": "precipitation",
+        "location": "fixture",
+        "spatial_support": "point",
+        "product": "hand-calculated",
+        "version": "1",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "start": 0,
+      "end": 3600,
+      "unit": "mm",
+      "timezone": "UTC",
+      "calendar": "proleptic_gregorian",
+      "objective": "amount",
+      "eps": "1",
+      "threshold": null,
+      "permitted_assumptions": []
+    },
+    "h_complete": true,
+    "completeness_basis": "two explicitly declared synthetic layouts; hand diagnostic",
+    "assumptions": [
+      "nonnegative precipitation increments"
+    ],
+    "revision": 0,
+    "evidence": [],
+    "family_id": "precision-metadata-jump",
+    "origin": "synthetic",
+    "source_manifests": []
+  },
+  "actions": [
+    {
+      "id": "measure-m",
+      "kind": "interval",
+      "cost": "1",
+      "start": 3600,
+      "end": 7200,
+      "attribute": null
+    }
+  ],
+  "bundle": {
+    "result": {
+      "status": "ok",
+      "h_complete": true,
+      "eps": "1",
+      "actions": [
+        {
+          "id": "measure-m",
+          "cost": "1",
+          "radius_kind": "finite",
+          "radius_supremum": "1",
+          "safe_at_supremum": false,
+          "conditional_guarantee": true
+        }
+      ],
+      "certificate_id": "3ceaf0a2393d53ca799f842a530a97d66c511f9ec748a01fc25751a1d96dac90"
+    },
+    "certificate": {
+      "version": "precision-1",
+      "case_hash": "0639bcf582727e478e99176d6d13d78e12c0a4c3bf8dfe422f677bb2d3bb6fc6",
+      "actions_hash": "146ea2782484fd4e8fc680e0dc65c9444c68bfc7029645acf0f4f432dd7670ec",
+      "worlds": {
+        "h0": {
+          "feasible": true,
+          "point": {
+            "0": "0",
+            "3600": "0",
+            "7200": "0",
+            "10800": "10",
+            "14400": "12"
+          }
+        },
+        "h1": {
+          "feasible": true,
+          "point": {
+            "0": "0",
+            "3600": "10",
+            "7200": "12",
+            "10800": "12",
+            "14400": "12"
+          }
+        }
+      },
+      "pairs": [
+        [
+          {
+            "left": "h0",
+            "right": "h0",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "e7696a509031fb536549d4e8",
+                      "f7b69f679d48389f5eb06a33"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "noise_lr",
+                      "5c306168e99a7efbaef15a38",
+                      "f7b69f679d48389f5eb06a33"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "10",
+                "4": "12",
+                "5": "0",
+                "7": "0",
+                "8": "10",
+                "9": "12"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0"
+            }
+          },
+          {
+            "left": "h0",
+            "right": "h1",
+            "activation_rho": "2",
+            "activation_cycle": [
+              "77a13c95c2bd038ec58665ff",
+              "8593c3b592ef6f639d542723",
+              "noise_lr"
+            ],
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "-10",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "e7696a509031fb536549d4e8",
+                      "4ec96e942a4057cad0780516"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "-12",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "noise_lr",
+                      "77a13c95c2bd038ec58665ff",
+                      "4ec96e942a4057cad0780516"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "2",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "2": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "10",
+                "4": "12",
+                "5": "-10",
+                "7": "2",
+                "8": "2",
+                "9": "2"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0"
+            }
+          },
+          {
+            "left": "h1",
+            "right": "h0",
+            "activation_rho": "2",
+            "activation_cycle": [
+              "ef106dc127b7aa1121f65006",
+              "fd414c68e498588263a812ff",
+              "noise_rl"
+            ],
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "10",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "abe444521fff5d852069b3a7",
+                      "f7b69f679d48389f5eb06a33"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "8",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "abe444521fff5d852069b3a7",
+                      "fd414c68e498588263a812ff",
+                      "noise_rl",
+                      "ef106dc127b7aa1121f65006",
+                      "f7b69f679d48389f5eb06a33"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "2",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "2": {
+                "0": "0",
+                "1": "10",
+                "2": "12",
+                "3": "12",
+                "4": "12",
+                "5": "10",
+                "7": "10",
+                "8": "20",
+                "9": "22"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0"
+            }
+          },
+          {
+            "left": "h1",
+            "right": "h1",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "abe444521fff5d852069b3a7",
+                      "4ec96e942a4057cad0780516"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 0,
+                    "end": 5,
+                    "edges": [
+                      "abe444521fff5d852069b3a7",
+                      "8f7cb6e0824a85ab86907feb",
+                      "noise_lr",
+                      "77a13c95c2bd038ec58665ff",
+                      "4ec96e942a4057cad0780516"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "10",
+                "2": "12",
+                "3": "12",
+                "4": "12",
+                "5": "0",
+                "7": "12",
+                "8": "12",
+                "9": "12"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0"
+            }
+          }
+        ]
+      ]
+    },
+    "checker": {
+      "valid": true,
+      "checker_version": "precision-1",
+      "verified_domain": "all finite eta >= 0",
+      "conditional_on_complete_H": true
+    },
+    "metrics": {
+      "seconds": 0.008678999999574444,
+      "method": "terminal",
+      "endpoints": 5,
+      "pairs": 4,
+      "operations": {
+        "bellman_ford_calls": 20,
+        "edge_relaxation_attempts": 928,
+        "compiled_johnson_calls": 2
+      }
+    }
+  },
+  "values": [
+    {
+      "radius": "0",
+      "actions": [
+        {
+          "id": "measure-m",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "1/10",
+      "actions": [
+        {
+          "id": "measure-m",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "1/2",
+      "actions": [
+        {
+          "id": "measure-m",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "999/1000",
+      "actions": [
+        {
+          "id": "measure-m",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "1",
+      "actions": [
+        {
+          "id": "measure-m",
+          "width_kind": "finite",
+          "width": "10",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "2",
+      "actions": [
+        {
+          "id": "measure-m",
+          "width_kind": "finite",
+          "width": "10",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "10",
+      "actions": [
+        {
+          "id": "measure-m",
+          "width_kind": "finite",
+          "width": "10",
+          "guarantees_resolution": false
+        }
+      ]
+    }
+  ],
+  "lp": [
+    {
+      "actions": [
+        {
+          "id": "measure-m",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.01213480000023992,
+        "lp_calls": 6
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-m",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.011570399999982328,
+        "lp_calls": 6
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-m",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.010922200000095472,
+        "lp_calls": 6
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-m",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.012260100000275997,
+        "lp_calls": 6
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-m",
+          "width": 10.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.012179199999991397,
+        "lp_calls": 6
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-m",
+          "width": 10.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.012158600000475417,
+        "lp_calls": 6
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-m",
+          "width": 10.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.012586899999405432,
+        "lp_calls": 6
+      }
+    }
+  ],
+  "provenance": {
+    "origin": "hand",
+    "family": "precision-metadata-jump"
+  }
+}

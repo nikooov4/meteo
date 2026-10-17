@@ -40,6 +40,12 @@ class AcquisitionRequest(Model):
     method: str = Field(default="terminal", pattern="^(terminal|graph|cache)$")
 
 
+class PrecisionRequest(Model):
+    actions: list[AcquisitionAction] = Field(min_length=1, max_length=128)
+    method: str = Field(default="terminal", pattern="^(full|compiled|terminal|terminal_no_reuse)$")
+    radii: list[str] = Field(default_factory=lambda: ["0", "1/2", "1"], min_length=1, max_length=64)
+
+
 def _bundle(qid):
     with connect() as db:
         row = db.execute(
@@ -190,3 +196,17 @@ def evaluate_acquisition(qid: str, request: AcquisitionRequest):
 @app.get("/queries/{qid}/export")
 def export(qid: str):
     return _bundle(qid)
+
+
+@app.post("/queries/{qid}/precision")
+def evaluate_precision(qid: str, request: PrecisionRequest):
+    from .precision_frontier import build_precision_profiles, precision_values
+
+    case = Case.model_validate(_bundle(qid)["case"])
+    try:
+        bundle = build_precision_profiles(case, request.actions, request.method)
+        return {**bundle, "values": precision_values(case, request.actions, bundle, request.radii)}
+    except (ValueError, NotImplementedError) as exc:
+        raise HTTPException(422, str(exc)) from exc
+    except TimeoutError as exc:
+        raise HTTPException(503, "precision profile incomplete; no guarantee returned") from exc

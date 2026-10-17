@@ -1,5 +1,46 @@
 # Progress
 
+2026-10-17, precision-frontier research extension (historical entries below retained).
+User requested all feasible novelty validation work and an extensive explanation.
+Closest sources read at definition/algorithm level: STN projection, Young/Tarjan/
+Orlin parametric shortest paths, Ettehad/Foucart observation-error recovery. Overlap
+recorded in literature_delta_2026_10_17.md; novelty/priority remains unestablished.
+Implemented all-eta bounded-error precision profiles for ONE interval acquisition,
+with activation, piecewise affine duals, primal endpoint/affine-ray proofs and
+search-independent checker. No arbitrary daily disaggregation or series mixing.
+
+Frozen precision-frontier-v1 completed: 36 bundles, 2880 ordered pair profiles,
+2160 action/radius comparisons all pass; compiled/terminal medians
+1.234/1.871/2.274; no-reuse/terminal 1.046/1.152/1.192. Peak tree RSS 98377728 bytes.
+Equal-contract compiled SciPy Johnson comparator validates paths exactly with
+fallback. No fallback in measured pilot; forced fallback tested separately.
+Old negative H3 and all historical runs preserved. No new policy/complexity claim.
+33 diagnostics pass: 2 hand, 27 existing original/controlled, 4 missing-record
+derivatives; no new independent family claim, native DWD remains incomplete.
+
+36 stored proof bundles replayed search-free; new CLI/API/Streamlit integrated;
+temporary loopback server/external client verified new certificate and stopped.
+Initial full regression: 146 passed, 1 failed in Git provenance metadata when a
+temporary subdirectory inherited its parent repository. Source now requires .git
+at the supplied project root, preventing attribution to an unrelated ancestor.
+Original failed XML retained (precision-full.xml). Final: 147 passed, 1 known
+TestClient deprecation warning, 47.99 seconds (precision-final.xml).
+
+User confirmed no independent reviewer. Prepared review/proof_checklist.md and
+4 development-family blind packets, zero annotations; Gate B and external proof
+review pending, no one contacted. Detailed Russian explanation written in
+docs/project_explained_ru.md. Scale reader untouched; no new 200-GB experiment,
+real-200GB remains not_run. Final report derives metrics from saved runs.
+
+Final artifact audit passed: all 33 diagnostic certificates replayed independently,
+new Markdown local links resolve, UTF-8 checked, frozen protocol hash matches,
+and the five measured scientific modules are byte-identical to the pilot source
+ZIP. CLI precision/precision-verify exported and checked successfully; evidence:
+reports/validation/precision-cli.json and precision-artifact-audit.json. Full
+workspace Ruff passed. Final source/versions/history context retained separately;
+historical failed/successful test XMLs remain intact. Preparing a normal Git
+commit for the already authorized GitHub repository; no external review implied.
+
 Current status after user resume: engineering prototype completed; synthetic
 200-GB acceptance PASSED, 476 files / 200040947956 bytes fully scanned and
 SHA256-verified, 24 checked Query invocations in each 1/10/50/200-GB profile.

@@ -1,0 +1,2327 @@
+{
+  "case": {
+    "id": "dwd-00191-20230101-07-1672794000-1672837200-native-pending",
+    "observations": [
+      {
+        "id": "2023010401",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010401",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672790400,
+          "end": 1672794000,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010402",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010402",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672794000,
+          "end": 1672797600,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010403",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010403",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672797600,
+          "end": 1672801200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010404",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010404",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672801200,
+          "end": 1672804800,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010405",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010405",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672804800,
+          "end": 1672808400,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010406",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010406",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672808400,
+          "end": 1672812000,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010407",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010407",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672812000,
+          "end": 1672815600,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010408",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010408",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672815600,
+          "end": 1672819200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010409",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010409",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672819200,
+          "end": 1672822800,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010410",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010410",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672822800,
+          "end": 1672826400,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010411",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010411",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672826400,
+          "end": 1672830000,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010412",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010412",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672830000,
+          "end": 1672833600,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      },
+      {
+        "id": "2023010413",
+        "series": {
+          "quantity": "precipitation",
+          "location": "DWD:00191",
+          "spatial_support": "point",
+          "product": "DWD CDC hourly R1",
+          "version": "historical archive listing 2026-06-10",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": "0.0",
+        "original_timestamp": "2023010413",
+        "lower": "0.0",
+        "upper": "0.0",
+        "interval": {
+          "start": 1672833600,
+          "end": 1672837200,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+          "QN_8=3"
+        ]
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "end-label",
+        "assignments": {
+          "time_label": "end"
+        },
+        "intervals": {},
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      },
+      {
+        "id": "begin-label",
+        "assignments": {
+          "time_label": "begin"
+        },
+        "intervals": {
+          "2023010401": {
+            "start": 1672794000,
+            "end": 1672797600,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010402": {
+            "start": 1672797600,
+            "end": 1672801200,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010403": {
+            "start": 1672801200,
+            "end": 1672804800,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010404": {
+            "start": 1672804800,
+            "end": 1672808400,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010405": {
+            "start": 1672808400,
+            "end": 1672812000,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010406": {
+            "start": 1672812000,
+            "end": 1672815600,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010407": {
+            "start": 1672815600,
+            "end": 1672819200,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010408": {
+            "start": 1672819200,
+            "end": 1672822800,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010409": {
+            "start": 1672822800,
+            "end": 1672826400,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010410": {
+            "start": 1672826400,
+            "end": 1672830000,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010411": {
+            "start": 1672830000,
+            "end": 1672833600,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010412": {
+            "start": 1672833600,
+            "end": 1672837200,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          },
+          "2023010413": {
+            "start": 1672837200,
+            "end": 1672840800,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      }
+    ],
+    "query": {
+      "series": {
+        "quantity": "precipitation",
+        "location": "DWD:00191",
+        "spatial_support": "point",
+        "product": "DWD CDC hourly R1",
+        "version": "historical archive listing 2026-06-10",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "start": 1672794000,
+      "end": 1672837200,
+      "unit": "mm",
+      "timezone": "UTC",
+      "calendar": "proleptic_gregorian",
+      "objective": "amount",
+      "eps": "0",
+      "threshold": null,
+      "permitted_assumptions": []
+    },
+    "h_complete": false,
+    "completeness_basis": "period, mm and UTC verified; exact end-label not independently established for this archive",
+    "assumptions": [
+      "nonnegative precipitation increments",
+      "reported R1 values used as exact serialized inputs; not a physical instrument guarantee"
+    ],
+    "revision": 0,
+    "evidence": [],
+    "family_id": "DWD:00191",
+    "origin": "original",
+    "source_manifests": [
+      {
+        "dataset_id": "00191-20230101-07",
+        "provider": "DWD",
+        "product_kind": "station_observation",
+        "upstream": [],
+        "version": "historical archive listing 2026-06-10",
+        "request": {
+          "days": "2023-01-01/07"
+        },
+        "url": "https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/historical/stundenwerte_RR_00191_20050301_20251231_hist.zip",
+        "license": "CC-BY-4.0",
+        "downloaded_at": null,
+        "sha256": "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+        "extents": {},
+        "documentation_version": "DWD v24.03, updated 2024-05-06"
+      }
+    ]
+  },
+  "actions": [
+    {
+      "id": "measure-query",
+      "kind": "interval",
+      "cost": "1",
+      "start": 1672794000,
+      "end": 1672837200,
+      "attribute": null
+    },
+    {
+      "id": "measure-first-half",
+      "kind": "interval",
+      "cost": "1",
+      "start": 1672794000,
+      "end": 1672815600,
+      "attribute": null
+    }
+  ],
+  "bundle": {
+    "result": {
+      "status": "incomplete_model",
+      "h_complete": false,
+      "eps": "0",
+      "actions": [
+        {
+          "id": "measure-query",
+          "cost": "1",
+          "radius_kind": "unbounded",
+          "radius_supremum": null,
+          "safe_at_supremum": null,
+          "conditional_guarantee": false
+        },
+        {
+          "id": "measure-first-half",
+          "cost": "1",
+          "radius_kind": "unbounded",
+          "radius_supremum": null,
+          "safe_at_supremum": null,
+          "conditional_guarantee": false
+        }
+      ],
+      "certificate_id": "a05e43604347086f62621141bcdb3dcd8b3af37fd4795a87b77572930f0241e4"
+    },
+    "certificate": {
+      "version": "precision-1",
+      "case_hash": "4e52a37ddfde3ed4941ddf2925542a9f83ea2a4fa06746cc7d98ba07bf9f89e3",
+      "actions_hash": "ea413f826a58a5de1faaefcddece4789340373047bb14ef2c23596c2bb678a9a",
+      "worlds": {
+        "end-label": {
+          "feasible": true,
+          "point": {
+            "1672790400": "0",
+            "1672794000": "0",
+            "1672797600": "0",
+            "1672801200": "0",
+            "1672804800": "0",
+            "1672808400": "0",
+            "1672812000": "0",
+            "1672815600": "0",
+            "1672819200": "0",
+            "1672822800": "0",
+            "1672826400": "0",
+            "1672830000": "0",
+            "1672833600": "0",
+            "1672837200": "0",
+            "1672840800": "0"
+          }
+        },
+        "begin-label": {
+          "feasible": true,
+          "point": {
+            "1672790400": "0",
+            "1672794000": "0",
+            "1672797600": "0",
+            "1672801200": "0",
+            "1672804800": "0",
+            "1672808400": "0",
+            "1672812000": "0",
+            "1672815600": "0",
+            "1672819200": "0",
+            "1672822800": "0",
+            "1672826400": "0",
+            "1672830000": "0",
+            "1672833600": "0",
+            "1672837200": "0",
+            "1672840800": "0"
+          }
+        }
+      },
+      "pairs": [
+        [
+          {
+            "left": "end-label",
+            "right": "end-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372",
+                      "noise_lr",
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          },
+          {
+            "left": "end-label",
+            "right": "begin-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372",
+                      "noise_lr",
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          },
+          {
+            "left": "begin-label",
+            "right": "end-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372",
+                      "noise_lr",
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          },
+          {
+            "left": "begin-label",
+            "right": "begin-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372",
+                      "noise_lr",
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          }
+        ],
+        [
+          {
+            "left": "end-label",
+            "right": "end-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "noise_lr",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          },
+          {
+            "left": "end-label",
+            "right": "begin-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "noise_lr",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          },
+          {
+            "left": "begin-label",
+            "right": "end-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "noise_lr",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          },
+          {
+            "left": "begin-label",
+            "right": "begin-label",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 28,
+                    "end": 13,
+                    "edges": [
+                      "280cecf496d1ebcd3b3324f4",
+                      "610ffe665cdc6679996e4294",
+                      "370039ebb357bb54113244f4",
+                      "24e540f499f87d3443caa5d8",
+                      "cfaea026395c03ff9059508f",
+                      "c650ae2a9d977d1542ca6ba3",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "noise_lr",
+                      "c72efe52a104a6382bfe6c43",
+                      "06094efd06f83cec455b846e",
+                      "e76a6276f3479402b56771a2",
+                      "9dea86e8190dd75f595d1f02",
+                      "e6a5e8eb50b20eb34bb92dbb",
+                      "ba52f3cc6972b72762248290",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "b2ce9d800932b6f336a1e21d",
+                      "21e96fb8e0d493fcfcc9b35e",
+                      "433cf2046328fcd1e65774da",
+                      "9826f1b121cf9af821267b79",
+                      "2652574de436230cf681fa88",
+                      "6249efa95c04fb7bdec905d3",
+                      "7f48de662ecb6db281018372"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "7": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0",
+                "14": "0",
+                "15": "0",
+                "17": "0",
+                "18": "0",
+                "19": "0",
+                "20": "0",
+                "21": "0",
+                "22": "0",
+                "23": "0",
+                "24": "0",
+                "25": "0",
+                "26": "0",
+                "27": "0",
+                "28": "0",
+                "29": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "7": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0",
+              "14": "0",
+              "15": "0",
+              "17": "0",
+              "18": "0",
+              "19": "0",
+              "20": "0",
+              "21": "0",
+              "22": "0",
+              "23": "0",
+              "24": "0",
+              "25": "0",
+              "26": "0",
+              "27": "0",
+              "28": "0",
+              "29": "0"
+            }
+          }
+        ]
+      ]
+    },
+    "checker": {
+      "valid": true,
+      "checker_version": "precision-1",
+      "verified_domain": "all finite eta >= 0",
+      "conditional_on_complete_H": false
+    },
+    "metrics": {
+      "seconds": 0.028653399999711837,
+      "method": "terminal",
+      "endpoints": 15,
+      "pairs": 8,
+      "operations": {
+        "bellman_ford_calls": 32,
+        "edge_relaxation_attempts": 1212,
+        "compiled_johnson_calls": 2
+      }
+    }
+  },
+  "values": [
+    {
+      "radius": "0",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "1/10",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "1/2",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "999/1000",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "1",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "2",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        }
+      ]
+    },
+    {
+      "radius": "10",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": false
+        }
+      ]
+    }
+  ],
+  "lp": [
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.025569000000359665,
+        "lp_calls": 10
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.02318950000062614,
+        "lp_calls": 10
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.01957609999954002,
+        "lp_calls": 10
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.020543099999486003,
+        "lp_calls": 10
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.024116799999319483,
+        "lp_calls": 10
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.023928099999466212,
+        "lp_calls": 10
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": false
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.02263920000041253,
+        "lp_calls": 10
+      }
+    }
+  ],
+  "provenance": {
+    "origin": "original",
+    "family": "DWD:00191",
+    "input": "benchmark\\cases\\dwd-00191-20230101-07-1672794000-1672837200-native-pending.json",
+    "input_sha256": "97110d1980a0fa73322756fbbb221e379e684ae38d8ac0bc596d423e9a4e78ed"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "69d7c027cd6b133e5e1f58daf4727786693ded60711f40517d72e618f103a677",
+    "source_snapshot": "experiments\\source_snapshots\\69d7c027cd6b133e5e1f58daf4727786693ded60711f40517d72e618f103a677.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "ecc55d8876acf69be4c2c9f6e8da1d9d44e63fd7",
+    "git_dirty": true,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792254884.393439
+  },
+  "tests": 147,
+  "failures_or_errors": 0,
+  "measurements": [
+    {
+      "regime": {
+        "segments": 12,
+        "hypotheses": 2,
+        "actions": 6
+      },
+      "median_seconds": {
+        "full": 0.11144869999952789,
+        "compiled": 0.10994499999924301,
+        "terminal_no_reuse": 0.09318370000073628,
+        "terminal": 0.08906159999969532
+      },
+      "compiled_over_terminal": 1.2344826502063644,
+      "no_reuse_over_terminal": 1.0462836957909476
+    },
+    {
+      "regime": {
+        "segments": 24,
+        "hypotheses": 3,
+        "actions": 10
+      },
+      "median_seconds": {
+        "full": 0.7946581999995033,
+        "compiled": 0.7721519000006083,
+        "terminal_no_reuse": 0.47523029999956634,
+        "terminal": 0.41266619999987597
+      },
+      "compiled_over_terminal": 1.8711294988560738,
+      "no_reuse_over_terminal": 1.1516094606238871
+    },
+    {
+      "regime": {
+        "segments": 48,
+        "hypotheses": 3,
+        "actions": 14
+      },
+      "median_seconds": {
+        "full": 1.9880159000003914,
+        "compiled": 1.9396780999995826,
+        "terminal_no_reuse": 1.0165483999999196,
+        "terminal": 0.8530694000000949
+      },
+      "compiled_over_terminal": 2.2737635413946005,
+      "no_reuse_over_terminal": 1.1916362256104913
+    }
+  ],
+  "pilot_run_sha256": "0142d76e2537c379552b48a9bb43b83df7a66eb895e6b28cef9f2b7733c28fd9",
+  "diagnostics_sha256": "afe2b79df4166ca1b03f49cc8437c49d7efe0ba196c6d4c743f28df13361e151",
+  "test_xml_sha256": "1f4e907e4a8be6709ab308a2bb2fb079abd7f71130737594afdf2495951cf18d",
+  "replay_sha256": "1da7e47d59f7d8a2cce78335c487e191a50a51e3661f92f103e0dcd8a656513f",
+  "profiles": 36,
+  "ordered_pair_profiles": 2880,
+  "action_radius_comparisons": 2160,
+  "compiled_exact_fallbacks": 0,
+  "external_review": {
+    "status": "pending_no_independent_reviewer",
+    "user_response": "no independent reviewer currently available",
+    "annotations_completed": 0,
+    "packet": "review/annotation_blind",
+    "families": 4,
+    "held_out": false,
+    "Gate_B": "pending; these development families alone cannot pass external validity",
+    "contacts_messaged": false
+  },
+  "http_checker_valid": true,
+  "http_server_stopped": true,
+  "validation_history": [
+    "reports\\validation\\precision-final.xml",
+    "reports\\validation\\precision-full.xml",
+    "reports\\validation\\precision-generated.xml",
+    "reports\\validation\\precision-initial.xml",
+    "reports\\validation\\precision-integration.xml"
+  ],
+  "scope": "development oracle study; bounded adversarial observation error, one interval acquisition, amount Query; not Bayesian policy evaluation, not independent Gate B or established priority"
+}

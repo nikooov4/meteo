@@ -1,0 +1,18 @@
+[
+  {
+    "id": "complement",
+    "kind": "interval",
+    "cost": "1",
+    "start": 43200,
+    "end": 86400,
+    "attribute": null
+  },
+  {
+    "id": "first6",
+    "kind": "interval",
+    "cost": "1",
+    "start": 0,
+    "end": 21600,
+    "attribute": null
+  }
+]

@@ -9,8 +9,11 @@ from scipy.optimize import linprog
 from .action_domain import validate_actions
 
 
-def evaluate_paired_lp(case, actions):
+def evaluate_paired_lp(case, actions, error_radius="0"):
     validate_actions(case, actions)
+    radius = Fraction(error_radius)
+    if radius < 0:
+        raise ValueError("negative observation error radius")
     started = perf_counter()
     if case.query.calendar != "proleptic_gregorian":
         raise ValueError("unsupported calendar")
@@ -101,7 +104,12 @@ def evaluate_paired_lp(case, actions):
                 eq = None
                 if action.kind == "interval":
                     m = vector(action.start, action.end)
-                    eq = np.r_[m, -m]
+                    difference = np.r_[m, -m]
+                    if radius:
+                        a.extend((difference, -difference))
+                        b.extend((2 * float(radius), 2 * float(radius)))
+                    else:
+                        eq = difference
                 if case.query.objective == "threshold":
                     a.append(np.r_[-q, np.zeros(n)])
                     b.append(-float(Fraction(case.query.threshold)))

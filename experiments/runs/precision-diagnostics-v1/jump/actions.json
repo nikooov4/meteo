@@ -1,0 +1,10 @@
+[
+  {
+    "id": "measure-m",
+    "kind": "interval",
+    "cost": "1",
+    "start": 3600,
+    "end": 7200,
+    "attribute": null
+  }
+]

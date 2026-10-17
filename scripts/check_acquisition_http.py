@@ -1,5 +1,6 @@
 """Start a temporary loopback service, exercise external client, stop service."""
 
+import argparse
 import json
 import os
 import socket
@@ -14,8 +15,11 @@ from meteo_bridge.resources import atomic_json, run_metadata, sha256_file
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--precision", action="store_true")
+    args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    output = root / "reports/validation/acquisition-http"
+    output = root / "reports/validation" / ("precision-http" if args.precision else "acquisition-http")
     output.mkdir(parents=True, exist_ok=True)
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
@@ -41,8 +45,13 @@ def main():
                     time.sleep(0.1)
             if not ready:
                 raise RuntimeError("loopback server did not become ready; see server.log")
-            response = subprocess.run([sys.executable, str(root / "examples/acquisition_client.py"),
-                                       "--url", base, "--output", str(output / "bundle.json")],
+            command = [sys.executable, str(root / "examples/acquisition_client.py"),
+                       "--url", base, "--output", str(output / "bundle.json")]
+            if args.precision:
+                example = root / "experiments/runs/precision-diagnostics-v1/daily"
+                command.extend(["--precision", "--case", str(example / "case.json"),
+                                "--actions", str(example / "actions.json")])
+            response = subprocess.run(command,
                                       cwd=root, env=env, capture_output=True, text=True, timeout=60)
             (output / "client.log").write_text(response.stdout + response.stderr, encoding="utf8")
             response.check_returncode()

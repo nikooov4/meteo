@@ -151,6 +151,10 @@ def code_hash():
 
 def git_metadata(root):
     """Read revision/dirty state without changing Git config or requiring Git."""
+    # A dataset/temp directory inside another checkout is not itself a project
+    # root. Do not silently attribute its provenance to an ancestor repository.
+    if not (Path(root) / ".git").exists():
+        return {"git_revision": "not_a_git_repository", "git_dirty": None}
     try:
         command = ["git", "-C", str(root)]
         revision = subprocess.run(command + ["rev-parse", "--verify", "HEAD"],

@@ -1,0 +1,827 @@
+{
+  "case": {
+    "id": "ncar-lsp-0-2-316854",
+    "observations": [
+      {
+        "id": "step-1",
+        "series": {
+          "quantity": "large_scale_precipitation",
+          "location": "35.0,13.5",
+          "spatial_support": "0.25 degree ERA5 grid cell",
+          "product": "NSF-NCAR ERA5 LSP",
+          "version": "ds633.0",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": "2023-01-02T06:00:00+00:00"
+        },
+        "original_value": "0",
+        "original_timestamp": "1672642800",
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672639200,
+          "end": 1672642800,
+          "unit": "m",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": "2023-01-02T06:00:00+00:00",
+        "evidence_ids": [
+          "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+        ]
+      },
+      {
+        "id": "step-2",
+        "series": {
+          "quantity": "large_scale_precipitation",
+          "location": "35.0,13.5",
+          "spatial_support": "0.25 degree ERA5 grid cell",
+          "product": "NSF-NCAR ERA5 LSP",
+          "version": "ds633.0",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": "2023-01-02T06:00:00+00:00"
+        },
+        "original_value": "0",
+        "original_timestamp": "1672646400",
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672642800,
+          "end": 1672646400,
+          "unit": "m",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": "2023-01-02T06:00:00+00:00",
+        "evidence_ids": [
+          "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+        ]
+      },
+      {
+        "id": "step-3",
+        "series": {
+          "quantity": "large_scale_precipitation",
+          "location": "35.0,13.5",
+          "spatial_support": "0.25 degree ERA5 grid cell",
+          "product": "NSF-NCAR ERA5 LSP",
+          "version": "ds633.0",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": "2023-01-02T06:00:00+00:00"
+        },
+        "original_value": "0",
+        "original_timestamp": "1672650000",
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672646400,
+          "end": 1672650000,
+          "unit": "m",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": "2023-01-02T06:00:00+00:00",
+        "evidence_ids": [
+          "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+        ]
+      },
+      {
+        "id": "step-4",
+        "series": {
+          "quantity": "large_scale_precipitation",
+          "location": "35.0,13.5",
+          "spatial_support": "0.25 degree ERA5 grid cell",
+          "product": "NSF-NCAR ERA5 LSP",
+          "version": "ds633.0",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": "2023-01-02T06:00:00+00:00"
+        },
+        "original_value": "0",
+        "original_timestamp": "1672653600",
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672650000,
+          "end": 1672653600,
+          "unit": "m",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": "2023-01-02T06:00:00+00:00",
+        "evidence_ids": [
+          "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+        ]
+      },
+      {
+        "id": "step-5",
+        "series": {
+          "quantity": "large_scale_precipitation",
+          "location": "35.0,13.5",
+          "spatial_support": "0.25 degree ERA5 grid cell",
+          "product": "NSF-NCAR ERA5 LSP",
+          "version": "ds633.0",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": "2023-01-02T06:00:00+00:00"
+        },
+        "original_value": "0",
+        "original_timestamp": "1672657200",
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672653600,
+          "end": 1672657200,
+          "unit": "m",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": "2023-01-02T06:00:00+00:00",
+        "evidence_ids": [
+          "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+        ]
+      },
+      {
+        "id": "step-6",
+        "series": {
+          "quantity": "large_scale_precipitation",
+          "location": "35.0,13.5",
+          "spatial_support": "0.25 degree ERA5 grid cell",
+          "product": "NSF-NCAR ERA5 LSP",
+          "version": "ds633.0",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": "2023-01-02T06:00:00+00:00"
+        },
+        "original_value": "0",
+        "original_timestamp": "1672660800",
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672657200,
+          "end": 1672660800,
+          "unit": "m",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": "2023-01-02T06:00:00+00:00",
+        "evidence_ids": [
+          "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+        ]
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "native-hourly-period",
+        "assignments": {},
+        "intervals": {},
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      }
+    ],
+    "query": {
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "35.0,13.5",
+        "spatial_support": "0.25 degree ERA5 grid cell",
+        "product": "NSF-NCAR ERA5 LSP",
+        "version": "ds633.0",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": "2023-01-02T06:00:00+00:00"
+      },
+      "start": 1672639200,
+      "end": 1672660800,
+      "unit": "mm",
+      "timezone": "UTC",
+      "calendar": "proleptic_gregorian",
+      "objective": "amount",
+      "eps": "0",
+      "threshold": null,
+      "permitted_assumptions": []
+    },
+    "h_complete": true,
+    "completeness_basis": "native dimensions/units checked; ECMWF ERA5 HRES previous-postprocessing period",
+    "assumptions": [
+      "nonnegative precipitation increments",
+      "encoded reanalysis values used as exact inputs",
+      "ERA5 HRES accumulation is previous hour, not cumulative since initialization"
+    ],
+    "revision": 0,
+    "evidence": [],
+    "family_id": "ncar-era5-lsp",
+    "origin": "original",
+    "source_manifests": [
+      {
+        "dataset_id": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023010106_2023011606.nc",
+        "provider": "NSF NCAR",
+        "product_kind": "reanalysis",
+        "upstream": [
+          "ECMWF ERA5"
+        ],
+        "version": "ds633.0",
+        "request": {
+          "key": "e5.oper.fc.sfc.accumu/202301/e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023010106_2023011606.nc",
+          "initialization": "2023-01-02T06:00:00+00:00",
+          "grid_index": 316854
+        },
+        "url": "https://nsf-ncar-era5.s3.us-west-2.amazonaws.com/e5.oper.fc.sfc.accumu/202301/e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023010106_2023011606.nc",
+        "license": "https://www.ucar.edu/terms-of-use/data",
+        "downloaded_at": null,
+        "sha256": "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0",
+        "extents": {},
+        "documentation_version": "ECMWF ERA5 terminology checked 2026-10-16"
+      }
+    ]
+  },
+  "actions": [
+    {
+      "id": "measure-query",
+      "kind": "interval",
+      "cost": "1",
+      "start": 1672639200,
+      "end": 1672660800,
+      "attribute": null
+    },
+    {
+      "id": "measure-first-half",
+      "kind": "interval",
+      "cost": "1",
+      "start": 1672639200,
+      "end": 1672650000,
+      "attribute": null
+    }
+  ],
+  "bundle": {
+    "result": {
+      "status": "ok",
+      "h_complete": true,
+      "eps": "0",
+      "actions": [
+        {
+          "id": "measure-query",
+          "cost": "1",
+          "radius_kind": "unbounded",
+          "radius_supremum": null,
+          "safe_at_supremum": null,
+          "conditional_guarantee": true
+        },
+        {
+          "id": "measure-first-half",
+          "cost": "1",
+          "radius_kind": "unbounded",
+          "radius_supremum": null,
+          "safe_at_supremum": null,
+          "conditional_guarantee": true
+        }
+      ],
+      "certificate_id": "a93722ac665fbadf50ae6dfe0f9f4e558a7cb2377890dfa4ea70ed6dc3f3f9c5"
+    },
+    "certificate": {
+      "version": "precision-1",
+      "case_hash": "013fd736d3a3df4e267396ec498abb94598896d6f7dd8924c2b70023d265da2e",
+      "actions_hash": "99814700ef2d8e87b5b26610dd1acc8bb0cc802684a24895aaa6e32e7e3e9035",
+      "worlds": {
+        "native-hourly-period": {
+          "feasible": true,
+          "point": {
+            "1672639200": "0",
+            "1672642800": "0",
+            "1672646400": "0",
+            "1672650000": "0",
+            "1672653600": "0",
+            "1672657200": "0",
+            "1672660800": "0"
+          }
+        }
+      },
+      "pairs": [
+        [
+          {
+            "left": "native-hourly-period",
+            "right": "native-hourly-period",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 13,
+                    "end": 6,
+                    "edges": [
+                      "ecad888f5df387548ab5deb9",
+                      "6c9bba3ad15a591f0aa3624a",
+                      "555a019b1cfb6b5fae62f3ff",
+                      "28048fca3e6aa9697cb26762",
+                      "820033af0b63991526c752f9",
+                      "2cbeac31c941624f379ce390",
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 13,
+                    "end": 6,
+                    "edges": [
+                      "ecad888f5df387548ab5deb9",
+                      "6c9bba3ad15a591f0aa3624a",
+                      "555a019b1cfb6b5fae62f3ff",
+                      "28048fca3e6aa9697cb26762",
+                      "820033af0b63991526c752f9",
+                      "2cbeac31c941624f379ce390",
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6",
+                      "noise_lr",
+                      "ecad888f5df387548ab5deb9",
+                      "6c9bba3ad15a591f0aa3624a",
+                      "555a019b1cfb6b5fae62f3ff",
+                      "28048fca3e6aa9697cb26762",
+                      "820033af0b63991526c752f9",
+                      "2cbeac31c941624f379ce390",
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0"
+            }
+          }
+        ],
+        [
+          {
+            "left": "native-hourly-period",
+            "right": "native-hourly-period",
+            "activation_rho": "0",
+            "activation_cycle": null,
+            "kind": "finite",
+            "affines": [
+              {
+                "slope": 0,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 13,
+                    "end": 6,
+                    "edges": [
+                      "ecad888f5df387548ab5deb9",
+                      "6c9bba3ad15a591f0aa3624a",
+                      "555a019b1cfb6b5fae62f3ff",
+                      "28048fca3e6aa9697cb26762",
+                      "820033af0b63991526c752f9",
+                      "2cbeac31c941624f379ce390",
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "slope": 1,
+                "intercept": "0",
+                "paths": [
+                  {
+                    "start": 13,
+                    "end": 6,
+                    "edges": [
+                      "ecad888f5df387548ab5deb9",
+                      "6c9bba3ad15a591f0aa3624a",
+                      "555a019b1cfb6b5fae62f3ff",
+                      "28048fca3e6aa9697cb26762",
+                      "820033af0b63991526c752f9",
+                      "2cbeac31c941624f379ce390",
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "noise_lr",
+                      "28048fca3e6aa9697cb26762",
+                      "820033af0b63991526c752f9",
+                      "2cbeac31c941624f379ce390",
+                      "e7696a509031fb536549d4e8",
+                      "8593c3b592ef6f639d542723",
+                      "f90c40ac2b5cfcf41c8c03b3",
+                      "9c7ef8e40793e3bf6988836f",
+                      "af63def91280da72a5cdce84",
+                      "67115453b6b19e5d285727f6"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "start": "0",
+                "end": null,
+                "affine": 0
+              }
+            ],
+            "points": {
+              "0": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "4": "0",
+                "5": "0",
+                "6": "0",
+                "8": "0",
+                "9": "0",
+                "10": "0",
+                "11": "0",
+                "12": "0",
+                "13": "0"
+              }
+            },
+            "terminal_ray": {
+              "0": "0",
+              "1": "0",
+              "2": "0",
+              "3": "0",
+              "4": "0",
+              "5": "0",
+              "6": "0",
+              "8": "0",
+              "9": "0",
+              "10": "0",
+              "11": "0",
+              "12": "0",
+              "13": "0"
+            }
+          }
+        ]
+      ]
+    },
+    "checker": {
+      "valid": true,
+      "checker_version": "precision-1",
+      "verified_domain": "all finite eta >= 0",
+      "conditional_on_complete_H": true
+    },
+    "metrics": {
+      "seconds": 0.0055917999998200685,
+      "method": "terminal",
+      "endpoints": 7,
+      "pairs": 2,
+      "operations": {
+        "bellman_ford_calls": 9,
+        "edge_relaxation_attempts": 216,
+        "compiled_johnson_calls": 1
+      }
+    }
+  },
+  "values": [
+    {
+      "radius": "0",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "1/10",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "1/2",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "999/1000",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "1",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "2",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    },
+    {
+      "radius": "10",
+      "actions": [
+        {
+          "id": "measure-query",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width_kind": "finite",
+          "width": "0",
+          "guarantees_resolution": true
+        }
+      ]
+    }
+  ],
+  "lp": [
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.006438399999751709,
+        "lp_calls": 3
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.005886400000235881,
+        "lp_calls": 3
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.006903800000145566,
+        "lp_calls": 3
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.007665300000553543,
+        "lp_calls": 3
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.006476099999417784,
+        "lp_calls": 3
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.007362299999840616,
+        "lp_calls": 3
+      }
+    },
+    {
+      "actions": [
+        {
+          "id": "measure-query",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        },
+        {
+          "id": "measure-first-half",
+          "width": -0.0,
+          "width_kind": "finite",
+          "guarantees_resolution": true
+        }
+      ],
+      "numerical_only": true,
+      "threshold_tolerance": 1e-09,
+      "metrics": {
+        "seconds": 0.00680489999922429,
+        "lp_calls": 3
+      }
+    }
+  ],
+  "provenance": {
+    "origin": "original",
+    "family": "ncar-era5-lsp",
+    "input": "benchmark\\cases\\ncar-lsp-0-2-316854.json",
+    "input_sha256": "289c4066c7bb6ecca9ea6248a856d6df53146107872a1261f15234a85f8f4821"
+  }
+}

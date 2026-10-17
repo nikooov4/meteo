@@ -1,5 +1,27 @@
 # Claims ledger
 
+## Precision-frontier extension, 2026-10-17
+
+| Claim | Status / saved evidence |
+|---|---|
+| Complete bounded-error precision profile implemented | One interval amount action, amount Query, finite H, all finite eta>=0; exact raw-path/point/affine-ray certificate; docs/precision_frontier.md |
+| Conditional parametric proof | Written derivation + independent search-free checker; no external mathematical review; completeness/calibration not proved |
+| Pair activation can require an open safe precision limit | Exact hand counterexample eta<1 safe, eta=1 unsafe; precision-diagnostics-v1/jump.json; not claimed as a new general phenomenon |
+| Equal-contract compiled comparison | All three frozen development regimes favor terminal vs full-pair SciPy Johnson with exact proposal validation; ratios 1.234/1.871/2.274, 3 repeats each; no significance/general speed law claim |
+| Inter-action reuse contributes | no-reuse/terminal median ratios 1.046/1.152/1.192; preserves projection/checking; limited to saved regimes |
+| Independent numerical agreement | 2160 action/radius comparisons on six radii, paired increment LP tolerance 1e-7; finite grid is not an all-parameter proof |
+| Certificate replay | 36 bundles, 2880 ordered pair profiles; all checked without running search/LP; reports/validation/precision-replay.json |
+| Real compatibility diagnostics | 33 cases = 2 hand + 27 existing + 4 controlled derivatives; four underlying source families, no independent/held-out labels |
+| Method novelty / priority | UNESTABLISHED; nearest optimal-recovery-with-error and parametric-shortest-path foundations explicitly reviewed; docs/literature_delta_2026_10_17.md |
+| External review / Gate B | PENDING: no independent reviewer, annotations=0; blind development packet and proof checklist prepared, no messages sent |
+| New policy, multi-measurement guarantee, noisy threshold, new complexity | NOT CLAIMED; policy study separate and unchanged |
+| New 200-GB profile-oracle experiment | NOT RUN; prior synthetic reader scan unchanged, real-200GB still not_run |
+
+These are separate from the historical results below. Written mathematical
+arguments and implementation checks support the stated conditional contract;
+they are not an external proof review, a formal mechanized theorem or evidence
+that no earlier work contains the same specialization.
+
 | Claim | Status / saved evidence |
 |---|---|
 | Difference constraints, possible worlds, type checking, DRD, VOI | Known foundations, supplied review S06/S16/S19–S23 |

@@ -1,0 +1,91 @@
+{
+  "review_id": "review-04",
+  "family_id": "ncar-era5-lsp",
+  "series_identity": {
+    "quantity": "large_scale_precipitation",
+    "location": "35.0,13.0",
+    "spatial_support": "0.25 degree ERA5 grid cell",
+    "product": "NSF-NCAR ERA5 LSP",
+    "version": "ds633.0",
+    "member": "deterministic",
+    "vertical_support": "surface",
+    "cycle": "2023-01-01T06:00:00+00:00"
+  },
+  "raw_records": [
+    {
+      "record_id": "step-1",
+      "original_value": "0",
+      "original_timestamp": "1672556400",
+      "qc": "accepted",
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "record_id": "step-2",
+      "original_value": "0",
+      "original_timestamp": "1672560000",
+      "qc": "accepted",
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "record_id": "step-3",
+      "original_value": "0",
+      "original_timestamp": "1672563600",
+      "qc": "accepted",
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "record_id": "step-4",
+      "original_value": "0",
+      "original_timestamp": "1672567200",
+      "qc": "accepted",
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "record_id": "step-5",
+      "original_value": "0",
+      "original_timestamp": "1672570800",
+      "qc": "accepted",
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "record_id": "step-6",
+      "original_value": "0",
+      "original_timestamp": "1672574400",
+      "qc": "accepted",
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    }
+  ],
+  "query": {
+    "start": 1672552800,
+    "end": 1672574400,
+    "unit": "mm",
+    "timezone": "UTC",
+    "calendar": "proleptic_gregorian",
+    "objective": "amount",
+    "eps": "0",
+    "threshold": null,
+    "permitted_assumptions": []
+  },
+  "sources": [
+    {
+      "provider": "NSF NCAR",
+      "url": "https://nsf-ncar-era5.s3.us-west-2.amazonaws.com/e5.oper.fc.sfc.accumu/202301/e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023010106_2023011606.nc",
+      "sha256": "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0",
+      "documentation_version": "ECMWF ERA5 terminology checked 2026-10-16",
+      "version": "ds633.0"
+    }
+  ],
+  "split": "development family; NOT a new held-out family"
+}
