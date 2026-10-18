@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--frames", type=int, default=12)
     parser.add_argument("--member", type=int, default=0)
     parser.add_argument("--first-hour", type=int, default=0)
+    parser.add_argument("--archive-api", help="e.g. /map-archive; enables bounded time selection via local server")
     parser.add_argument("--output", type=Path, default=Path("outputs/maps/era5_lsp_animation.html"))
     args = parser.parse_args()
     if args.input.suffix == ".json":
@@ -25,9 +26,10 @@ def main():
     if args.output.exists():
         parser.error("output already exists; choose a new file to preserve prior/user maps")
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(map_html(data), encoding="utf8")
+    args.output.write_text(map_html(data, args.archive_api), encoding="utf8")
     metadata = {**data["metadata"], "html_sha256": sha256_file(args.output),
                 "html_bytes": args.output.stat().st_size,
+                "archive_api": args.archive_api,
                 "boundaries_sha256": sha256_file(Path("data/fixtures/natural-earth-110m-geometries.json"))}
     atomic_json(args.output.with_suffix(".json"), metadata)
     print(json.dumps({"output": str(args.output), "frames": metadata["frames"],

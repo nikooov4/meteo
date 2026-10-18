@@ -305,3 +305,19 @@ Plotly library. Added byte-identical 1/200-GB manifest provenance snapshots for
 publication without raw arrays. Windows prevents changing the sandbox-owned .git
 owner; a single-path safe.directory entry for this explicitly authorized workspace
 allows ordinary Git under the user's account. No wildcard/global trust disable.
+
+2026-10-19: generated a separate calibrated weather-v2 archive of 10,083,749,720
+useful bytes, 118 shards, seed 42; preserved legacy-v1 200 GB and earlier v2 1 GB.
+Disk plan feasible; generation 173.226 s, peak process-tree RSS 195,231,744 bytes.
+Full 10-GB SHA256/streaming scan complete: 226.157 MB/s, peak 220,205,056 bytes,
+24 certificate invocations (12 tasks first/repeat), eight LP validations, no errors.
+New v2 50/200 GB not_run; scan resume_count=0. Runs in reports/weather-10gb/scale.
+Archive map now uses the common FastAPI, one hourly field per request, four-frame
+browser cache and bounded checksum-signature cache. Top-left UTC time selection,
+separate members, explicit independent-cycle label, zoom retained. Native Edge
+checked dates, shard/cycle/member changes, year endpoint, playback and reset.
+Full regression 156 passed, 41.75 s, one existing TestClient deprecation warning.
+reports/weather_10gb.md distinguishes archive IO/Query validation from bounded
+precision-frontier experiments. Historical negative H3, Gate B pending and
+unestablished scientific priority remain unchanged. User's original ERA5 HTML
+preserved; previous main synthetic HTML backed up before promotion.

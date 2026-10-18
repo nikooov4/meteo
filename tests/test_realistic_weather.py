@@ -107,3 +107,50 @@ def test_weather_holdout_diagnostic_and_dry_run(calibration, tmp_path):
     dest = tmp_path / "not-created"
     plan = generate_weather(calibration, dest, target_size="200GB", dry_run=True)
     assert plan["target_bytes"] == 200_000_000_000 and not dest.exists()
+
+
+def test_archive_time_selection_reads_only_one_frame_and_separates_cycles(calibration, tmp_path):
+    from meteo_bridge.map_archive import MapArchive
+
+    out = tmp_path / "archive"
+    manifest = generate_weather(calibration, out, target_size="200KB", days_per_member=2, cycles_per_shard=1)
+    archive = MapArchive(out / "manifest.json")
+    catalog = archive.catalog()
+    assert len(catalog["members"]) >= 2
+    selected = archive.selection(0, "2023-01-01T17:00:00Z", "2023-01-01T20:00:00Z")
+    assert selected["first_hour"] == 11 and selected["hours"] == 3
+    first, h1 = archive.frame(0, 11)
+    second, h2 = archive.frame(0, 12)
+    assert len(first) == len(second) == 8*4
+    assert h1["X-Cycle-UTC"] != h2["X-Cycle-UTC"]
+    assert archive.stats["logical_data_bytes"] == 2*8*9
+    with nc.Dataset(out / manifest["shards"][1]["path"]) as ds:
+        expected = np.asarray(ds.variables["precipitation"][0], dtype="float32")
+    assert np.array_equal(np.frombuffer(second, dtype="<f4"), expected)
+    with pytest.raises(ValueError, match="outside"):
+        archive.selection(0, "2023-01-03T06:00:00Z", "2023-01-03T07:00:00Z")
+    with pytest.raises(ValueError, match="complete hourly"):
+        archive.selection(0, "2023-01-01T06:30:00Z", "2023-01-01T07:00:00Z")
+
+
+def test_map_archive_api_rejects_changed_identity_and_invalid_ranges(calibration, tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from meteo_bridge.api import app
+
+    out = tmp_path / "api-archive"
+    generate_weather(calibration, out, target_size="200KB", days_per_member=2, cycles_per_shard=1)
+    monkeypatch.setenv("METEOBRIDGE_MAP_MANIFEST", str(out / "manifest.json"))
+    monkeypatch.delenv("METEOBRIDGE_MAP_SCALE_REPORT", raising=False)
+    client = TestClient(app)
+    catalog = client.get("/map-archive/catalog").json()
+    response = client.get("/map-archive/frame", params={"hour": 12, "member": 1,
+                                                       "manifest_sha256": catalog["manifest_sha256"]})
+    assert response.status_code == 200 and len(response.content) == 32
+    assert response.headers["X-Member"] == "1"
+    assert client.get("/map-archive/frame", params={"hour": 0, "manifest_sha256": "changed"}).status_code == 409
+    assert client.get("/map-archive/range", params={"start": "2023-01-01T06:00:00Z",
+                                                   "end": "2023-01-01T06:00:00Z"}).status_code == 422
+    assert client.get("/map-archive/frame", params={"hour": -1,
+                                                    "manifest_sha256": catalog["manifest_sha256"]}).status_code == 422
+    assert client.get("/map-archive/metrics").json()["frame_requests"] == 1

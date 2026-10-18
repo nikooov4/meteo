@@ -60,3 +60,11 @@ or generalize endpoint gluing to several disconnected new measurements.
 Existing observation bounds can be intervals. Incomplete H permits modeled-only
 widths but never guarantees_resolution. Unsupported inputs, endpoint/pair limits
 and deadlines fail without issuing a partial guarantee. See continuous_acquisition.md.
+
+2026-10-19 archive viewer: a multi-day selection is navigation through distinct
+12-hour synthetic episodes, never an assumption that their cumulative functions
+join. Members remain separate; source hourly LSP is not total precipitation.
+The 10-GB v2 scale run validates archive reads and bounded Query/checker batches;
+it does not establish physical realism of every value or method novelty at scale.
+Frame requests bind the manifest SHA; first shard reads verify its checksum.
+The viewer trusts the declared grid/conventions of the completed v2 schema.

@@ -216,6 +216,7 @@ def run_scale_benchmark(
             "resume_count": 0,
             "scan_wall_s": 0.0,
             "checksum_wall_s": 0.0,
+            "maximum_accepted_encoded_value": 0.0,
         }
         if checkpoint.exists() and resume:
             state = json.loads(checkpoint.read_text())
@@ -273,6 +274,11 @@ def run_scale_benchmark(
                         accepted = (qc == 0) & np.isfinite(values)
                         if np.any(values[accepted] < 0):
                             raise ValueError("negative accepted precipitation")
+                        if "maximum_accepted_encoded_value" in state:
+                            state["maximum_accepted_encoded_value"] = max(
+                                state["maximum_accepted_encoded_value"],
+                                float(np.max(values, where=accepted, initial=0)),
+                            )
                         state["rows"] += values.size
                         state["accepted"] += int(accepted.sum())
                         state["missing"] += int(((qc == 1) | ~np.isfinite(values)).sum())

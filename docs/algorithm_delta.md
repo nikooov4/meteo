@@ -107,3 +107,8 @@ Saved result: all comparisons passed; graph/terminal median ratios
 0.900, 1.251, 1.747 across the three predeclared regimes. The smallest regime
 loses, numerical LP and warm cache are faster. Research go criterion met (2/3
 regimes); priority remains unestablished. See reports/continuous_acquisition.md.
+
+2026-10-19 engineering addition: bounded frame reads, fixed-scale animation and
+time-range selection over a new 10-GB v2 archive. This adds no algorithmic novelty
+claim and does not change the method/baseline comparison. Scale/checker evidence
+is separate from precision-frontier experiments; see reports/weather_10gb.md.

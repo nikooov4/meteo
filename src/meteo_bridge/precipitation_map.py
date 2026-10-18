@@ -129,6 +129,7 @@ def load_weather_map(manifest, bbox=WORLD_BBOX, member=0, first_hour=0, max_cell
                  for h in range(12)]
     metadata = {"origin": "synthetic", "schema": SCHEMA, "quantity": "large_scale_precipitation",
                 "product": "monthly block-bootstrap ERA5 LSP", "unit": "mm", "member": member,
+                "first_hour": first_hour,
                 "cycle_utc": init.isoformat(), "intervals_utc": intervals, "bbox": list(bbox),
                 "display_label": "СИНТЕТИКА v2 · LSP · не прогноз", "frames": 12,
                 "source_file": str(path.resolve()), "source_sha256": s["sha256"],
@@ -224,13 +225,19 @@ def precipitation_figure(data):
     return fig
 
 
-def map_html(data):
+def map_html(data, archive_api=None):
     """Compact, full-width viewer; pixel aspect handled once outside Plotly.
 
     Avoid interdependent axis/domain constraints: repeated container resizes
     must not shrink the plotting domain or expand the world bounds.
     """
     fig = precipitation_figure(data)
+    if archive_api:
+        if list(data["metadata"]["bbox"]) != list(WORLD_BBOX):
+            raise ValueError("archive time selection currently requires the full global grid")
+        # Only the initial image is embedded. Other archive hours are fetched
+        # individually; neither Python nor the browser retains the archive.
+        fig.frames = ()
     fig.update_layout(height=None, autosize=True, updatemenus=[], sliders=[], annotations=[],
                       margin={"l": 8, "r": 68, "t": 62, "b": 4, "autoexpand": False},
                       paper_bgcolor="rgba(0,0,0,0)",
@@ -268,6 +275,8 @@ def map_html(data):
     info = {"bbox": meta["bbox"], "intervals": meta["intervals_utc"],
             "origin": meta["origin"], "label": meta.get("display_label", "ERA5 LSP"),
             "grid_shape": meta["grid_shape"], "member": meta.get("member"),
+            "archive_api": archive_api, "first_hour": meta.get("first_hour", 0),
+            "cycle_utc": meta.get("cycle_utc"),
             "manifest_sha256": meta.get("manifest_sha256"), "source_sha256": meta.get("source_sha256")}
     encoded = json.dumps(info, ensure_ascii=False).replace("<", "\\u003c")
     template = Path(__file__).with_name("map_viewer.html").read_text(encoding="utf8")

@@ -14,12 +14,14 @@ from .action_domain import AcquisitionAction
 from .catalog import archives, connect
 from .domain import Case, Model, Query, digest
 from .imports import import_file
+from .map_archive import make_map_router
 from .resources import sha256_file
 from .services import apply_evidence, solve_query
 
 app = FastAPI(title="MeteoBridge", version="0.1.0")
 MAX_UPLOAD = 20 * 2**20
 _NETCDF_READ_LOCK = threading.Lock()
+app.include_router(make_map_router(_NETCDF_READ_LOCK))
 
 
 class ArchiveSelection(Model):

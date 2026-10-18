@@ -72,3 +72,14 @@ Initial review feasibility numbers are not reused as MeteoBridge results. Method
 | Method priority / new complexity | UNESTABLISHED / NOT CLAIMED; projection, flow duality, determinacy and worst-case recovery have prior art |
 | Continuous VOI/DRD policy superiority | NOT TESTED; new pilot compares oracles, not policies; old finite-policy evidence unchanged |
 | Independent real study / Gate B | PENDING; old synthetic 200-GB acceptance is separate, real-200GB still not_run |
+
+## Separate archive viewer and v2 scale run, 2026-10-19
+
+| Claim | Status / saved evidence |
+|---|---|
+| New calibrated v2 archive | 10,083,749,720 useful bytes, 118 shards; experiments/data_manifests/weather-global-10gb-v2.json |
+| New full streaming scan | Complete SHA256 scan; 226.157 MB/s, peak sampled process-tree RSS 220,205,056 bytes; reports/weather-10gb/scale/scale_report.json; OS cache uncontrolled |
+| Bounded Query/checker batch | 12 tasks first/repeat = 24 invocations per completed scale profile, eight LP validations; not every archive record certified |
+| Global time selection | Implemented and browser checked; one hourly field per request, four-frame browser cache, separate members/cycle labels |
+| New v2 50/200 GB | not_run; old legacy-v1 200-GB evidence preserved separately |
+| Novelty or archive-wide frontier advantage from map | NOT CLAIMED; method pilots use separate bounded cases, independent priority review and Gate B remain pending |

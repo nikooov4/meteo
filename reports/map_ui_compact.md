@@ -1,5 +1,10 @@
 # Компактная карта и её связь с экспериментами
 
+Обновление: основная ссылка теперь ведёт на **10-GB archive viewer** с выбором
+времени. Актуальные результаты и точная связь с экспериментами —
+[weather_10gb.md](weather_10gb.md). Ниже сохранён отчёт предыдущего 1-GB viewer;
+его hashes и browser runs относятся к той версии, сохранённой в локальном backup.
+
 2026-10-19. Обновлён текущий viewer
 `outputs/maps/synthetic_global_animation.html`:
 [открыть](http://127.0.0.1:8765/synthetic_global_animation.html?view=compact).

@@ -1,0 +1,104 @@
+{
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "e2c36998f0d8c52da00d919439cf202a490efb1dcac72892506a94b865f1f56d",
+    "source_snapshot": "experiments\\source_snapshots\\e2c36998f0d8c52da00d919439cf202a490efb1dcac72892506a94b865f1f56d.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "5d9e8012c34723279b9b30fc50ca860c9bf1e853",
+    "git_dirty": true,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792365843.7710407
+  },
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "156",
+    "time": "41.746",
+    "timestamp": "2026-10-19T02:13:11.796654+03:00",
+    "hostname": "Lemon"
+  },
+  "junit_sha256": "dafa6cf2aec39d8845c2395e136aaea71bf7e399d62bf56c232b472a8ccffaff",
+  "manifest_sha256": "07ae01c688ffb1b2d4a7870266eb8113aa2e424a4ed796fc748c7dde7a248663",
+  "archived_manifest": "experiments/data_manifests/weather-global-10gb-v2.json",
+  "scale_report_sha256": "4830cb02c06fd8f8945310af67014e27874e630ef31e07ecda3e2ba2443a7928",
+  "html_sha256": "49cbfb7d6d27dee5c0c8f2837b40979357245c187289b85de1d2f8ac5ae384ef",
+  "html_bytes": 5459201,
+  "archive_api": "/map-archive",
+  "viewer_template_sha256": "c2b726deba5652745f8a3c508ebc481e36e01e6d21157188f0af0e59070ba968",
+  "viewer_template_snapshot": "experiments\\source_snapshots\\c2b726deba5652745f8a3c508ebc481e36e01e6d21157188f0af0e59070ba968.html",
+  "wheel_includes_template": true,
+  "wheel_sha256": "c4f583b187e433936509d03e8bc8d390008c6fc67a4a96b04e21d7262870ef46",
+  "server_metrics": {
+    "frame_requests": 4,
+    "logical_data_bytes": 2332800,
+    "checksum_files": 3,
+    "frame_seconds_total": 0.2547809999960009,
+    "frame_seconds_max": 0.09576190000370843,
+    "verified_signatures_cached": 3,
+    "peak_process_tree_rss": 107147264,
+    "memory_limit": 17179869184
+  },
+  "catalog": {
+    "manifest_sha256": "07ae01c688ffb1b2d4a7870266eb8113aa2e424a4ed796fc748c7dde7a248663",
+    "data_bytes": 10083749720,
+    "grid_shape": [
+      180,
+      360
+    ],
+    "start_epoch": 1672552800,
+    "unit": "mm",
+    "quantity": "large_scale_precipitation",
+    "color_max_mm": 42.065,
+    "color_scale_from_full_scan": true,
+    "cycle_hours": 12,
+    "frame_bytes": 259200,
+    "server_verified_cache_limit": 16,
+    "members": [
+      {
+        "member": 0,
+        "first_hour": 0,
+        "hours": 8760,
+        "start_utc": "2023-01-01T06:00:00+00:00",
+        "end_utc": "2024-01-01T06:00:00+00:00"
+      },
+      {
+        "member": 1,
+        "first_hour": 0,
+        "hours": 8208,
+        "start_utc": "2023-01-01T06:00:00+00:00",
+        "end_utc": "2023-12-09T06:00:00+00:00"
+      }
+    ],
+    "semantics": "independent 12h episodes; individual hourly amounts, no cross-cycle totals"
+  },
+  "browser_reports": [
+    "archive-map-browser.json",
+    "archive-map-900.json"
+  ],
+  "main_viewer_http_status": 200,
+  "last_frame_member1_http_status": 200,
+  "last_frame_member1_response_sha256": "6dad0094d3f26f5f2a00b6c3e9676f22b1ae2a14dd96b03d645bd7f5723c4d5a",
+  "last_frame_member1_headers": {
+    "x-frame-start": "2023-12-09T05:00:00+00:00",
+    "x-cycle-utc": "2023-12-08T18:00:00+00:00",
+    "x-member": "1",
+    "x-source-sha256": "bf82fc77adbf1249fd5a18d8995d5e0e9db3ddcf9547f9c542ee9dd9bd395544",
+    "x-manifest-sha256": "07ae01c688ffb1b2d4a7870266eb8113aa2e424a4ed796fc748c7dde7a248663"
+  },
+  "previous_html_sha256": "457839d0a7df4ca7a421b2398d6c935abf4b131da3c74a6097093fad05067c51",
+  "scope": "10GB archive IO/Query checks, bounded frame viewer; precision-frontier pilots remain separate; Gate B pending"
+}
