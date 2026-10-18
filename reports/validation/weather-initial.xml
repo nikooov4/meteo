@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="14" time="35.618" timestamp="2026-10-19T00:20:10.341563+03:00" hostname="Lemon"><testcase classname="tests.test_realistic_weather" name="test_calibration_separates_whole_cycles_and_generator_cannot_read_holdout" time="2.147" /><testcase classname="tests.test_realistic_weather" name="test_weather_resume_global_map_and_exact_member_cycle_queries" time="1.897"><failure message="AssertionError: assert (True and 'certified' == 'exact'&#10;  &#10;  - exact&#10;  + certified)">calibration = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-initial/test_weather_resume_global_map0/calibration/manifest.json')
+tmp_path = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-initial/test_weather_resume_global_map0')
+
+    def test_weather_resume_global_map_and_exact_member_cycle_queries(calibration, tmp_path):
+        params = dict(calibration=calibration, target_size="150KB", days_per_member=1, cycles_per_shard=1)
+        out = tmp_path / "weather"
+        first = generate_weather(**params, output=out, max_shards=1)
+        assert first["status"] == "interrupted"
+        resumed = generate_weather(**params, output=out, resume=True)
+        fresh = generate_weather(**params, output=tmp_path / "fresh")
+        assert [s["sha256"] for s in resumed["shards"]] == [s["sha256"] for s in fresh["shards"]]
+        assert verify_scale_dataset(out / "manifest.json")["status"] == "full_verified"
+        case, _ = scale_case(out / "manifest.json", 0, 1, 6)
+        other, _ = scale_case(out / "manifest.json", 8, 1, 6)
+        assert case.query.series != other.query.series
+        assert case.query.series.quantity == "large_scale_precipitation"
+        bundle = solve_query(case)
+&gt;       assert bundle["checker"]["valid"] and bundle["result"]["status"] == "exact"
+E       AssertionError: assert (True and 'certified' == 'exact'
+E         
+E         - exact
+E         + certified)
+
+tests\test_realistic_weather.py:78: AssertionError</failure></testcase><testcase classname="tests.test_realistic_weather" name="test_weather_holdout_diagnostic_and_dry_run" time="0.530"><failure message="TypeError: Object of type float32 is not JSON serializable">calibration = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-initial/test_weather_holdout_diagnosti0/calibration/manifest.json')
+tmp_path = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-initial/test_weather_holdout_diagnosti0')
+
+    def test_weather_holdout_diagnostic_and_dry_run(calibration, tmp_path):
+&gt;       result = validate_weather(calibration, tmp_path / "diagnostic.json")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_realistic_weather.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\meteo_bridge\weather_validation.py:129: in validate_weather
+    atomic_json(output, result)
+src\meteo_bridge\resources.py:49: in atomic_json
+    json.dump(value, f, ensure_ascii=False, indent=2, allow_nan=False)
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\__init__.py:179: in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:432: in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:406: in _iterencode_dict
+    yield from chunks
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:406: in _iterencode_dict
+    yield from chunks
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:406: in _iterencode_dict
+    yield from chunks
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:439: in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;json.encoder.JSONEncoder object at 0x000001F3E2EE34D0&gt;
+o = np.float32(1.4700001)
+
+    def default(self, o):
+        """Implement this method in a subclass such that it returns
+        a serializable object for ``o``, or calls the base implementation
+        (to raise a ``TypeError``).
+    
+        For example, to support arbitrary iterators, you could
+        implement default like this::
+    
+            def default(self, o):
+                try:
+                    iterable = iter(o)
+                except TypeError:
+                    pass
+                else:
+                    return list(iterable)
+                # Let the base class default method raise the TypeError
+                return super().default(o)
+    
+        """
+&gt;       raise TypeError(f'Object of type {o.__class__.__name__} '
+                        f'is not JSON serializable')
+E       TypeError: Object of type float32 is not JSON serializable
+
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:180: TypeError</failure></testcase><testcase classname="tests.test_precipitation_map" name="test_native_map_preserves_hour_amounts_and_separates_cycles" time="0.013" /><testcase classname="tests.test_precipitation_map" name="test_map_rejects_excessive_selection_and_unknown_conventions" time="0.014" /><testcase classname="tests.test_precipitation_map" name="test_map_animation_uses_shared_scale_and_no_temporal_smoothing" time="0.466" /><testcase classname="tests.test_precipitation_map" name="test_streamlit_map_view" time="0.809" /><testcase classname="tests.test_scale" name="test_scale_resume_workers_and_boundary_query" time="10.341" /><testcase classname="tests.test_scale" name="test_storage_profiles[netcdf-zlib]" time="2.922" /><testcase classname="tests.test_scale" name="test_storage_profiles[parquet-none]" time="4.786" /><testcase classname="tests.test_scale" name="test_storage_profiles[parquet-zstd]" time="3.318" /><testcase classname="tests.test_scale" name="test_dry_run_budgets_dedup_and_padding" time="3.025" /><testcase classname="tests.test_scale" name="test_cumulative_chunk_halo_and_coordinate_truth" time="0.002" /><testcase classname="tests.test_scale" name="test_future_cumulative_total_bounds_missing_earlier_hour" time="4.091" /></testsuite></testsuites>

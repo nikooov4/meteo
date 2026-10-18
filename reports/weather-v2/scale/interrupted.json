@@ -1,0 +1,34 @@
+{
+  "report": "reports\\weather-v2\\scale\\scale_report.json",
+  "profiles": [
+    {
+      "target_bytes": 1000000000,
+      "data_bytes": 1026890064,
+      "status": "interrupted",
+      "scan_throughput_MB_s": 1269.7412912563243,
+      "peak_process_tree_rss": 195137536
+    },
+    {
+      "target_bytes": 10000000000,
+      "data_bytes": null,
+      "status": "not_run",
+      "scan_throughput_MB_s": null,
+      "peak_process_tree_rss": null
+    },
+    {
+      "target_bytes": 50000000000,
+      "data_bytes": null,
+      "status": "not_run",
+      "scan_throughput_MB_s": null,
+      "peak_process_tree_rss": null
+    },
+    {
+      "target_bytes": 200000000000,
+      "data_bytes": null,
+      "status": "not_run",
+      "scan_throughput_MB_s": null,
+      "peak_process_tree_rss": null
+    }
+  ],
+  "errors": []
+}

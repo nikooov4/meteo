@@ -1,0 +1,325 @@
+{
+  "schema": "meteobridge-weather-bootstrap-v2",
+  "target_bytes": 1000000000,
+  "config": {
+    "seed": 42,
+    "sigma": 0.12,
+    "calibration_sha256": "73d5c451c0256319a2a54f83362a1585050a40cf8a816340ead4edab5d2925e7",
+    "calibration_path": "D:\\VSCode_Projects\\meteo\\data\\calibration\\era5-lsp-2023-v1\\manifest.json",
+    "start": 1672552800,
+    "days_per_member": 365,
+    "cycles_per_shard": 12,
+    "series_per_shard": 64800,
+    "cells_per_member": 64800,
+    "hours": 8760,
+    "grid_shape": [
+      180,
+      360
+    ],
+    "spacing_degrees": 1.0,
+    "compression": "none",
+    "quantum_mm": 0.0001,
+    "memory_limit": 2147483648
+  },
+  "projected_max_shard_bytes": 86584576,
+  "disk_free_bytes": 247560560640,
+  "required_initial_free_bytes": 1286584576,
+  "workers": 1,
+  "generator_memory_limit": 2147483648,
+  "scope": "resampled, perturbed hourly LSP; independent 12 h blocks, not a forecast",
+  "version": 2,
+  "origin": "synthetic",
+  "config_hash": "8fb764a0004f0784b0cbcbd004714a137cc66ee9142bcc61558d474d32087fa9",
+  "data_bytes": 1026890064,
+  "shards": [
+    {
+      "path": "weather-000000.nc",
+      "bytes": 85574172,
+      "sha256": "a514e8aaebe49fa56159a7a2acb2d5c5525bf559c478ccaddac6a19ade19d13c",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 0,
+      "hours": 144,
+      "partition": [
+        0,
+        0
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000001.nc",
+      "bytes": 85574172,
+      "sha256": "c09866c42c74c7b5fb409af45ba919a827c982085395ba2c55e0f646cd217c47",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 144,
+      "hours": 144,
+      "partition": [
+        0,
+        144
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000002.nc",
+      "bytes": 85574172,
+      "sha256": "fb61f3404c36ee89291e6a65d0b9d5be66b6dd56513ac12d987003b61dbdb017",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 288,
+      "hours": 144,
+      "partition": [
+        0,
+        288
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000003.nc",
+      "bytes": 85574172,
+      "sha256": "2a16876b1825a92e0cdb12d184220c5f70d459943dd17966dc93a183e97dbd70",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 432,
+      "hours": 144,
+      "partition": [
+        0,
+        432
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000004.nc",
+      "bytes": 85574172,
+      "sha256": "9bf7783057a792dad340b14626fcb511fd58f6f296a95845b5cc0bfbd58edc3c",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 576,
+      "hours": 144,
+      "partition": [
+        0,
+        576
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000005.nc",
+      "bytes": 85574172,
+      "sha256": "b2381c5030b66c8c326f4f5e63d7ccf315f902277bfb9e7ae83433a011295536",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 720,
+      "hours": 144,
+      "partition": [
+        0,
+        720
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000006.nc",
+      "bytes": 85574172,
+      "sha256": "253fb74468aea9bcf2d463723080cf44c6aac2b032598f8707cd1fa7a9825b5f",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 864,
+      "hours": 144,
+      "partition": [
+        0,
+        864
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000007.nc",
+      "bytes": 85574172,
+      "sha256": "40b0e97fc3c548ebfc254f4ec6d90905274811a57dd90a35b4791098e17c3554",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 1008,
+      "hours": 144,
+      "partition": [
+        0,
+        1008
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000008.nc",
+      "bytes": 85574172,
+      "sha256": "d7ec01f7e26c7772b0b7b4eb6bd46a37340f5cc6ac231eecda95581b6f40d485",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 1152,
+      "hours": 144,
+      "partition": [
+        0,
+        1152
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000009.nc",
+      "bytes": 85574172,
+      "sha256": "4c09558e961553ac45323d6b342f70bacefd55647388e79357dc45adf7c4066c",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 1296,
+      "hours": 144,
+      "partition": [
+        0,
+        1296
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000010.nc",
+      "bytes": 85574172,
+      "sha256": "e7bc9e6f182787bdf55b07640f3a922965207fa05b2be6aeee9216e61cdc88a4",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 1440,
+      "hours": 144,
+      "partition": [
+        0,
+        1440
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    },
+    {
+      "path": "weather-000011.nc",
+      "bytes": 85574172,
+      "sha256": "d2f537ec6616cbef8437048e59845b0825515e41c6e3c9284909a53d13439a1c",
+      "rows": 9331200,
+      "logical_bytes": 83980800,
+      "schema": "meteobridge-weather-bootstrap-v2",
+      "series_start": 0,
+      "series_end": 64800,
+      "member": 0,
+      "first_hour": 1584,
+      "hours": 144,
+      "partition": [
+        0,
+        1584
+      ],
+      "scheme": 0,
+      "origin": "synthetic"
+    }
+  ],
+  "generation_runs": [
+    {
+      "environment": {
+        "python": "3.12.13",
+        "platform": "Windows-11-10.0.26100-SP0",
+        "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+        "logical_cpus": 12,
+        "physical_ram_bytes": 34223546368,
+        "versions": {
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "pydantic": "2.14.1",
+          "netCDF4": "1.7.5",
+          "pyarrow": "23.0.1"
+        },
+        "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+        "code_sha256": "bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982",
+        "source_snapshot": "experiments\\source_snapshots\\bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982.zip",
+        "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+        "git_revision": "cd8f984dd8fe97815699cc511fb5846b53ee7820",
+        "git_dirty": true,
+        "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+        "unix_time": 1792359281.6784875
+      },
+      "resume": false,
+      "status": "interrupted",
+      "seconds": 1.426729400001932,
+      "peak_process_tree_rss": 181268480,
+      "newly_written_shards": 1
+    },
+    {
+      "environment": {
+        "python": "3.12.13",
+        "platform": "Windows-11-10.0.26100-SP0",
+        "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+        "logical_cpus": 12,
+        "physical_ram_bytes": 34223546368,
+        "versions": {
+          "numpy": "2.5.4",
+          "scipy": "1.18.1",
+          "pydantic": "2.14.1",
+          "netCDF4": "1.7.5",
+          "pyarrow": "23.0.1"
+        },
+        "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+        "code_sha256": "bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982",
+        "source_snapshot": "experiments\\source_snapshots\\bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982.zip",
+        "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+        "git_revision": "cd8f984dd8fe97815699cc511fb5846b53ee7820",
+        "git_dirty": true,
+        "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+        "unix_time": 1792359283.2481139
+      },
+      "resume": true,
+      "status": "complete",
+      "seconds": 14.78356519999943,
+      "peak_process_tree_rss": 192901120,
+      "newly_written_shards": 11
+    }
+  ],
+  "status": "complete"
+}

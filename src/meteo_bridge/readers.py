@@ -41,7 +41,9 @@ def inspect_data(path):
 
 def scale_case(manifest_path, series_id, first_hour, hours=6):
     mp = Path(manifest_path)
-    manifest = json.loads(mp.read_text())
+    manifest = json.loads(mp.read_text(encoding="utf8"))
+    if manifest.get("schema") == "meteobridge-weather-bootstrap-v2":
+        return weather_case(mp, manifest, series_id, first_hour, hours)
     if manifest["origin"] != "synthetic":
         from .real_data import ncar_query_case
 
@@ -145,6 +147,47 @@ def scale_case(manifest_path, series_id, first_hour, hours=6):
         family_id=f"synthetic-group-{group}",
     )
     return case, logical_read
+
+
+def weather_case(mp, manifest, series_id, first_hour, hours):
+    """Known hourly amounts from exactly one synthetic member and one cycle."""
+    config = manifest["config"]
+    cells = config["cells_per_member"]
+    if series_id < 0 or first_hour < 0 or not 1 <= hours <= 12:
+        raise ValueError("invalid bounded Query")
+    if first_hour // 12 != (first_hour+hours-1) // 12:
+        raise ValueError("Query spans distinct synthetic cycles; choose one SeriesKey cycle")
+    member, cell = divmod(series_id, cells)
+    selected = [s for s in manifest["shards"] if s["member"] == member
+                and s["first_hour"] <= first_hour and first_hour+hours <= s["first_hour"]+s["hours"]]
+    if len(selected) != 1:
+        raise ValueError("requested member/time not present in prepared dataset")
+    shard = selected[0]
+    cycle = config["start"] + first_hour//12 * 12*3600
+    key = SeriesKey(quantity="large_scale_precipitation", location=f"global-grid:{cell}",
+                    spatial_support="sampled native grid point, not area mean", version="2",
+                    product="monthly-bootstrap-ERA5-LSP", member=f"synthetic-{member}", cycle=str(cycle))
+    offset = first_hour - shard["first_hour"]
+    with nc.Dataset(safe_data_path(mp.parent, shard["path"])) as ds:
+        v = ds.variables["precipitation"]
+        v.set_var_chunk_cache(2*2**20, 1009, .5)
+        values = np.asarray(v[offset:offset+hours, cell])
+        flags = np.asarray(ds.variables["qc"][offset:offset+hours, cell])
+    obs = []
+    for j, (value, flag) in enumerate(zip(values, flags)):
+        start = config["start"] + (first_hour+j)*3600
+        text = str(round(float(value), 4)) if np.isfinite(value) and value >= 0 else "0"
+        obs.append(IntervalObservation(id=f"m{member}-c{cell}-h{first_hour+j}", series=key,
+                    lower=text, upper=text, original_value=str(value),
+                    interval=Interpretation(start=start, end=start+3600),
+                    qc="accepted" if flag == 0 and np.isfinite(value) and value >= 0 else "rejected",
+                    evidence_ids=[shard["sha256"]]))
+    q = Query(series=key, start=config["start"]+first_hour*3600,
+              end=config["start"]+(first_hour+hours)*3600)
+    return Case(id=f"weather-m{member}-c{cell}-h{first_hour}", observations=obs, query=q,
+                hypotheses=[SemanticHypothesis(id="documented")], h_complete=True,
+                completeness_basis="v2 explicitly encoded hourly LSP amounts, member and cycle",
+                family_id=f"bootstrap-member-{member}-cycle-{cycle}"), len(obs)*9
 
 
 def scan_shard(path, shard, config, guard):

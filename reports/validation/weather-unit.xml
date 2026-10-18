@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="5.931" timestamp="2026-10-19T00:20:57.043885+03:00" hostname="Lemon"><testcase classname="tests.test_realistic_weather" name="test_calibration_separates_whole_cycles_and_generator_cannot_read_holdout" time="0.594" /><testcase classname="tests.test_realistic_weather" name="test_weather_resume_global_map_and_exact_member_cycle_queries" time="3.277"><failure message="KeyError: 'queries'">calibration = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-fixed/test_weather_resume_global_map0/calibration/manifest.json')
+tmp_path = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-fixed/test_weather_resume_global_map0')
+
+    def test_weather_resume_global_map_and_exact_member_cycle_queries(calibration, tmp_path):
+        params = dict(calibration=calibration, target_size="150KB", days_per_member=1, cycles_per_shard=1)
+        out = tmp_path / "weather"
+        first = generate_weather(**params, output=out, max_shards=1)
+        assert first["status"] == "interrupted"
+        resumed = generate_weather(**params, output=out, resume=True)
+        fresh = generate_weather(**params, output=tmp_path / "fresh")
+        assert [s["sha256"] for s in resumed["shards"]] == [s["sha256"] for s in fresh["shards"]]
+        assert verify_scale_dataset(out / "manifest.json")["status"] == "full_verified"
+        case, _ = scale_case(out / "manifest.json", 0, 1, 6)
+        other, _ = scale_case(out / "manifest.json", 8, 1, 6)
+        assert case.query.series != other.query.series
+        assert case.query.series.quantity == "large_scale_precipitation"
+        bundle = solve_query(case)
+        assert bundle["checker"]["valid"] and bundle["result"]["status"] == "certified"
+        assert bundle["result"]["lower"] == bundle["result"]["upper"]
+        with pytest.raises(ValueError, match="distinct synthetic cycles"):
+            scale_case(out / "manifest.json", 0, 10, 6)
+        data = load_weather_map(out / "manifest.json")
+        assert data["metadata"]["bbox"] == list(WORLD_BBOX)
+        assert data["amounts_mm"].shape == (12, 2, 4)
+        fig = precipitation_figure(data)
+        assert fig.layout.dragmode == "pan" and len(fig.frames) == 12
+        assert "СИНТЕТИКА" in fig.layout.title.text
+        assert '"scrollZoom": true' in map_html(data)
+        assert fig.layout.updatemenus[0].buttons[-1].method == "relayout"
+        report = run_scale_benchmark(out / "manifest.json", output=tmp_path / "benchmark", sizes="smoke", query_count=2)
+        assert not report["errors"]
+&gt;       assert all(q["checker_valid"] for q in report["profiles"][0]["queries"])
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'queries'
+
+tests\test_realistic_weather.py:92: KeyError</failure></testcase><testcase classname="tests.test_realistic_weather" name="test_weather_holdout_diagnostic_and_dry_run" time="0.517"><failure message="TypeError: Object of type float32 is not JSON serializable">calibration = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-fixed/test_weather_holdout_diagnosti0/calibration/manifest.json')
+tmp_path = WindowsPath('D:/VSCode_Projects/meteo/.meteo/weather-tests-fixed/test_weather_holdout_diagnosti0')
+
+    def test_weather_holdout_diagnostic_and_dry_run(calibration, tmp_path):
+&gt;       result = validate_weather(calibration, tmp_path / "diagnostic.json")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_realistic_weather.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\meteo_bridge\weather_validation.py:129: in validate_weather
+    atomic_json(output, result)
+src\meteo_bridge\resources.py:49: in atomic_json
+    json.dump(value, f, ensure_ascii=False, indent=2, allow_nan=False)
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\__init__.py:179: in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:432: in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:406: in _iterencode_dict
+    yield from chunks
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:406: in _iterencode_dict
+    yield from chunks
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:406: in _iterencode_dict
+    yield from chunks
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:439: in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;json.encoder.JSONEncoder object at 0x000001B4F6CDD430&gt;
+o = np.float32(1.4700001)
+
+    def default(self, o):
+        """Implement this method in a subclass such that it returns
+        a serializable object for ``o``, or calls the base implementation
+        (to raise a ``TypeError``).
+    
+        For example, to support arbitrary iterators, you could
+        implement default like this::
+    
+            def default(self, o):
+                try:
+                    iterable = iter(o)
+                except TypeError:
+                    pass
+                else:
+                    return list(iterable)
+                # Let the base class default method raise the TypeError
+                return super().default(o)
+    
+        """
+&gt;       raise TypeError(f'Object of type {o.__class__.__name__} '
+                        f'is not JSON serializable')
+E       TypeError: Object of type float32 is not JSON serializable
+
+.uv-python\cpython-3.12.13-windows-x86_64-none\Lib\json\encoder.py:180: TypeError</failure></testcase></testsuite></testsuites>

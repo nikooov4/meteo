@@ -40,7 +40,7 @@ def verify_scale_dataset(manifest, mode="full"):
     if mode not in {"sample", "full"}:
         raise ValueError("mode must be full or sample")
     mp = Path(manifest)
-    data = json.loads(mp.read_text())
+    data = json.loads(mp.read_text(encoding="utf8"))
     errors, checksums, identities, partitions, total, allocated, logical = [], set(), set(), set(), 0, 0, 0
     for index, entry in enumerate(data["shards"]):
         try:
@@ -53,8 +53,13 @@ def verify_scale_dataset(manifest, mode="full"):
             checksums.add(entry["sha256"])
             identities.add(identity)
             if data["origin"] == "synthetic":
-                if data["version"] != 1 or entry["schema"] != data["schema"]:
+                if data["version"] not in (1, 2) or entry["schema"] != data["schema"]:
                     raise ValueError("schema/version mismatch")
+                if data["version"] == 2:
+                    from .realistic_weather import SCHEMA
+
+                    if data["schema"] != SCHEMA:
+                        raise ValueError("unknown v2 schema")
                 part = tuple(entry["partition"])
                 if part in partitions:
                     raise ValueError("duplicate partition")
@@ -71,6 +76,17 @@ def verify_scale_dataset(manifest, mode="full"):
                         ids = ds.variables["series_id"][:]
                         if not np.array_equal(ids, np.arange(entry["series_start"], entry["series_end"])):
                             raise ValueError("partition series range mismatch")
+                        if data["version"] == 2:
+                            cfg = data["config"]
+                            step = cfg["spacing_degrees"]
+                            lat, lon = np.arange(-90+step/2, 90, step), np.arange(-180+step/2, 180, step)
+                            if (ds.member != entry["member"] or ds.quantity != "large_scale_precipitation"
+                                    or ds.unit != "mm" or ds.cycle_hours != 12 or entry["scheme"] != 0
+                                    or entry["series_start"] != entry["member"]*cfg["cells_per_member"]
+                                    or entry["hours"] % 12 or entry["first_hour"] % 12
+                                    or not np.array_equal(ds.variables["latitude"][:], np.repeat(lat, len(lon)))
+                                    or not np.array_equal(ds.variables["longitude"][:], np.tile(lon, len(lat)))):
+                                raise ValueError("v2 quantity/member/cycle/coordinates mismatch")
                         expected_t = (
                             data["config"]["start"]
                             + (entry["first_hour"] + np.arange(entry["hours"]) + 1) * 3600
@@ -151,7 +167,7 @@ def run_scale_benchmark(
 ):
     invocation_started = time.perf_counter()
     mp, output = Path(manifest), Path(output)
-    data = json.loads(mp.read_text())
+    data = json.loads(mp.read_text(encoding="utf8"))
     limit = min(size_bytes(memory_limit), 16 * 2**30)
     report = {
         "environment": run_metadata(),
@@ -283,6 +299,9 @@ def run_scale_benchmark(
                         series_id = shard.get("series_start", 0) + i % max(
                             1, shard.get("series_end", 1) - shard.get("series_start", 0)
                         )
+                        if data.get("schema") == "meteobridge-weather-bootstrap-v2":
+                            cells = data["config"]["cells_per_member"]
+                            series_id = shard["series_start"] + (cells//2 + i*104729) % cells
                         hour = shard.get("first_hour", 0) + 1
                         for condition in ("first_process_query_OS_cache_uncontrolled", "repeat"):
                             query_io_before = timed_io()
@@ -299,16 +318,30 @@ def run_scale_benchmark(
 
                                 from .scale_data import amounts
 
-                                true_amount = Fraction(
-                                    int(
-                                        amounts(
-                                            data["config"]["seed"],
-                                            np.array([series_id]),
-                                            np.arange(hour, hour + 6),
-                                        ).sum()
-                                    ),
-                                    100,
-                                )
+                                if data["version"] == 2:
+                                    from .realistic_weather import WeatherModel
+
+                                    cfg = data["config"]
+                                    model = WeatherModel(cfg["calibration_path"], cfg["seed"], cfg["sigma"])
+                                    try:
+                                        values, _ = model.block(cfg["start"] + hour//12*12*3600,
+                                                                series_id//cfg["cells_per_member"])
+                                        cell = series_id % cfg["cells_per_member"]
+                                        encoded = values.reshape(12, -1)[hour%12:hour%12+6, cell]
+                                        true_amount = sum((Fraction(str(float(v))) for v in encoded), Fraction(0))
+                                    finally:
+                                        model.close()
+                                else:
+                                    true_amount = Fraction(
+                                        int(
+                                            amounts(
+                                                data["config"]["seed"],
+                                                np.array([series_id]),
+                                                np.arange(hour, hour + 6),
+                                            ).sum()
+                                        ),
+                                        100,
+                                    )
                                 bounds = bundle["result"]
                                 truth_check = (
                                     (bounds["lower"] is None or Fraction(bounds["lower"]) <= true_amount)

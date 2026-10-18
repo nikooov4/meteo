@@ -1,5 +1,14 @@
 # Assumptions and supported fragment
 
+2026-10-19 weather-v2: synthetic LSP is a monthly/phase-matched resampled
+12-hour ERA5 cycle with a declared smooth intensity perturbation, not total
+precipitation or a physically continuous forecast. The global 1-degree lattice
+samples native points, not cell area means. No day-to-hour disaggregation.
+Member and cycle remain separate SeriesKey fields. Encoded 0.0001 mm amounts
+are exact only for the conditional data model. One-year first-half-month
+training/development holdout does not establish climate/extreme realism.
+
+
 Precision extension (2026-10-17): ONE acquired interval amount has reply y with
 |y-m|<=eta, any real error in that closed interval possible. Eta>=0 is supplied,
 not estimated from real sensors. No Gaussian distribution, quantization grid,

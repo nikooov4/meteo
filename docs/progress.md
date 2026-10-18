@@ -1,5 +1,40 @@
 # Progress
 
+2026-10-19 completed: acquired all 12 half-month 2023 ERA5 LSP references,
+3166788003 bytes including the existing January object. Contiguous one-cycle
+IO calibrated 240 training + 120 held-out cycles in 81.58 s, peak 310263808 B.
+Frozen weather validation ran without tuning: mean 0.058805 vs heldout 0.059588
+mm/h; v1 control 0.612368. V2 preserves spatial/temporal statistics much better
+than v1; the unperturbed block bootstrap remains equally strong and is better
+on most metrics. No perturbation advantage or new weather method is claimed.
+
+New dataset: 1026890064 actual data bytes in 12 unique NetCDF shards; actual
+generator stop/resume, peak 192901120 B. Full SHA256 + full normalized scan,
+actual scan stop/resume; 24/24 Query certificates and generating-truth checks,
+8 LP comparisons; 215.53 MB/s active scan, 208855040 B peak process-tree RSS.
+10/50/200 GB v2: not_run; 200-GB dry-run disk feasible, no extrapolation.
+Legacy 200 GB and user's existing HTML were preserved.
+
+Global synthetic animation 12x180x360, standalone 9705881 B HTML; Edge verified
+frame switching, zoom retention, world reset and scrollZoom; screenshot visually
+inspected. Streamlit synthetic view and HTTP 200 tested, archive registered and
+map opened for user. Pre-encoding-audit 154 tests passed in 52.35 s; final
+UTF-8 JSON/Unicode-manifest regression passed all 154 in 41.23 s. Current
+reader/checker also passed on the generated archive. Ruff/whitespace clean.
+Native Windows NetCDF/HDF5 rejects Cyrillic data directories; documented
+ASCII native-data path limitation, without claiming full Unicode HDF support.
+See reports/weather_v2.md and its saved runs/manifests for hashes and limitations.
+Scientific claims and historical negative H3 unchanged; Gate B pending.
+
+2026-10-19: user requested more realistic synthetic weather and a worldwide,
+zoomable animation. Implementing a separate monthly whole-cycle bootstrap
+profile, trained only on first-ten-day ERA5 LSP cycles, with separate held-out
+cycles and a small coherent intensity perturbation. Legacy v1 and its measured
+200-GB archive are preserved. Public monthly reference downloads use bounded
+ETag-pinned ranges after an initial long-stream network disconnect. No new
+200-GB run or climate/novelty claim follows from this implementation. Actual
+quality, memory, scan and browser results are recorded after execution.
+
 2026-10-18, resumed after explicit user pause. Map implementation and saved
 151-test regression were intact; completed map-context.json with source snapshot,
 versions, test/XML and actual HTML/browser hashes. Four map tests plus the full

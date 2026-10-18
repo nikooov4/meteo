@@ -1,5 +1,13 @@
 # Algorithm delta, frozen before pilot
 
+2026-10-19 implementation extension: global monthly block-bootstrap LSP
+surrogates and zoomable animation are engineering/benchmark support. They add
+no solver algorithm_delta, theoretical complexity or new priority claim.
+Whole-cycle resampling and spatial dependence are known weather-generator
+ideas; docs/weather_generator_v2.md gives scope, references and limitations.
+The historical negative H3 and precision-frontier evidence remain unchanged.
+
+
 ## Latest extension: all-error precision frontier (2026-10-17)
 
 The historical candidates and their saved results below remain unchanged.

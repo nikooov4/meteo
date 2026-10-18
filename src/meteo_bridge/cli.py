@@ -208,6 +208,32 @@ def generate_scale_command(
         raise typer.Exit(1) from exc
 
 
+@data_app.command("generate-weather")
+def generate_weather_command(
+    calibration: Annotated[Path, typer.Option()],
+    output: Annotated[Path, typer.Option()],
+    target_size: str = "100MB",
+    seed: int = 42,
+    sigma: float = .12,
+    start: str = "2023-01-01T06:00:00Z",
+    days_per_member: int = 365,
+    cycles_per_shard: int = 12,
+    memory_limit: str = "2GiB",
+    disk_budget: str | None = None,
+    resume: bool = False,
+    dry_run: bool = False,
+    max_shards: int | None = None,
+):
+    params = locals().copy()
+    from .realistic_weather import generate_weather
+
+    try:
+        emit(generate_weather(**params))
+    except (ValueError, OSError, MemoryError) as exc:
+        emit({"status": "failed", "error": str(exc)})
+        raise typer.Exit(1) from exc
+
+
 @data_app.command("prepare-real-scale")
 def prepare_real(
     provider: Annotated[str, typer.Option()],

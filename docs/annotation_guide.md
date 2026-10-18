@@ -1,5 +1,12 @@
 # Annotation guide
 
+2026-10-19: the weather-v2 heldout is a machine-separated development weather
+diagnostic. It is not an independent annotation, does not complete Gate B and
+must not be counted as a new independent family merely because resampling
+creates another member/file. Record LSP quantity, original reference cycle,
+synthetic member, sampling support and any block boundary when reviewing it.
+
+
 2026-10-17 precision extension: no independent reviewer is currently available
 (user-confirmed). Status remains pending; do not replace review with generated
 labels. review/annotation_blind contains four DEVELOPMENT family packets with raw

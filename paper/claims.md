@@ -1,5 +1,14 @@
 # Claims ledger
 
+2026-10-19 weather/map extension: monthly global 12-hour LSP block resampling
+with a smooth intensity perturbation supports an engineering benchmark and
+visual inspection. The generator is not a new scientific method, a forecast,
+an extreme-value/climate model or additional independent weather evidence.
+Development heldout metrics are separate from Gate B and solver/policy tests;
+old 200-GB scale results remain attached to legacy-v1 only. Scientific
+priority status of the precision-frontier proposal remains unestablished.
+
+
 2026-10-17 substantive prior-art follow-up:
 [novelty statement](novelty_statement_ru.md),
 [detailed comparison](../reports/novelty_justification.md),

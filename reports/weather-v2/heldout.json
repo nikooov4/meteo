@@ -1,0 +1,2338 @@
+{
+  "status": "completed",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982",
+    "source_snapshot": "experiments\\source_snapshots\\bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "cd8f984dd8fe97815699cc511fb5846b53ee7820",
+    "git_dirty": true,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792359326.1311672
+  },
+  "seed": 20261019,
+  "sigma": 0.12,
+  "calibration_sha256": "73d5c451c0256319a2a54f83362a1585050a40cf8a816340ead4edab5d2925e7",
+  "heldout_cycles": 120,
+  "training_cycles": 240,
+  "train_holdout_intersection": 0,
+  "grid_shape": [
+    180,
+    360
+  ],
+  "metrics": {
+    "real_heldout": {
+      "area_weighted_mean_mm_h": 0.05958806738104747,
+      "area_weighted_wet_fraction_ge_0_1mm": 0.09375812732924667,
+      "area_weighted_zero_fraction": 0.46019429947852064,
+      "wet_persistence_within_cycle": 0.8221216950047237,
+      "sample_p95_mm": 0.2131,
+      "sample_p99_mm": 0.9504049999999814,
+      "sample_values": 737280,
+      "lag1_log1p_correlation": 0.9375878383463051,
+      "longitude_log1p_correlation": 0.7696144696243424,
+      "latitude_log1p_correlation": 0.6512826746802673
+    },
+    "legacy_v1": {
+      "area_weighted_mean_mm_h": 0.6123680741162573,
+      "area_weighted_wet_fraction_ge_0_1mm": 0.31522794740292387,
+      "area_weighted_zero_fraction": 0.6611010495410534,
+      "wet_persistence_within_cycle": 0.8735108412007181,
+      "sample_p95_mm": 3.54,
+      "sample_p99_mm": 7.57,
+      "sample_values": 737280,
+      "lag1_log1p_correlation": 0.5886320559483785,
+      "longitude_log1p_correlation": 4.661055096972189e-05,
+      "latitude_log1p_correlation": -4.4697981760489876e-05
+    },
+    "unperturbed_block_bootstrap": {
+      "area_weighted_mean_mm_h": 0.058872373653903146,
+      "area_weighted_wet_fraction_ge_0_1mm": 0.0942057149693937,
+      "area_weighted_zero_fraction": 0.4586566138072055,
+      "wet_persistence_within_cycle": 0.8221414760361303,
+      "sample_p95_mm": 0.2089,
+      "sample_p99_mm": 0.9361049999999814,
+      "sample_values": 737280,
+      "lag1_log1p_correlation": 0.9365486819303745,
+      "longitude_log1p_correlation": 0.7740869726886375,
+      "latitude_log1p_correlation": 0.6572675005013333
+    },
+    "weather_v2": {
+      "area_weighted_mean_mm_h": 0.05880504468398752,
+      "area_weighted_wet_fraction_ge_0_1mm": 0.09386367031120911,
+      "area_weighted_zero_fraction": 0.4586566138072055,
+      "wet_persistence_within_cycle": 0.8219271777117768,
+      "sample_p95_mm": 0.208,
+      "sample_p99_mm": 0.9307419999999925,
+      "sample_values": 737280,
+      "lag1_log1p_correlation": 0.9363278293424513,
+      "longitude_log1p_correlation": 0.7744883371924672,
+      "latitude_log1p_correlation": 0.6577783546559932
+    }
+  },
+  "absolute_errors": {
+    "legacy_v1": {
+      "area_weighted_mean_mm_h": 0.5527800067352098,
+      "area_weighted_wet_fraction_ge_0_1mm": 0.22146982007367721,
+      "area_weighted_zero_fraction": 0.20090675006253278,
+      "wet_persistence_within_cycle": 0.05138914619599444,
+      "sample_p95_mm": 3.3269,
+      "sample_p99_mm": 6.619595000000019,
+      "lag1_log1p_correlation": 0.3489557823979266,
+      "longitude_log1p_correlation": 0.7695678590733727,
+      "latitude_log1p_correlation": 0.6513273726620279
+    },
+    "unperturbed_block_bootstrap": {
+      "area_weighted_mean_mm_h": 0.0007156937271443273,
+      "area_weighted_wet_fraction_ge_0_1mm": 0.0004475876401470319,
+      "area_weighted_zero_fraction": 0.0015376856713151255,
+      "wet_persistence_within_cycle": 1.978103140665155e-05,
+      "sample_p95_mm": 0.004200000000000009,
+      "sample_p99_mm": 0.01429999999999998,
+      "lag1_log1p_correlation": 0.0010391564159305533,
+      "longitude_log1p_correlation": 0.00447250306429503,
+      "latitude_log1p_correlation": 0.005984825821065964
+    },
+    "weather_v2": {
+      "area_weighted_mean_mm_h": 0.0007830226970599527,
+      "area_weighted_wet_fraction_ge_0_1mm": 0.00010554298196244205,
+      "area_weighted_zero_fraction": 0.0015376856713151255,
+      "wet_persistence_within_cycle": 0.00019451729294683862,
+      "sample_p95_mm": 0.005100000000000021,
+      "sample_p99_mm": 0.019662999999988884,
+      "lag1_log1p_correlation": 0.0012600090038538125,
+      "longitude_log1p_correlation": 0.004873867568124801,
+      "latitude_log1p_correlation": 0.006495679975725865
+    }
+  },
+  "monthly_cycle_metrics": {
+    "1": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.058943148276170795,
+          "area_weighted_wet_fraction": 0.0949379741961266
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6153263761121153,
+          "area_weighted_wet_fraction": 0.317415817900739
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.059315144061832796,
+          "area_weighted_wet_fraction": 0.09651778185615345
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05881464110679276,
+          "area_weighted_wet_fraction": 0.09592648324878085
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.055142697840452705,
+          "area_weighted_wet_fraction": 0.09725353824960056
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6141999080344053,
+          "area_weighted_wet_fraction": 0.31531544364304087
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06084349028874674,
+          "area_weighted_wet_fraction": 0.09770443749095883
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06073986551104897,
+          "area_weighted_wet_fraction": 0.09743879525374921
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0596769669328165,
+          "area_weighted_wet_fraction": 0.100942329240277
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6156924282427233,
+          "area_weighted_wet_fraction": 0.3172271698795576
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.055168261451107106,
+          "area_weighted_wet_fraction": 0.09363473925965497
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.055469389252135105,
+          "area_weighted_wet_fraction": 0.09313707960776124
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05966420798268274,
+          "area_weighted_wet_fraction": 0.0996458748118509
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6130499060280056,
+          "area_weighted_wet_fraction": 0.3143035413053705
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06059961209332745,
+          "area_weighted_wet_fraction": 0.09679826937661391
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.060306686273660114,
+          "area_weighted_wet_fraction": 0.09591304607625953
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05595780746805212,
+          "area_weighted_wet_fraction": 0.09962340673505174
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6132999061860259,
+          "area_weighted_wet_fraction": 0.315515303447251
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06577734711169622,
+          "area_weighted_wet_fraction": 0.10127942998248873
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06618593379239185,
+          "area_weighted_wet_fraction": 0.10010662034975867
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.055625359860872074,
+          "area_weighted_wet_fraction": 0.09666974691836387
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6131449945023298,
+          "area_weighted_wet_fraction": 0.3156083633216027
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05398816441544544,
+          "area_weighted_wet_fraction": 0.09005067788816051
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05277304863116269,
+          "area_weighted_wet_fraction": 0.0888644405261626
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06282038838490134,
+          "area_weighted_wet_fraction": 0.10270275504296388
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6204783067704112,
+          "area_weighted_wet_fraction": 0.31786499038339555
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05440869867298299,
+          "area_weighted_wet_fraction": 0.09394441604858952
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0541129358448384,
+          "area_weighted_wet_fraction": 0.09346668737408705
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05936227042431734,
+          "area_weighted_wet_fraction": 0.09951779864705983
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6180461203874767,
+          "area_weighted_wet_fraction": 0.3166885076961222
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05905502618533425,
+          "area_weighted_wet_fraction": 0.09329847004642206
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05878229039628909,
+          "area_weighted_wet_fraction": 0.09254064571562153
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05743392324158119,
+          "area_weighted_wet_fraction": 0.10060514873041061
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6201839866745951,
+          "area_weighted_wet_fraction": 0.3172370175583575
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0637771496847913,
+          "area_weighted_wet_fraction": 0.0979164448067063
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06379533351547528,
+          "area_weighted_wet_fraction": 0.09747376755305692
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05592662552391675,
+          "area_weighted_wet_fraction": 0.09699364447872207
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6109818265666037,
+          "area_weighted_wet_fraction": 0.31475639790031845
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05905502618533425,
+          "area_weighted_wet_fraction": 0.09329847004642206
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05976927277815894,
+          "area_weighted_wet_fraction": 0.09326535103775245
+        }
+      }
+    ],
+    "2": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.061924517227204406,
+          "area_weighted_wet_fraction": 0.09901586308665236
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6153753513967345,
+          "area_weighted_wet_fraction": 0.31862417016119643
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.055995958235233324,
+          "area_weighted_wet_fraction": 0.09027167569086215
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05555335654213082,
+          "area_weighted_wet_fraction": 0.08998669224988771
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06515607674778921,
+          "area_weighted_wet_fraction": 0.09794361178554224
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6093752985628206,
+          "area_weighted_wet_fraction": 0.3130999668776584
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05510300765483442,
+          "area_weighted_wet_fraction": 0.09190997212832043
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.055581796937019756,
+          "area_weighted_wet_fraction": 0.09220219648346085
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06386259870396926,
+          "area_weighted_wet_fraction": 0.10129844889230404
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6136258715391217,
+          "area_weighted_wet_fraction": 0.31656700952454964
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06157323306547828,
+          "area_weighted_wet_fraction": 0.09715536947687294
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.061646647930396925,
+          "area_weighted_wet_fraction": 0.09735444126948478
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0652839891451455,
+          "area_weighted_wet_fraction": 0.09876856198378858
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6124579564564077,
+          "area_weighted_wet_fraction": 0.3166067729974014
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.066495898877404,
+          "area_weighted_wet_fraction": 0.09597407865861689
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06684442962873995,
+          "area_weighted_wet_fraction": 0.0963645521578745
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06325370893746582,
+          "area_weighted_wet_fraction": 0.09673600470880062
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6124080506761272,
+          "area_weighted_wet_fraction": 0.3157732028332986
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.055995958235233324,
+          "area_weighted_wet_fraction": 0.09027167569086215
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.056940518578109195,
+          "area_weighted_wet_fraction": 0.08962341724720482
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06518885490112485,
+          "area_weighted_wet_fraction": 0.09468150051557131
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6125850635171082,
+          "area_weighted_wet_fraction": 0.3156698734606564
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.066495898877404,
+          "area_weighted_wet_fraction": 0.09597407865861689
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06716818333358746,
+          "area_weighted_wet_fraction": 0.09702654600867469
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06112336917732587,
+          "area_weighted_wet_fraction": 0.09619845048357373
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6104502453019465,
+          "area_weighted_wet_fraction": 0.3141260720665509
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.055995958235233324,
+          "area_weighted_wet_fraction": 0.09027167569086215
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05585822604425809,
+          "area_weighted_wet_fraction": 0.08938614863330321
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06080298376815564,
+          "area_weighted_wet_fraction": 0.10075848592817864
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6135254482039525,
+          "area_weighted_wet_fraction": 0.315778163421867
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06415653544040636,
+          "area_weighted_wet_fraction": 0.09632333837022394
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0640779754354304,
+          "area_weighted_wet_fraction": 0.09573916665443871
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06395622014136798,
+          "area_weighted_wet_fraction": 0.09952077381382296
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6074492893534914,
+          "area_weighted_wet_fraction": 0.3138298371101038
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0619634261678425,
+          "area_weighted_wet_fraction": 0.10037475322298998
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.061871820349936046,
+          "area_weighted_wet_fraction": 0.10026042205078116
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06335407636841299,
+          "area_weighted_wet_fraction": 0.0982157778733785
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6147452905245006,
+          "area_weighted_wet_fraction": 0.3154599606438696
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0643867623456273,
+          "area_weighted_wet_fraction": 0.09721258473669595
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06251282587914661,
+          "area_weighted_wet_fraction": 0.09587230188024469
+        }
+      }
+    ],
+    "3": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05303998128860879,
+          "area_weighted_wet_fraction": 0.0917177398896049
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.61188368145044,
+          "area_weighted_wet_fraction": 0.31523212585354304
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05783757553337721,
+          "area_weighted_wet_fraction": 0.09200381502898773
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.058126415257444414,
+          "area_weighted_wet_fraction": 0.09149900836313722
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.053009565381503435,
+          "area_weighted_wet_fraction": 0.0900257560718073
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6115640260552068,
+          "area_weighted_wet_fraction": 0.3144719615665842
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06070377435534278,
+          "area_weighted_wet_fraction": 0.09481595844867276
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06095636556829631,
+          "area_weighted_wet_fraction": 0.09420272100695144
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05716821583337276,
+          "area_weighted_wet_fraction": 0.09278025096769328
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6095411239902088,
+          "area_weighted_wet_fraction": 0.31469145692442224
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06416074992332056,
+          "area_weighted_wet_fraction": 0.09459134317717896
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06430220426045948,
+          "area_weighted_wet_fraction": 0.09473686399643372
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05499254279087094,
+          "area_weighted_wet_fraction": 0.0916641456544988
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6119090688101003,
+          "area_weighted_wet_fraction": 0.3134886408954637
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05549706503065408,
+          "area_weighted_wet_fraction": 0.09183198376449826
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05528626830443641,
+          "area_weighted_wet_fraction": 0.09147376022480444
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05782871349624515,
+          "area_weighted_wet_fraction": 0.0930591790003477
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6083403406783947,
+          "area_weighted_wet_fraction": 0.31472523018273263
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06194394903222093,
+          "area_weighted_wet_fraction": 0.09478210067285607
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06108743003326784,
+          "area_weighted_wet_fraction": 0.09411523387208144
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05548975004190593,
+          "area_weighted_wet_fraction": 0.08955555041807714
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6107089769844523,
+          "area_weighted_wet_fraction": 0.3147499962738346
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0569997321979025,
+          "area_weighted_wet_fraction": 0.09276901406217687
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.056584223110919554,
+          "area_weighted_wet_fraction": 0.09253988834044395
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.052328229400241365,
+          "area_weighted_wet_fraction": 0.08813369214510526
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6122760204195039,
+          "area_weighted_wet_fraction": 0.3161204260586427
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06419970336075634,
+          "area_weighted_wet_fraction": 0.09679073929328645
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06475796279411561,
+          "area_weighted_wet_fraction": 0.09687181797133299
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05106160194652266,
+          "area_weighted_wet_fraction": 0.0873443375380658
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6148143216042321,
+          "area_weighted_wet_fraction": 0.3152485867524286
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06165581175974344,
+          "area_weighted_wet_fraction": 0.09513144393957847
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.062253822917899104,
+          "area_weighted_wet_fraction": 0.09542487198504435
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.051235564315333666,
+          "area_weighted_wet_fraction": 0.08618986484304852
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6112490311534238,
+          "area_weighted_wet_fraction": 0.31669840228356505
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.061759614483780166,
+          "area_weighted_wet_fraction": 0.09446529818492994
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06209862237048422,
+          "area_weighted_wet_fraction": 0.09419945013310438
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05085577952390647,
+          "area_weighted_wet_fraction": 0.08732597986579367
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.615061002066609,
+          "area_weighted_wet_fraction": 0.3158684014319793
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06256489680621072,
+          "area_weighted_wet_fraction": 0.09196970810150445
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06323247317156262,
+          "area_weighted_wet_fraction": 0.09237562393471217
+        }
+      }
+    ],
+    "4": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05441023791546437,
+          "area_weighted_wet_fraction": 0.09310829973734401
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6104004762704751,
+          "area_weighted_wet_fraction": 0.3159119590209733
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05192239739131516,
+          "area_weighted_wet_fraction": 0.0881821213256801
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05123892474662296,
+          "area_weighted_wet_fraction": 0.08790729275898558
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.052976477534113976,
+          "area_weighted_wet_fraction": 0.08978633951791426
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6122136985927065,
+          "area_weighted_wet_fraction": 0.3150622514356748
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05157619393201871,
+          "area_weighted_wet_fraction": 0.08503844866599662
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05148086009966901,
+          "area_weighted_wet_fraction": 0.08479365291612098
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05531015909834325,
+          "area_weighted_wet_fraction": 0.08743413478653796
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.60635011312172,
+          "area_weighted_wet_fraction": 0.3124057846300679
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.059373773200119224,
+          "area_weighted_wet_fraction": 0.0929752385317071
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05987231234234012,
+          "area_weighted_wet_fraction": 0.09329184363069053
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05591162424348991,
+          "area_weighted_wet_fraction": 0.08631722710312814
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6092044113834464,
+          "area_weighted_wet_fraction": 0.3153241491817239
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.053534090900753444,
+          "area_weighted_wet_fraction": 0.08767560999189061
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.053073443093352345,
+          "area_weighted_wet_fraction": 0.08713702089357682
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.04792216531678748,
+          "area_weighted_wet_fraction": 0.08539556107027342
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6152535978196361,
+          "area_weighted_wet_fraction": 0.3172000529175357
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.059373773200119224,
+          "area_weighted_wet_fraction": 0.0929752385317071
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05903347247307736,
+          "area_weighted_wet_fraction": 0.09226059233459839
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0503535194115162,
+          "area_weighted_wet_fraction": 0.08242228587174755
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6129330366461425,
+          "area_weighted_wet_fraction": 0.3156386293437561
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.055900549555067465,
+          "area_weighted_wet_fraction": 0.08975924951263875
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05605203761481567,
+          "area_weighted_wet_fraction": 0.08941641656319259
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05679648309700175,
+          "area_weighted_wet_fraction": 0.0885974151058604
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6086182011357006,
+          "area_weighted_wet_fraction": 0.3142685403318468
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05700873475309222,
+          "area_weighted_wet_fraction": 0.08967936450404387
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05799554129086158,
+          "area_weighted_wet_fraction": 0.08989538341979639
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05732925011886753,
+          "area_weighted_wet_fraction": 0.08677987211183628
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6120920188044473,
+          "area_weighted_wet_fraction": 0.315736823153508
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.053534090900753444,
+          "area_weighted_wet_fraction": 0.08767560999189061
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.053077744252803344,
+          "area_weighted_wet_fraction": 0.08752808524841421
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05618694266022762,
+          "area_weighted_wet_fraction": 0.08917163522567
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6129944302423782,
+          "area_weighted_wet_fraction": 0.3151972585529647
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05750134186369741,
+          "area_weighted_wet_fraction": 0.09409661503486626
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05620787441284069,
+          "area_weighted_wet_fraction": 0.09263996832043522
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05786679510341916,
+          "area_weighted_wet_fraction": 0.08835625719933354
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6141631491308296,
+          "area_weighted_wet_fraction": 0.3150704286688387
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05239970294272461,
+          "area_weighted_wet_fraction": 0.08897395510453104
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.052415167113952735,
+          "area_weighted_wet_fraction": 0.08825453147639897
+        }
+      }
+    ],
+    "5": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06071672961904612,
+          "area_weighted_wet_fraction": 0.10292907473988132
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.614398436144474,
+          "area_weighted_wet_fraction": 0.31692682316913956
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0527429139152868,
+          "area_weighted_wet_fraction": 0.0957980251098563
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05230046848365319,
+          "area_weighted_wet_fraction": 0.09637593128098464
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.061846224163169136,
+          "area_weighted_wet_fraction": 0.10059123885068012
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.610218159074562,
+          "area_weighted_wet_fraction": 0.3148187885707193
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0532787409457212,
+          "area_weighted_wet_fraction": 0.0924148396621124
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05292208239383542,
+          "area_weighted_wet_fraction": 0.09208084981989322
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06510379688501411,
+          "area_weighted_wet_fraction": 0.1030294882521105
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6188453972105639,
+          "area_weighted_wet_fraction": 0.3188959367712285
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05118202056492286,
+          "area_weighted_wet_fraction": 0.09523668796150524
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05157751695483067,
+          "area_weighted_wet_fraction": 0.09522557611047416
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06582674967879494,
+          "area_weighted_wet_fraction": 0.1016031519337245
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6158120495282091,
+          "area_weighted_wet_fraction": 0.3168785583436464
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0575982319239521,
+          "area_weighted_wet_fraction": 0.09565006997440978
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05915239249940541,
+          "area_weighted_wet_fraction": 0.0962765964537573
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06350128498795546,
+          "area_weighted_wet_fraction": 0.10038492632756575
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6064086216462174,
+          "area_weighted_wet_fraction": 0.31262020631340093
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05984112380924512,
+          "area_weighted_wet_fraction": 0.09669746921136238
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05969461250221455,
+          "area_weighted_wet_fraction": 0.09607090171118846
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06619360822053892,
+          "area_weighted_wet_fraction": 0.09727551170166004
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6096784393210122,
+          "area_weighted_wet_fraction": 0.3141961878241054
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06104147961820111,
+          "area_weighted_wet_fraction": 0.09784585705134628
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.061575874091684656,
+          "area_weighted_wet_fraction": 0.09789531708572353
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06480402232175073,
+          "area_weighted_wet_fraction": 0.09488861256846906
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.615055477282149,
+          "area_weighted_wet_fraction": 0.316162492731852
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.055285403074785446,
+          "area_weighted_wet_fraction": 0.1013609138718084
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.056218971937780235,
+          "area_weighted_wet_fraction": 0.10153248928279848
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06605979252961597,
+          "area_weighted_wet_fraction": 0.09233712835502095
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6075193052560478,
+          "area_weighted_wet_fraction": 0.31452120769387293
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06104147961820111,
+          "area_weighted_wet_fraction": 0.09784585705134628
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06015486133060325,
+          "area_weighted_wet_fraction": 0.09683798336638773
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.060414822180341464,
+          "area_weighted_wet_fraction": 0.0937327206879409
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6144932238750933,
+          "area_weighted_wet_fraction": 0.3147532679479887
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0527429139152868,
+          "area_weighted_wet_fraction": 0.0957980251098563
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05243349685052449,
+          "area_weighted_wet_fraction": 0.09470965245144229
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.060244963235064175,
+          "area_weighted_wet_fraction": 0.08978561915458898
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6134399229633242,
+          "area_weighted_wet_fraction": 0.3161949026683685
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0575982319239521,
+          "area_weighted_wet_fraction": 0.09565006997440978
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05780217584957452,
+          "area_weighted_wet_fraction": 0.09530242519202735
+        }
+      }
+    ],
+    "6": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05908624693731578,
+          "area_weighted_wet_fraction": 0.09203674070661658
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6118224626671982,
+          "area_weighted_wet_fraction": 0.3162673056134197
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05356328804942308,
+          "area_weighted_wet_fraction": 0.08914163232727236
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0540544833755975,
+          "area_weighted_wet_fraction": 0.08885044394689032
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06012555643572877,
+          "area_weighted_wet_fraction": 0.09054627618700842
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6160698423755745,
+          "area_weighted_wet_fraction": 0.3157628675797621
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.058191299949079074,
+          "area_weighted_wet_fraction": 0.08757813147651367
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.057319345429327415,
+          "area_weighted_wet_fraction": 0.08635944998140764
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05666344239124997,
+          "area_weighted_wet_fraction": 0.09327258300214061
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6163339013198245,
+          "area_weighted_wet_fraction": 0.31651096598597483
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.056665197170848114,
+          "area_weighted_wet_fraction": 0.09106879673695145
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05682119998539819,
+          "area_weighted_wet_fraction": 0.09145848327752411
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05563817741664851,
+          "area_weighted_wet_fraction": 0.09178235155906167
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6121946871589347,
+          "area_weighted_wet_fraction": 0.31479572061114797
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05483567877363826,
+          "area_weighted_wet_fraction": 0.0866125756248685
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05438059899975438,
+          "area_weighted_wet_fraction": 0.08565004700843012
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05546629238728978,
+          "area_weighted_wet_fraction": 0.09236239750278821
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6159139686156114,
+          "area_weighted_wet_fraction": 0.31680249608112393
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.049951995445618645,
+          "area_weighted_wet_fraction": 0.0868842812295089
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.049783540045908736,
+          "area_weighted_wet_fraction": 0.08752289188108305
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06018548050960448,
+          "area_weighted_wet_fraction": 0.09302665351238953
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6110047033374697,
+          "area_weighted_wet_fraction": 0.3143444943851717
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05101713697853335,
+          "area_weighted_wet_fraction": 0.08861500498822697
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05112677344964695,
+          "area_weighted_wet_fraction": 0.08866917157537911
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.059992455177709805,
+          "area_weighted_wet_fraction": 0.0948617061459051
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6141017821031017,
+          "area_weighted_wet_fraction": 0.31548514042449927
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05356328804942308,
+          "area_weighted_wet_fraction": 0.08914163232727236
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05293113713817499,
+          "area_weighted_wet_fraction": 0.08875569735236395
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06131479403838838,
+          "area_weighted_wet_fraction": 0.09516392296651038
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6099246300117354,
+          "area_weighted_wet_fraction": 0.3131921492748964
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05930942709952895,
+          "area_weighted_wet_fraction": 0.0860778135292983
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05844725910102445,
+          "area_weighted_wet_fraction": 0.08559743983270011
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05687884636695156,
+          "area_weighted_wet_fraction": 0.09522000560843928
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.611740497087971,
+          "area_weighted_wet_fraction": 0.3156896501618345
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05239936662339524,
+          "area_weighted_wet_fraction": 0.09454147532999971
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.052782889312092886,
+          "area_weighted_wet_fraction": 0.09436896030482826
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06096744268477847,
+          "area_weighted_wet_fraction": 0.09469200056190669
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6135933639225676,
+          "area_weighted_wet_fraction": 0.31453904599478505
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05473204018996273,
+          "area_weighted_wet_fraction": 0.09057859347015679
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05467585074637039,
+          "area_weighted_wet_fraction": 0.08992555720544505
+        }
+      }
+    ],
+    "7": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05879717959445362,
+          "area_weighted_wet_fraction": 0.09155438490378955
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6122398865485683,
+          "area_weighted_wet_fraction": 0.31426482117415394
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06025603984893063,
+          "area_weighted_wet_fraction": 0.0977184361964688
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.059997207206745874,
+          "area_weighted_wet_fraction": 0.09733030016775908
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.060412031380220776,
+          "area_weighted_wet_fraction": 0.08889981908426917
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6162872403644432,
+          "area_weighted_wet_fraction": 0.3155738945998598
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05523102830008323,
+          "area_weighted_wet_fraction": 0.09118170485512149
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05571165149656464,
+          "area_weighted_wet_fraction": 0.09079406621372911
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.060052183966539927,
+          "area_weighted_wet_fraction": 0.09211757998414208
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.606461817653097,
+          "area_weighted_wet_fraction": 0.31197653123207647
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.056391720227807814,
+          "area_weighted_wet_fraction": 0.09288744624689538
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05562211148263782,
+          "area_weighted_wet_fraction": 0.09189285552078645
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0633026008652043,
+          "area_weighted_wet_fraction": 0.08942411652076086
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6150505149509227,
+          "area_weighted_wet_fraction": 0.3158641246265878
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.059589803330243815,
+          "area_weighted_wet_fraction": 0.09053600387838505
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.059335539184680965,
+          "area_weighted_wet_fraction": 0.09014733967582882
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05904499172563603,
+          "area_weighted_wet_fraction": 0.08979419434939499
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.612568048383927,
+          "area_weighted_wet_fraction": 0.3146557737471939
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06025603984893063,
+          "area_weighted_wet_fraction": 0.0977184361964688
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06079046497884248,
+          "area_weighted_wet_fraction": 0.0979060673449407
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0573508500054983,
+          "area_weighted_wet_fraction": 0.08907130266940544
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6047737559539741,
+          "area_weighted_wet_fraction": 0.3127628388750938
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05523102830008323,
+          "area_weighted_wet_fraction": 0.09118170485512149
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05520031085097928,
+          "area_weighted_wet_fraction": 0.09122648660249737
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05520645607253915,
+          "area_weighted_wet_fraction": 0.08851271080911251
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6138917526261748,
+          "area_weighted_wet_fraction": 0.31584331764334084
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.060608596499595394,
+          "area_weighted_wet_fraction": 0.09589280671241902
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06149855139160831,
+          "area_weighted_wet_fraction": 0.09596130328696992
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05515966959193005,
+          "area_weighted_wet_fraction": 0.08550918025535775
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6087156395535048,
+          "area_weighted_wet_fraction": 0.31522282851215266
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05853856864165232,
+          "area_weighted_wet_fraction": 0.09765170199658198
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.058089379130543316,
+          "area_weighted_wet_fraction": 0.09725376349915985
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0521733078306416,
+          "area_weighted_wet_fraction": 0.08493240901812678
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6149615361282148,
+          "area_weighted_wet_fraction": 0.316145563173842
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05998313835569942,
+          "area_weighted_wet_fraction": 0.09551908730430955
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.059838973935811335,
+          "area_weighted_wet_fraction": 0.09458513598259263
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.052433455577739194,
+          "area_weighted_wet_fraction": 0.08544177419976559
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6166519635266421,
+          "area_weighted_wet_fraction": 0.31681013067683694
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.059589803330243815,
+          "area_weighted_wet_fraction": 0.09053600387838505
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05856726266220686,
+          "area_weighted_wet_fraction": 0.08952463207350013
+        }
+      }
+    ],
+    "8": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05963870935498185,
+          "area_weighted_wet_fraction": 0.09174224445559885
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6134156614826363,
+          "area_weighted_wet_fraction": 0.31518646437283915
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06185248167182215,
+          "area_weighted_wet_fraction": 0.1006756080467623
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.062255814605400306,
+          "area_weighted_wet_fraction": 0.1011073722537288
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0644870767455641,
+          "area_weighted_wet_fraction": 0.09060795312491023
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.605631776755661,
+          "area_weighted_wet_fraction": 0.3126787694765334
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.057965510384306355,
+          "area_weighted_wet_fraction": 0.0905504640089102
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.058332906002057226,
+          "area_weighted_wet_fraction": 0.08988261057521503
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.057237189413573364,
+          "area_weighted_wet_fraction": 0.09124015143218862
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6145419745696352,
+          "area_weighted_wet_fraction": 0.3152604463073335
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05982362821722605,
+          "area_weighted_wet_fraction": 0.10106245602838995
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.059517253156827744,
+          "area_weighted_wet_fraction": 0.10026769788553055
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.057167952786276115,
+          "area_weighted_wet_fraction": 0.08714527585521616
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6083223128215303,
+          "area_weighted_wet_fraction": 0.31439627631934447
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06162024041014503,
+          "area_weighted_wet_fraction": 0.08980998394645154
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06222027016062987,
+          "area_weighted_wet_fraction": 0.08978332806028953
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05518601527452118,
+          "area_weighted_wet_fraction": 0.0880884666251495
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6163007144558017,
+          "area_weighted_wet_fraction": 0.3144847156419141
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.056205678072288524,
+          "area_weighted_wet_fraction": 0.09109521399725293
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.055382854591559845,
+          "area_weighted_wet_fraction": 0.09084341463981455
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0548011890718391,
+          "area_weighted_wet_fraction": 0.08567521762614495
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6108731248154083,
+          "area_weighted_wet_fraction": 0.31458027825515433
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.057965510384306355,
+          "area_weighted_wet_fraction": 0.0905504640089102
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05730544854892292,
+          "area_weighted_wet_fraction": 0.08970881524230033
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05679410544603099,
+          "area_weighted_wet_fraction": 0.08793283813375373
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.607609083057247,
+          "area_weighted_wet_fraction": 0.3126639326440089
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06166649459833186,
+          "area_weighted_wet_fraction": 0.09339897685362585
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0624192063729525,
+          "area_weighted_wet_fraction": 0.09344452830774054
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.054700997970710624,
+          "area_weighted_wet_fraction": 0.08629806253906622
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6118787313599251,
+          "area_weighted_wet_fraction": 0.3141054721950969
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.057965510384306355,
+          "area_weighted_wet_fraction": 0.0905504640089102
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.057796440497959484,
+          "area_weighted_wet_fraction": 0.0901114005290338
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05479688665149579,
+          "area_weighted_wet_fraction": 0.08765932368853524
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.61142404413107,
+          "area_weighted_wet_fraction": 0.3150454553120675
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.058196921810135006,
+          "area_weighted_wet_fraction": 0.08854208525979816
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05771688803908615,
+          "area_weighted_wet_fraction": 0.08806779272644229
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05321011477745794,
+          "area_weighted_wet_fraction": 0.08767246622518693
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6114935174370505,
+          "area_weighted_wet_fraction": 0.31619416093965674
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06299186024010582,
+          "area_weighted_wet_fraction": 0.09347183466538111
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06210041418287526,
+          "area_weighted_wet_fraction": 0.09307630408495383
+        }
+      }
+    ],
+    "9": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05123951122099135,
+          "area_weighted_wet_fraction": 0.09064727277107598
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6117311743340631,
+          "area_weighted_wet_fraction": 0.31419912919098
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06001783963117608,
+          "area_weighted_wet_fraction": 0.09640054007555346
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.059335875956219045,
+          "area_weighted_wet_fraction": 0.09549021593077696
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05662289265680639,
+          "area_weighted_wet_fraction": 0.09190990179442114
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6164831777064225,
+          "area_weighted_wet_fraction": 0.3161463287808688
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06403177656882374,
+          "area_weighted_wet_fraction": 0.09350310281408318
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06322526492579232,
+          "area_weighted_wet_fraction": 0.09340602913450201
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.060093242722893014,
+          "area_weighted_wet_fraction": 0.09331332455897995
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6040289140595879,
+          "area_weighted_wet_fraction": 0.3131294080927314
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05848084481981506,
+          "area_weighted_wet_fraction": 0.09583791640206381
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05866196381496297,
+          "area_weighted_wet_fraction": 0.09557020989403935
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05971224151246453,
+          "area_weighted_wet_fraction": 0.09487038243149869
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6111304542493348,
+          "area_weighted_wet_fraction": 0.31391216096835256
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06049223213201202,
+          "area_weighted_wet_fraction": 0.09400983945924409
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06013009193793744,
+          "area_weighted_wet_fraction": 0.09339663502216222
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.059292877927019164,
+          "area_weighted_wet_fraction": 0.09766254624863974
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6176013723337721,
+          "area_weighted_wet_fraction": 0.3176097217205253
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.0590065758721987,
+          "area_weighted_wet_fraction": 0.09891834684645695
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05899581431333031,
+          "area_weighted_wet_fraction": 0.09798459770467183
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06622852925314406,
+          "area_weighted_wet_fraction": 0.09866635202901838
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6098900800860223,
+          "area_weighted_wet_fraction": 0.3141022569998196
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06029168869374471,
+          "area_weighted_wet_fraction": 0.09400413204115159
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0609359811531543,
+          "area_weighted_wet_fraction": 0.09424194942095654
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06521846987560448,
+          "area_weighted_wet_fraction": 0.09787402546459135
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6136368137518143,
+          "area_weighted_wet_fraction": 0.3147348188270495
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05433573496819051,
+          "area_weighted_wet_fraction": 0.09173665599278504
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.055102437317429594,
+          "area_weighted_wet_fraction": 0.09240349313290444
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06852328458274269,
+          "area_weighted_wet_fraction": 0.09855449736798212
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6063836727991399,
+          "area_weighted_wet_fraction": 0.3140333794959609
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.060983665506832395,
+          "area_weighted_wet_fraction": 0.09681712555062708
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06024903682962912,
+          "area_weighted_wet_fraction": 0.09648780383305774
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06866572014721964,
+          "area_weighted_wet_fraction": 0.09860817508505038
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6156864667379828,
+          "area_weighted_wet_fraction": 0.3161031943618762
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05433573496819051,
+          "area_weighted_wet_fraction": 0.09173665599278504
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.054246215534884755,
+          "area_weighted_wet_fraction": 0.09123838094134641
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06790064617998144,
+          "area_weighted_wet_fraction": 0.09606156901092762
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6102626526691779,
+          "area_weighted_wet_fraction": 0.31450040023402415
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.060983665506832395,
+          "area_weighted_wet_fraction": 0.09681712555062708
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0607361405974671,
+          "area_weighted_wet_fraction": 0.0959221045616707
+        }
+      }
+    ],
+    "10": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06064867612490056,
+          "area_weighted_wet_fraction": 0.08837686474422056
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6129222203430928,
+          "area_weighted_wet_fraction": 0.31325392775868893
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05810191961144416,
+          "area_weighted_wet_fraction": 0.09127697552963174
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05887469819441142,
+          "area_weighted_wet_fraction": 0.09134735755775093
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06136292470405473,
+          "area_weighted_wet_fraction": 0.08748599237315746
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.612607608148335,
+          "area_weighted_wet_fraction": 0.3146629778276215
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05866341088132202,
+          "area_weighted_wet_fraction": 0.08891409352979851
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.057671775592073656,
+          "area_weighted_wet_fraction": 0.0883213566453498
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05927449177204669,
+          "area_weighted_wet_fraction": 0.090090374673396
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6118254551510898,
+          "area_weighted_wet_fraction": 0.31539669942364335
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.059482515221839595,
+          "area_weighted_wet_fraction": 0.09666781109083167
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.059324759236004346,
+          "area_weighted_wet_fraction": 0.09527325528140104
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06226223535082796,
+          "area_weighted_wet_fraction": 0.0857993647760088
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6142807723776996,
+          "area_weighted_wet_fraction": 0.3175143874001179
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06412497659900736,
+          "area_weighted_wet_fraction": 0.0994623308089802
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06470247701374064,
+          "area_weighted_wet_fraction": 0.09901732896958362
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05983481020909891,
+          "area_weighted_wet_fraction": 0.08636636804341602
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6161058933374788,
+          "area_weighted_wet_fraction": 0.31643243537313903
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06621918327131063,
+          "area_weighted_wet_fraction": 0.1013748710615542
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0660371236994994,
+          "area_weighted_wet_fraction": 0.10130024304723702
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05821579841278018,
+          "area_weighted_wet_fraction": 0.08436592619006687
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6146726765800203,
+          "area_weighted_wet_fraction": 0.31552496234417415
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.07118131698817134,
+          "area_weighted_wet_fraction": 0.10135059076307873
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.07086947423388412,
+          "area_weighted_wet_fraction": 0.1007338446239206
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05845492509436476,
+          "area_weighted_wet_fraction": 0.08625092260105242
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6134118260051307,
+          "area_weighted_wet_fraction": 0.31648602735117387
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06655042825431039,
+          "area_weighted_wet_fraction": 0.10286329549905034
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06689029548532244,
+          "area_weighted_wet_fraction": 0.10313458471988264
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.056988332738658595,
+          "area_weighted_wet_fraction": 0.08432610240677439
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6091467338863851,
+          "area_weighted_wet_fraction": 0.3133018632637812
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05866341088132202,
+          "area_weighted_wet_fraction": 0.08891409352979851
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.057402528941452605,
+          "area_weighted_wet_fraction": 0.08876358603443843
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.054700573781304336,
+          "area_weighted_wet_fraction": 0.0863359542478823
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6132924086339717,
+          "area_weighted_wet_fraction": 0.3163368709797505
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06235801458310028,
+          "area_weighted_wet_fraction": 0.0953520129680489
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.061220255957088236,
+          "area_weighted_wet_fraction": 0.09454608709388346
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0557895653925282,
+          "area_weighted_wet_fraction": 0.08755067719779182
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6145735769719254,
+          "area_weighted_wet_fraction": 0.3161457849136887
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06578899970763696,
+          "area_weighted_wet_fraction": 0.09972509905195576
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06553048622415504,
+          "area_weighted_wet_fraction": 0.10005268302647505
+        }
+      }
+    ],
+    "11": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0655904344464508,
+          "area_weighted_wet_fraction": 0.10096538672268003
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.607776792897788,
+          "area_weighted_wet_fraction": 0.3138874267082963
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.056836275902764334,
+          "area_weighted_wet_fraction": 0.09286383995707821
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.057676316559820175,
+          "area_weighted_wet_fraction": 0.09205913482342659
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06337340769529075,
+          "area_weighted_wet_fraction": 0.10340140395289484
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6119062814306616,
+          "area_weighted_wet_fraction": 0.3135111195197699
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05785546616679159,
+          "area_weighted_wet_fraction": 0.09040775121996221
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05879675367547032,
+          "area_weighted_wet_fraction": 0.09092136505675048
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06304786710490659,
+          "area_weighted_wet_fraction": 0.1047166689559953
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6127411871524708,
+          "area_weighted_wet_fraction": 0.3165205540454957
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06035474760467453,
+          "area_weighted_wet_fraction": 0.09625186891250188
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.060598421921969334,
+          "area_weighted_wet_fraction": 0.09631586563022589
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06439000788440191,
+          "area_weighted_wet_fraction": 0.09798104487886201
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6099766982553873,
+          "area_weighted_wet_fraction": 0.3139797108142686
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05737583716642606,
+          "area_weighted_wet_fraction": 0.0925258280311798
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05750225462336245,
+          "area_weighted_wet_fraction": 0.09205869669773754
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06400295670046055,
+          "area_weighted_wet_fraction": 0.09818061022320815
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6124708355308673,
+          "area_weighted_wet_fraction": 0.31476323030484654
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.053148175750174075,
+          "area_weighted_wet_fraction": 0.09109922625751811
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0532413455110268,
+          "area_weighted_wet_fraction": 0.08970147424802379
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.056214496939793,
+          "area_weighted_wet_fraction": 0.09580689130489511
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6111124816951826,
+          "area_weighted_wet_fraction": 0.3154694385890088
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06544488247285388,
+          "area_weighted_wet_fraction": 0.09882652834031408
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06496721866205543,
+          "area_weighted_wet_fraction": 0.09850989220350674
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05755565846683333,
+          "area_weighted_wet_fraction": 0.09172703191542557
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.610158527471799,
+          "area_weighted_wet_fraction": 0.31460257546766046
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.053148175750174075,
+          "area_weighted_wet_fraction": 0.09109922625751811
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.053627411439810244,
+          "area_weighted_wet_fraction": 0.09097153823469238
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.0617309788686026,
+          "area_weighted_wet_fraction": 0.09419928447080382
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6135726031648281,
+          "area_weighted_wet_fraction": 0.3156804399215759
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06068141008224477,
+          "area_weighted_wet_fraction": 0.09703639899682942
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06105739943210154,
+          "area_weighted_wet_fraction": 0.09614613638819068
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05866484762795383,
+          "area_weighted_wet_fraction": 0.09477363854637715
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6093542142651405,
+          "area_weighted_wet_fraction": 0.3138109102188375
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.053148175750174075,
+          "area_weighted_wet_fraction": 0.09109922625751811
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05236667942507444,
+          "area_weighted_wet_fraction": 0.08931189017713588
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06384249216962554,
+          "area_weighted_wet_fraction": 0.09728060177990781
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6113493940058907,
+          "area_weighted_wet_fraction": 0.3155979303270205
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05737583716642606,
+          "area_weighted_wet_fraction": 0.0925258280311798
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.056756016662320184,
+          "area_weighted_wet_fraction": 0.09263642149457847
+        }
+      }
+    ],
+    "12": [
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06599413327798968,
+          "area_weighted_wet_fraction": 0.1036118722929446
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6057618490801877,
+          "area_weighted_wet_fraction": 0.3130971279878587
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06592641237061897,
+          "area_weighted_wet_fraction": 0.10255652792775044
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06671811636154822,
+          "area_weighted_wet_fraction": 0.10242791277369305
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06768879199127144,
+          "area_weighted_wet_fraction": 0.10427099474465894
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6168003766397581,
+          "area_weighted_wet_fraction": 0.3162797512190209
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06257488629284363,
+          "area_weighted_wet_fraction": 0.10359789602711715
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06104792791590051,
+          "area_weighted_wet_fraction": 0.10199922022631651
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.07230444235155861,
+          "area_weighted_wet_fraction": 0.10237003753606458
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6156980413224962,
+          "area_weighted_wet_fraction": 0.3167136409041479
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05204410099854452,
+          "area_weighted_wet_fraction": 0.09200993251622026
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.0517409378064693,
+          "area_weighted_wet_fraction": 0.09215429139484928
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06738641744346414,
+          "area_weighted_wet_fraction": 0.10007888566186818
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6154870109809383,
+          "area_weighted_wet_fraction": 0.31719500653170624
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06396458673993347,
+          "area_weighted_wet_fraction": 0.10152304479620652
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06428746165516674,
+          "area_weighted_wet_fraction": 0.10236370486616023
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06681913534272123,
+          "area_weighted_wet_fraction": 0.09961138872580387
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.612844314203842,
+          "area_weighted_wet_fraction": 0.31565083643012576
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06923732845287299,
+          "area_weighted_wet_fraction": 0.09818256246562457
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06908949302391865,
+          "area_weighted_wet_fraction": 0.09817102482749275
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06436582295000716,
+          "area_weighted_wet_fraction": 0.10319842809836523
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6128394508846677,
+          "area_weighted_wet_fraction": 0.31419803386241546
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05367709700647468,
+          "area_weighted_wet_fraction": 0.09198226203165534
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05387141670256971,
+          "area_weighted_wet_fraction": 0.0922620756807119
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06586429819341479,
+          "area_weighted_wet_fraction": 0.1042353657681996
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.61213249064314,
+          "area_weighted_wet_fraction": 0.31430790189423036
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.05204410099854452,
+          "area_weighted_wet_fraction": 0.09200993251622026
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.05130433331105167,
+          "area_weighted_wet_fraction": 0.09157599254908591
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06770135812685896,
+          "area_weighted_wet_fraction": 0.10158122349107204
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6065242309559554,
+          "area_weighted_wet_fraction": 0.31389870380251467
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06599766981090092,
+          "area_weighted_wet_fraction": 0.10322770595313792
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06551190148865908,
+          "area_weighted_wet_fraction": 0.1022780482968134
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.06361410164092465,
+          "area_weighted_wet_fraction": 0.1029548220796739
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6151977148462687,
+          "area_weighted_wet_fraction": 0.31602339628773807
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06768221167420325,
+          "area_weighted_wet_fraction": 0.10722072051904201
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06870850404752277,
+          "area_weighted_wet_fraction": 0.10700184998156033
+        }
+      },
+      {
+        "real_heldout": {
+          "area_weighted_mean_mm_h": 0.05986960500244543,
+          "area_weighted_wet_fraction": 0.0988763022739225
+        },
+        "legacy_v1": {
+          "area_weighted_mean_mm_h": 0.6111561294870521,
+          "area_weighted_wet_fraction": 0.31498652674128413
+        },
+        "unperturbed_block_bootstrap": {
+          "area_weighted_mean_mm_h": 0.06396458673993347,
+          "area_weighted_wet_fraction": 0.10152304479620652
+        },
+        "weather_v2": {
+          "area_weighted_mean_mm_h": 0.06379993294801048,
+          "area_weighted_wet_fraction": 0.10124824665596946
+        }
+      }
+    ]
+  },
+  "mean_error_cycle_bootstrap_95_interval": {
+    "legacy_v1": [
+      0.5517057814938097,
+      0.553739044341159
+    ],
+    "unperturbed_block_bootstrap": [
+      -0.0017728805773266278,
+      0.0004280251930811372
+    ],
+    "weather_v2": [
+      -0.0019570568601887653,
+      0.0003496527178250479
+    ]
+  },
+  "peak_process_tree_rss": 207695872,
+  "seconds": 45.254708300002676,
+  "quantum_mm": 0.0001,
+  "wet_threshold_mm": 0.1,
+  "definitions": {
+    "mean_wet_zero": "cos(latitude) area weighted; global sampled points",
+    "quantiles": "fixed 512 uniformly chosen grid cells, all holdout hours",
+    "correlations": "unweighted log1p amounts, within 12 h cycle only",
+    "wet_persistence": "P(next >=0.1 | current >=0.1), within cycle"
+  },
+  "limitations": [
+    "development holdout: same source year and first half of months",
+    "not total precipitation, station rain, independent annotation or climate validation",
+    "bootstrap repeats training storm footprints; extrema and diversity limited",
+    "blocks independent across cycles; do not infer cross-cycle persistence",
+    "unperturbed bootstrap is a strong baseline; perturbation need not improve it",
+    "cycle bootstrap CI ignores residual dependence across adjacent days"
+  ]
+}

@@ -4,19 +4,26 @@ import argparse
 import json
 from pathlib import Path
 
-from meteo_bridge.precipitation_map import DEFAULT_BBOX, load_era5_map, map_html
+from meteo_bridge.precipitation_map import WORLD_BBOX, load_era5_map, load_weather_map, map_html
 from meteo_bridge.resources import atomic_json, sha256_file
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True)
-    parser.add_argument("--bbox", type=float, nargs=4, default=DEFAULT_BBOX, metavar=("WEST", "EAST", "SOUTH", "NORTH"))
+    parser.add_argument("--bbox", type=float, nargs=4, default=WORLD_BBOX, metavar=("WEST", "EAST", "SOUTH", "NORTH"))
     parser.add_argument("--cycle", help="UTC ISO time; default: first initialization")
     parser.add_argument("--frames", type=int, default=12)
+    parser.add_argument("--member", type=int, default=0)
+    parser.add_argument("--first-hour", type=int, default=0)
     parser.add_argument("--output", type=Path, default=Path("outputs/maps/era5_lsp_animation.html"))
     args = parser.parse_args()
-    data = load_era5_map(args.input, args.bbox, args.cycle, args.frames)
+    if args.input.suffix == ".json":
+        data = load_weather_map(args.input, args.bbox, args.member, args.first_hour)
+    else:
+        data = load_era5_map(args.input, args.bbox, args.cycle, args.frames, allow_downsample=True)
+    if args.output.exists():
+        parser.error("output already exists; choose a new file to preserve prior/user maps")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(map_html(data), encoding="utf8")
     metadata = {**data["metadata"], "html_sha256": sha256_file(args.output),

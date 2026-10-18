@@ -1,0 +1,42 @@
+{
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982",
+    "source_snapshot": "experiments\\source_snapshots\\bd64feba1889b321c6b97643a093dfa0c45d92d43c2f88e3674a2040a4a3f982.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "cd8f984dd8fe97815699cc511fb5846b53ee7820",
+    "git_dirty": true,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792359629.7659123
+  },
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "154",
+    "time": "52.349",
+    "timestamp": "2026-10-19T00:33:10.110566+03:00",
+    "hostname": "Lemon"
+  },
+  "junit_sha256": "3e9f843ac6908f538ea92d5bde6e3089d7796167faf11e9922b7cca9d0b18bb7",
+  "manifest_sha256": "079a879ef21d356465ac251721606ecdc24011805c2a02fcf6a4d97842123b2d",
+  "calibration_manifest_sha256": "73d5c451c0256319a2a54f83362a1585050a40cf8a816340ead4edab5d2925e7",
+  "holdout_report_sha256": "821972beb2fd155639598dba3000aedb4bab698379c4810d5c9527fa2536858a",
+  "map_html_sha256": "2662645b2f5cf38dad146fa133c4492be6fcb80d5f07beda737588734f99d53e",
+  "browser_report_sha256": "f6278ecb762a06f5e801ff5271a07282262262bad6bb8c71b6383e1e8db0b094",
+  "uv_lock_changed": false,
+  "git_commit_record": "working tree snapshot; final commit recorded by git after documentation finalization"
+}

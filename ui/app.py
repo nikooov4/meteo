@@ -25,25 +25,33 @@ source = st.sidebar.radio("Данные", ["Offline demo", "Локальный �
 if source == "Карта осадков":
     import streamlit.components.v1 as components
 
-    from meteo_bridge.precipitation_map import load_era5_map, map_html
+    from meteo_bridge.precipitation_map import load_era5_map, load_weather_map, map_html
 
     st.subheader("Карта и анимация осадков")
-    st.caption("ERA5 LSP: крупномасштабная компонента осадков за каждый час; один цикл, архивные данные.")
+    st.caption("LSP: крупномасштабная компонента осадков за каждый час. Реальный ERA5 или синтетический сценарий v2.")
+    map_origin = st.radio("Источник карты", ["Реальный ERA5", "Синтетика v2"], horizontal=True)
     files = sorted(Path("data/scale/ncar-lsp-small").glob("*.nc"))
     with st.form("precipitation-map"):
         map_path = st.text_input("Локальный файл NCAR ERA5 LSP", str(files[0]) if files else "")
+        synthetic_manifest = st.text_input("Manifest синтетики v2", "data/scale/weather-global-v2/manifest.json")
+        map_member = st.number_input("Синтетический member", min_value=0, value=0)
+        map_first_hour = st.number_input("Начальный час синтетического цикла (кратен 12)", min_value=0, value=0, step=12)
         map_cycle = st.text_input("Цикл ERA5, ISO с UTC offset (пусто — первый)", "")
         cols = st.columns(4)
-        west = cols[0].number_input("Запад, °E", min_value=-180.0, max_value=180.0, value=-15.0)
-        east = cols[1].number_input("Восток, °E", min_value=-180.0, max_value=180.0, value=65.0)
-        south = cols[2].number_input("Юг, °N", min_value=-90.0, max_value=90.0, value=35.0)
-        north = cols[3].number_input("Север, °N", min_value=-90.0, max_value=90.0, value=72.0)
+        west = cols[0].number_input("Запад, °E", min_value=-180.0, max_value=180.0, value=-180.0)
+        east = cols[1].number_input("Восток, °E", min_value=-180.0, max_value=180.0, value=180.0)
+        south = cols[2].number_input("Юг, °N", min_value=-90.0, max_value=90.0, value=-90.0)
+        north = cols[3].number_input("Север, °N", min_value=-90.0, max_value=90.0, value=90.0)
         map_frames = st.number_input("Почасовых кадров", min_value=1, max_value=12, value=12)
         build_map = st.form_submit_button("Построить карту")
     if build_map:
         try:
             with st.spinner("Читаю выбранную область и строю кадры…"):
-                map_data = load_era5_map(map_path, (west, east, south, north), map_cycle or None, map_frames)
+                if map_origin == "Синтетика v2":
+                    map_data = load_weather_map(synthetic_manifest, (west, east, south, north), map_member, map_first_hour)
+                else:
+                    map_data = load_era5_map(map_path, (west, east, south, north), map_cycle or None,
+                                             map_frames, allow_downsample=True)
                 st.session_state.precipitation_map = (map_html(map_data), map_data["metadata"])
         except (ValueError, OSError, KeyError) as exc:
             st.error(str(exc))
@@ -54,7 +62,8 @@ if source == "Карта осадков":
         st.download_button("Метаданные карты JSON", json.dumps(map_metadata, ensure_ascii=False, indent=2),
                            "precipitation_map.json", "application/json")
         st.caption("Цветовая шкала одинакова для всех кадров. Между часами нет интерполяции. "
-                   "Карта показывает значения источника и не является сертификатом Query.")
+                   "Зум: колёсико, перемещение: мышью. Детализация ограничена исходной сеткой. "
+                   "Карта не является сертификатом Query.")
     st.stop()
 case = None
 if source == "Offline demo":
