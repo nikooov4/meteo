@@ -1,5 +1,15 @@
 # Progress
 
+2026-10-19 compact viewer: fixed Plotly control auto-padding and removed
+interdependent axis-domain constraints. Global map fills available width;
+external compact playback/slider/reset, fullscreen and PNG; city names on hover.
+Browser QA at actual widths 876/1416/492 px passed playback, repeated container
+resize, zoom retention and world reset, without domain shrink or overflow.
+Source and manifest hashes unchanged; saved prior HTML/metadata before replacement.
+Map dataset membership in the existing scale run and calibration membership in
+the realism run verified by SHA256. Precision-frontier experiments still use
+separate cases. See reports/map_ui_compact.md for the exact scope and evidence.
+
 2026-10-19 completed: acquired all 12 half-month 2023 ERA5 LSP references,
 3166788003 bytes including the existing January object. Contiguous one-cycle
 IO calibrated 240 training + 120 held-out cycles in 81.58 s, peak 310263808 B.

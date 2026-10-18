@@ -1,0 +1,160 @@
+{
+  "initial": {
+    "x": [
+      -180,
+      180
+    ],
+    "y": [
+      -90,
+      90
+    ],
+    "xdomain": [
+      0,
+      1
+    ],
+    "ydomain": [
+      0,
+      1
+    ],
+    "width": 408,
+    "height": 204,
+    "stage_width": 484,
+    "viewport_width": 492,
+    "viewport_height": 752,
+    "frame": 0,
+    "title": "Осадки · Синтетика v2 · LSP<br><sup>2023-01-01 · 06:00–07:00 UTC</sup>"
+  },
+  "zoom": {
+    "x": [
+      -15,
+      65
+    ],
+    "y": [
+      30,
+      75
+    ],
+    "xdomain": [
+      0,
+      1
+    ],
+    "ydomain": [
+      0,
+      1
+    ],
+    "width": 408,
+    "height": 204,
+    "stage_width": 484,
+    "viewport_width": 492,
+    "viewport_height": 752,
+    "frame": 5,
+    "title": "Осадки · Синтетика v2 · LSP<br><sup>2023-01-01 · 11:00–12:00 UTC</sup>"
+  },
+  "resized": {
+    "x": [
+      -15,
+      65
+    ],
+    "y": [
+      30,
+      75
+    ],
+    "xdomain": [
+      0,
+      1
+    ],
+    "ydomain": [
+      0,
+      1
+    ],
+    "width": 408,
+    "height": 204,
+    "stage_width": 484,
+    "viewport_width": 492,
+    "viewport_height": 752,
+    "frame": 5,
+    "title": "Осадки · Синтетика v2 · LSP<br><sup>2023-01-01 · 11:00–12:00 UTC</sup>"
+  },
+  "played": {
+    "x": [
+      -15,
+      65
+    ],
+    "y": [
+      30,
+      75
+    ],
+    "xdomain": [
+      0,
+      1
+    ],
+    "ydomain": [
+      0,
+      1
+    ],
+    "width": 408,
+    "height": 204,
+    "stage_width": 484,
+    "viewport_width": 492,
+    "viewport_height": 752,
+    "frame": 6,
+    "title": "Осадки · Синтетика v2 · LSP<br><sup>2023-01-01 · 11:00–12:00 UTC</sup>"
+  },
+  "paused": {
+    "x": [
+      -15,
+      65
+    ],
+    "y": [
+      30,
+      75
+    ],
+    "xdomain": [
+      0,
+      1
+    ],
+    "ydomain": [
+      0,
+      1
+    ],
+    "width": 408,
+    "height": 204,
+    "stage_width": 484,
+    "viewport_width": 492,
+    "viewport_height": 752,
+    "frame": 6,
+    "title": "Осадки · Синтетика v2 · LSP<br><sup>2023-01-01 · 11:00–12:00 UTC</sup>"
+  },
+  "reset": {
+    "x": [
+      -180,
+      180
+    ],
+    "y": [
+      -90,
+      90
+    ],
+    "xdomain": [
+      0,
+      1
+    ],
+    "ydomain": [
+      0,
+      1
+    ],
+    "width": 408,
+    "height": 204,
+    "stage_width": 484,
+    "viewport_width": 492,
+    "viewport_height": 752,
+    "frame": 6,
+    "title": "Осадки · Синтетика v2 · LSP<br><sup>2023-01-01 · 12:00–13:00 UTC</sup>"
+  },
+  "status": "",
+  "frames": 12,
+  "scrollZoom": true,
+  "modebar": false,
+  "fullscreen_enabled": true,
+  "details_closed": true,
+  "horizontal_overflow": false,
+  "error": null
+}

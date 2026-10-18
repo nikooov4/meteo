@@ -194,8 +194,8 @@ def precipitation_figure(data):
     cities = [(name, x, y) for name, x, y in cities if west <= x <= east and south <= y <= north]
     if cities:
         fig.add_trace(go.Scatter(x=[c[1] for c in cities], y=[c[2] for c in cities], text=[c[0] for c in cities],
-                                mode="markers+text", textposition="top right", textfont={"size": 11},
-                                marker={"size": 5, "color": "#29354b"}, hoverinfo="text", showlegend=False))
+                                mode="markers", marker={"size": 4, "color": "#29354b"},
+                                hoverinfo="text", showlegend=False))
     fig.frames = [go.Frame(name=str(i), data=[go.Heatmap(z=values)], traces=[0],
                            layout={"title": title(i)}) for i, values in enumerate(z)]
     immediate = {"mode": "immediate", "frame": {"duration": 0, "redraw": True}, "transition": {"duration": 0}}
@@ -205,9 +205,9 @@ def precipitation_figure(data):
         margin={"l": 65, "r": 55, "t": 90, "b": 155}, plot_bgcolor="#d4dbe4",
         coloraxis={"cmin": 0, "cmax": top, "colorscale": colors, "colorbar": {"title": "mm за час"}},
         xaxis={"title": "Долгота, °E", "range": [west, east], "showgrid": False, "zeroline": False,
-               "constrain": "domain"},
+               "domain": [0, 1], "minallowed": west, "maxallowed": east},
         yaxis={"title": "Широта, °N", "range": [south, north], "showgrid": False, "zeroline": False,
-               "scaleanchor": "x", "scaleratio": 1/np.cos(np.radians((south+north)/2)), "constrain": "domain"},
+               "domain": [0, 1], "minallowed": south, "maxallowed": north},
         updatemenus=[{"type": "buttons", "direction": "left", "x": 0, "y": -0.13,
                       "buttons": [{"label": "▶ Воспроизвести", "method": "animate",
                                    "args": [None, {"fromcurrent": True, "frame": {"duration": 650, "redraw": True},
@@ -225,6 +225,50 @@ def precipitation_figure(data):
 
 
 def map_html(data):
-    return precipitation_figure(data).to_html(include_plotlyjs=True, full_html=True, auto_play=False,
-                                             config={"displaylogo": False, "responsive": True, "scrollZoom": True,
-                                                     "toImageButtonOptions": {"filename": "precipitation_map"}})
+    """Compact, full-width viewer; pixel aspect handled once outside Plotly.
+
+    Avoid interdependent axis/domain constraints: repeated container resizes
+    must not shrink the plotting domain or expand the world bounds.
+    """
+    fig = precipitation_figure(data)
+    fig.update_layout(height=None, autosize=True, updatemenus=[], sliders=[], annotations=[],
+                      margin={"l": 8, "r": 68, "t": 62, "b": 4, "autoexpand": False},
+                      paper_bgcolor="rgba(0,0,0,0)",
+                      plot_bgcolor="#edf5fa", title={"font": {"size": 15}, "x": .01, "y": .98},
+                      coloraxis_colorbar={"title": {"text": "мм за час", "font": {"size": 10}},
+                                         "thickness": 9, "len": .82, "outlinewidth": 0,
+                                         "tickfont": {"size": 10}, "xpad": 8})
+    # update_layout merges array elements; an empty list does not remove them.
+    fig.layout.updatemenus = ()
+    fig.layout.sliders = ()
+    fig.layout.annotations = ()
+    fig.update_xaxes(visible=False, fixedrange=False)
+    fig.update_yaxes(visible=False, fixedrange=False)
+    meta = data["metadata"]
+    label = "Синтетика v2 · LSP" if meta["origin"] == "synthetic" else "ERA5 LSP"
+
+    def compact_title(i):
+        a, b = meta["intervals_utc"][i]
+        return f"Осадки · {label}<br><sup>{a[:10]} · {a[11:16]}–{b[11:16]} UTC</sup>"
+
+    fig.layout.title.text = compact_title(0)
+    # The external slider updates the data; frame titles still label PNG export.
+    for i, frame in enumerate(fig.frames):
+        frame.layout.title.text = compact_title(i)
+        frame.layout.title.font = {"size": 15}
+        frame.layout.title.x = .01
+    boot = """function boot(){window.initMeteoMap(document.getElementById('{plot_id}'));}
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot,{once:true});}
+    else{boot();}"""
+    plot = fig.to_html(include_plotlyjs=True, full_html=False, auto_play=False,
+                       div_id="precipitation-map", default_width="100%", default_height="100%",
+                       post_script=boot,
+                       config={"displayModeBar": False, "displaylogo": False,
+                               "responsive": False, "scrollZoom": True, "doubleClick": False})
+    info = {"bbox": meta["bbox"], "intervals": meta["intervals_utc"],
+            "origin": meta["origin"], "label": meta.get("display_label", "ERA5 LSP"),
+            "grid_shape": meta["grid_shape"], "member": meta.get("member"),
+            "manifest_sha256": meta.get("manifest_sha256"), "source_sha256": meta.get("source_sha256")}
+    encoded = json.dumps(info, ensure_ascii=False).replace("<", "\\u003c")
+    template = Path(__file__).with_name("map_viewer.html").read_text(encoding="utf8")
+    return template.replace("__MAP_INFO_JSON__", encoded).replace("<!-- MAP_PLOT -->", plot)
