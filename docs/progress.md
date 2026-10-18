@@ -1,5 +1,34 @@
 # Progress
 
+2026-10-18, resumed after explicit user pause. Map implementation and saved
+151-test regression were intact; completed map-context.json with source snapshot,
+versions, test/XML and actual HTML/browser hashes. Four map tests plus the full
+151-test run passed before pause (54.44 s, one existing TestClient warning).
+Added no further scientific solver changes and did not rerun the 200-GB archive.
+
+User asked how realistic generated data is. Audited the existing generator and
+saved a small descriptive diagnostic in reports/synthetic_realism_diagnostic.json:
+first 168 hours x 128 synthetic amount series, 21267 QC-valid records; three DWD
+excerpts, 504 nonnegative values. Mean mm/hour 0.60113 vs 0.06190, zeros 65.87%
+vs 88.49%. Deliberately not interpreted as a realism percentage: unpaired locations,
+different sample sizes, three winter-station excerpts only, no climate calibration.
+Report explains missing geographic/seasonal/advection dependencies and fixed
+six-hour regimes. LSP not used as total-precipitation ground truth. No retuning,
+new external validity, independent annotation or novelty claim follows.
+
+2026-10-18, user requested a precipitation map/animation and a brief project
+explanation. Added bounded NCAR ERA5 LSP map reader, offline Plotly 12-frame
+HTML export and a small Streamlit source view. Region defaults to Europe/western
+Russia; one initialization, documented previous-hour amounts, m->mm. No temporal
+interpolation, daily disaggregation, spatial inference or cycle/SeriesKey fusion.
+Natural Earth public-domain geometry bundled locally; dependencies unchanged.
+
+Actual native source demo built: 573948 selected values (12x149x321), standalone
+HTML 8392494 bytes, outputs/maps/era5_lsp_animation.html. Four targeted tests pass
+(map-initial.xml); actual headless Edge render and switching to frame 5 verified,
+map-render.json and local screenshot. Full regression recorded separately.
+No new scientific/theoretical contribution, no Gate B change, no 200-GB rerun.
+
 2026-10-17, substantive novelty justification after user feedback: stopped adding
 solver features and separated author contribution from established global priority.
 Prepared reports/novelty_justification.md (claim-level comparison, known-object

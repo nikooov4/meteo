@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "browser": "local Edge headless",
+  "checks": {
+    "frames": 12,
+    "title": "Осадки за час · ERA5 LSP<br><sup>2023-01-01T11:00 — 2023-01-01T12:00 UTC · архивные данные</sup>",
+    "traces": 3,
+    "heatmap": "heatmap",
+    "slider_steps": 12
+  },
+  "selected_frame": 5,
+  "html_sha256": "a38dfb17983849c7cdff305d09068f7d55c9873b99904eb3c662bfdce163f76d",
+  "screenshot_sha256": "7746b4f8162655ad5e1fd508836546a37d523aca52e66d675c89c06c6bcad198",
+  "screenshot": "outputs\\maps\\map-preview.png",
+  "note": "actual browser render and programmatic frame change; initial Play/Pause declared in figure"
+}

@@ -1,5 +1,12 @@
 # Scale design and measurement
 
+Realism audit, 2026-10-18: [synthetic_realism.md](../reports/synthetic_realism.md)
+documents what the existing generator does and does not model. The synthetic
+200-GB archive is an engineering workload, not a climate-calibrated surrogate.
+A small unpaired DWD diagnostic is descriptive only and does not establish a
+percentage of realism, held-out validity or scientific priority. Parameters and
+the measured scale dataset were not changed in response to the comparison.
+
 Profiles and CLI are in configs/scale and README. Default capacity: four million
 distinct grid series, hourly 2023; cells have unique ids/coordinates. Each group
 uses exactly one of amount/cumulative/mean-rate representations, never copies

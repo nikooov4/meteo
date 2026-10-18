@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-18",
+  "scope": "small unpaired descriptive diagnostic only; not a realism score, calibration, held-out validation or comparison at matched locations",
+  "synthetic": {
+    "file": "data\\scale\\synthetic-200gb\\part-000000.nc",
+    "origin": "synthetic",
+    "statistic": "amount",
+    "unit": "mm",
+    "seed": 42,
+    "time_indices": [
+      0,
+      168
+    ],
+    "series_indices": [
+      0,
+      128
+    ],
+    "candidate_records": 21504,
+    "qc_counts": {
+      "0": 21267,
+      "1": 219,
+      "2": 18
+    },
+    "summary": {
+      "n_valid": 21267,
+      "zero_fraction": 0.6587200827573235,
+      "at_least_0_1mm_fraction": 0.3161705929374148,
+      "mean_mm_per_hour": 0.6011285089575399,
+      "p95_mm_per_hour": 3.447000000000007,
+      "p99_mm_per_hour": 7.3,
+      "max_mm_per_hour": 22.06
+    },
+    "selection": "first 168 hours and 128 series of existing amount shard; not selected to match observed weather"
+  },
+  "dwd": {
+    "stations": [
+      {
+        "file": "data\\real\\dwd\\00191-20230101-07.csv",
+        "sha256": "875e1665dc7841af0df94d77c8b69e98b4eaa5ed777fc4bfd6d632b5bdf83a70",
+        "rows": 168,
+        "first_timestamp": "2023010100",
+        "last_timestamp": "2023010723",
+        "quality_codes": [
+          "3"
+        ],
+        "summary": {
+          "n_valid": 168,
+          "zero_fraction": 0.9345238095238095,
+          "at_least_0_1mm_fraction": 0.06547619047619048,
+          "mean_mm_per_hour": 0.01904761904761905,
+          "p95_mm_per_hour": 0.1,
+          "p99_mm_per_hour": 0.4660000000000025,
+          "max_mm_per_hour": 0.7
+        }
+      },
+      {
+        "file": "data\\real\\dwd\\00433-20230101-07.csv",
+        "sha256": "6bb2fbf1683c364cc8f29148650755372b4b7591f550d150b050ed817b843e56",
+        "rows": 168,
+        "first_timestamp": "2023010100",
+        "last_timestamp": "2023010723",
+        "quality_codes": [
+          "3"
+        ],
+        "summary": {
+          "n_valid": 168,
+          "zero_fraction": 0.8690476190476191,
+          "at_least_0_1mm_fraction": 0.13095238095238096,
+          "mean_mm_per_hour": 0.12380952380952381,
+          "p95_mm_per_hour": 0.7300000000000012,
+          "p99_mm_per_hour": 2.5310000000000086,
+          "max_mm_per_hour": 4.6
+        }
+      },
+      {
+        "file": "data\\real\\dwd\\01048-20230101-07.csv",
+        "sha256": "8a51cf982ad94f483af1d84aadc42499d7f0841ccb4cfa8a5413e97d784506d8",
+        "rows": 168,
+        "first_timestamp": "2023010100",
+        "last_timestamp": "2023010723",
+        "quality_codes": [
+          "3"
+        ],
+        "summary": {
+          "n_valid": 168,
+          "zero_fraction": 0.8511904761904762,
+          "at_least_0_1mm_fraction": 0.1488095238095238,
+          "mean_mm_per_hour": 0.04285714285714286,
+          "p95_mm_per_hour": 0.3,
+          "p99_mm_per_hour": 0.6,
+          "max_mm_per_hour": 1.0
+        }
+      }
+    ],
+    "pooled_summary": {
+      "n_valid": 504,
+      "zero_fraction": 0.8849206349206349,
+      "at_least_0_1mm_fraction": 0.11507936507936507,
+      "mean_mm_per_hour": 0.0619047619047619,
+      "p95_mm_per_hour": 0.3,
+      "p99_mm_per_hour": 1.2909999999999913,
+      "max_mm_per_hour": 4.6
+    },
+    "period": "2023-01-01/2023-01-07",
+    "timestamp_convention": "exact end-label remains incomplete in original cases; unordered value statistics do not resolve it",
+    "filter": "finite nonnegative R1; QN_8 codes preserved, no new QC interpretation"
+  },
+  "era5_comparison": "not used as a total-precipitation reference: local ERA5 contains LSP component only",
+  "calibrated_to_real_data": false,
+  "large_dataset_changed": false,
+  "Gate_B": "pending; no independent annotations added",
+  "file_hash_scope": "DWD small excerpts hashed; synthetic shard not rehashed, actual bounded hyperslab read",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded"
+  },
+  "generator_source_sha256": "fdc3e48a4cab4e8484160b935b35d08a7fe4f28d822ee89490b6618ce95d91c6",
+  "synthetic_manifest_sha256": "07db7c2955e024911067b14b336516a4fadba77333bf846c65d982e565da0860",
+  "expected_synthetic_shard_sha256": "97fe20e0db81e053f15b097473d05e4d80ffadcf8032cfa67959f99c9dc99d70",
+  "quantile_method": "numpy.quantile(..., method=linear), zeros included",
+  "errors": []
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "new_code_test_evidence": "map-full.xml, 151 passed before pause",
+  "diagnostic_sha256": "889dfe77082abe388cb0aaed14e50ad2947a98ddff2189fada7350d59dd1b143",
+  "docs_links_valid": true,
+  "dwd_checksums_valid": true,
+  "generator_changed": false,
+  "archive_changed": false,
+  "diagnostic_scope": "small unpaired descriptive diagnostic only; not a realism score, calibration, held-out validation or comparison at matched locations"
+}

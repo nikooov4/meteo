@@ -21,7 +21,41 @@ st.set_page_config(page_title="MeteoBridge", page_icon="🌧", layout="wide")
 st.title("MeteoBridge")
 st.caption("Запросы к накопленным осадкам: что следует из данных и какой информации не хватает")
 
-source = st.sidebar.radio("Данные", ["Offline demo", "Локальный файл", "Зарегистрированный набор"])
+source = st.sidebar.radio("Данные", ["Offline demo", "Локальный файл", "Зарегистрированный набор", "Карта осадков"])
+if source == "Карта осадков":
+    import streamlit.components.v1 as components
+
+    from meteo_bridge.precipitation_map import load_era5_map, map_html
+
+    st.subheader("Карта и анимация осадков")
+    st.caption("ERA5 LSP: крупномасштабная компонента осадков за каждый час; один цикл, архивные данные.")
+    files = sorted(Path("data/scale/ncar-lsp-small").glob("*.nc"))
+    with st.form("precipitation-map"):
+        map_path = st.text_input("Локальный файл NCAR ERA5 LSP", str(files[0]) if files else "")
+        map_cycle = st.text_input("Цикл ERA5, ISO с UTC offset (пусто — первый)", "")
+        cols = st.columns(4)
+        west = cols[0].number_input("Запад, °E", min_value=-180.0, max_value=180.0, value=-15.0)
+        east = cols[1].number_input("Восток, °E", min_value=-180.0, max_value=180.0, value=65.0)
+        south = cols[2].number_input("Юг, °N", min_value=-90.0, max_value=90.0, value=35.0)
+        north = cols[3].number_input("Север, °N", min_value=-90.0, max_value=90.0, value=72.0)
+        map_frames = st.number_input("Почасовых кадров", min_value=1, max_value=12, value=12)
+        build_map = st.form_submit_button("Построить карту")
+    if build_map:
+        try:
+            with st.spinner("Читаю выбранную область и строю кадры…"):
+                map_data = load_era5_map(map_path, (west, east, south, north), map_cycle or None, map_frames)
+                st.session_state.precipitation_map = (map_html(map_data), map_data["metadata"])
+        except (ValueError, OSError, KeyError) as exc:
+            st.error(str(exc))
+    if "precipitation_map" in st.session_state:
+        html, map_metadata = st.session_state.precipitation_map
+        components.html(html, height=800, scrolling=True)
+        st.download_button("Скачать карту с анимацией HTML", html, "precipitation_map.html", "text/html")
+        st.download_button("Метаданные карты JSON", json.dumps(map_metadata, ensure_ascii=False, indent=2),
+                           "precipitation_map.json", "application/json")
+        st.caption("Цветовая шкала одинакова для всех кадров. Между часами нет интерполяции. "
+                   "Карта показывает значения источника и не является сертификатом Query.")
+    st.stop()
 case = None
 if source == "Offline demo":
     names = NAMES + [str(p) for p in sorted(Path("benchmark/cases").glob("dwd*.json"))]
