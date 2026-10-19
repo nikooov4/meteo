@@ -68,3 +68,11 @@ The 10-GB v2 scale run validates archive reads and bounded Query/checker batches
 it does not establish physical realism of every value or method novelty at scale.
 Frame requests bind the manifest SHA; first shard reads verify its checksum.
 The viewer trusts the declared grid/conventions of the completed v2 schema.
+
+2026-10-19 research expansion: real ERA5 original point values are converted from
+native binary floats in m to exact rational mm. This is encoded-data precision,
+not a physical sensor-error guarantee. Real-study coarsening and the H2 shift are
+controlled transformations; documented H1 is separate. Invalid observations are
+not repaired. One place/member/cycle is retained in every case. The new 200-GB
+study samples bounded controlled cases from every legacy-v1 partition; its scope
+is not every possible archive Query and does not establish v1 weather realism.

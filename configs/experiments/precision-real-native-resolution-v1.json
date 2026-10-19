@@ -1,0 +1,14 @@
+{
+  "protocol": "precision-real-native-resolution-v1",
+  "date": "2026-10-19",
+  "posthoc_development_diagnostic": true,
+  "source_run": "experiments/runs/precision-real-era5-v1/run.json",
+  "selection": "all 72 original point/cycles from the completed real study, no value-based selection",
+  "query": "first 30 minutes, exact answer required (eps=0)",
+  "observations": "all twelve original documented hourly observations retained byte-for-byte in model dumps",
+  "available_actions": "amount refetch for first 1,4,6,12 whole hours of the SAME place/product/member/cycle; half-hour product is unavailable",
+  "methods": ["full", "compiled", "terminal_no_reuse", "terminal"],
+  "radii": ["0", "1/10", "1"],
+  "agreement_tolerance": 1e-7,
+  "scope": "native temporal underdetermination on real encoded hourly ERA5, no artificial record removal or metadata shift; half-hour ground truth unavailable; no physical interpolation or priority claim"
+}

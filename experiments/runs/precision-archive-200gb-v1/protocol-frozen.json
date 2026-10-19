@@ -1,0 +1,86 @@
+{
+  "plan": {
+    "manifest_sha256": "07db7c2955e024911067b14b336516a4fadba77333bf846c65d982e565da0860",
+    "protocol_sha256": "93694f2cc40248508bdd19008e77d5e0e973483e92deaabe2409f06c773a016d",
+    "data_bytes": 200040947956,
+    "shards": 476,
+    "report_disk_budget": 1073741824,
+    "free_disk_bytes": 236257132544,
+    "memory_limit": 17179869184,
+    "workers": 1
+  },
+  "protocol": {
+    "protocol": "precision-archive-200gb-v1",
+    "date": "2026-10-19",
+    "seed": 20261019,
+    "minimum_archive_bytes": 200000000000,
+    "sampling": "one seeded series from every manifest shard, manifest order; no selection on precipitation values",
+    "window_hours": [
+      12,
+      24
+    ],
+    "hypotheses": [
+      2,
+      3
+    ],
+    "block_hours": 4,
+    "query_eps_mm": "1/20",
+    "methods": [
+      "full",
+      "compiled",
+      "terminal_no_reuse",
+      "terminal"
+    ],
+    "radii": [
+      "0",
+      "1/10",
+      "1"
+    ],
+    "refinement_fractions": [
+      0,
+      0.25,
+      0.5,
+      1
+    ],
+    "archive_prefix_bytes": [
+      1000000000,
+      10000000000,
+      50000000000,
+      200000000000
+    ],
+    "agreement_tolerance": 1e-07,
+    "memory_limit": "16GiB",
+    "report_disk_budget": "1GiB",
+    "primary": "cold whole-profile construction plus independent checker; identical inputs/actions/H, one shuffled method pass per case; not a significance study",
+    "cache": "four-entry whole-profile cache primed with compiled output; repeated-input hash/lookup/deepcopy/checker timed separately from cold methods",
+    "transformation": "retain cumulative endpoints every four hours, or aggregate four documented hourly amounts only when all QC accepted; shift second block by +1 hour (and -1 hour for H=3); exhaustive H only for this constructed perturbation model",
+    "refinement": "add nested subsets of documented native observations to the same controlled case; certify monotone bounds and independently compare with LP; observation count is not archive GB",
+    "scope": "synthetic legacy-v1 partition-wide controlled benchmark, not independent real Gate B, weather realism, policy evaluation or priority proof",
+    "failure_policy": "retain every partition, zero-rain cases, missing/rejected groups, errors and losses; no timing-driven protocol changes; stop/resume preserves completed bundles; SHA256 every data file"
+  },
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "1314d13186ddf891780a88226e4f422d356cc6408f8ec36b4bd43cf035e37e81",
+    "source_snapshot": "experiments\\source_snapshots\\1314d13186ddf891780a88226e4f422d356cc6408f8ec36b4bd43cf035e37e81.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "18370e5cab80beaef0e4350c3f3c81bbf5f6130a",
+    "git_dirty": true,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792408184.5507061
+  },
+  "records": [],
+  "errors": [],
+  "invocations": []
+}

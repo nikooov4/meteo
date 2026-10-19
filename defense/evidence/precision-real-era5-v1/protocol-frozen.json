@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "514c22cacd6e4a34a99bf4cd86d6423cec39240e2a516dfb486ab0b763ec0ac2",
+    "source_snapshot": "experiments\\source_snapshots\\514c22cacd6e4a34a99bf4cd86d6423cec39240e2a516dfb486ab0b763ec0ac2.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "18370e5cab80beaef0e4350c3f3c81bbf5f6130a",
+    "git_dirty": true,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792408539.8370957
+  },
+  "protocol": {
+    "protocol": "precision-real-era5-v1",
+    "date": "2026-10-19",
+    "seed": 20261019,
+    "cycle_selection": "day 11 at 06 UTC in each of the twelve 2023 source months; fixed before looking at amounts; whole-cycle development holdout also used by earlier weather realism study",
+    "locations": [
+      {
+        "name": "Moscow",
+        "latitude": 55.75,
+        "longitude": 37.5
+      },
+      {
+        "name": "Singapore",
+        "latitude": 1.25,
+        "longitude": 103.75
+      },
+      {
+        "name": "North_Atlantic",
+        "latitude": 45.0,
+        "longitude": -30.0
+      },
+      {
+        "name": "New_York",
+        "latitude": 40.75,
+        "longitude": -74.0
+      },
+      {
+        "name": "Tokyo",
+        "latitude": 35.75,
+        "longitude": 139.75
+      },
+      {
+        "name": "Sydney",
+        "latitude": -33.75,
+        "longitude": 151.25
+      }
+    ],
+    "window_hours": 12,
+    "query_hours": 5,
+    "coarsening_hours": 4,
+    "arms": [
+      "documented_H1",
+      "controlled_shift_H2"
+    ],
+    "methods": [
+      "full",
+      "compiled",
+      "terminal_no_reuse",
+      "terminal"
+    ],
+    "radii": [
+      "0",
+      "1/10",
+      "1"
+    ],
+    "query_eps_mm": "1/20",
+    "refinement_fractions": [
+      0,
+      0.25,
+      0.5,
+      1
+    ],
+    "agreement_tolerance": 1e-07,
+    "memory_limit": "2GiB",
+    "failure_policy": "retain dry/missing/negative cases and losses; no selection on observed rain; no claim of naturally ambiguous metadata in documented ERA5",
+    "scope": "real original encoded NCAR ERA5 LSP point values, controlled coarsening and (in second arm) explicit artificial metadata shift; no weather forecast, independent annotation, physical sensor-error calibration or priority proof"
+  },
+  "protocol_sha256": "63fdd4014162159227e2acc8988be53b90fc1e4bf96cbf7af307e4b342df64c4",
+  "calibration_manifest_sha256": "73d5c451c0256319a2a54f83362a1585050a40cf8a816340ead4edab5d2925e7",
+  "records": [],
+  "sources": [],
+  "errors": [],
+  "concurrent_archive_job": "separate background legacy 200GB checksum/controlled study; no significance claim",
+  "status": "running",
+  "scope": "real original encoded NCAR ERA5 LSP point values, controlled coarsening and (in second arm) explicit artificial metadata shift; no weather forecast, independent annotation, physical sensor-error calibration or priority proof"
+}

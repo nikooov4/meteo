@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26100-SP0",
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "logical_cpus": 12,
+    "physical_ram_bytes": 34223546368,
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pydantic": "2.14.1",
+      "netCDF4": "1.7.5",
+      "pyarrow": "23.0.1"
+    },
+    "memory_measurement": "50 ms sampled sum of process-tree RSS; OS filesystem cache excluded",
+    "code_sha256": "a9b171337ab062adf0b97502ea6a4609c1d25b6184d42e749946cd705aba7093",
+    "source_snapshot": "experiments\\source_snapshots\\a9b171337ab062adf0b97502ea6a4609c1d25b6184d42e749946cd705aba7093.zip",
+    "source_scope": "src, scripts, ui and tests Python files; project/lock metadata in ZIP",
+    "git_revision": "18370e5cab80beaef0e4350c3f3c81bbf5f6130a",
+    "git_dirty": true,
+    "uv_lock_sha256": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419",
+    "unix_time": 1792411395.8004632
+  },
+  "full_pytest": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "161",
+    "time": "108.779",
+    "timestamp": "2026-10-19T14:56:58.960539+03:00",
+    "hostname": "Lemon"
+  },
+  "test_xml_sha256": "a1996da26bf25f4195993c38c50b61530b2ed7715398949ba6def828274ee0a8",
+  "runs": {
+    "precision-archive-200gb-v1": {
+      "run.json": "1f7d6771869b3beb88cc240b156ef112e1c11915d7ece5f3ea0226ff8244790e",
+      "protocol-frozen.json": "aebc19e123c86d607b8973a09009e8ac5efedbf47ef9cc6295e9346d6293aea1",
+      "replay.json": "bde3a4ebd6e5f9b3b721c5e12fec6d3b16097366a218ac2407d58b7aa5186b01"
+    },
+    "precision-real-era5-v1": {
+      "run.json": "b6be175abc19ac6d005264907e67cc166d0e4cb20fffb74f5776967e5c2bf32c",
+      "protocol-frozen.json": "3aa58c4dc2c717ff652e7443edf57124b4857f8fa4327191fa8ccac0e4d7e31e",
+      "replay.json": "552fa89e4089c262dd38eb5c7d535312d3e21bdc68f9981c63d42997e7c5302e"
+    },
+    "precision-real-native-resolution-v1": {
+      "run.json": "233a822571108c9d28e2590d3e9dbe500aa3f64ae0a4629c94981428f14d6e80",
+      "protocol-frozen.json": "3581b6748020dc7a0520da8f7734b347a16ae169e952a5cb6c4daa083d2b4081",
+      "replay.json": "754ab2992f68ebe6b76f380e6f49489437c1de9dc1ec2346fd622ebecd86e25d"
+    }
+  },
+  "cli_precision_checker": true,
+  "cli_native_query_checker": true,
+  "validation_history": [
+    "archive-precision-initial.xml",
+    "archive-precision-tests.xml",
+    "defense-full.xml",
+    "defense-cli-tests.xml",
+    "defense-final.xml"
+  ],
+  "note": "initial test fixture return-shape error and ordinary-pytest scripts import error preserved; fixed and full ordinary pytest passes; later edits only render reports, no solver change",
+  "scope": "real encoded data applicability plus bounded partition-wide legacy study; no independent human labels or priority proof"
+}

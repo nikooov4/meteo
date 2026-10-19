@@ -1,0 +1,27 @@
+# Копии прежних и текущих материалов
+
+Текст, даты и результаты сохранены; локальные ссылки приведены к этой папке/репозиторию. Числа tests и статусы в старых документах относятся к их исходным версиям.
+
+- [docs\project_explained_ru.md](docs/project_explained_ru.md)
+- [docs\precision_frontier.md](docs/precision_frontier.md)
+- [docs\algorithm_delta.md](docs/algorithm_delta.md)
+- [docs\assumptions.md](docs/assumptions.md)
+- [docs\annotation_guide.md](docs/annotation_guide.md)
+- [docs\novelty_validation_plan.md](docs/novelty_validation_plan.md)
+- [docs\literature_delta_2026_10_17.md](docs/literature_delta_2026_10_17.md)
+- [reports\novelty_justification.md](reports/novelty_justification.md)
+- [reports\novelty_prior_art_check.json](reports/novelty_prior_art_check.json)
+- [paper\novelty_statement_ru.md](paper/novelty_statement_ru.md)
+- [reports\delivery.md](reports/delivery.md)
+- [reports\precision_frontier.md](reports/precision_frontier.md)
+- [reports\gate_a.md](reports/gate_a.md)
+- [reports\gate_b.md](reports/gate_b.md)
+- [reports\review_status.json](reports/review_status.json)
+- [reports\synthetic_realism.md](reports/synthetic_realism.md)
+- [reports\weather_v2.md](reports/weather_v2.md)
+- [reports\weather_10gb.md](reports/weather_10gb.md)
+- [reports\scale\scale_report.md](reports/scale/scale_report.md)
+- [reports\real_precision.md](reports/real_precision.md)
+- [reports\archive_precision_200gb.md](reports/archive_precision_200gb.md)
+- [reports\real_native_resolution.md](reports/real_native_resolution.md)
+- [reports\validation\archive-map-preview.png](reports/validation/archive-map-preview.png)

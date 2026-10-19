@@ -1,0 +1,163 @@
+[
+  {
+    "source": "docs\\project_explained_ru.md",
+    "copy": "sources\\docs\\project_explained_ru.md",
+    "source_sha256": "62ff3d33fe1f68a543351eac007b51f307655300a21f740b69e39ab3be77fa0e",
+    "copy_sha256": "13c5c129b083f2d215c934e1f919192301e8f52ea907b336a74a6b53bbc13e34",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "docs\\precision_frontier.md",
+    "copy": "sources\\docs\\precision_frontier.md",
+    "source_sha256": "a275829b6cc47f5d1f2f7e418337a0a72738f0c50759836196e58fdedbc70bf9",
+    "copy_sha256": "9cf64085f11afcc70f5c7afc6a417814c6e7432028e258336b3330a24e9c38ba",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "docs\\algorithm_delta.md",
+    "copy": "sources\\docs\\algorithm_delta.md",
+    "source_sha256": "649ee9c093235e51d9615eb84178a867b1cdbb6b21f884de2b690c989648bace",
+    "copy_sha256": "9b201459fefcbbb840f677afb7cf62c87fb15b4daa800e209f32aacf3f9549cc",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "docs\\assumptions.md",
+    "copy": "sources\\docs\\assumptions.md",
+    "source_sha256": "dedb32efbf5f9e3b61a8fd2e8c6294670a3c08d081bb6c368f5d058ac0595ca1",
+    "copy_sha256": "ad8f78a63b1b8777d1c42b9d96bca85c72e0a3f36b44fb955d6884e82ecd2aef",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "docs\\annotation_guide.md",
+    "copy": "sources\\docs\\annotation_guide.md",
+    "source_sha256": "cfc480a153146a01421df01cf298f4d6085c13ffcdcbc4713d83ac31c9fba6f5",
+    "copy_sha256": "49c31c900b311ccc05173addd9941d1a4dacba93d63f31185df621fa3ea225ca",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "docs\\novelty_validation_plan.md",
+    "copy": "sources\\docs\\novelty_validation_plan.md",
+    "source_sha256": "ea98e9b3c9ba1a514aecb15e45da0951bef1dc80244e655c7e11bb133a6ca1ce",
+    "copy_sha256": "a75dfebd4d49034b01d55b44d35bd866eb675fb81434285555009840c18ed21b",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "docs\\literature_delta_2026_10_17.md",
+    "copy": "sources\\docs\\literature_delta_2026_10_17.md",
+    "source_sha256": "6ed88e3e69ab0371de928d87f6f3f8aeb3cb1a4555a8ce2ec86ed939ecb4d157",
+    "copy_sha256": "9461fc5b951c82bd740f3b9c0e1d0621555aa9c08225ac6379ffe47c7697898d",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\novelty_justification.md",
+    "copy": "sources\\reports\\novelty_justification.md",
+    "source_sha256": "4feb37ea1cc54d87fea310c4d55906afe954d695ed4f50dfcfb5b74e455e4f1f",
+    "copy_sha256": "f602d4155c384cd43c4499ed9704e979662d2899943fb15eb6cecc6be99e5a0b",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "reports\\novelty_prior_art_check.json",
+    "copy": "sources\\reports\\novelty_prior_art_check.json",
+    "source_sha256": "1ca6bd07883d5ec0bd7063385f219cc5185e6a3f3c31a82c80b1aa5ff9ee8f9f",
+    "copy_sha256": "1ca6bd07883d5ec0bd7063385f219cc5185e6a3f3c31a82c80b1aa5ff9ee8f9f",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "paper\\novelty_statement_ru.md",
+    "copy": "sources\\paper\\novelty_statement_ru.md",
+    "source_sha256": "57aa5ab86313a6e3436e658903c037402e0e1cc9fc2d96c68efe45e965de7d1c",
+    "copy_sha256": "cb504cbd491366dbacf8b58e7b871db0fc1335243107ee1c896c13b3ee8d55ad",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\delivery.md",
+    "copy": "sources\\reports\\delivery.md",
+    "source_sha256": "7a72d788eb63192629a5d44ea3ed9c2e618abd1773682d8b1b0283c53f7fc462",
+    "copy_sha256": "33c56acca1843c784606043a661dc5afcbfa6911965b357f970c275b37e3dba7",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "reports\\precision_frontier.md",
+    "copy": "sources\\reports\\precision_frontier.md",
+    "source_sha256": "4316e841cf8fac824dabe6fc6448beac1abdd52d52c280a2507095d1f2f3c10e",
+    "copy_sha256": "83b92ac4c1f69ae69f7a13d5b99b883b698034c9c7729e314870c98ba127bae7",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "reports\\gate_a.md",
+    "copy": "sources\\reports\\gate_a.md",
+    "source_sha256": "d7d3e5527095f4515ca115f4562e4a5ef322d8d2273692de0aef9a3a8180642c",
+    "copy_sha256": "d7d3e5527095f4515ca115f4562e4a5ef322d8d2273692de0aef9a3a8180642c",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\gate_b.md",
+    "copy": "sources\\reports\\gate_b.md",
+    "source_sha256": "25f9678ee8e9aa32a24ce624e94e6b56730a2da1b91754bd33cb28724a71dcb8",
+    "copy_sha256": "6a858bbf1b5042a34a2601833cbccb15128088e011ad4d2615250e51e6d2b462",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\review_status.json",
+    "copy": "sources\\reports\\review_status.json",
+    "source_sha256": "4fa13aacd18b1bac650bce8962e80daacfd67b7ef089653cc1b472cf788bc54f",
+    "copy_sha256": "4fa13aacd18b1bac650bce8962e80daacfd67b7ef089653cc1b472cf788bc54f",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\synthetic_realism.md",
+    "copy": "sources\\reports\\synthetic_realism.md",
+    "source_sha256": "b70db4be91ff106c9400173dc0523e809fc99b1373061f0c35673be77537e83a",
+    "copy_sha256": "14b47da1472d3d00f57fd5ed9d3dde8bd8f7459481c616a0b9925c4352fb99de",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "reports\\weather_v2.md",
+    "copy": "sources\\reports\\weather_v2.md",
+    "source_sha256": "a8324549e4b8c28c8616577376dbe78e398f5a2facfbbda7431633f8819f9c28",
+    "copy_sha256": "07f1b05909ebc293b4a4f07137cfcfa47549e632e7c8f7a3f0e53ea1235422aa",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "reports\\weather_10gb.md",
+    "copy": "sources\\reports\\weather_10gb.md",
+    "source_sha256": "384ba3e8744d87e331b03e8682f366f15dbf9ad9e510be38d0789edb95060d6c",
+    "copy_sha256": "1bc069b103bace3461677b1a4e5fc0a01a051582eb8391ab95ffa9020f116157",
+    "local_links_adjusted": true
+  },
+  {
+    "source": "reports\\scale\\scale_report.md",
+    "copy": "sources\\reports\\scale\\scale_report.md",
+    "source_sha256": "87180e9e51d42403166546733337fbbd90a90dc078100005e1c16f9e3aa1d27d",
+    "copy_sha256": "87180e9e51d42403166546733337fbbd90a90dc078100005e1c16f9e3aa1d27d",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\real_precision.md",
+    "copy": "sources\\reports\\real_precision.md",
+    "source_sha256": "ade1689993e29c86ebf6045773299d23bfc0bc3f268b2a3d9e4b394cdb77a301",
+    "copy_sha256": "ade1689993e29c86ebf6045773299d23bfc0bc3f268b2a3d9e4b394cdb77a301",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\archive_precision_200gb.md",
+    "copy": "sources\\reports\\archive_precision_200gb.md",
+    "source_sha256": "be46f6ab3d38389bf1d99075b63be4b6b8e7422c6dcde8693afcb3fc26e36ed4",
+    "copy_sha256": "be46f6ab3d38389bf1d99075b63be4b6b8e7422c6dcde8693afcb3fc26e36ed4",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\real_native_resolution.md",
+    "copy": "sources\\reports\\real_native_resolution.md",
+    "source_sha256": "dea8a8346de101c2a06f59c1f27767b6adc740ea1ef7a9f5924134ffab668a2b",
+    "copy_sha256": "dea8a8346de101c2a06f59c1f27767b6adc740ea1ef7a9f5924134ffab668a2b",
+    "local_links_adjusted": false
+  },
+  {
+    "source": "reports\\validation\\archive-map-preview.png",
+    "copy": "sources\\reports\\validation\\archive-map-preview.png",
+    "source_sha256": "1c44c80db8a678499871fc47cc84ea231cd9e74c949e4f5d2cac4a01eb33379f",
+    "copy_sha256": "1c44c80db8a678499871fc47cc84ea231cd9e74c949e4f5d2cac4a01eb33379f",
+    "local_links_adjusted": false
+  }
+]

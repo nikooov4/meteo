@@ -63,3 +63,11 @@ an imagined hourly sensor reading is not an archive connector capability. Record
 this as a controlled acquisition opportunity until independently verified.
 Bounds/counterexamples from an oracle are not human labels. Do not infer a prior
 from the simulator truth or evaluate expected VOI without specifying one.
+
+For the 2026-10-19 real ERA5 study, preserve the native encoded hourly point data,
+source SHA256, coordinates and cycle. Label four-hour aggregation and the H2 shift
+as controlled, never as naturally occurring missing/ambiguous metadata. Documented
+H1 is a separate arm. The 72 points/cycles are from the prior development holdout,
+not independently annotated unseen families. Returned native records demonstrate
+informative refinement, not measured hardware accuracy. Both real and 200-GB
+controlled studies leave independent annotations at zero and Gate B pending.

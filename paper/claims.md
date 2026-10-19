@@ -83,3 +83,18 @@ Initial review feasibility numbers are not reused as MeteoBridge results. Method
 | Global time selection | Implemented and browser checked; one hourly field per request, four-frame browser cache, separate members/cycle labels |
 | New v2 50/200 GB | not_run; old legacy-v1 200-GB evidence preserved separately |
 | Novelty or archive-wide frontier advantage from map | NOT CLAIMED; method pilots use separate bounded cases, independent priority review and Gate B remain pending |
+
+## Real encoded-value applicability and archive experiment, 2026-10-19
+
+| Claim | Status / saved evidence |
+|---|---|
+| Precision method on real encoded ERA5 LSP values | 72 point/cycle windows, 12 months, 144 documented/controlled cases; precision-real-era5-v1/run.json |
+| Real profile verification | 576 profile bundles, 1728 distinct action/radius comparisons each checked for four methods, 4968 paired LP calls; no recorded errors |
+| Real certificate replay | 576 profile + 720 native/refinement bundles checked without LP/search; replay.json; native bundle duplicated across two arms |
+| Useful additional observations | Documented H1 bounds strictly shrink in 35/72 cases; 37 already exact; all 72 exact after full native refinement; controlled H2 includes artificial uncovered-hour unboundedness |
+| Universal speed advantage | NOT CLAIMED; full exact graph is faster than terminal in documented H1; compiled median is moderately slower; descriptive one-pass timings under concurrent archive IO |
+| 200-GB precision study | Separate fresh run, explicit actual status in reports/archive_precision_200gb.md; bounded partition cases, not all possible Queries or a new full normalization scan |
+| Physical weather forecast accuracy / naturally corrupt ERA5 metadata / priority | NOT CLAIMED; controlled transformations, encoded values, no independent labels; Gate B pending |
+| Native temporal-resolution diagnostic | Posthoc 72 original hourly point/cycles with all observations unchanged, half-hour eps=0 Query; 31 not exact, 8 exceed eps=0.05 mm tolerance; 288 profile + 72 Query certificates replayed; no half-hour truth fabricated |
+| Completed legacy 200-GB precision run | 476/476 shards, 200,040,947,956 bytes verified; 1904 profile bundles, 5712 distinct action/radius comparisons per method, 40698 paired LP calls; replay passed |
+| Scope of large result | Bounded task from each partition, 3/6 coarse observations per task; fresh SHA scan + extraction, not every possible Query or a new full normalization scan; v1 realism and new v2 200GB not claimed |

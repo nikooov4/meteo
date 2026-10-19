@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="4.624" timestamp="2026-10-19T14:08:52.670161+03:00" hostname="Lemon"><testcase classname="tests.test_archive_precision" name="test_archive_coarsening_conventions_missing_and_nested_evidence[amount]" time="0.089" /><testcase classname="tests.test_archive_precision" name="test_archive_coarsening_conventions_missing_and_nested_evidence[interval_mean_rate]" time="0.080" /><testcase classname="tests.test_archive_precision" name="test_archive_coarsening_conventions_missing_and_nested_evidence[cumulative]" time="0.074" /><testcase classname="tests.test_archive_precision" name="test_archive_experiment_resume_replay_and_source_hash" time="2.989"><failure message="KeyError: 'shards'">tmp_path = WindowsPath('D:/VSCode_Projects/meteo/.meteo/archive-precision-tests/test_archive_experiment_resume0')
+
+    def test_archive_experiment_resume_replay_and_source_hash(tmp_path):
+        data = tmp_path / "data"
+        m = generate_scale(target_size="110KB", output=data, series=6, series_per_shard=2,
+                           shard_size="8KB", chunk_size="1MiB", missing_fraction=0, defect_fraction=0)
+&gt;       assert len(m["shards"]) &gt; 1
+                   ^^^^^^^^^^^
+E       KeyError: 'shards'
+
+tests\test_archive_precision.py:43: KeyError</failure></testcase></testsuite></testsuites>

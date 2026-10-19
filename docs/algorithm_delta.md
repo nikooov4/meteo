@@ -112,3 +112,10 @@ regimes); priority remains unestablished. See reports/continuous_acquisition.md.
 time-range selection over a new 10-GB v2 archive. This adds no algorithmic novelty
 claim and does not change the method/baseline comparison. Scale/checker evidence
 is separate from precision-frontier experiments; see reports/weather_10gb.md.
+
+2026-10-19 validation expansion: the precision algorithm is unchanged. Added a
+frozen partition-wide legacy archive benchmark and a real ERA5 encoded-value study
+with explicit coarsening/H2 perturbation. Full/compiled/no-reuse/terminal have the
+same input/actions/cost/proof contract; repeated-input cache is separate. Nested
+observation refinement measures Query information separately from archive GB.
+New helpers and reports are experiment infrastructure, not another novelty claim.

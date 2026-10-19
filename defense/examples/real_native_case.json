@@ -1,0 +1,397 @@
+{
+  "id": "era5-1673416800-55.75-37.5",
+  "observations": [
+    {
+      "id": "native-hour-0",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "1.9073486328125e-06",
+      "original_timestamp": null,
+      "lower": "125/65536",
+      "upper": "125/65536",
+      "interval": {
+        "start": 1673416800,
+        "end": 1673420400,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-1",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "9.059906005859375e-06",
+      "original_timestamp": null,
+      "lower": "2375/262144",
+      "upper": "2375/262144",
+      "interval": {
+        "start": 1673420400,
+        "end": 1673424000,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-2",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "1.621246337890625e-05",
+      "original_timestamp": null,
+      "lower": "2125/131072",
+      "upper": "2125/131072",
+      "interval": {
+        "start": 1673424000,
+        "end": 1673427600,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-3",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "2.002716064453125e-05",
+      "original_timestamp": null,
+      "lower": "2625/131072",
+      "upper": "2625/131072",
+      "interval": {
+        "start": 1673427600,
+        "end": 1673431200,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-4",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "3.4809112548828125e-05",
+      "original_timestamp": null,
+      "lower": "9125/262144",
+      "upper": "9125/262144",
+      "interval": {
+        "start": 1673431200,
+        "end": 1673434800,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-5",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "6.0558319091796875e-05",
+      "original_timestamp": null,
+      "lower": "15875/262144",
+      "upper": "15875/262144",
+      "interval": {
+        "start": 1673434800,
+        "end": 1673438400,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-6",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "9.775161743164062e-05",
+      "original_timestamp": null,
+      "lower": "25625/262144",
+      "upper": "25625/262144",
+      "interval": {
+        "start": 1673438400,
+        "end": 1673442000,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-7",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "0.0001659393310546875",
+      "original_timestamp": null,
+      "lower": "10875/65536",
+      "upper": "10875/65536",
+      "interval": {
+        "start": 1673442000,
+        "end": 1673445600,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-8",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "0.000202178955078125",
+      "original_timestamp": null,
+      "lower": "6625/32768",
+      "upper": "6625/32768",
+      "interval": {
+        "start": 1673445600,
+        "end": 1673449200,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-9",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "0.00015974044799804688",
+      "original_timestamp": null,
+      "lower": "41875/262144",
+      "upper": "41875/262144",
+      "interval": {
+        "start": 1673449200,
+        "end": 1673452800,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-10",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "8.392333984375e-05",
+      "original_timestamp": null,
+      "lower": "1375/16384",
+      "upper": "1375/16384",
+      "interval": {
+        "start": 1673452800,
+        "end": 1673456400,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    },
+    {
+      "id": "native-hour-11",
+      "series": {
+        "quantity": "large_scale_precipitation",
+        "location": "ERA5:55.75,37.5",
+        "spatial_support": "native 0.25 degree grid point",
+        "product": "NCAR-ERA5-HRES-LSP",
+        "version": "1",
+        "member": "HRES",
+        "vertical_support": "surface",
+        "cycle": "1673416800"
+      },
+      "original_value": "2.86102294921875e-05",
+      "original_timestamp": null,
+      "lower": "1875/65536",
+      "upper": "1875/65536",
+      "interval": {
+        "start": 1673456400,
+        "end": 1673460000,
+        "unit": "mm",
+        "statistic": "amount",
+        "reset_start": null
+      },
+      "qc": "accepted",
+      "reset_group": null,
+      "evidence_ids": [
+        "e177ccf93e0dec603d701d7c3c7fe826ba1d41702f8de8dea70bc41aec6ecba0"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "documented",
+      "assignments": {},
+      "intervals": {},
+      "evidence_ids": [],
+      "assumptions": [],
+      "compiler_version": "1",
+      "completeness_scope": "declared alternatives"
+    }
+  ],
+  "query": {
+    "series": {
+      "quantity": "large_scale_precipitation",
+      "location": "ERA5:55.75,37.5",
+      "spatial_support": "native 0.25 degree grid point",
+      "product": "NCAR-ERA5-HRES-LSP",
+      "version": "1",
+      "member": "HRES",
+      "vertical_support": "surface",
+      "cycle": "1673416800"
+    },
+    "start": 1673416800,
+    "end": 1673434800,
+    "unit": "mm",
+    "timezone": "UTC",
+    "calendar": "proleptic_gregorian",
+    "objective": "amount",
+    "eps": "0",
+    "threshold": null,
+    "permitted_assumptions": []
+  },
+  "h_complete": true,
+  "completeness_basis": "documented NCAR ERA5 HRES previous-hour LSP amounts; exact encoded float m to mm",
+  "assumptions": [
+    "nonnegative precipitation increments",
+    "encoded amounts, not physical sensor accuracy",
+    "native float metres converted exactly to rational mm; no deaccumulation"
+  ],
+  "revision": 0,
+  "evidence": [],
+  "family_id": "NCAR-ERA5-LSP-2023-01",
+  "origin": "original",
+  "source_manifests": []
+}

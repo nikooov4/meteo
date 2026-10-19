@@ -321,3 +321,41 @@ reports/weather_10gb.md distinguishes archive IO/Query validation from bounded
 precision-frontier experiments. Historical negative H3, Gate B pending and
 unestablished scientific priority remain unchanged. User's original ERA5 HTML
 preserved; previous main synthetic HTML backed up before promotion.
+
+2026-10-19 defense/research expansion requested: prepared defense/ with Russian
+project report, demo/map script, dataset sizes, novelty/delta, Q&A, copied older
+materials and actual input examples. Historic precision inputs measured: nine
+JSONs, 75,356 bytes; whole old pilot 15,840,022 bytes. Kept separate from large IO.
+New frozen real ERA5 study completed: 12 verified source files (3,166,788,003 bytes),
+72 native point/cycles, 144 documented-H1/controlled-H2 cases, 576 all-noise bundles,
+1728 distinct action/radius comparisons per method, 4968 paired LP calls. Replay
+checks 576 profile and 720 native/refinement bundles without LP/search. In H1,
+35/72 bounds shrink, 37 already exact; full exact graph is faster than terminal
+in that small regime. Sources are real reanalysis values, transformations controlled,
+not independent annotation. Wall 170.579 s, peak RSS 330,211,328 bytes. New full
+regression 161 passed, 219.81 s under concurrent IO, one existing warning.
+Partition-wide 200-GB legacy precision run started separately with seed/protocol,
+full SHA256 reads, checkpoints, identical oracle contracts and separate warm cache.
+Report builder retains its actual running/complete status, historical scan remains
+unchanged. Gate B/priority remain pending/unestablished; no weather forecast claim.
+
+Additional posthoc native-resolution ERA5 diagnostic completed: 72 unchanged
+12-hour point/cycles, Query first half-hour with eps=0. All original observation
+hashes retained; no coarsening/removal/metadata shift. 41 exact, 31 uncertain and
+unresolvable by available whole-hour amount refetches; at eps=0.05 mm only eight
+have excessive width. 288 profile + 72 Query certificates replayed, paired LP
+widths agree, zero numerical decision differences. Wall 16.889 s, peak RSS
+145,743,872 bytes. Actual half-hour truth is unavailable and not invented.
+
+Final archive experiment completed: all 476 shards / 200,040,947,956 bytes SHA256
+verified; 1904 profile bundles, 5712 distinct action/radius comparisons per method,
+40698 paired LP calls, zero recorded errors. Source metadata/versions/snapshots and
+stop/resume history retained. Last complete invocation 2731.235 s, SHA read time
+2312.106 s, peak tree RSS 170,975,232 bytes. Replay: 1904 profiles and 2380 Query
+certificates checked without LP/search. Initial controlled exact cases 86; after
+native refinement 453 exact, 22 still unbounded and one finite uncertain. Warm
+cache is faster; cold compiled/terminal median ratio about 1.222, descriptive only.
+Full final regression through ordinary pytest entry point: 161 passed, 108.78 s,
+one existing warning. Earlier test import-path failure preserved separately and
+fixed; no solver change. Defense evidence copies retain all compact bundles,
+not bulk weather arrays. Gate A history and Gate B pending remain unchanged.

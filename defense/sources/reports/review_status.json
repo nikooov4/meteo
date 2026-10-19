@@ -1,0 +1,10 @@
+{
+  "status": "pending_no_independent_reviewer",
+  "user_response": "no independent reviewer currently available",
+  "annotations_completed": 0,
+  "packet": "review/annotation_blind",
+  "families": 4,
+  "held_out": false,
+  "Gate_B": "pending; these development families alone cannot pass external validity",
+  "contacts_messaged": false
+}

@@ -1,0 +1,192 @@
+{
+  "case": {
+    "id": "scale-s42301-h0-controlled-12h-h2",
+    "observations": [
+      {
+        "id": "coarse-0",
+        "series": {
+          "quantity": "precipitation",
+          "location": "cell:42301",
+          "spatial_support": "synthetic grid cell",
+          "product": "synthetic-precipitation",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": null,
+        "original_timestamp": null,
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672531200,
+          "end": 1672545600,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "97fe20e0db81e053f15b097473d05e4d80ffadcf8032cfa67959f99c9dc99d70"
+        ]
+      },
+      {
+        "id": "coarse-4",
+        "series": {
+          "quantity": "precipitation",
+          "location": "cell:42301",
+          "spatial_support": "synthetic grid cell",
+          "product": "synthetic-precipitation",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": null,
+        "original_timestamp": null,
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672545600,
+          "end": 1672560000,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "97fe20e0db81e053f15b097473d05e4d80ffadcf8032cfa67959f99c9dc99d70"
+        ]
+      },
+      {
+        "id": "coarse-8",
+        "series": {
+          "quantity": "precipitation",
+          "location": "cell:42301",
+          "spatial_support": "synthetic grid cell",
+          "product": "synthetic-precipitation",
+          "version": "1",
+          "member": "deterministic",
+          "vertical_support": "surface",
+          "cycle": null
+        },
+        "original_value": null,
+        "original_timestamp": null,
+        "lower": "0",
+        "upper": "0",
+        "interval": {
+          "start": 1672560000,
+          "end": 1672574400,
+          "unit": "mm",
+          "statistic": "amount",
+          "reset_start": null
+        },
+        "qc": "accepted",
+        "reset_group": null,
+        "evidence_ids": [
+          "97fe20e0db81e053f15b097473d05e4d80ffadcf8032cfa67959f99c9dc99d70"
+        ]
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "shift-0",
+        "assignments": {
+          "controlled_shift_hours": "0"
+        },
+        "intervals": {},
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      },
+      {
+        "id": "shift-1",
+        "assignments": {
+          "controlled_shift_hours": "1"
+        },
+        "intervals": {
+          "coarse-4": {
+            "start": 1672549200,
+            "end": 1672563600,
+            "unit": "mm",
+            "statistic": "amount",
+            "reset_start": null
+          }
+        },
+        "evidence_ids": [],
+        "assumptions": [],
+        "compiler_version": "1",
+        "completeness_scope": "declared alternatives"
+      }
+    ],
+    "query": {
+      "series": {
+        "quantity": "precipitation",
+        "location": "cell:42301",
+        "spatial_support": "synthetic grid cell",
+        "product": "synthetic-precipitation",
+        "version": "1",
+        "member": "deterministic",
+        "vertical_support": "surface",
+        "cycle": null
+      },
+      "start": 1672531200,
+      "end": 1672549200,
+      "unit": "mm",
+      "timezone": "UTC",
+      "calendar": "proleptic_gregorian",
+      "objective": "amount",
+      "eps": "1/20",
+      "threshold": null,
+      "permitted_assumptions": []
+    },
+    "h_complete": true,
+    "completeness_basis": "exactly the declared controlled shifts; not completeness of natural archive metadata",
+    "assumptions": [
+      "nonnegative precipitation increments",
+      "controlled coarsening and finite shifts; hypothetical bounded-error acquisitions"
+    ],
+    "revision": 0,
+    "evidence": [],
+    "family_id": "synthetic-group-0",
+    "origin": "controlled",
+    "source_manifests": []
+  },
+  "actions": [
+    {
+      "id": "measure-0",
+      "kind": "interval",
+      "cost": "2",
+      "start": 1672531200,
+      "end": 1672549200,
+      "attribute": null
+    },
+    {
+      "id": "measure-1",
+      "kind": "interval",
+      "cost": "2",
+      "start": 1672549200,
+      "end": 1672574400,
+      "attribute": null
+    },
+    {
+      "id": "measure-2",
+      "kind": "interval",
+      "cost": "1",
+      "start": 1672545600,
+      "end": 1672549200,
+      "attribute": null
+    },
+    {
+      "id": "measure-3",
+      "kind": "interval",
+      "cost": "3",
+      "start": 1672531200,
+      "end": 1672560000,
+      "attribute": null
+    }
+  ]
+}

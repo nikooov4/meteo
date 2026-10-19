@@ -1,0 +1,34 @@
+[
+  {
+    "id": "refetch-1h",
+    "kind": "interval",
+    "cost": "1",
+    "start": 1689055200,
+    "end": 1689058800,
+    "attribute": null
+  },
+  {
+    "id": "refetch-4h",
+    "kind": "interval",
+    "cost": "1",
+    "start": 1689055200,
+    "end": 1689069600,
+    "attribute": null
+  },
+  {
+    "id": "refetch-6h",
+    "kind": "interval",
+    "cost": "1",
+    "start": 1689055200,
+    "end": 1689076800,
+    "attribute": null
+  },
+  {
+    "id": "refetch-12h",
+    "kind": "interval",
+    "cost": "1",
+    "start": 1689055200,
+    "end": 1689098400,
+    "attribute": null
+  }
+]

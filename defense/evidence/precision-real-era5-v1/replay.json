@@ -1,0 +1,7 @@
+{
+  "run_sha256": "b6be175abc19ac6d005264907e67cc166d0e4cb20fffb74f5776967e5c2bf32c",
+  "profile_bundles_checked": 576,
+  "query_certificates_checked": 720,
+  "passed": true,
+  "note": "independent certificate replay; no LP or shortest-path solver called, no archive IO"
+}

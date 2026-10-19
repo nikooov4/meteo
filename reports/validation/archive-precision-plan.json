@@ -1,0 +1,12 @@
+{
+  "manifest_sha256": "07db7c2955e024911067b14b336516a4fadba77333bf846c65d982e565da0860",
+  "protocol_sha256": "93694f2cc40248508bdd19008e77d5e0e973483e92deaabe2409f06c773a016d",
+  "data_bytes": 200040947956,
+  "shards": 476,
+  "report_disk_budget": 1073741824,
+  "free_disk_bytes": 236257132544,
+  "memory_limit": 17179869184,
+  "workers": 1,
+  "status": "dry_run",
+  "disk_feasible": true
+}

@@ -1,0 +1,26 @@
+{
+  "protocol": "precision-real-era5-v1",
+  "date": "2026-10-19",
+  "seed": 20261019,
+  "cycle_selection": "day 11 at 06 UTC in each of the twelve 2023 source months; fixed before looking at amounts; whole-cycle development holdout also used by earlier weather realism study",
+  "locations": [
+    {"name": "Moscow", "latitude": 55.75, "longitude": 37.5},
+    {"name": "Singapore", "latitude": 1.25, "longitude": 103.75},
+    {"name": "North_Atlantic", "latitude": 45.0, "longitude": -30.0},
+    {"name": "New_York", "latitude": 40.75, "longitude": -74.0},
+    {"name": "Tokyo", "latitude": 35.75, "longitude": 139.75},
+    {"name": "Sydney", "latitude": -33.75, "longitude": 151.25}
+  ],
+  "window_hours": 12,
+  "query_hours": 5,
+  "coarsening_hours": 4,
+  "arms": ["documented_H1", "controlled_shift_H2"],
+  "methods": ["full", "compiled", "terminal_no_reuse", "terminal"],
+  "radii": ["0", "1/10", "1"],
+  "query_eps_mm": "1/20",
+  "refinement_fractions": [0, 0.25, 0.5, 1],
+  "agreement_tolerance": 1e-7,
+  "memory_limit": "2GiB",
+  "failure_policy": "retain dry/missing/negative cases and losses; no selection on observed rain; no claim of naturally ambiguous metadata in documented ERA5",
+  "scope": "real original encoded NCAR ERA5 LSP point values, controlled coarsening and (in second arm) explicit artificial metadata shift; no weather forecast, independent annotation, physical sensor-error calibration or priority proof"
+}

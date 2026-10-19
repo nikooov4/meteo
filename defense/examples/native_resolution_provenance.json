@@ -1,0 +1,38 @@
+{
+  "selection": "largest native Query width for illustration only; all 72 cases retained",
+  "record": {
+    "index": 37,
+    "month": 7,
+    "place": "Singapore",
+    "observations_sha256_unchanged": "2f2229c0c7a9c1b30e1de27df1e576c4a44feee6de4749dc3fe0e89b7c7ffa69",
+    "original_observation_count": 12,
+    "input_hash": "1c3378624b8930e9a2b8e9ac29cde32ad14b125356e96895e4aa642b7e5f43d2",
+    "lower": "0",
+    "upper": "34875/16384",
+    "source_sha256": "cda486892ee76ebe266b6cdc3999fc47cf39e92973550b8137e2bcc1fc8671e9",
+    "methods": {
+      "full": {
+        "checker_valid": true,
+        "lp_width_agreement": true
+      },
+      "compiled": {
+        "checker_valid": true,
+        "lp_width_agreement": true
+      },
+      "terminal_no_reuse": {
+        "checker_valid": true,
+        "lp_width_agreement": true
+      },
+      "terminal": {
+        "checker_valid": true,
+        "lp_width_agreement": true
+      }
+    },
+    "exact_answer": false,
+    "none_of_available_actions_resolves": true,
+    "bundle": "part-000037.zip",
+    "sha256": "83c8d897a0efa87bc8e286a0ad8b9e2f3bbf69ce258c9993649bc6b7b0f0419b",
+    "bundle_bytes": 11743
+  },
+  "run_sha256": "233a822571108c9d28e2590d3e9dbe500aa3f64ae0a4629c94981428f14d6e80"
+}
