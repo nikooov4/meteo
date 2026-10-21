@@ -211,6 +211,33 @@ def calibrate(paths, output, spacing=1.0, split_day=11, memory_limit="2GiB"):
     return manifest
 
 
+def _open_training_bank(manifest, meta, *, verify_checksum=True):
+    """Distinguish a missing payload from a native Windows Unicode-path error."""
+    if meta.get("schema") != CALIBRATION:
+        raise ValueError("unknown calibration schema")
+    bank = meta["banks"]["train"]
+    path = safe_data_path(Path(manifest).parent, bank["path"])
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Calibration training bank is missing: {path}. "
+            "Copy train.nc together with manifest.json, or prepare a complete calibration "
+            "using scripts/prepare_weather_calibration.py."
+        )
+    if verify_checksum and sha256_file(path) != bank["sha256"]:
+        raise ValueError("training bank checksum mismatch")
+    try:
+        return nc.Dataset(path)
+    except OSError as exc:
+        if os.name == "nt" and not str(path).isascii():
+            raise OSError(
+                f"NetCDF cannot open the existing training bank: {path}. "
+                "Windows NetCDF may reject non-ASCII paths. Copy the calibration folder "
+                "to an ASCII-only path outside OneDrive, use an ASCII output path, "
+                f"and retry in a new output directory. Original error: {exc}"
+            ) from exc
+        raise
+
+
 class WeatherModel:
     """Bounded one-block working set. Generation opens only the training bank."""
 
@@ -220,11 +247,7 @@ class WeatherModel:
         if self.meta["schema"] != CALIBRATION or not 0 <= sigma <= .5:
             raise ValueError("unknown calibration or invalid perturbation sigma")
         self.seed, self.sigma = seed, sigma
-        bank = self.meta["banks"]["train"]
-        path = safe_data_path(self.path.parent, bank["path"])
-        if sha256_file(path) != bank["sha256"]:
-            raise ValueError("training bank checksum mismatch")
-        self.ds = nc.Dataset(path)
+        self.ds = _open_training_bank(self.path, self.meta)
         if (self.ds.schema != CALIBRATION or self.ds.split != "train"
                 or self.ds.variables["lsp_mm"].units != "mm"
                 or self.ds.variables["lsp_mm"].shape[1:] != (12, *self.meta["grid_shape"])):
@@ -300,7 +323,13 @@ def generate_weather(calibration, output, target_size="100MB", seed=42, sigma=.1
             "workers": 1, "generator_memory_limit": limit,
             "scope": "resampled, perturbed hourly LSP; independent 12 h blocks, not a forecast"}
     if dry_run:
-        return {**plan, "status": "dry_run", "disk_feasible": free >= plan["required_initial_free_bytes"]}
+        # Check the native header before a disk-only plan implies readiness.
+        # Real generation still hashes the entire training bank before use.
+        with _open_training_bank(calibration, cm, verify_checksum=False):
+            pass
+        return {**plan, "status": "dry_run", "disk_feasible": free >= plan["required_initial_free_bytes"],
+                "calibration_check": {"training_bank_exists": True, "netcdf_open": True,
+                                      "sha256": "not_checked_in_dry_run"}}
     output.mkdir(parents=True, exist_ok=True)
     mp = output / "manifest.json"
     if mp.exists():

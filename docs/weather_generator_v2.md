@@ -100,6 +100,48 @@ JSON/manifest читаются как UTF-8, включая кириллицу �
 командах выше. Ограничение библиотеки сохранено, загрузка архива ради обхода
 не выполняется.
 
+### Windows: train.nc существует, но NetCDF сообщает «No such file»
+
+В Windows-сборке netCDF4 1.7.5 воспроизведено: Python видит и хеширует файл
+в каталоге с кириллицей, но `nc.Dataset` с его абсолютным путём возвращает
+FileNotFoundError. Поэтому проверяйте наличие отдельно:
+
+```powershell
+Test-Path -LiteralPath '.\data\calibration\era5-lsp-2023-v1\train.nc'
+```
+
+Если True, скопируйте полный calibration folder в новый каталог, чей полный
+путь содержит только ASCII. Для пользователя с ASCII-именем профиля:
+
+```powershell
+$meteoData = Join-Path $env:USERPROFILE 'meteo-data'
+New-Item -ItemType Directory -Force "$meteoData\calibration" | Out-Null
+Copy-Item -LiteralPath '.\data\calibration\era5-lsp-2023-v1' -Destination "$meteoData\calibration" -Recurse
+
+uv run python scripts/generate_scale_dataset.py --profile weather-bootstrap --calibration "$meteoData\calibration\era5-lsp-2023-v1\manifest.json" --output "$meteoData\weather-global-10gb-v2" --target-size 10GB --seed 42 --disk-budget 11GB --memory-limit 2GiB --dry-run
+uv run python scripts/generate_scale_dataset.py --profile weather-bootstrap --calibration "$meteoData\calibration\era5-lsp-2023-v1\manifest.json" --output "$meteoData\weather-global-10gb-v2" --target-size 10GB --seed 42 --disk-budget 11GB --memory-limit 2GiB --resume
+```
+
+Сам репозиторий можно оставить на месте. Для генерации нужны manifest и train.nc;
+для оценки реалистичности также нужен holdout.nc. Исходники ERA5 заново скачивать
+ради копирования готовых banks не требуется. Используйте новый output: абсолютный
+calibration path входит в конфигурационный hash, старый manifest не редактируйте.
+В дальнейших командах verify/scan/map указывайте новый путь к manifest архива.
+Если каталог назначения уже содержит другую калибровку, выберите новое имя.
+
+Если Test-Path вернул False, калибровка неполна: один manifest не заменяет
+train.nc. Подготовьте её в новом ASCII-каталоге, сохранив прежнюю:
+
+```powershell
+$meteoData = Join-Path $env:USERPROFILE 'meteo-data'
+uv run python scripts/prepare_weather_calibration.py --download --output "$meteoData\calibration\era5-lsp-restored-v1"
+```
+
+Готовые источники в стандартном references-каталоге проверяются и используются
+повторно. Затем передайте полученный manifest генератору и выберите новый output.
+Обновлённый dry-run открывает training bank до выдачи плана; проверка полного
+SHA256 по-прежнему выполняется перед реальной генерацией.
+
 ## Карта
 
 Новый файл `outputs/maps/synthetic_global_animation.html` содержит весь мир,
