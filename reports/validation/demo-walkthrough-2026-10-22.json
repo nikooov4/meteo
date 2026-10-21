@@ -1,0 +1,1313 @@
+{
+  "status": "passed",
+  "created_at": "2026-10-21T22:00:05.156956+00:00",
+  "python": "3.12.13",
+  "libraries": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pydantic": "2.14.1"
+  },
+  "base_git_revision": "f124cda458bb571d4879e2d81e5a60def8ae968b",
+  "source_state": "documentation changes present; no solver changes",
+  "file_sha256": {
+    "docs/demo_walkthrough_ru.md": "718f9c5d335f0610348835ad7c33139141072d51e31875b6188dd68fe21de6a1",
+    "src/meteo_bridge/fixtures.py": "523e52791fe927e9c37a1923a9f840df8174f3657cfdc4f54e8216277ec14da3",
+    "src/meteo_bridge/services.py": "186ebb552e7e49bf7a5aa511a31db3270916b9822dfdcddf3626251b5f51fb07",
+    "src/meteo_bridge/domain.py": "1cb307b8d5856c7034676784e285a617e2a347af173ee6c142eb743686fc4b84",
+    "src/meteo_bridge/semantics.py": "1eef79656b7188e90a66bf8763dfaf9c2ef9d8e73a8cb296f0a0fc65f0b10fc1",
+    "src/meteo_bridge/graph.py": "915bb427e6c0788ff0ad3074f8cc566f1202bce0b1bd861ba9ee706bd9826e20",
+    "src/meteo_bridge/certificates.py": "ece5ed18a709fa9a4ff622edabcd154d4cafd91ea097731035c1f6cbd731f4f4",
+    "src/meteo_bridge/precision_frontier.py": "e0cf80aa9c742649aa9dcdb8d94318adcc0065a0ccd4173499c2f1e8118ab524",
+    "src/meteo_bridge/precision_checker.py": "608076f4d450e6055506af3c3f8c67ade034812f9d54eba230b4faf534e8ed15",
+    "ui/app.py": "4a2410ada01785e1fd26439ed58e50d794ae09fff4e367533492400708db23c6",
+    "uv.lock": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419"
+  },
+  "query_scenarios": [
+    {
+      "label": "overlap-exact",
+      "input_sha256": "9a9db574591e4b7863ba296039ba381745d80ac10a25eeea69ad38b4bab2d111",
+      "expected": {
+        "status": "certified",
+        "lower": "18",
+        "upper": "18",
+        "point_estimate": "18",
+        "decision": null
+      },
+      "result": {
+        "case_id": "overlap-exact",
+        "revision": 0,
+        "case_hash": "9a9db574591e4b7863ba296039ba381745d80ac10a25eeea69ad38b4bab2d111",
+        "unit": "mm",
+        "lower": "18",
+        "upper": "18",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": "18",
+        "decision": null,
+        "reason_flags": [],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "117c5a1bc6cd0b9b0ee34790043a41bc8d231792f7153fa075a87db6b9abdecc"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "overlap-bounded",
+      "input_sha256": "a248eddc58a2ad0507641ef3866b1d915a049c0cea6ed136cefd523ad1eab2f6",
+      "expected": {
+        "status": "insufficient_data",
+        "lower": "177/10",
+        "upper": "183/10",
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "overlap-bounded",
+        "revision": 0,
+        "case_hash": "a248eddc58a2ad0507641ef3866b1d915a049c0cea6ed136cefd523ad1eab2f6",
+        "unit": "mm",
+        "lower": "177/10",
+        "upper": "183/10",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [
+          "temporal_underdetermination"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "29/5",
+              "43200": "99/10",
+              "64800": "177/10"
+            },
+            "q": "177/10"
+          },
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "31/5",
+              "43200": "101/10",
+              "64800": "183/10"
+            },
+            "q": "183/10"
+          }
+        ],
+        "suggested_actions": [
+          {
+            "kind": "request_observation",
+            "series": {
+              "quantity": "precipitation",
+              "location": "fixture",
+              "spatial_support": "point",
+              "product": "hand-calculated",
+              "version": "1",
+              "member": "deterministic",
+              "vertical_support": "surface",
+              "cycle": null
+            },
+            "start": 0,
+            "end": 64800,
+            "available": false,
+            "reason": "requires new interval evidence"
+          }
+        ],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "insufficient_data",
+        "certificate_id": "9fe9dd09c1172c46f87217ec0754a4c75b51d6fd459dc93fddd70bb789fde79c"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "threshold-true",
+      "input_sha256": "2afd3078936fcbd2a20b55c66dd8576763ebe37a80788bc604ee2b24510fee98",
+      "expected": {
+        "status": "certified",
+        "lower": "177/10",
+        "upper": "183/10",
+        "point_estimate": null,
+        "decision": true
+      },
+      "result": {
+        "case_id": "threshold-true",
+        "revision": 0,
+        "case_hash": "2afd3078936fcbd2a20b55c66dd8576763ebe37a80788bc604ee2b24510fee98",
+        "unit": "mm",
+        "lower": "177/10",
+        "upper": "183/10",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": null,
+        "decision": true,
+        "reason_flags": [
+          "temporal_underdetermination"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "29/5",
+              "43200": "99/10",
+              "64800": "177/10"
+            },
+            "q": "177/10"
+          },
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "31/5",
+              "43200": "101/10",
+              "64800": "183/10"
+            },
+            "q": "183/10"
+          }
+        ],
+        "suggested_actions": [],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "fc822527f9b32c8eae2a99a55db3a58d909848919d43750d1968b45f3781fa7b"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "threshold-unknown",
+      "input_sha256": "3ba4dd020eda67a3ac29d3742a181193a29cedb76f46ba316d2d48e1ac87955e",
+      "expected": {
+        "status": "insufficient_data",
+        "lower": "177/10",
+        "upper": "183/10",
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "threshold-unknown",
+        "revision": 0,
+        "case_hash": "3ba4dd020eda67a3ac29d3742a181193a29cedb76f46ba316d2d48e1ac87955e",
+        "unit": "mm",
+        "lower": "177/10",
+        "upper": "183/10",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [
+          "temporal_underdetermination"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "29/5",
+              "43200": "99/10",
+              "64800": "177/10"
+            },
+            "q": "177/10"
+          },
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "31/5",
+              "43200": "101/10",
+              "64800": "183/10"
+            },
+            "q": "183/10"
+          }
+        ],
+        "suggested_actions": [
+          {
+            "kind": "request_observation",
+            "series": {
+              "quantity": "precipitation",
+              "location": "fixture",
+              "spatial_support": "point",
+              "product": "hand-calculated",
+              "version": "1",
+              "member": "deterministic",
+              "vertical_support": "surface",
+              "cycle": null
+            },
+            "start": 0,
+            "end": 64800,
+            "available": false,
+            "reason": "requires new interval evidence"
+          }
+        ],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "insufficient_data",
+        "certificate_id": "73ae41aea5d4118df7c153ba90a9ecd23b02239009ade96e23c78fcc81781bb1"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "daily-total",
+      "input_sha256": "17a41cddfa1a8751b629b66091f9e39926303071be56bed6bd87688611a5e560",
+      "expected": {
+        "status": "certified",
+        "lower": "12",
+        "upper": "12",
+        "point_estimate": "12",
+        "decision": null
+      },
+      "result": {
+        "case_id": "daily-total",
+        "revision": 0,
+        "case_hash": "17a41cddfa1a8751b629b66091f9e39926303071be56bed6bd87688611a5e560",
+        "unit": "mm",
+        "lower": "12",
+        "upper": "12",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": "12",
+        "decision": null,
+        "reason_flags": [],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "2c8306c77a1237e732f252fb97ba471f0c995581a0e55081dcac5c8ea19c7176"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "insufficient-data",
+      "input_sha256": "e5376d459c1430a9e5e28c53f0ad19128d783e47f97f950e49c74061a1f535bd",
+      "expected": {
+        "status": "insufficient_data",
+        "lower": "0",
+        "upper": "12",
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "insufficient-data",
+        "revision": 0,
+        "case_hash": "e5376d459c1430a9e5e28c53f0ad19128d783e47f97f950e49c74061a1f535bd",
+        "unit": "mm",
+        "lower": "0",
+        "upper": "12",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [
+          "temporal_underdetermination"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "43200": "0",
+              "86400": "12"
+            },
+            "q": "0"
+          },
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "43200": "12",
+              "86400": "12"
+            },
+            "q": "12"
+          }
+        ],
+        "suggested_actions": [
+          {
+            "kind": "request_observation",
+            "series": {
+              "quantity": "precipitation",
+              "location": "fixture",
+              "spatial_support": "point",
+              "product": "hand-calculated",
+              "version": "1",
+              "member": "deterministic",
+              "vertical_support": "surface",
+              "cycle": null
+            },
+            "start": 0,
+            "end": 43200,
+            "available": false,
+            "reason": "requires new interval evidence"
+          }
+        ],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "insufficient_data",
+        "certificate_id": "49d7d7241f38c0ee09f05520ed99b1a491a236e854bdfec23d2ccbb87d97bf38"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "metadata-label",
+      "input_sha256": "885f7265acd40e057e82ce4df28c256e6f802115a082a9ff9b912fe40a5aadc1",
+      "expected": {
+        "status": "needs_evidence",
+        "lower": "2",
+        "upper": "5",
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "metadata-label",
+        "revision": 0,
+        "case_hash": "885f7265acd40e057e82ce4df28c256e6f802115a082a9ff9b912fe40a5aadc1",
+        "unit": "mm",
+        "lower": "2",
+        "upper": "5",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [
+          "metadata_ambiguity"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "end",
+            "potentials": {
+              "0": "0",
+              "3600": "2",
+              "7200": "7"
+            },
+            "q": "2"
+          },
+          {
+            "hypothesis": "begin",
+            "potentials": {
+              "0": "0",
+              "3600": "5",
+              "7200": "7"
+            },
+            "q": "5"
+          }
+        ],
+        "suggested_actions": [
+          {
+            "kind": "clarify_metadata",
+            "attribute": "label",
+            "options": [
+              "begin",
+              "end"
+            ]
+          }
+        ],
+        "scope": [
+          "end",
+          "begin"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "needs_evidence",
+        "certificate_id": "12dd5fa85b71c482f5e37edd6e45f87d6d4996094bfc34f6a9a4408541920690"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "conflict",
+      "input_sha256": "3382f40670621533e1ddaf52baeff9a972d89318c23c6dd61cdbf1ee44875b19",
+      "expected": {
+        "status": "inconsistent_model",
+        "lower": null,
+        "upper": null,
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "conflict",
+        "revision": 0,
+        "case_hash": "3382f40670621533e1ddaf52baeff9a972d89318c23c6dd61cdbf1ee44875b19",
+        "unit": "mm",
+        "lower": null,
+        "upper": null,
+        "bound_kind": {
+          "lower": "empty",
+          "upper": "empty"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [
+          "conflict"
+        ],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "inconsistent_model",
+        "certificate_id": "8dafcb4b92204ac1b6700aee375bd24728f66303e4acd6e49f4bf4240b84c319"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "unbounded",
+      "input_sha256": "86adb046937485735be40734d3f7be1677fe7d2175c513be48ff87336fc0f7e1",
+      "expected": {
+        "status": "insufficient_data",
+        "lower": "0",
+        "upper": null,
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "unbounded",
+        "revision": 0,
+        "case_hash": "86adb046937485735be40734d3f7be1677fe7d2175c513be48ff87336fc0f7e1",
+        "unit": "mm",
+        "lower": "0",
+        "upper": null,
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "unbounded"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [
+          "temporal_underdetermination",
+          "missing_bounds"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "64800": "0"
+            },
+            "q": "0"
+          },
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "64800": "1"
+            },
+            "q": "1"
+          }
+        ],
+        "suggested_actions": [
+          {
+            "kind": "request_observation",
+            "series": {
+              "quantity": "precipitation",
+              "location": "fixture",
+              "spatial_support": "point",
+              "product": "hand-calculated",
+              "version": "1",
+              "member": "deterministic",
+              "vertical_support": "surface",
+              "cycle": null
+            },
+            "start": 0,
+            "end": 64800,
+            "available": false,
+            "reason": "requires new interval evidence"
+          }
+        ],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "insufficient_data",
+        "certificate_id": "0790104ff7fec5e31772f21e69a0077bcd17974ba50a6cd317fa0a969348a9a5"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "incomplete-h",
+      "input_sha256": "146a4d7fda96084b6900f85d0a5f5f12663791d74ea68e05192db76b6fa16098",
+      "expected": {
+        "status": "incomplete_model",
+        "lower": "2",
+        "upper": "2",
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "incomplete-h",
+        "revision": 0,
+        "case_hash": "146a4d7fda96084b6900f85d0a5f5f12663791d74ea68e05192db76b6fa16098",
+        "unit": "mm",
+        "lower": "2",
+        "upper": "2",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "end"
+        ],
+        "completeness_basis": "top-k; truth may be omitted",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": false,
+        "status": "incomplete_model",
+        "certificate_id": "64e9c4cce090dca7aedbaf0ffd941b51edc2a7378dcbbe4e39cdb231d96da79f"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": false
+      }
+    },
+    {
+      "label": "cumulative",
+      "input_sha256": "3bed0a88182f748b2877ed61f8e64154376419e511e9163320a09166decdca5b",
+      "expected": {
+        "status": "certified",
+        "lower": "3",
+        "upper": "3",
+        "point_estimate": "3",
+        "decision": null
+      },
+      "result": {
+        "case_id": "cumulative",
+        "revision": 0,
+        "case_hash": "3bed0a88182f748b2877ed61f8e64154376419e511e9163320a09166decdca5b",
+        "unit": "mm",
+        "lower": "3",
+        "upper": "3",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": "3",
+        "decision": null,
+        "reason_flags": [],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "f118a525d2d9f7032425f271612b54d9cdc08fdba80d0f84dc216833718d28bb"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "add morning-confirmed",
+      "input_sha256": "390099ea1fce15fee495318a98a08bafa909fe1bb90e1b5faed25ab837c265bf",
+      "expected": {
+        "status": "certified",
+        "lower": "5",
+        "upper": "5",
+        "point_estimate": "5",
+        "decision": null
+      },
+      "result": {
+        "case_id": "insufficient-data",
+        "revision": 1,
+        "case_hash": "390099ea1fce15fee495318a98a08bafa909fe1bb90e1b5faed25ab837c265bf",
+        "unit": "mm",
+        "lower": "5",
+        "upper": "5",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": "5",
+        "decision": null,
+        "reason_flags": [],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "5ada8d789ee02eb3cba2cd3bbd383d18ca65389b3d17d8727d690a57d4a90464"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "clarify label=end",
+      "input_sha256": "b2debcb0933729ec7b6d44c89278515052574063326326e123126cdfbf95aaee",
+      "expected": {
+        "status": "certified",
+        "lower": "2",
+        "upper": "2",
+        "point_estimate": "2",
+        "decision": null
+      },
+      "result": {
+        "case_id": "metadata-label",
+        "revision": 1,
+        "case_hash": "b2debcb0933729ec7b6d44c89278515052574063326326e123126cdfbf95aaee",
+        "unit": "mm",
+        "lower": "2",
+        "upper": "2",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": "2",
+        "decision": null,
+        "reason_flags": [],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "end"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "d5576c493cb6963a60306fdbe86df1da5b593779a740d376671bc56a0e85e9a1"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "clarify label=begin",
+      "input_sha256": "0411b2ad2c324ad37fa53da1dc3c8a395154d7ff002cbef0cc839a3a28de3678",
+      "expected": {
+        "status": "certified",
+        "lower": "5",
+        "upper": "5",
+        "point_estimate": "5",
+        "decision": null
+      },
+      "result": {
+        "case_id": "metadata-label",
+        "revision": 1,
+        "case_hash": "0411b2ad2c324ad37fa53da1dc3c8a395154d7ff002cbef0cc839a3a28de3678",
+        "unit": "mm",
+        "lower": "5",
+        "upper": "5",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": "5",
+        "decision": null,
+        "reason_flags": [],
+        "witnesses": [],
+        "suggested_actions": [],
+        "scope": [
+          "begin"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "fedb9fda24849f81d4cd07592a9feea2dff9abac2ec27f8edf6bd9f4bae60533"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "overlap-bounded eps=0.3",
+      "input_sha256": "8ab1e5ca4ea67b2e2641f5cdbfcf45dab5f05142aa0c8cb8e51221c543798c80",
+      "expected": {
+        "status": "certified",
+        "lower": "177/10",
+        "upper": "183/10",
+        "point_estimate": "18",
+        "decision": null
+      },
+      "result": {
+        "case_id": "overlap-bounded",
+        "revision": 0,
+        "case_hash": "8ab1e5ca4ea67b2e2641f5cdbfcf45dab5f05142aa0c8cb8e51221c543798c80",
+        "unit": "mm",
+        "lower": "177/10",
+        "upper": "183/10",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": "18",
+        "decision": null,
+        "reason_flags": [
+          "temporal_underdetermination"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "29/5",
+              "43200": "99/10",
+              "64800": "177/10"
+            },
+            "q": "177/10"
+          },
+          {
+            "hypothesis": "known",
+            "potentials": {
+              "0": "0",
+              "21600": "31/5",
+              "43200": "101/10",
+              "64800": "183/10"
+            },
+            "q": "183/10"
+          }
+        ],
+        "suggested_actions": [],
+        "scope": [
+          "known"
+        ],
+        "completeness_basis": "exhaustive hand-specified fixture",
+        "assumptions": [
+          "nonnegative precipitation increments"
+        ],
+        "h_complete": true,
+        "status": "certified",
+        "certificate_id": "f5f399c5c2c477ac05c89ff2b78a658dc0e7e20a35e42167025431cd1a7bbdd1"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    },
+    {
+      "label": "original native half-hour case",
+      "input_sha256": "c6b05fa1e5ac3b5b8ff55b8f03028507f2fb3f301d049a36878f615eff277206",
+      "expected": {
+        "status": "insufficient_data",
+        "lower": "0",
+        "upper": "34875/16384",
+        "point_estimate": null,
+        "decision": null
+      },
+      "result": {
+        "case_id": "era5-1689055200-1.25-103.75-native-first-half-hour",
+        "revision": 0,
+        "case_hash": "c6b05fa1e5ac3b5b8ff55b8f03028507f2fb3f301d049a36878f615eff277206",
+        "unit": "mm",
+        "lower": "0",
+        "upper": "34875/16384",
+        "bound_kind": {
+          "lower": "finite",
+          "upper": "finite"
+        },
+        "point_estimate": null,
+        "decision": null,
+        "reason_flags": [
+          "temporal_underdetermination"
+        ],
+        "witnesses": [
+          {
+            "hypothesis": "documented",
+            "potentials": {
+              "1689055200": "0",
+              "1689057000": "0",
+              "1689058800": "34875/16384",
+              "1689062400": "652125/131072",
+              "1689066000": "2076125/262144",
+              "1689069600": "1258125/131072",
+              "1689073200": "1356375/131072",
+              "1689076800": "709125/65536",
+              "1689080400": "2944125/262144",
+              "1689084000": "1502125/131072",
+              "1689087600": "752875/65536",
+              "1689091200": "3011875/262144",
+              "1689094800": "3011875/262144",
+              "1689098400": "3011875/262144"
+            },
+            "q": "0"
+          },
+          {
+            "hypothesis": "documented",
+            "potentials": {
+              "1689055200": "0",
+              "1689057000": "34875/16384",
+              "1689058800": "34875/16384",
+              "1689062400": "652125/131072",
+              "1689066000": "2076125/262144",
+              "1689069600": "1258125/131072",
+              "1689073200": "1356375/131072",
+              "1689076800": "709125/65536",
+              "1689080400": "2944125/262144",
+              "1689084000": "1502125/131072",
+              "1689087600": "752875/65536",
+              "1689091200": "3011875/262144",
+              "1689094800": "3011875/262144",
+              "1689098400": "3011875/262144"
+            },
+            "q": "34875/16384"
+          }
+        ],
+        "suggested_actions": [
+          {
+            "kind": "request_observation",
+            "series": {
+              "quantity": "large_scale_precipitation",
+              "location": "ERA5:1.25,103.75",
+              "spatial_support": "native 0.25 degree grid point",
+              "product": "NCAR-ERA5-HRES-LSP",
+              "version": "1",
+              "member": "HRES",
+              "vertical_support": "surface",
+              "cycle": "1689055200"
+            },
+            "start": 1689055200,
+            "end": 1689057000,
+            "available": false,
+            "reason": "requires new interval evidence"
+          }
+        ],
+        "scope": [
+          "documented"
+        ],
+        "completeness_basis": "documented NCAR ERA5 HRES previous-hour LSP amounts; exact encoded float m to mm",
+        "assumptions": [
+          "nonnegative precipitation increments",
+          "encoded amounts, not physical sensor accuracy",
+          "native float metres converted exactly to rational mm; no deaccumulation"
+        ],
+        "h_complete": true,
+        "status": "insufficient_data",
+        "certificate_id": "9f8d9e1f8782a8c7d6a3d5fc62aff3c494988f67bcff0605d4000f61e54e6a1f"
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "1",
+        "conditional_on_complete_H": true
+      }
+    }
+  ],
+  "precision": {
+    "case_hash": "6207caf352b21c0d61eb401433c5ef99ea794dba1c705f9c0688d54bda15b002",
+    "actions": [
+      {
+        "id": "evening",
+        "kind": "interval",
+        "cost": "1",
+        "start": 43200,
+        "end": 86400,
+        "attribute": null
+      },
+      {
+        "id": "repeat-day",
+        "kind": "interval",
+        "cost": "1",
+        "start": 0,
+        "end": 86400,
+        "attribute": null
+      }
+    ],
+    "bundle": {
+      "result": {
+        "status": "ok",
+        "h_complete": true,
+        "eps": "0.5",
+        "actions": [
+          {
+            "id": "evening",
+            "cost": "1",
+            "radius_kind": "finite",
+            "radius_supremum": "1/2",
+            "safe_at_supremum": true,
+            "conditional_guarantee": true
+          },
+          {
+            "id": "repeat-day",
+            "cost": "1",
+            "radius_kind": "empty",
+            "radius_supremum": "0",
+            "safe_at_supremum": false,
+            "conditional_guarantee": false
+          }
+        ],
+        "certificate_id": "2755fe96046dbc51d2ce032dd46eb24a28461ba438da7981d9df3cfd7675657b"
+      },
+      "certificate": {
+        "version": "precision-1",
+        "case_hash": "6207caf352b21c0d61eb401433c5ef99ea794dba1c705f9c0688d54bda15b002",
+        "actions_hash": "fa45b0d145fcd588aa7332fdf993bfc8f214c31d8f06785f978b982cc3a4bd4f",
+        "worlds": {
+          "known": {
+            "feasible": true,
+            "point": {
+              "0": "0",
+              "43200": "12",
+              "86400": "12"
+            }
+          }
+        },
+        "pairs": [
+          [
+            {
+              "left": "known",
+              "right": "known",
+              "activation_rho": "0",
+              "activation_cycle": null,
+              "kind": "finite",
+              "affines": [
+                {
+                  "slope": 0,
+                  "intercept": "12",
+                  "paths": [
+                    {
+                      "start": 0,
+                      "end": 3,
+                      "edges": [
+                        "2cf0f5f61c438e91e769c81d",
+                        "8ff5ce7813e9cbd9fb0790fc",
+                        "aecda07d732bd0047159421b"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "slope": 1,
+                  "intercept": "0",
+                  "paths": [
+                    {
+                      "start": 0,
+                      "end": 3,
+                      "edges": [
+                        "2cf0f5f61c438e91e769c81d",
+                        "noise_lr",
+                        "a088b75b62d4caa4965f8623"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "segments": [
+                {
+                  "start": "0",
+                  "end": "12",
+                  "affine": 1
+                },
+                {
+                  "start": "12",
+                  "end": null,
+                  "affine": 0
+                }
+              ],
+              "points": {
+                "0": {
+                  "0": "0",
+                  "1": "12",
+                  "2": "12",
+                  "3": "0",
+                  "5": "12"
+                },
+                "12": {
+                  "0": "0",
+                  "1": "12",
+                  "2": "12",
+                  "3": "12",
+                  "5": "24"
+                }
+              },
+              "terminal_ray": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "3": "0",
+                "5": "0"
+              }
+            }
+          ],
+          [
+            {
+              "left": "known",
+              "right": "known",
+              "activation_rho": "0",
+              "activation_cycle": null,
+              "kind": "finite",
+              "affines": [
+                {
+                  "slope": 0,
+                  "intercept": "12",
+                  "paths": [
+                    {
+                      "start": 4,
+                      "end": 1,
+                      "edges": [
+                        "ab09d20b224e6f4051b64e42",
+                        "2cf0f5f61c438e91e769c81d",
+                        "8ff5ce7813e9cbd9fb0790fc"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "slope": 1,
+                  "intercept": "12",
+                  "paths": [
+                    {
+                      "start": 4,
+                      "end": 1,
+                      "edges": [
+                        "ab09d20b224e6f4051b64e42",
+                        "2cf0f5f61c438e91e769c81d",
+                        "noise_lr",
+                        "f3c8ca9e745f4fddc3432ac7",
+                        "2cf0f5f61c438e91e769c81d",
+                        "8ff5ce7813e9cbd9fb0790fc"
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "segments": [
+                {
+                  "start": "0",
+                  "end": null,
+                  "affine": 0
+                }
+              ],
+              "points": {
+                "0": {
+                  "0": "0",
+                  "1": "12",
+                  "2": "12",
+                  "4": "0",
+                  "5": "12"
+                }
+              },
+              "terminal_ray": {
+                "0": "0",
+                "1": "0",
+                "2": "0",
+                "4": "0",
+                "5": "0"
+              }
+            }
+          ]
+        ]
+      },
+      "checker": {
+        "valid": true,
+        "checker_version": "precision-1",
+        "verified_domain": "all finite eta >= 0",
+        "conditional_on_complete_H": true
+      },
+      "metrics": {
+        "seconds": 0.23588810000001104,
+        "method": "terminal",
+        "endpoints": 3,
+        "pairs": 2,
+        "operations": {
+          "bellman_ford_calls": 11,
+          "edge_relaxation_attempts": 287,
+          "compiled_johnson_calls": 1
+        }
+      }
+    },
+    "values": [
+      {
+        "radius": "0",
+        "actions": [
+          {
+            "id": "evening",
+            "width_kind": "finite",
+            "width": "0",
+            "guarantees_resolution": true
+          },
+          {
+            "id": "repeat-day",
+            "width_kind": "finite",
+            "width": "12",
+            "guarantees_resolution": false
+          }
+        ]
+      },
+      {
+        "radius": "1/10",
+        "actions": [
+          {
+            "id": "evening",
+            "width_kind": "finite",
+            "width": "1/5",
+            "guarantees_resolution": true
+          },
+          {
+            "id": "repeat-day",
+            "width_kind": "finite",
+            "width": "12",
+            "guarantees_resolution": false
+          }
+        ]
+      },
+      {
+        "radius": "1/2",
+        "actions": [
+          {
+            "id": "evening",
+            "width_kind": "finite",
+            "width": "1",
+            "guarantees_resolution": true
+          },
+          {
+            "id": "repeat-day",
+            "width_kind": "finite",
+            "width": "12",
+            "guarantees_resolution": false
+          }
+        ]
+      },
+      {
+        "radius": "1",
+        "actions": [
+          {
+            "id": "evening",
+            "width_kind": "finite",
+            "width": "2",
+            "guarantees_resolution": false
+          },
+          {
+            "id": "repeat-day",
+            "width_kind": "finite",
+            "width": "12",
+            "guarantees_resolution": false
+          }
+        ]
+      }
+    ]
+  },
+  "scope": "Executed arithmetic/model/checker examples; UI procedure checked against source. No new browser or large data experiment.",
+  "guide_json_examples_valid": true,
+  "guide_referenced_files_exist": true
+}

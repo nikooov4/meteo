@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "actual_native_diagnostic": {
+    "exists": true,
+    "sha256": "9bc421a13bcf774aa7960fdb30f634304bcc3b1ffa256ffd8c2d32176a3aea18",
+    "bytes": 6148,
+    "netcdf_version": "1.7.5",
+    "absolute_unicode_open": "FileNotFoundError(2, 'No such file or directory')",
+    "ascii_relative_open_from_unicode_cwd": "ok"
+  },
+  "new_helper_message": "NetCDF cannot open the existing training bank: D:\\VSCode_Projects\\meteo\\outputs\\path-diagnostics-2026-10-22\\8c34762eba\\Погода\\train.nc. Windows NetCDF may reject non-ASCII paths. Copy the calibration folder to an ASCII-only path outside OneDrive, use an ASCII output path, and retry in a new output directory. Original error: [Errno 2] No such file or directory: 'D:\\\\VSCode_Projects\\\\meteo\\\\outputs\\\\path-diagnostics-2026-10-22\\\\8c34762eba\\\\Погода\\\\train.nc'",
+  "same_payload_ascii_copy_open": "ok",
+  "payload_bytes": 6148,
+  "source_sha256": {
+    "src/meteo_bridge/realistic_weather.py": "f248c572be0d2a3b6a3b7a450434bf542e0b832b6bf1cadd6bd65081ee487f51",
+    "tests/test_realistic_weather.py": "dfc1d2a2a5c3752be41e412f9675cd506d93c6c962346ab12e126d07a84de3a6",
+    "uv.lock": "77569ad49e83790bd1e830610828af76e07587d9f76b8d4e1792ba792ee45419"
+  },
+  "tests": {
+    "passed": 11,
+    "seconds": 15.11,
+    "xml": "reports/validation/calibration-native-paths-2026-10-22.xml"
+  },
+  "scope": "Tiny actual Windows native path reproduction and targeted weather/map tests; no fresh 10GB generation and no execution on the user new PC."
+}

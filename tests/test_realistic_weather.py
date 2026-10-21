@@ -1,4 +1,6 @@
 import json
+import os
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -107,6 +109,36 @@ def test_weather_holdout_diagnostic_and_dry_run(calibration, tmp_path):
     dest = tmp_path / "not-created"
     plan = generate_weather(calibration, dest, target_size="200GB", dry_run=True)
     assert plan["target_bytes"] == 200_000_000_000 and not dest.exists()
+    assert plan["calibration_check"] == {"training_bank_exists": True, "netcdf_open": True,
+                                         "sha256": "not_checked_in_dry_run"}
+
+
+def test_weather_dry_run_rejects_missing_training_payload(calibration, tmp_path):
+    train = calibration.parent / "train.nc"
+    train.rename(train.with_suffix(".saved"))
+    dest = tmp_path / "not-created"
+    with pytest.raises(FileNotFoundError, match="Calibration training bank is missing"):
+        generate_weather(calibration, dest, dry_run=True)
+    assert not dest.exists()
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows native-path diagnostic")
+def test_existing_unicode_training_bank_gets_actionable_native_error(calibration, tmp_path, monkeypatch):
+    copied = tmp_path / "Погода"
+    copied.mkdir()
+    manifest = copied / "manifest.json"
+    shutil.copyfile(calibration, manifest)
+    shutil.copyfile(calibration.parent / "train.nc", copied / "train.nc")
+    assert (copied / "train.nc").is_file()
+
+    def native_failure(*args, **kwargs):
+        raise FileNotFoundError(2, "No such file or directory")
+
+    monkeypatch.setattr(nc, "Dataset", native_failure)
+    dest = tmp_path / "not-created"
+    with pytest.raises(OSError, match="non-ASCII paths"):
+        generate_weather(manifest, dest, dry_run=True)
+    assert not dest.exists()
 
 
 def test_archive_time_selection_reads_only_one_frame_and_separates_cycles(calibration, tmp_path):

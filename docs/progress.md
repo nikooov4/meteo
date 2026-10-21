@@ -359,3 +359,29 @@ Full final regression through ordinary pytest entry point: 161 passed, 108.78 s,
 one existing warning. Earlier test import-path failure preserved separately and
 fixed; no solver change. Defense evidence copies retain all compact bundles,
 not bulk weather arrays. Gate A history and Gate B pending remain unchanged.
+
+2026-10-22: added a plain Russian teaching/demo walkthrough, with translations of
+all 11 fixture names, exact expected outcomes, UI click sequence, adding interval
+evidence, metadata clarification, query tolerance, two contrasting measurement
+actions and a glossary of input/output/proof/archive JSON fields. Clarified that
+the UI plots cumulative witness trajectories rather than the internal constraint
+graph. Executed all 11 fixtures and four evidence/tolerance derivatives; all
+certificate checks passed. The unchanged native half-hour real example was also
+checked, for 16 Query scenarios in total. The evening/repeat-day all-noise profile
+and four eta values were checked separately. Detailed validation is recorded in
+reports/validation/demo-walkthrough-2026-10-22.json. No solver changes, new browser
+validation, fresh large-data runs or new novelty claims were made for this guide.
+
+2026-10-22: reproduced the new-PC calibration failure on Windows/netCDF4 1.7.5:
+Python existence/hash checks pass for a copied file under a Cyrillic directory,
+while native Dataset(absolute_path) raises FileNotFoundError; an ASCII relative
+path from the same Unicode current directory opens successfully. Tiny payload
+and actual diagnostic are retained under outputs/path-diagnostics-2026-10-22/.
+Weather generation now distinguishes absent training payload from existing-file
+native Unicode errors and gives an ASCII-path workaround. Dry-run opens the
+training bank header before reporting disk readiness, explicitly deferring full
+SHA256 until generation. Added missing-bank/native-error regressions and copying
+instructions; existing datasets, manifests and user changes are preserved.
+Targeted weather/map regression: 11 passed in 15.11 s, one existing TestClient
+deprecation warning; Ruff and git diff whitespace checks passed. Full regression
+and large-data generation were not rerun for this path diagnostic change.
