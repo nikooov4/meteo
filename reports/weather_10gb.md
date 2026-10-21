@@ -92,9 +92,13 @@ uv run python scripts/generate_scale_dataset.py --profile weather-bootstrap --ca
 uv run python scripts/run_scale_benchmark.py --manifest data/scale/weather-global-10gb-v2/manifest.json --sizes 1GB,10GB,50GB,200GB --memory-limit 16GiB --output reports/weather-10gb/scale
 # Для новой сборки выбирайте свободный output, существующий CLI не перезаписывает.
 uv run python scripts/build_precipitation_map.py --input data/scale/weather-global-10gb-v2/manifest.json --archive-api /map-archive --output outputs/maps/synthetic_global_10gb.html
-uv run python scripts/serve_precipitation_map.py --manifest data/scale/weather-global-10gb-v2/manifest.json --scale-report reports/weather-10gb/scale/scale_report.json --port 8765
+uv run python scripts/serve_precipitation_map.py --manifest data/scale/weather-global-10gb-v2/manifest.json --port 8765
 ```
 
+После запуска текущая карта доступна на http://127.0.0.1:8765/.
+Параметр `--scale-report` допустим только для отчёта с тем же SHA256 manifest;
+исторический отчёт этого эксперимента может относиться к версии до переноса.
+Без отчёта используется фиксированная шкала до 50 mm/ч, а не максимум старого scan.
 На этой машине сервер уже запущен; повторно занимать порт не нужно.
 Для воспроизведения после clone bulk NetCDF/calibration нужно подготовить отдельно:
 Git содержит manifest, код и компактные результаты, а не сами 10 GB.

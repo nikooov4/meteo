@@ -68,6 +68,30 @@ def safe_data_path(root, relative):
     return path
 
 
+def netcdf_read_path(path):
+    """Use an existing ASCII Windows alias for native NetCDF's narrow file API.
+
+    Python can hash Unicode paths, but some Windows NetCDF/HDF5 builds cannot
+    open them. The short name points to the same file: no copying or buffering.
+    Keep the original path for provenance and all manifest safety checks.
+    """
+    filename = str(Path(path).resolve())
+    if os.name == "nt" and not filename.isascii():
+        import ctypes
+        from ctypes import wintypes
+
+        short_path = ctypes.WinDLL("kernel32", use_last_error=True).GetShortPathNameW
+        short_path.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.DWORD]
+        short_path.restype = wintypes.DWORD
+        length = short_path(filename, None, 0)
+        if length:
+            buffer = ctypes.create_unicode_buffer(length)
+            written = short_path(filename, buffer, length)
+            if 0 < written < length and buffer.value.isascii():
+                return buffer.value
+    return filename
+
+
 class MemoryGuard:
     """Sample summed resident sets of coordinator and descendants (OS cache excluded)."""
 

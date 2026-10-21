@@ -21,24 +21,59 @@ st.set_page_config(page_title="MeteoBridge", page_icon="🌧", layout="wide")
 st.title("MeteoBridge")
 st.caption("Запросы к накопленным осадкам: что следует из данных и какой информации не хватает")
 
-source = st.sidebar.radio("Данные", ["Offline demo", "Локальный файл", "Зарегистрированный набор", "Карта осадков"])
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+source = st.sidebar.radio("Данные", ["Offline demo", "Локальный файл", "Зарегистрированный набор", "Карта осадков"],
+                          index=3 if st.query_params.get("view") == "map" else 0)
 if source == "Карта осадков":
     import streamlit.components.v1 as components
 
-    from meteo_bridge.precipitation_map import load_era5_map, load_weather_map, map_html
+    from meteo_bridge.precipitation_map import discover_map_sources, load_era5_map, load_weather_map, map_html
 
     st.subheader("Осадки")
-    files = sorted(Path("data/scale/ncar-lsp-small").glob("*.nc"))
+    sources = discover_map_sources(PROJECT_ROOT)
+    st.caption(f"Локальные файлы ERA5: {len(sources['real'])} · "
+               f"Наборы синтетики v2: {len(sources['synthetic'])}")
     with st.expander("Данные и параметры", expanded="precipitation_map" not in st.session_state):
-        map_origin = st.radio("Источник карты", ["Реальный ERA5", "Синтетика v2"], horizontal=True)
+        map_origin = st.radio("Источник карты", ["Реальный ERA5", "Синтетика v2"], horizontal=True,
+                              index=0 if sources["real"] or not sources["synthetic"] else 1)
+        if map_origin == "Синтетика v2":
+            manifests = sources["synthetic"]
+            selected = st.selectbox("Локальный синтетический набор", manifests,
+                                    format_func=lambda p: p.parent.name) if manifests else None
+            synthetic_manifest = st.text_input("Manifest синтетики v2", str(selected) if selected else "")
+            manifest_path = Path(synthetic_manifest).expanduser()
+            if not manifest_path.is_absolute():
+                manifest_path = PROJECT_ROOT / manifest_path
+            try:
+                synthetic_meta = json.loads(manifest_path.read_text(encoding="utf8"))
+                shards = synthetic_meta["shards"]
+                members = sorted({s["member"] for s in shards})
+                if synthetic_meta.get("schema") != "meteobridge-weather-bootstrap-v2" or not members:
+                    raise ValueError("Нужен подготовленный набор синтетики v2.")
+                map_member = st.selectbox("Синтетический member", members)
+                member_shards = [s for s in shards if s["member"] == map_member]
+                first = min(s["first_hour"] for s in member_shards)
+                last = max(s["first_hour"] + s["hours"] for s in member_shards) - 12
+                st.caption(f"{len(shards)} файлов · {synthetic_meta['data_bytes']/1e9:.3f} ГБ · "
+                           "независимые 12-часовые эпизоды LSP, не прогноз")
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                st.error(f"Не удалось прочитать manifest синтетики: {exc}")
+                st.stop()
+        else:
+            files = sources["real"]
+            selected = st.selectbox("Локальный архив ERA5", files,
+                                    format_func=lambda p: p.name) if files else None
+            map_path = st.text_input("Локальный файл NCAR ERA5 LSP", str(selected) if selected else "")
+            era5_path = Path(map_path).expanduser()
+            if not era5_path.is_absolute():
+                era5_path = PROJECT_ROOT / era5_path
+            if not files:
+                st.info("Локальный ERA5 не найден. Укажите путь к NCAR LSP NetCDF или выберите синтетику v2.")
         with st.form("precipitation-map"):
             if map_origin == "Синтетика v2":
-                synthetic_manifest = st.text_input("Manifest синтетики v2", "data/scale/weather-global-v2/manifest.json")
-                map_member = st.number_input("Синтетический member", min_value=0, value=0)
                 map_first_hour = st.number_input("Начальный час синтетического цикла (кратен 12)",
-                                                min_value=0, value=0, step=12)
+                                                min_value=first, max_value=last, value=first, step=12)
             else:
-                map_path = st.text_input("Локальный файл NCAR ERA5 LSP", str(files[0]) if files else "")
                 map_cycle = st.text_input("Цикл ERA5, ISO с UTC offset (пусто — первый)", "")
             cols = st.columns(4)
             west = cols[0].number_input("Запад, °E", min_value=-180.0, max_value=180.0, value=-180.0)
@@ -52,9 +87,9 @@ if source == "Карта осадков":
         try:
             with st.spinner("Читаю выбранную область и строю кадры…"):
                 if map_origin == "Синтетика v2":
-                    map_data = load_weather_map(synthetic_manifest, (west, east, south, north), map_member, map_first_hour)
+                    map_data = load_weather_map(manifest_path, (west, east, south, north), map_member, map_first_hour)
                 else:
-                    map_data = load_era5_map(map_path, (west, east, south, north), map_cycle or None,
+                    map_data = load_era5_map(era5_path, (west, east, south, north), map_cycle or None,
                                              map_frames, allow_downsample=True)
                 st.session_state.precipitation_map = (map_html(map_data), map_data["metadata"])
             st.rerun()

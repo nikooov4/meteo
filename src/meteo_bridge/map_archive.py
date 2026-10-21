@@ -13,7 +13,7 @@ import numpy as np
 from fastapi import APIRouter, HTTPException, Request, Response
 
 from .realistic_weather import SCHEMA
-from .resources import safe_data_path, sha256_file
+from .resources import netcdf_read_path, safe_data_path, sha256_file
 
 
 def iso(seconds):
@@ -108,7 +108,7 @@ class MapArchive:
             if len(self.verified) > 16:
                 self.verified.popitem(last=False)
         self.verified.move_to_end(signature)
-        with nc.Dataset(path) as ds:
+        with nc.Dataset(netcdf_read_path(path)) as ds:
             if ds.schema != SCHEMA or ds.member != member:
                 raise ValueError("map quantity/member schema mismatch")
             v = ds.variables["precipitation"]

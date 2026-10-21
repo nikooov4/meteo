@@ -8,9 +8,28 @@ import netCDF4 as nc
 import numpy as np
 import plotly.graph_objects as go
 
+from .resources import netcdf_read_path
+
 DEFAULT_BBOX = (-15.0, 65.0, 35.0, 72.0)
 WORLD_BBOX = (-180.0, 180.0, -90.0, 90.0)
 GEOMETRY = Path(__file__).resolve().parents[2] / "data/fixtures/natural-earth-110m-geometries.json"
+
+
+def discover_map_sources(root):
+    """Find local spatial data after a checkout or data-directory relocation."""
+    root = Path(root)
+    real = sorted({p.resolve() for directory in (root / "data/real", root / "data/scale")
+                   for p in directory.rglob("e5.oper.fc.sfc.accumu.128_142_lsp*.nc")})
+    synthetic = []
+    for path in sorted((root / "data/scale").glob("*/manifest.json")):
+        try:
+            meta = json.loads(path.read_text(encoding="utf8"))
+            if (meta.get("schema") == "meteobridge-weather-bootstrap-v2"
+                    and meta.get("status") == "complete" and meta.get("shards")):
+                synthetic.append(path.resolve())
+        except (OSError, ValueError):
+            continue
+    return {"real": real, "synthetic": synthetic}
 
 
 def _datetime(value):
@@ -27,7 +46,7 @@ def load_era5_map(path, bbox=DEFAULT_BBOX, cycle=None, frame_limit=12, max_cells
     if not 1 <= frame_limit <= 12 or not 1 <= max_cells <= 2_000_000:
         raise ValueError("Лимит карты: 1–12 кадров и до 2 миллионов значений.")
     path = Path(path)
-    with nc.Dataset(path) as ds:
+    with nc.Dataset(netcdf_read_path(path)) as ds:
         v = ds.variables["LSP"]
         if (v.dimensions != ("forecast_initial_time", "forecast_hour", "latitude", "longitude") or
                 getattr(v, "units", None) != "m" or getattr(v, "rda_dataset", None) != "ds633.0"):
@@ -107,7 +126,7 @@ def load_weather_map(manifest, bbox=WORLD_BBOX, member=0, first_hour=0, max_cell
     path = safe_data_path(mp.parent, s["path"])
     if sha256_file(path) != s["sha256"]:
         raise ValueError("Checksum выбранного shard не совпал.")
-    with nc.Dataset(path) as ds:
+    with nc.Dataset(netcdf_read_path(path)) as ds:
         lat = np.unique(ds.variables["latitude"][:])
         lon = np.unique(ds.variables["longitude"][:])
         yi, xi = np.flatnonzero((lat >= south) & (lat <= north)), np.flatnonzero((lon >= west) & (lon <= east))

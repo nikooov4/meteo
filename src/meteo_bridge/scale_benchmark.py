@@ -15,6 +15,7 @@ from .readers import scale_case, scan_shard
 from .resources import (
     MemoryGuard,
     atomic_json,
+    netcdf_read_path,
     run_metadata,
     safe_data_path,
     sha256_file,
@@ -65,7 +66,7 @@ def verify_scale_dataset(manifest, mode="full"):
                     raise ValueError("duplicate partition")
                 partitions.add(part)
                 if path.suffix == ".nc":
-                    with nc.Dataset(path) as ds:
+                    with nc.Dataset(netcdf_read_path(path)) as ds:
                         if ds.schema != data["schema"] or ds.config_hash != data["config_hash"]:
                             raise ValueError("embedded schema/config mismatch")
                         rows = len(ds.dimensions["series"]) * len(ds.dimensions["time"])
@@ -120,7 +121,7 @@ def verify_scale_dataset(manifest, mode="full"):
                     if entry["bytes"] > entry["logical_bytes"] * 1.1 + 8 * 2**20:
                         raise ValueError("excess non-payload bytes")
             else:
-                with nc.Dataset(path) as ds:
+                with nc.Dataset(netcdf_read_path(path)) as ds:
                     from .real_data import inspect_ncar
 
                     inspect_ncar(ds)

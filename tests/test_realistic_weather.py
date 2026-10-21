@@ -154,3 +154,39 @@ def test_map_archive_api_rejects_changed_identity_and_invalid_ranges(calibration
     assert client.get("/map-archive/frame", params={"hour": -1,
                                                     "manifest_sha256": catalog["manifest_sha256"]}).status_code == 422
     assert client.get("/map-archive/metrics").json()["frame_requests"] == 1
+
+
+def test_relocated_unicode_synthetic_map_archive_and_verification(calibration, tmp_path):
+    from meteo_bridge.map_archive import MapArchive
+
+    out = tmp_path / "before-move"
+    generate_weather(calibration, out, target_size="100KB", days_per_member=1, cycles_per_shard=1)
+    moved = out.rename(tmp_path / "синтетика после переноса")
+    manifest = moved / "manifest.json"
+    assert verify_scale_dataset(manifest)["status"] == "full_verified"
+    data = load_weather_map(manifest)
+    assert data["amounts_mm"].shape == (12, 2, 4)
+    archive = MapArchive(manifest)
+    payload, _ = archive.frame(0, 0)
+    assert np.array_equal(np.frombuffer(payload, dtype="<f4"), data["amounts_mm"][0].ravel())
+    case, _ = scale_case(manifest, 0, 0, 6)
+    assert solve_query(case)["checker"]["valid"]
+
+
+def test_streamlit_discovers_and_builds_available_synthetic_map(calibration, tmp_path, monkeypatch):
+    from streamlit.testing.v1 import AppTest
+
+    import meteo_bridge.precipitation_map as maps
+
+    out = tmp_path / "weather-global-10gb-v2"
+    generate_weather(calibration, out, target_size="100KB", days_per_member=1, cycles_per_shard=1)
+    monkeypatch.setattr(maps, "discover_map_sources", lambda root: {"real": [], "synthetic": [out / "manifest.json"]})
+    monkeypatch.setenv("METEOBRIDGE_HOME", str(tmp_path / "catalog"))
+    app_path = Path("ui/app.py").resolve()
+    monkeypatch.chdir(tmp_path)
+    at = AppTest.from_file(app_path, default_timeout=60).run()
+    at.sidebar.radio[0].set_value("Карта осадков").run()
+    assert next(t for t in at.text_input if t.label == "Manifest синтетики v2").value == str(out / "manifest.json")
+    next(b for b in at.button if b.label == "Построить карту").click().run()
+    assert not at.exception and not at.error
+    assert at.session_state.precipitation_map[1]["origin"] == "synthetic"

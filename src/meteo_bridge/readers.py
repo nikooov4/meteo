@@ -9,13 +9,13 @@ import numpy as np
 import pyarrow.dataset as pads
 
 from .domain import Case, Interpretation, IntervalObservation, Query, SemanticHypothesis, SeriesKey
-from .resources import safe_data_path
+from .resources import netcdf_read_path, safe_data_path
 
 
 def inspect_data(path):
     path = Path(path)
     if path.suffix == ".nc":
-        with nc.Dataset(path) as ds:
+        with nc.Dataset(netcdf_read_path(path)) as ds:
             return {
                 "dimensions": {k: len(v) for k, v in ds.dimensions.items()},
                 "attributes": {k: str(ds.getncattr(k)) for k in ds.ncattrs()},
@@ -78,7 +78,7 @@ def scale_case(manifest_path, series_id, first_hour, hours=6):
             min(select_end, shard["first_hour"] + shard["hours"]),
         )
         if path.suffix == ".nc":
-            with nc.Dataset(path) as ds:
+            with nc.Dataset(netcdf_read_path(path)) as ds:
                 ds.set_auto_mask(False)
                 v = ds.variables["precipitation"]
                 v.set_var_chunk_cache(2 * 2**20, 1009, 0.5)
@@ -168,7 +168,7 @@ def weather_case(mp, manifest, series_id, first_hour, hours):
                     spatial_support="sampled native grid point, not area mean", version="2",
                     product="monthly-bootstrap-ERA5-LSP", member=f"synthetic-{member}", cycle=str(cycle))
     offset = first_hour - shard["first_hour"]
-    with nc.Dataset(safe_data_path(mp.parent, shard["path"])) as ds:
+    with nc.Dataset(netcdf_read_path(safe_data_path(mp.parent, shard["path"]))) as ds:
         v = ds.variables["precipitation"]
         v.set_var_chunk_cache(2*2**20, 1009, .5)
         values = np.asarray(v[offset:offset+hours, cell])
@@ -194,7 +194,7 @@ def scan_shard(path, shard, config, guard):
     """Yield bounded normalized batches, preserving cumulative intervals as intervals."""
     path = Path(path)
     if path.suffix == ".nc":
-        with nc.Dataset(path) as ds:
+        with nc.Dataset(netcdf_read_path(path)) as ds:
             ds.set_auto_mask(False)
             if "precipitation" not in ds.variables:
                 from .real_data import scan_ncar

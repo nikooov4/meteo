@@ -2,7 +2,7 @@ import netCDF4 as nc
 import numpy as np
 import pytest
 
-from meteo_bridge.precipitation_map import load_era5_map, map_html, precipitation_figure
+from meteo_bridge.precipitation_map import discover_map_sources, load_era5_map, map_html, precipitation_figure
 
 
 @pytest.fixture
@@ -37,6 +37,33 @@ def test_native_map_preserves_hour_amounts_and_separates_cycles(native_grid):
     assert data["metadata"]["intervals_utc"][0] == ["2023-01-01T06:00:00+00:00", "2023-01-01T07:00:00+00:00"]
     second = load_era5_map(native_grid, (-2, 2, 39, 43), cycle="2023-01-01T18:00:00Z")
     assert np.nanmax(second["amounts_mm"]) == pytest.approx(9)
+
+
+def test_native_map_reads_unicode_path_without_copying(native_grid, tmp_path):
+    directory = tmp_path / "данные осадков"
+    directory.mkdir()
+    path = native_grid.rename(directory / "осадки.nc")
+    data = load_era5_map(path, (-2, 2, 39, 43))
+    assert data["amounts_mm"][:, 1, 1] == pytest.approx([2, 1, 3])
+    assert data["metadata"]["source_file"] == str(path.resolve())
+    assert list(directory.iterdir()) == [path]
+
+
+def test_map_source_discovery_after_relocation(tmp_path, monkeypatch):
+    import json
+
+    real = tmp_path / "data/real/era5-weather-reference/e5.oper.fc.sfc.accumu.128_142_lsp.january.nc"
+    real.parent.mkdir(parents=True)
+    real.touch()
+    manifest = tmp_path / "data/scale/weather-global-10gb-v2/manifest.json"
+    manifest.parent.mkdir(parents=True)
+    manifest.write_text(json.dumps({"schema": "meteobridge-weather-bootstrap-v2", "status": "complete",
+                                    "shards": [{"path": "weather-000000.nc"}]}), encoding="utf8")
+    unrelated = tmp_path / "data/scale/legacy/manifest.json"
+    unrelated.parent.mkdir()
+    unrelated.write_text('{"schema":"legacy-v1"}', encoding="utf8")
+    monkeypatch.chdir(tmp_path.parent)
+    assert discover_map_sources(tmp_path) == {"real": [real.resolve()], "synthetic": [manifest.resolve()]}
 
 
 def test_map_rejects_excessive_selection_and_unknown_conventions(native_grid):
