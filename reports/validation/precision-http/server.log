@@ -1,8 +1,0 @@
-INFO:     Started server process [17248]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:63705 (Press CTRL+C to quit)
-INFO:     127.0.0.1:63712 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63715 - "POST /datasets HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63715 - "POST /queries HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63715 - "POST /queries/e7501ef7240c4f2c953a1a98bd9cf55c/precision HTTP/1.1" 200 OK

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ERA5 map": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "applicationUrl": "http://127.0.0.1:8767",
+      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development", "Era5__OpenBrowser": "true" }
+    }
+  }
+}

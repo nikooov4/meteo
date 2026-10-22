@@ -1,0 +1,101 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.0.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeteoBridge.Era5", "dotnet\MeteoBridge.Era5\MeteoBridge.Era5.csproj", "{8B883C39-9DAB-4786-BDE8-5D8374D78083}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution files", "Solution files", "{78D5C0B6-476A-1092-B7BC-022D1B2A6FD8}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.python-version = .python-version
+		pyproject.toml = pyproject.toml
+		README.md = README.md
+		start_app.ps1 = start_app.ps1
+		uv.lock = uv.lock
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{C8EC0A61-BDD7-5B84-473E-475E4C525A08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{03529E1E-D5C1-0065-D319-DE9040394CF3}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\smoke.yml = .github\workflows\smoke.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F29FECB5-F55B-990E-B0A9-DC070697A70C}"
+	ProjectSection(SolutionItems) = preProject
+		data\README.md = data\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{23B57060-024D-D0A2-EB27-A6D69176D1B7}"
+	ProjectSection(SolutionItems) = preProject
+		docs\era5_dotnet.md = docs\era5_dotnet.md
+		docs\project_layout.md = docs\project_layout.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{075088F4-6964-98FE-FDD3-E901A93AE367}"
+	ProjectSection(SolutionItems) = preProject
+		runtime\README.md = runtime\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{09CD8C37-E61A-18A5-96E0-3FE8E871E0D0}"
+	ProjectSection(SolutionItems) = preProject
+		tests\test_era5_dotnet.py = tests\test_era5_dotnet.py
+		tests\test_project_layout.py = tests\test_project_layout.py
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{6028AD37-60FE-2A02-BC9D-7CAA72F114DA}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\setup_runtime.ps1 = scripts\setup_runtime.ps1
+		scripts\update_solution.ps1 = scripts\update_solution.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", "{550A5E10-57CC-2F03-624C-02D4759B511A}"
+	ProjectSection(SolutionItems) = preProject
+		artifacts\README.md = artifacts\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "validation", "validation", "{5419DBCB-5B58-6578-54FE-784337E1E2EC}"
+	ProjectSection(SolutionItems) = preProject
+		artifacts\validation\era5-archive-full.xml = artifacts\validation\era5-archive-full.xml
+		artifacts\validation\era5-dotnet-benchmark.json = artifacts\validation\era5-dotnet-benchmark.json
+		artifacts\validation\era5-dotnet-full.xml = artifacts\validation\era5-dotnet-full.xml
+		artifacts\validation\era5-download-real.json = artifacts\validation\era5-download-real.json
+		artifacts\validation\project-reorganization-full.xml = artifacts\validation\project-reorganization-full.xml
+		artifacts\validation\project-reorganization.json = artifacts\validation\project-reorganization.json
+		artifacts\validation\site-only-full.xml = artifacts\validation\site-only-full.xml
+		artifacts\validation\site-only.json = artifacts\validation\site-only.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4100A16A-C842-8D27-5B85-FC280EC0BEE9}"
+	ProjectSection(SolutionItems) = preProject
+		web\archive_viewer.html = web\archive_viewer.html
+		web\map_viewer.html = web\map_viewer.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{CF4A2B62-EB89-68CD-BC38-9F2B26500A23}"
+	ProjectSection(SolutionItems) = preProject
+		web\assets\land.json = web\assets\land.json
+		web\assets\README.md = web\assets\README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B883C39-9DAB-4786-BDE8-5D8374D78083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B883C39-9DAB-4786-BDE8-5D8374D78083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B883C39-9DAB-4786-BDE8-5D8374D78083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B883C39-9DAB-4786-BDE8-5D8374D78083}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{03529E1E-D5C1-0065-D319-DE9040394CF3} = {C8EC0A61-BDD7-5B84-473E-475E4C525A08}
+		{5419DBCB-5B58-6578-54FE-784337E1E2EC} = {550A5E10-57CC-2F03-624C-02D4759B511A}
+		{CF4A2B62-EB89-68CD-BC38-9F2B26500A23} = {4100A16A-C842-8D27-5B85-FC280EC0BEE9}
+	EndGlobalSection
+EndGlobal

@@ -1,9 +1,0 @@
-smoke: 32MB
-1gb: 1GB
-10gb: 10GB
-50gb: 50GB
-200gb: 200GB
-generator_memory_limit: 2GiB
-benchmark_memory_limit: 16GiB
-storage_default: netcdf-uncompressed
-storage_comparison: netcdf-zlib-or-parquet-zstd

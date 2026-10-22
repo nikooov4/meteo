@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "source": "NSF NCAR ERA5 public S3",
+  "downloaded_file": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023011606_2023020106.nc",
+  "bytes": 287864531,
+  "state": "downloaded",
+  "start_utc": "2023-01-16T06:00:00Z",
+  "end_utc": "2023-02-01T06:00:00Z",
+  "sha256": "02f74ffb816faeec5a657522a582dbc27c95de1293dd651bc564bee1a95c9a9a",
+  "map_file_count": 13,
+  "available_hours": 4704,
+  "gap_hours": 3672,
+  "test_frame_hour": 456,
+  "test_frame_bytes": 260640,
+  "test_frame_available": "true",
+  "manifest_sha256": "44cb0fadd74c7020c3a3487e96b0fccadbf0789aa36aed93a0703cd3ef908207",
+  "checked_on": "2026-10-23"
+}

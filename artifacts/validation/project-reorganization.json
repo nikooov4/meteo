@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-23",
+  "operation": "Separate active C# ERA5 site from historical Python research",
+  "active": {
+    "server": "dotnet/MeteoBridge.Era5",
+    "web": "web",
+    "era5": "data/era5",
+    "libraries": "runtime",
+    "validation": "artifacts/validation",
+    "research": "research"
+  },
+  "data_integrity": {
+    "status": "passed",
+    "file_count": 13,
+    "total_bytes": 3454652534,
+    "files": [
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023010106_2023011606.nc",
+        "Bytes": 269320412,
+        "Sha256": "E177CCF93E0DEC603D701D7C3C7FE826BA1D41702F8DE8DEA70BC41AEC6ECBA0"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023011606_2023020106.nc",
+        "Bytes": 287864531,
+        "Sha256": "02F74FFB816FAEEC5A657522A582DBC27C95DE1293DD651BC564BEE1A95C9A9A"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023020106_2023021606.nc",
+        "Bytes": 268573724,
+        "Sha256": "2005CFEA79B02CA5C95677284C616671FF5B77AF8BD9BE4AD2A56EAA4F21D3B2"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023030106_2023031606.nc",
+        "Bytes": 262878374,
+        "Sha256": "62529297632F35EF205F22264BBBE2B56E29B4E02BF65DC092C898E249C31393"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023040106_2023041606.nc",
+        "Bytes": 258322752,
+        "Sha256": "BCE76993E52D79BD9D3C20DB139D8F78B10BDDCA895B67CE63F50470DB238CE9"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023050106_2023051606.nc",
+        "Bytes": 260826762,
+        "Sha256": "9EC19A84F7DDEBA04325E55F4751233BE87DA3DA5DDD279A5F8BCBA8A025BD39"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023060106_2023061606.nc",
+        "Bytes": 255935845,
+        "Sha256": "24F4BDD90057BB5943365442513F51FBD68ACB3D860080527826D6E593EEB9D6"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023070106_2023071606.nc",
+        "Bytes": 264947022,
+        "Sha256": "CDA486892EE76EBE266B6CDC3999FC47CF39E92973550B8137E2BCC1FC8671E9"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023080106_2023081606.nc",
+        "Bytes": 260328907,
+        "Sha256": "E2610A69FB163E5AE2DB7340507665238AE5B943262882C047177EAA8D5D9A9F"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023090106_2023091606.nc",
+        "Bytes": 267847718,
+        "Sha256": "5906F7820DD26E1C6A9BBB6ABDC65E7997501E1425835D7DF683147AA2E3E27D"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023100106_2023101606.nc",
+        "Bytes": 262559094,
+        "Sha256": "B47BA5EF2A1F12FF58E4E1843E707981C8D873721437EE6CEFD05C86D7813CD1"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023110106_2023111606.nc",
+        "Bytes": 268663986,
+        "Sha256": "EC3F56D84DE37E93FC19F965E36577F778C3E2FA71CFFDDC1BF39BF5B9ADA1B6"
+      },
+      {
+        "Name": "e5.oper.fc.sfc.accumu.128_142_lsp.ll025sc.2023120106_2023121606.nc",
+        "Bytes": 266583407,
+        "Sha256": "093913B670E6D85EC7E6569B2344C3DCAA9D588715D93EC0C8274A04E8275F04"
+      }
+    ],
+    "previous_directory": "data/real/era5-weather-reference",
+    "current_directory": "data/era5",
+    "comparison": "Names, byte lengths and SHA256 computed before and after the move; exact equality"
+  },
+  "historical_evidence": "Existing experiment results, ZIP snapshots, certificates and validation artifacts preserved without rewriting recorded paths or hashes.",
+  "checks": {
+    "full_pytest": {
+      "passed": 180,
+      "failed": 0,
+      "warnings": 1,
+      "seconds": 87.01,
+      "report": "artifacts/validation/project-reorganization-full.xml"
+    },
+    "ruff": "passed",
+    "dotnet_release_build": "passed; 0 warnings, 0 errors",
+    "visual_studio_debug_build": "passed; installed Visual Studio 18 Community MSBuild",
+    "isolated_service": "passed; copied build runs without .venv, pyproject.toml or research",
+    "real_archive": {
+      "available_hours": 4704,
+      "file_count": 13,
+      "frame_hour": 456,
+      "frame_bytes": 260640,
+      "frame_available": true,
+      "map_status": 200,
+      "downloads_status": 200,
+      "plotly_status": 200
+    },
+    "research_cli": "passed; working directory research, editable package research/src, shared ERA5 discovery finds 13 files"
+  }
+}

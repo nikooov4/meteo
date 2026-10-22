@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="5" time="46.105" timestamp="2026-10-19T14:55:34.615119+03:00" hostname="Lemon"><testcase classname="tests.test_archive_precision" name="test_archive_coarsening_conventions_missing_and_nested_evidence[amount]" time="0.091" /><testcase classname="tests.test_archive_precision" name="test_archive_coarsening_conventions_missing_and_nested_evidence[interval_mean_rate]" time="0.080" /><testcase classname="tests.test_archive_precision" name="test_archive_coarsening_conventions_missing_and_nested_evidence[cumulative]" time="0.080" /><testcase classname="tests.test_archive_precision" name="test_archive_experiment_resume_replay_and_source_hash" time="20.349" /><testcase classname="tests.test_archive_precision" name="test_real_hourly_amounts_preserve_native_binary_precision_and_are_not_deaccumulated" time="0.001"><failure message="ModuleNotFoundError: No module named 'scripts'">def test_real_hourly_amounts_preserve_native_binary_precision_and_are_not_deaccumulated():
-        import numpy as np
-    
-&gt;       from scripts.run_real_precision_experiment import real_point_case
-E       ModuleNotFoundError: No module named 'scripts'
-
-tests\test_archive_precision.py:73: ModuleNotFoundError</failure></testcase></testsuite></testsuites>

@@ -1,16 +1,24 @@
-param([int]$Port = 8501, [switch]$Archive)
+param([int]$Port = 8766,
+      [string]$Data = 'data/era5', [int]$Workers = 2)
 
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
-$env:OPENBLAS_NUM_THREADS = '1'
-$env:OMP_NUM_THREADS = '1'
-
-if ($Archive) {
-    if (-not $PSBoundParameters.ContainsKey('Port')) { $Port = 8765 }
-    Write-Host "Карта синтетического архива: http://127.0.0.1:$Port/"
-    & uv run --frozen python scripts/serve_precipitation_map.py --port $Port
-} else {
-    Write-Host "Карта осадков: http://127.0.0.1:$Port/?view=map"
-    & uv run --frozen streamlit run ui/app.py --server.address 127.0.0.1 --server.port $Port --server.headless true --browser.gatherUsageStats false
+$requestedData = [IO.Path]::GetFullPath($Data, $PSScriptRoot)
+try {
+    $running = Invoke-RestMethod -Uri "http://127.0.0.1:$Port/health" -TimeoutSec 2
+    if ($running.application -eq 'MeteoBridge.Era5' -and $running.project_root -eq $PSScriptRoot -and
+        $running.data_path -eq $requestedData -and $running.workers -eq $Workers) {
+        Write-Host "Карта уже запущена: http://127.0.0.1:$Port/"
+        exit 0
+    }
+} catch { }
+if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'runtime/plotly/plotly.min.js')) -or
+    -not (Get-ChildItem -Path (Join-Path $PSScriptRoot 'runtime/netcdf/netcdf*.dll') -ErrorAction SilentlyContinue)) {
+    & (Join-Path $PSScriptRoot 'scripts/setup_runtime.ps1')
 }
+$env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot '.dotnet-home'
+$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
+$env:MSBuildEnableWorkloadResolver = 'false'
+Write-Host 'Запускаю карту ERA5. Адрес появится после запуска сервера.'
+& dotnet run --project dotnet/MeteoBridge.Era5 -c Release --no-launch-profile -- --urls "http://127.0.0.1:$Port" --Era5:Data $Data --Era5:Workers $Workers
 exit $LASTEXITCODE

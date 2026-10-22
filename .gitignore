@@ -5,11 +5,18 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .hypothesis/
-data/scale/
-data/calibration/
-data/real/era5-weather-reference/
-outputs/
-.meteo/
+data/era5/
+runtime/netcdf/
+runtime/plotly/
+runtime/licenses/
+runtime/manifest.json
+artifacts/logs/
+artifacts/publish/
+artifacts/validation/*.xml
+!artifacts/validation/era5-archive-full.xml
+!artifacts/validation/era5-dotnet-full.xml
+!artifacts/validation/project-reorganization-full.xml
+!artifacts/validation/site-only-full.xml
 *.partial
 *.pyc
 
@@ -37,3 +44,11 @@ data/raw/
 data/downloads/
 .DS_Store
 Thumbs.db
+
+# Visual Studio and .NET local build files
+.vs/
+**/bin/
+**/obj/
+.dotnet-home/
+*.user
+*.suo

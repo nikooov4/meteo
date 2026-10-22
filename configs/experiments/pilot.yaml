@@ -1,9 +1,0 @@
-seed: 42
-correctness_cases: 60
-solver_repetitions: 3
-solver_sizes: [[8, 1], [8, 8], [24, 2], [24, 16], [48, 8]]
-policy_seeds: [11, 29, 47, 83, 101]
-output: experiments/runs/gate-a
-primary_h3: cold shared versus graph+LRU wall time
-primary_h4: expected cost at equal success versus VOI and DRD adaptations
-frozen_before_measurement: true

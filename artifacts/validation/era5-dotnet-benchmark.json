@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "source": "real NCAR ERA5 LSP",
+  "files_indexed": 12,
+  "frames_compared": 48,
+  "values_compared": 3127680,
+  "comparison": "exact float32 equality, including NaN positions",
+  "grid_shape": [
+    181,
+    360
+  ],
+  "python_frame_p95_ms": 2759.978520005825,
+  "csharp_frame_p95_ms": 22.387130011338733,
+  "python_cycle_transition_ms": [
+    2835.6176000088453,
+    3028.4606000059284,
+    2777.6503000059165
+  ],
+  "csharp_cycle_transition_ms": [
+    4.564200004097074,
+    4.159500007517636,
+    8.745099999941885
+  ],
+  "csharp_first_frame_ms": 580.9810000355355,
+  "server_metrics": {
+    "frame_requests": 48,
+    "cycle_reads": 7,
+    "cache_hits": 47,
+    "cached_cycles": 6,
+    "ready_cycles": 6,
+    "queued_cycles": 0,
+    "cache_limit": 6,
+    "active_workers": 0,
+    "peak_parallel_workers": 2,
+    "cancelled_cycles": 0,
+    "cycle_read_seconds": 3.4866485000000003,
+    "cached_bytes": 18766080,
+    "process_rss": 108359680
+  },
+  "conditions": "OS disk cache uncontrolled; Python measured first; C# playback spaced by 25 ms; first frame includes worker startup only if service is fresh; HTTP timings exclude browser drawing; not a cold-disk throughput benchmark"
+}

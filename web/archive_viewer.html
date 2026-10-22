@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeteoBridge · Архив ERA5</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #edf2f7; color: #233247; font: 14px "Segoe UI", Arial, sans-serif; }
+main { max-width: 1280px; margin: 0 auto; padding: 20px 24px 40px; }
+header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.brand { display: grid; place-items: center; width: 42px; height: 42px; flex: none; border-radius: 13px;
+         background: #163e64; color: #e0f3ff; font-weight: 700; font-size: 16px; }
+h1 { margin: 0; font-size: 22px; color: #173852; letter-spacing: -.5px; }
+.subtitle { margin: 4px 0 0; color: #6d8295; font-size: 12px; }
+nav { display: flex; gap: 4px; margin-left: auto; padding: 4px; border: 1px solid #d5e0e8; border-radius: 11px; background: #f7fafd; }
+nav a { padding: 7px 11px; color: #4b687e; text-decoration: none; border-radius: 7px; white-space: nowrap; font-size: 13px; }
+nav a[aria-current="page"] { background: #163e64; color: white; }
+.panel { background: white; border: 1px solid #dce5ed; border-radius: 15px; padding: 18px; margin-bottom: 14px; }
+h2 { margin: 0 0 8px; font-size: 17px; color: #244f70; }
+p { line-height: 1.5; }
+.intro { margin: 0 0 16px; max-width: 850px; color: #5d7488; }
+form { display: flex; align-items: end; flex-wrap: wrap; gap: 12px; }
+label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: #526b7e; }
+input,select,button { font: inherit; border: 1px solid #d3dfe9; border-radius: 8px; min-height: 38px; padding: 7px 12px; color: #294a64; background: #f8fafc; }
+input { width: 110px; }
+button { cursor: pointer; white-space: nowrap; }
+button:hover:not(:disabled) { background: #e8f3fd; border-color: #98bcd7; }
+button:disabled { cursor: default; opacity: .65; }
+button.primary { background: #24649b; color: white; border-color: #24649b; }
+button:focus-visible, a:focus-visible { outline: 2px solid #3876c5; outline-offset: 3px; }
+.directory { margin: 12px 0 0; font-size: 12px; color: #6c8191; overflow-wrap: anywhere; }
+.summary { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 8px 2px 14px; }
+#summary { color: #4c687e; }
+#alert { color: #9a392d; background: #fff4f1; border: 1px solid #efc9c0; padding: 12px; border-radius: 10px; margin-bottom: 12px; }
+[hidden] { display: none !important; }
+#files { display: flex; flex-direction: column; gap: 9px; }
+.file { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 15px 17px; border-radius: 12px;
+        border: 1px solid #dce5ed; background: white; }
+.file-main { flex: 1; min-width: 240px; }
+.period { font-weight: 600; font-size: 14px; color: #234c6c; line-height: 1.5; }
+.filename { margin-top: 5px; color: #8092a1; font-size: 11px; overflow-wrap: anywhere; }
+.file-aside { display: flex; align-items: center; justify-content: end; gap: 16px; flex-wrap: wrap; }
+.size { min-width: 72px; font-size: 12px; color: #667d8f; }
+.state { min-width: 132px; color: #62798c; font-size: 13px; }
+.state[data-state="downloaded"] { color: #25745a; font-weight: 600; }
+.state[data-state="failed"], .state[data-state="conflict"] { color: #a44738; }
+.action { min-width: 125px; }
+progress { width: 100%; height: 7px; margin-top: 5px; accent-color: #3876b2; }
+.error { width: 100%; font-size: 12px; color: #a44738; overflow-wrap: anywhere; }
+.empty { color: #6b8294; padding: 30px 12px; text-align: center; }
+footer { margin-top: 20px; color: #7c8f9d; font-size: 12px; line-height: 1.6; }
+footer a { color: #356584; }
+@media(max-width:700px) {
+  main { padding: 14px 10px 30px; }
+  header { gap: 9px; flex-wrap: wrap; }
+  h1 { font-size: 19px; }
+  .file-aside { width: 100%; justify-content: space-between; gap: 10px; }
+  .state { min-width: 110px; }
+  .file { padding: 13px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand" aria-hidden="true">E5</div>
+    <div><h1>Архив ERA5</h1><p class="subtitle">Реальные данные NCAR · крупномасштабные осадки</p></div>
+    <nav aria-label="Разделы сайта"><a href="/">Карта</a><a href="/downloads" aria-current="page">Архив ERA5</a></nav>
+  </header>
+  <section class="panel" aria-labelledby="catalog-title">
+    <h2 id="catalog-title">Скачать данные для карты</h2>
+    <p class="intro">Выберите год и месяц. У каждого файла указан его точный промежуток в UTC.
+      Уже имеющиеся файлы отмечены как «Скачано». После завершения загрузки откройте вкладку «Карта» — новые периоды появятся в ней автоматически.</p>
+    <form id="catalog-form">
+      <label>Год<input id="year" type="number" min="1940" max="2100" required aria-label="Год архива"></label>
+      <label>Месяц<select id="month" aria-label="Месяц архива"><option value="0">Весь год</option></select></label>
+      <button type="submit" class="primary" id="show">Показать файлы</button>
+    </form>
+    <p class="directory">Папка загрузки: <span id="directory"></span></p>
+  </section>
+  <div id="alert" role="alert" hidden></div>
+  <div class="summary"><span id="summary" role="status">Читаю каталог NCAR…</span><button id="download-missing" hidden>Скачать отсутствующие</button></div>
+  <section id="files" aria-label="Файлы ERA5"></section>
+  <footer>Промежуток указан от начала первого часа до конца последнего; конечное время не включено.
+    Два файла покрывают первую и вторую половины месяца. Это LSP, крупномасштабная компонента осадков.
+    Загрузки выполняются в фоне, максимум две одновременно; прерванную загрузку можно продолжить.
+    <a href="https://gdex.ucar.edu/datasets/d633000/" target="_blank" rel="noopener">Источник: NSF NCAR ERA5</a>.</footer>
+</main>
+<script>
+const yearInput = document.getElementById('year'), monthInput = document.getElementById('month');
+const filesElement = document.getElementById('files'), summary = document.getElementById('summary');
+const alertBox = document.getElementById('alert'), missingButton = document.getElementById('download-missing');
+let files = [], timer = null, generation = 0, loading = false;
+const busy = file => ['queued','downloading','validating'].includes(file.state);
+const labels = {available:'Не скачано',downloaded:'✓ Скачано',queued:'В очереди',downloading:'Загружается',
+                validating:'Проверка файла',paused:'Приостановлено',failed:'Ошибка',conflict:'Другой локальный файл'};
+const date = value => value.slice(0,10).split('-').reverse().join('.')+' '+value.slice(11,16);
+const errorMessage = error => { alertBox.textContent=error.message; alertBox.hidden=false; };
+async function api(url, body) {
+  const response = await fetch(url, body === undefined ? {} : {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.detail || 'Не удалось выполнить запрос');
+  return result;
+}
+function render() {
+  filesElement.replaceChildren();
+  for (const file of files) {
+    const row=document.createElement('article'); row.className='file';
+    const main=document.createElement('div'); main.className='file-main';
+    const period=document.createElement('div'); period.className='period';
+    period.textContent=date(file.start_utc)+' — '+date(file.end_utc)+' UTC';
+    const name=document.createElement('div'); name.className='filename'; name.textContent=file.name;
+    main.append(period,name);
+    const aside=document.createElement('div'); aside.className='file-aside';
+    const size=document.createElement('div'); size.className='size'; size.textContent=(file.bytes/1e6).toFixed(1)+' MB';
+    const status=document.createElement('div'); status.className='state'; status.dataset.state=file.state;
+    status.textContent=labels[file.state] || file.state;
+    if (busy(file) || file.state==='paused') {
+      const progress=document.createElement('progress'); progress.max=file.bytes; progress.value=file.received_bytes;
+      progress.setAttribute('aria-label','Загрузка '+file.name); status.append(document.createElement('br'),progress);
+      status.append(document.createTextNode(' '+Math.floor(100*file.received_bytes/file.bytes)+'%'));
+    }
+    const button=document.createElement('button'); button.className='action';
+    button.textContent=file.downloaded ? 'Скачано' : busy(file) ? 'Остановить' : file.state==='paused' ? 'Продолжить' : file.state==='failed' ? 'Повторить' : 'Скачать';
+    button.disabled=file.downloaded || file.state==='conflict';
+    button.setAttribute('aria-label',button.textContent+' · '+date(file.start_utc)+' — '+date(file.end_utc)+' UTC');
+    button.onclick=async () => {
+      button.disabled=true;
+      try { await api('/api/archive/'+(busy(file)?'cancel':'download'),{key:file.key}); await load(); }
+      catch(error) { errorMessage(error); button.disabled=false; }
+    };
+    aside.append(size,status,button); row.append(main,aside);
+    if (file.error) { const error=document.createElement('div'); error.className='error'; error.textContent=file.error; row.append(error); }
+    filesElement.append(row);
+  }
+  if (files.length===0) { const empty=document.createElement('p'); empty.className='empty'; empty.textContent='В каталоге NCAR нет файлов LSP за выбранный период.'; filesElement.append(empty); }
+  summary.textContent='Файлов: '+files.length+' · скачано: '+files.filter(file=>file.downloaded).length+' · в работе: '+files.filter(busy).length;
+  missingButton.hidden=!files.some(file=>!file.downloaded && !busy(file) && file.state!=='conflict');
+}
+async function load() {
+  if (loading) return;
+  loading=true; clearTimeout(timer); const token=generation;
+  try {
+    const result=await api('/api/archive/files?'+new URLSearchParams({year:yearInput.value,month:monthInput.value}));
+    if (token!==generation) return;
+    files=result; alertBox.hidden=true; render();
+  } catch(error) { if (token===generation) errorMessage(error); }
+  finally {
+    loading=false;
+    if (token!==generation) load();
+    else if (files.some(busy)) timer=setTimeout(load,2000);
+  }
+}
+document.getElementById('catalog-form').onsubmit=event => { event.preventDefault(); generation++; summary.textContent='Читаю каталог NCAR…'; load(); };
+missingButton.onclick=async () => {
+  missingButton.disabled=true;
+  try { for (const file of files.filter(file=>!file.downloaded && !busy(file) && file.state!=='conflict')) await api('/api/archive/download',{key:file.key}); }
+  catch(error) { errorMessage(error); }
+  finally { missingButton.disabled=false; await load(); }
+};
+async function initialize() {
+  for (let month=1;month<=12;month++) { const option=document.createElement('option'); option.value=month;
+    option.textContent=new Intl.DateTimeFormat('ru',{month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(2023,month-1,1))); monthInput.append(option); }
+  const settings=await api('/api/archive/settings');
+  document.getElementById('directory').textContent=settings.directory;
+  yearInput.min=settings.first_year; yearInput.max=settings.last_year; yearInput.value=settings.default_year;
+  await load();
+}
+initialize().catch(errorMessage);
+</script>
+</body>
+</html>

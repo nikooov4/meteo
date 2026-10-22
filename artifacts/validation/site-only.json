@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-23",
+  "operation": "Remove the research application and retain only the ERA5 site and its checks",
+  "removed": {
+    "directory": "research",
+    "files": 2096,
+    "bytes": 543344887,
+    "installed_python_packages": 57,
+    "legacy_cli": "meteo",
+    "legacy_launcher_option": "-Python",
+    "legacy_benchmark": "scripts/benchmark_era5_stream.py"
+  },
+  "retained": {
+    "application": "C# ASP.NET Core ERA5 server",
+    "web": "web",
+    "native_and_javascript_libraries": "runtime",
+    "source_data": "data/era5",
+    "python_role": "Runtime library preparation and independent integration tests only; not the site server"
+  },
+  "checks": {
+    "pytest": { "passed": 9, "failed": 0, "seconds": 11.38, "report": "artifacts/validation/site-only-full.xml" },
+    "ruff": "passed",
+    "dotnet_release_build": "passed, zero warnings and errors",
+    "visual_studio_debug_build": "passed with installed Visual Studio Community MSBuild",
+    "legacy_python_package_and_cli": "absent",
+    "era5_file_count": 13,
+    "era5_sha256": "All 13 source files match the names, lengths and SHA256 recorded in project-reorganization.json",
+    "available_hours": 4704,
+    "real_frame_hour": 456,
+    "real_frame_bytes": 260640,
+    "real_frame_available": true,
+    "map_http_status": 200,
+    "downloads_http_status": 200,
+    "january_files_marked_downloaded": 2
+  },
+  "test_oracle": "Known control NetCDF values checked over all 60 hours, including 12 missing hours, reordered coordinates, duplicate file, fill/negative masks and float32 m-to-mm conversion. No legacy Python reader import.",
+  "historical_reports": "Previous 176/180-test reports include the removed scientific application and are retained as historical evidence, not as the current test count."
+}

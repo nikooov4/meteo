@@ -1,6 +1,5 @@
-# Saved runs bind raw file SHA256s and measured Python source bytes.
+# Preserve raw checksums and recorded validation evidence across clones.
 # Disable automatic CRLF conversion so clones preserve those exact bytes.
 * -text
 # JUnit failures preserve verbatim source/traceback whitespace as run evidence.
-reports/validation/*.xml -whitespace
-defense/experiment_figures.html -whitespace
+artifacts/validation/*.xml -whitespace
