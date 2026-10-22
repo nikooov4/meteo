@@ -186,9 +186,10 @@ def _outlines(bbox):
 
 def precipitation_figure(data):
     meta, z = data["metadata"], data["amounts_mm"]
-    if not np.isfinite(z).any():
+    has_values = np.isfinite(z).any()
+    if not has_values and not meta.get("allow_empty_frame"):
         raise ValueError("В области нет пригодных значений осадков.")
-    top = max(float(np.nanmax(z)), 0.1)
+    top = max(float(np.nanmax(z)), 0.1) if has_values else 50.
     thresholds = [(0, "#edf5fa"), (.1, "#bee8ed"), (.5, "#61c9ae"), (1, "#3d9bd3"),
                   (2, "#4865bd"), (5, "#8b4ca8"), (10, "#cf6896"), (20, "#e6a34b")]
     colors = [[value/top, color] for value, color in thresholds if value < top]
@@ -252,7 +253,7 @@ def map_html(data, archive_api=None):
     """
     fig = precipitation_figure(data)
     if archive_api:
-        if list(data["metadata"]["bbox"]) != list(WORLD_BBOX):
+        if data["metadata"]["origin"] == "synthetic" and list(data["metadata"]["bbox"]) != list(WORLD_BBOX):
             raise ValueError("archive time selection currently requires the full global grid")
         # Only the initial image is embedded. Other archive hours are fetched
         # individually; neither Python nor the browser retains the archive.
@@ -297,6 +298,7 @@ def map_html(data, archive_api=None):
             "archive_api": archive_api, "first_hour": meta.get("first_hour", 0),
             "cycle_utc": meta.get("cycle_utc"),
             "manifest_sha256": meta.get("manifest_sha256"), "source_sha256": meta.get("source_sha256")}
+    info["initial_selection"] = meta.get("selection")
     encoded = json.dumps(info, ensure_ascii=False).replace("<", "\\u003c")
     template = Path(__file__).with_name("map_viewer.html").read_text(encoding="utf8")
     return template.replace("__MAP_INFO_JSON__", encoded).replace("<!-- MAP_PLOT -->", plot)

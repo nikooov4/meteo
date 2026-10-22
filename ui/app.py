@@ -27,7 +27,17 @@ source = st.sidebar.radio("Данные", ["Offline demo", "Локальный �
 if source == "Карта осадков":
     import streamlit.components.v1 as components
 
-    from meteo_bridge.precipitation_map import discover_map_sources, load_era5_map, load_weather_map, map_html
+    from meteo_bridge.era5_map_archive import READ_LOCK, Era5MapArchive, era5_files
+    from meteo_bridge.era5_map_server import Era5MapServer
+    from meteo_bridge.precipitation_map import discover_map_sources, load_weather_map, map_html
+
+    @st.cache_resource
+    def era5_frame_server():
+        return Era5MapServer()
+
+    @st.cache_resource(max_entries=4)
+    def era5_time_index(signatures):
+        return Era5MapArchive([path for path, _, _ in signatures])
 
     st.subheader("Осадки")
     sources = discover_map_sources(PROJECT_ROOT)
@@ -61,44 +71,83 @@ if source == "Карта осадков":
                 st.stop()
         else:
             files = sources["real"]
-            selected = st.selectbox("Локальный архив ERA5", files,
-                                    format_func=lambda p: p.name) if files else None
-            map_path = st.text_input("Локальный файл NCAR ERA5 LSP", str(selected) if selected else "")
+            folders = sorted({p.parent for p in files})
+            selected = st.selectbox("Локальный архив ERA5", folders,
+                                    format_func=lambda p: p.name) if folders else None
+            map_path = st.text_input("Папка или файл NCAR ERA5 LSP", str(selected) if selected else "")
             era5_path = Path(map_path).expanduser()
             if not era5_path.is_absolute():
                 era5_path = PROJECT_ROOT / era5_path
-            if not files:
-                st.info("Локальный ERA5 не найден. Укажите путь к NCAR LSP NetCDF или выберите синтетику v2.")
+            try:
+                era5_paths = era5_files(era5_path)
+                signatures = tuple((str(p), p.stat().st_size, p.stat().st_mtime_ns) for p in era5_paths)
+                time_index = era5_time_index(signatures)
+                catalog = time_index.catalog()
+                available = catalog["members"][0]
+                first_date = datetime.fromtimestamp(time_index.start, timezone.utc)
+                last_date = datetime.fromtimestamp(time_index.end, timezone.utc)
+                st.caption(f"{catalog['file_count']} файлов · {catalog['available_hours']} ч с данными · "
+                           f"{catalog['gap_hours']} ч без данных. Время UTC.")
+                st.caption(f"Доступный диапазон: {available['start_utc'][:16].replace('T', ' ')} — "
+                           f"{available['end_utc'][:16].replace('T', ' ')}")
+                with st.expander("Периоды с данными"):
+                    for a, b in catalog["available_ranges"]:
+                        st.text(f"{a[:16].replace('T', ' ')} — {b[:16].replace('T', ' ')} UTC")
+            except (ValueError, OSError, KeyError) as exc:
+                st.error(f"Не удалось прочитать архив ERA5: {exc}")
+                st.stop()
         with st.form("precipitation-map"):
             if map_origin == "Синтетика v2":
                 map_first_hour = st.number_input("Начальный час синтетического цикла (кратен 12)",
                                                 min_value=first, max_value=last, value=first, step=12)
             else:
-                map_cycle = st.text_input("Цикл ERA5, ISO с UTC offset (пусто — первый)", "")
+                dates = st.columns(4)
+                date_key = time_index.sha[:12]
+                start_date = dates[0].date_input("Начальная дата UTC", first_date.date(),
+                                               min_value=first_date.date(), max_value=last_date.date(),
+                                               key=f"era5-start-date-{date_key}")
+                start_time = dates[1].time_input("Начальное время UTC", first_date.time().replace(tzinfo=None),
+                                               step=3600, key=f"era5-start-time-{date_key}")
+                end_date = dates[2].date_input("Конечная дата UTC", last_date.date(),
+                                             min_value=first_date.date(), max_value=last_date.date(),
+                                             key=f"era5-end-date-{date_key}")
+                end_time = dates[3].time_input("Конечное время UTC", last_date.time().replace(tzinfo=None),
+                                             step=3600, key=f"era5-end-time-{date_key}")
+                st.caption("Конец диапазона не включён. Часы без данных будут показаны пустыми.")
             cols = st.columns(4)
             west = cols[0].number_input("Запад, °E", min_value=-180.0, max_value=180.0, value=-180.0)
             east = cols[1].number_input("Восток, °E", min_value=-180.0, max_value=180.0, value=180.0)
             south = cols[2].number_input("Юг, °N", min_value=-90.0, max_value=90.0, value=-90.0)
             north = cols[3].number_input("Север, °N", min_value=-90.0, max_value=90.0, value=90.0)
-            if map_origin == "Реальный ERA5":
-                map_frames = st.number_input("Почасовых кадров", min_value=1, max_value=12, value=12)
             build_map = st.form_submit_button("Построить карту")
     if build_map:
         try:
             with st.spinner("Читаю выбранную область и строю кадры…"):
                 if map_origin == "Синтетика v2":
-                    map_data = load_weather_map(manifest_path, (west, east, south, north), map_member, map_first_hour)
+                    with READ_LOCK:
+                        map_data = load_weather_map(manifest_path, (west, east, south, north), map_member, map_first_hour)
+                    st.session_state.precipitation_map = (map_html(map_data), map_data["metadata"])
+                    st.session_state.pop("precipitation_map_url", None)
                 else:
-                    map_data = load_era5_map(era5_path, (west, east, south, north), map_cycle or None,
-                                             map_frames, allow_downsample=True)
-                st.session_state.precipitation_map = (map_html(map_data), map_data["metadata"])
+                    start = datetime.combine(start_date, start_time, tzinfo=timezone.utc).isoformat()
+                    end = datetime.combine(end_date, end_time, tzinfo=timezone.utc).isoformat()
+                    selection = time_index.selection(0, start, end)
+                    archive = Era5MapArchive(era5_paths, (west, east, south, north))
+                    url, html, metadata = era5_frame_server().add(archive, selection)
+                    st.session_state.precipitation_map = (html, metadata)
+                    st.session_state.precipitation_map_url = url
             st.rerun()
         except (ValueError, OSError, KeyError) as exc:
             st.error(str(exc))
     if "precipitation_map" in st.session_state:
         html, map_metadata = st.session_state.precipitation_map
-        components.html(html, height=980, scrolling=False)
-        st.download_button("Скачать карту с анимацией HTML", html, "precipitation_map.html", "text/html")
+        if "precipitation_map_url" in st.session_state:
+            components.iframe(st.session_state.precipitation_map_url, height=980, scrolling=False)
+        else:
+            components.html(html, height=980, scrolling=False)
+        download_label = ("Скачать карту HTML (нужен запущенный MeteoBridge)"
+                          if "precipitation_map_url" in st.session_state else "Скачать карту с анимацией HTML")
+        st.download_button(download_label, html, "precipitation_map.html", "text/html")
         st.download_button("Метаданные карты JSON", json.dumps(map_metadata, ensure_ascii=False, indent=2),
                            "precipitation_map.json", "application/json")
     st.stop()
