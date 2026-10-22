@@ -38,12 +38,15 @@ uv sync --frozen
 dotnet build MeteoBridge.sln -c Release
 uv run --frozen pytest -q -p no:cacheprovider --junitxml=artifacts/validation/site-only-full.xml
 uv run --frozen ruff check tests
+node --test tests/map_viewer.test.cjs
 ```
 
 `tests/test_project_layout.py` проверяет существование и уникальность ссылок
 Visual Studio, независимость C# от Python-окружения и отсутствие старого приложения.
 `tests/test_era5_dotnet.py` проверяет реальные API, очереди, точность,
 занятый порт, отмену/докачку и обновление карты.
+`tests/map_viewer.test.cjs` запускается на Node.js 24 без сторонних пакетов:
+проверяет продолжение после перемотки, гонки запросов, явную паузу и размеры карты.
 
 Проверка кадров не импортирует удалённый ридер: известны все исходные значения
 маленьких временных NetCDF, ожидаемый порядок координат, UTC-интервалы, пропуски,

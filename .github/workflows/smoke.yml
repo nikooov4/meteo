@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
@@ -26,3 +29,4 @@ jobs:
       - run: dotnet build MeteoBridge.sln -c Release
       - run: uv run ruff check .
       - run: uv run pytest -p no:cacheprovider
+      - run: node --test tests/map_viewer.test.cjs

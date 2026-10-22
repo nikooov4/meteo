@@ -83,7 +83,7 @@ try {
     }
     [void]$text.AppendLine("`tEndGlobalSection")
     [void]$text.AppendLine('EndGlobal')
-    [IO.File]::WriteAllText((Join-Path $project 'MeteoBridge.sln'), $text.ToString(), [Text.UTF8Encoding]::new($false))
+    [IO.File]::WriteAllText((Join-Path $project 'MeteoBridge.sln'), $text.ToString().Replace("`r`n", "`n"), [Text.UTF8Encoding]::new($false))
     Write-Host "Обновлено решение: $($files.Count) ссылок на файлы сайта, инструменты и проверки."
 } finally {
     Pop-Location
