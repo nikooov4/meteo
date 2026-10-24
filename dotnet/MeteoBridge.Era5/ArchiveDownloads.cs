@@ -9,7 +9,12 @@ using System.Xml.Linq;
 
 namespace MeteoBridge.Era5;
 
-internal sealed record RemoteEra5File(string Key, string Name, long Bytes, string Etag, string Start, string End);
+internal sealed record RemoteEra5File(string Key, string Name, long Bytes, string Etag, string Start, string End,
+    string Source = "amazon", string? RemoteKey = null)
+{
+    public string Format => "NetCDF";
+    public string Provider => Source == "amazon" ? "Amazon S3 · NCAR ERA5" : "Google ARCO-ERA5";
+}
 internal sealed record DownloadRequest(string Key);
 
 internal sealed class ArchiveDownloads : IDisposable
@@ -26,23 +31,28 @@ internal sealed class ArchiveDownloads : IDisposable
 
     private readonly string directory;
     private readonly Uri bucket;
+    private readonly Uri arcoBucket, arcoCatalog;
     private readonly HttpClient client;
     private readonly Action changed;
     private readonly SemaphoreSlim transfers = new(2), catalogGate = new(1);
     private readonly CancellationTokenSource shutdown = new();
     private readonly ConcurrentDictionary<string, RemoteEra5File> known = new();
     private readonly ConcurrentDictionary<string, Job> jobs = new();
-    private readonly Dictionary<(int, int), (DateTime At, RemoteEra5File[] Files)> catalogs = [];
+    private readonly Dictionary<(string, int, int), (DateTime At, RemoteEra5File[] Files)> catalogs = [];
     private readonly object jobGate = new();
     private static readonly Regex FilePattern = new(@"^e5\.oper\.fc\.sfc\.accumu/(?<month>\d{6})/e5\.oper\.fc\.sfc\.accumu\.128_142_lsp\.ll025sc\.(?<start>\d{10})_(?<end>\d{10})\.nc$", RegexOptions.Compiled);
 
-    public ArchiveDownloads(string data, string? baseUrl, Action changed)
+    public ArchiveDownloads(string data, string? baseUrl, Action changed, string? arcoBaseUrl = null)
     {
-        directory = Path.GetExtension(data) == ".nc" ? Path.GetDirectoryName(data)! : data;
+        directory = File.Exists(data) ? Path.GetDirectoryName(data)! : data;
         bucket = new Uri((baseUrl ?? "https://nsf-ncar-era5.s3.us-west-2.amazonaws.com").TrimEnd('/') + "/");
+        arcoBucket = new Uri((arcoBaseUrl ?? "https://storage.googleapis.com/gcp-public-data-arco-era5").TrimEnd('/') + "/");
+        if (!(arcoBucket.Scheme == "https" && arcoBucket.Host == "storage.googleapis.com" && arcoBucket.AbsolutePath == "/gcp-public-data-arco-era5/") &&
+            !(arcoBucket.Scheme == "http" && arcoBucket.IsLoopback)) throw new ArgumentException("Нужен официальный архив Google ARCO-ERA5 или loopback test server.");
+        arcoCatalog = arcoBucket.IsLoopback ? arcoBucket : new Uri("https://storage.googleapis.com/storage/v1/b/gcp-public-data-arco-era5/o");
         if (!(bucket.Scheme == "https" && bucket.Host == "nsf-ncar-era5.s3.us-west-2.amazonaws.com") &&
             !(bucket.Scheme == "http" && bucket.IsLoopback)) throw new ArgumentException("Нужен официальный S3 NCAR или loopback test server.");
-        client = new HttpClient(new SocketsHttpHandler { AllowAutoRedirect = false, UseProxy = !bucket.IsLoopback })
+        client = new HttpClient(new SocketsHttpHandler { AllowAutoRedirect = false, UseProxy = !bucket.IsLoopback && !arcoBucket.IsLoopback })
             { Timeout = TimeSpan.FromSeconds(60), MaxResponseContentBufferSize = 4 * 1048576 };
         this.changed = changed;
     }
@@ -50,30 +60,40 @@ internal sealed class ArchiveDownloads : IDisposable
     public object Settings()
     {
         var years = Directory.Exists(directory) ? Directory.EnumerateFiles(directory, "*.nc", SearchOption.AllDirectories)
-            .Select(path => Regex.Match(Path.GetFileName(path), @"\.ll025sc\.(\d{4})\d{6}_"))
+            .Select(path => Regex.Match(Path.GetFileName(path), @"(?:\.ll025sc\.|^era5-arco-lsp-)(\d{4})\d{4}"))
             .Where(match => match.Success).Select(match => int.Parse(match.Groups[1].Value)).ToArray() : [];
         return new { directory, default_year = years.Length > 0 ? years.Max() : DateTime.UtcNow.Year - 1,
-            first_year = 1940, last_year = DateTime.UtcNow.Year, parallel_downloads = 2 };
+            first_year = 1940, last_year = DateTime.UtcNow.Year, parallel_downloads = 2,
+            sources = new[]
+            {
+                new { id = "amazon", label = "Amazon S3 · NCAR ERA5", format = "NetCDF", provider = "Amazon S3 · NCAR ERA5",
+                    archive_url = "https://nsf-ncar-era5.s3.us-west-2.amazonaws.com/?prefix=e5.oper.fc.sfc.accumu/",
+                    description = "Исходные NetCDF из Amazon S3 / NCAR: первая и вторая половины месяца. Файлы сохраняются без преобразования." },
+                new { id = "google", label = "Google · ARCO-ERA5", format = "NetCDF", provider = "Google ARCO-ERA5",
+                    archive_url = "https://storage.googleapis.com/gcp-public-data-arco-era5?prefix=raw/date-variable-single_level/",
+                    description = "Исходные суточные NetCDF ERA5 LSP из Google ARCO. Файлы сохраняются без преобразования и читаются картой напрямую." }
+            } };
     }
 
-    public async Task<object[]> FilesAsync(int year, int month, CancellationToken cancellation)
+    public async Task<object[]> FilesAsync(int year, int month, CancellationToken cancellation, string source = "amazon")
     {
+        if (source is not ("amazon" or "google")) throw new ArgumentException("Выберите Amazon или Google.");
         if (year < 1940 || year > DateTime.UtcNow.Year || month is < 0 or > 12) throw new ArgumentException("Неверный год или месяц.");
         await catalogGate.WaitAsync(cancellation);
         RemoteEra5File[] files;
         try
         {
-            if (catalogs.TryGetValue((year, month), out var cached) && DateTime.UtcNow - cached.At < TimeSpan.FromHours(6)) files = cached.Files;
+            if (catalogs.TryGetValue((source, year, month), out var cached) && DateTime.UtcNow - cached.At < TimeSpan.FromHours(6)) files = cached.Files;
             else
             {
                 var found = new ConcurrentBag<RemoteEra5File>();
                 await Parallel.ForEachAsync(month == 0 ? Enumerable.Range(1, 12) : [month],
                     new ParallelOptions { MaxDegreeOfParallelism = 2, CancellationToken = cancellation }, async (selected, token) =>
                     {
-                        foreach (var file in await ListMonthAsync(year, selected, token)) found.Add(file);
+                        foreach (var file in source == "amazon" ? await ListMonthAsync(year, selected, token) : await ListArcoAsync(year, selected, token)) found.Add(file);
                     });
                 files = found.OrderBy(file => file.Start, StringComparer.Ordinal).ToArray();
-                catalogs[(year, month)] = (DateTime.UtcNow, files);
+                catalogs[(source, year, month)] = (DateTime.UtcNow, files);
                 foreach (var file in files) known[file.Key] = file;
             }
         }
@@ -121,11 +141,59 @@ internal sealed class ArchiveDownloads : IDisposable
         throw new IOException("Каталог NCAR превышает лимит страниц.");
     }
 
+    private async Task<List<RemoteEra5File>> ListArcoAsync(int year, int month, CancellationToken cancellation)
+    {
+        var prefix = $"raw/date-variable-single_level/{year}/{month:00}/";
+        var pattern = new Regex($@"^raw/date-variable-single_level/{year}/{month:00}/(?<day>\d{{2}})/large_scale_precipitation/surface\.nc$");
+        string? continuation = null;
+        var files = new List<RemoteEra5File>();
+        for (var page = 0; page < 64; page++)
+        {
+            var query = "?prefix=" + Uri.EscapeDataString(prefix) + "&matchGlob=" + Uri.EscapeDataString(prefix + "**/large_scale_precipitation/surface.nc") +
+                "&maxResults=1000&fields=" + Uri.EscapeDataString("items(name,size,md5Hash,generation),nextPageToken") +
+                (continuation is null ? "" : "&pageToken=" + Uri.EscapeDataString(continuation));
+            using var response = await client.GetAsync(new Uri(arcoCatalog.AbsoluteUri.TrimEnd('/') + query), cancellation);
+            response.EnsureSuccessStatusCode();
+            using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync(cancellation));
+            if (document.RootElement.TryGetProperty("items", out var items))
+                foreach (var item in items.EnumerateArray())
+                {
+                    var key = item.GetProperty("name").GetString() ?? "";
+                    var match = pattern.Match(key);
+                    if (!match.Success) continue;
+                    var day = int.Parse(match.Groups["day"].Value, CultureInfo.InvariantCulture);
+                    if (day < 1 || day > DateTime.DaysInMonth(year, month)) continue;
+                    var bytes = long.Parse(item.GetProperty("size").GetString() ?? "0", CultureInfo.InvariantCulture);
+                    if (bytes <= 0 || bytes > ArchiveImports.MaxBytes) continue;
+                    var date = new DateTimeOffset(year, month, day, 0, 0, 0, TimeSpan.Zero);
+                    var name = $"era5-arco-lsp-{year}{month:00}{day:00}.nc";
+                    var etag = item.TryGetProperty("md5Hash", out var md5) ? "\"" + Convert.ToHexStringLower(Convert.FromBase64String(md5.GetString()!)) + "\"" : "";
+                    var generation = item.TryGetProperty("generation", out var version) ? version.GetString() : null;
+                    if (generation is not null && !Regex.IsMatch(generation, @"^\d+$")) throw new InvalidDataException("Неверная версия объекта ARCO.");
+                    var remoteKey = key + (generation is null ? "" : "?generation=" + generation);
+                    files.Add(new RemoteEra5File("google:" + key, name, bytes, etag,
+                        Era5Index.Iso(date.AddHours(-1).ToUnixTimeSeconds()), Era5Index.Iso(date.AddHours(23).ToUnixTimeSeconds()), "google", remoteKey));
+                }
+            if (!document.RootElement.TryGetProperty("nextPageToken", out var next) || string.IsNullOrEmpty(next.GetString())) return files;
+            continuation = next.GetString();
+        }
+        throw new IOException("Каталог ARCO превышает лимит страниц.");
+    }
+
+    private bool Downloaded(RemoteEra5File file, FileInfo existing)
+    {
+        if (!existing.Exists) return false;
+        return existing.Length == file.Bytes;
+    }
+
+    private Uri Url(RemoteEra5File file) => new(file.Source == "amazon" ? bucket : arcoBucket, file.RemoteKey ?? file.Key);
+
     private string Target(RemoteEra5File file)
     {
         var candidate = Path.Combine(directory, file.Name);
         if (File.Exists(candidate) || !Directory.Exists(directory)) return candidate;
-        return Directory.EnumerateFiles(directory, file.Name, SearchOption.AllDirectories).FirstOrDefault() ?? candidate;
+        return Directory.EnumerateFiles(directory, file.Name, SearchOption.AllDirectories)
+            .FirstOrDefault(path => !Path.GetRelativePath(directory, path).Split(Path.DirectorySeparatorChar).Contains(".pending")) ?? candidate;
     }
 
     private object Snapshot(RemoteEra5File file)
@@ -133,13 +201,15 @@ internal sealed class ArchiveDownloads : IDisposable
         var path = Target(file);
         var existing = new FileInfo(path);
         jobs.TryGetValue(file.Key, out var job);
-        var downloaded = existing.Exists && existing.Length == file.Bytes;
+        var downloaded = Downloaded(file, existing);
         var partial = new FileInfo(Path.Combine(directory, file.Name + ".partial"));
-        var state = downloaded ? "downloaded" : job is not null ? Volatile.Read(ref job.State) :
-            existing.Exists ? "conflict" : partial.Exists ? "paused" : "available";
+        var state = downloaded ? "downloaded" : existing.Exists ? "conflict" : job is not null ? Volatile.Read(ref job.State) :
+            partial.Exists ? "paused" : "available";
         var received = downloaded ? file.Bytes : job is not null ? Interlocked.Read(ref job.Received) : partial.Exists ? partial.Length : 0;
         return new { key = file.Key, name = file.Name, bytes = file.Bytes, start_utc = file.Start, end_utc = file.End,
-            state, received_bytes = received, error = job?.Error, downloaded };
+            state, received_bytes = received, error = job?.Error, downloaded, format = file.Format, provider = file.Provider,
+            source = file.Source, saved_bytes = downloaded ? existing.Length : (long?)null,
+            local_id = existing.Exists ? ArchiveFiles.Id(path) : null };
     }
 
     public object Start(string key)
@@ -150,11 +220,11 @@ internal sealed class ArchiveDownloads : IDisposable
             var target = new FileInfo(Target(file));
             if (target.Exists)
             {
-                if (target.Length != file.Bytes) throw new IOException("Локальный файл имеет другой размер. Он не будет перезаписан.");
+                if (!Downloaded(file, target)) throw new IOException("Локальный файл отличается от выбранного источника. Он не будет перезаписан.");
                 return Snapshot(file);
             }
             if (jobs.TryGetValue(key, out var running) && running.Task is { IsCompleted: false }) return Snapshot(file);
-            if (jobs.Values.Count(job => job.Task is { IsCompleted: false }) >= 24) throw new IOException("В очереди уже 24 файла. Дождитесь завершения загрузок.");
+            if (jobs.Values.Count(job => job.Task is { IsCompleted: false }) >= 512) throw new IOException("В очереди уже 512 файлов. Дождитесь завершения загрузок.");
             Directory.CreateDirectory(directory);
             var reserved = jobs.Values.Where(job => job.Task is { IsCompleted: false })
                 .Sum(job => Math.Max(0, job.File.Bytes - Interlocked.Read(ref job.Received)));
@@ -177,6 +247,20 @@ internal sealed class ArchiveDownloads : IDisposable
         return Snapshot(job.File);
     }
 
+    public void DeleteFile(string path, Action delete)
+    {
+        lock (jobGate)
+        {
+            var matches = jobs.Where(pair => string.Equals(Path.GetFullPath(Target(pair.Value.File)), Path.GetFullPath(path),
+                OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal)).ToArray();
+            if (matches.Any(pair => pair.Value.Task is { IsCompleted: false }))
+                throw new IOException("Дождитесь завершения загрузки или остановите её перед удалением.");
+            delete();
+            foreach (var pair in matches)
+                if (jobs.TryRemove(pair.Key, out var job)) job.Cancellation.Dispose();
+        }
+    }
+
     private async Task TransferAsync(Job job)
     {
         var entered = false;
@@ -189,7 +273,7 @@ internal sealed class ArchiveDownloads : IDisposable
             await transfers.WaitAsync(token);
             entered = true;
             job.State = "downloading";
-            var url = new Uri(bucket, file.Key);
+            var url = Url(file);
             var offset = 0L;
             if (File.Exists(partial) && File.Exists(checkpoint))
             {
@@ -224,8 +308,8 @@ internal sealed class ArchiveDownloads : IDisposable
                             response.EnsureSuccessStatusCode();
                             var range = response.Content.Headers.ContentRange;
                             if (response.StatusCode != HttpStatusCode.PartialContent || range?.From != offset || range.To != last || range.Length != file.Bytes)
-                                throw new IOException("NCAR вернул неверный диапазон файла.");
-                            if (response.Content.Headers.ContentLength != last - offset + 1) throw new IOException("Неверная длина блока NCAR.");
+                                throw new IOException("Источник вернул неверный диапазон файла.");
+                            if (response.Content.Headers.ContentLength != last - offset + 1) throw new IOException("Неверная длина блока источника.");
                             payload = new byte[checked((int)(last - offset + 1))];
                             await using var body = await response.Content.ReadAsStreamAsync(token);
                             await body.ReadExactlyAsync(payload, token);
@@ -236,7 +320,7 @@ internal sealed class ArchiveDownloads : IDisposable
                             await Task.Delay(TimeSpan.FromSeconds(attempt + 1), token);
                         }
                     }
-                    await stream.WriteAsync(payload ?? throw new IOException("Пустой блок NCAR."), token);
+                    await stream.WriteAsync(payload ?? throw new IOException("Пустой блок источника."), token);
                     await stream.FlushAsync(token);
                     offset = stream.Position;
                     Interlocked.Exchange(ref job.Received, offset);
@@ -246,13 +330,27 @@ internal sealed class ArchiveDownloads : IDisposable
             lock (NativeNetCdf.Gate)
             {
                 using var dataset = new NetCdfFile(partial);
-                var variable = dataset.Variable("LSP");
-                if (dataset.Text(variable, "units") != "m" || dataset.Text(variable, "rda_dataset") != "ds633.0" ||
-                    !dataset.Dimensions(variable).Select(dimension => dimension.Name).SequenceEqual(new[] { "forecast_initial_time", "forecast_hour", "latitude", "longitude" }))
-                    throw new InvalidDataException("Загруженный файл не соответствует NCAR ERA5 LSP.");
-                var steps = dataset.Axis("forecast_hour");
-                if (!steps.SequenceEqual(Enumerable.Range(1, steps.Length).Select(value => (double)value)) || steps.Length is < 1 or > 12)
-                    throw new InvalidDataException("Неверные почасовые шаги NCAR.");
+                if (file.Source == "google")
+                {
+                    var variable = dataset.Variable("lsp");
+                    if (dataset.Text(variable, "units") != "m" ||
+                        dataset.Text(variable, "standard_name") != "lwe_thickness_of_stratiform_precipitation_amount" ||
+                        !dataset.Dimensions(variable).Select(dimension => dimension.Name).SequenceEqual(new[] { "time", "latitude", "longitude" }))
+                        throw new InvalidDataException("Загруженный файл не соответствует Google ARCO ERA5 LSP.");
+                    var time = dataset.Axis("time");
+                    if (time.Length != 24 || !time.Zip(time.Skip(1)).All(pair => pair.Second > pair.First))
+                        throw new InvalidDataException("Ожидаются 24 последовательных часа Google ARCO.");
+                }
+                else
+                {
+                    var variable = dataset.Variable("LSP");
+                    if (dataset.Text(variable, "units") != "m" || dataset.Text(variable, "rda_dataset") != "ds633.0" ||
+                        !dataset.Dimensions(variable).Select(dimension => dimension.Name).SequenceEqual(new[] { "forecast_initial_time", "forecast_hour", "latitude", "longitude" }))
+                        throw new InvalidDataException("Загруженный файл не соответствует NCAR ERA5 LSP.");
+                    var steps = dataset.Axis("forecast_hour");
+                    if (!steps.SequenceEqual(Enumerable.Range(1, steps.Length).Select(value => (double)value)) || steps.Length is < 1 or > 12)
+                        throw new InvalidDataException("Неверные почасовые шаги NCAR.");
+                }
             }
             token.ThrowIfCancellationRequested();
             File.Move(partial, Path.Combine(directory, file.Name), overwrite: false);

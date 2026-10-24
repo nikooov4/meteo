@@ -86,6 +86,8 @@ internal sealed class NetCdfFile : IDisposable
         return variable;
     }
 
+    public bool TryVariable(string name, out int variable) => NativeNetCdf.nc_inq_varid(Id, name, out variable) == 0;
+
     public (string Name, int Length)[] Dimensions(int variable)
     {
         NativeNetCdf.Check(NativeNetCdf.nc_inq_varndims(Id, variable, out var count));

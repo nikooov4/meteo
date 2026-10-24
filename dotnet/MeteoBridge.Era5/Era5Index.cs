@@ -5,23 +5,36 @@ using System.Text.RegularExpressions;
 
 namespace MeteoBridge.Era5;
 
-internal sealed record SourceFile(string Path, long Bytes, long ModifiedTicks)
+internal sealed record SourceFile(string Path, long Bytes, long ModifiedTicks, string? MetadataHash = null)
 {
+    public static SourceFile Create(string path)
+    {
+        var info = new FileInfo(path);
+        return new SourceFile(path, info.Length, info.LastWriteTimeUtc.Ticks, MetadataSignature(path));
+    }
+    private static string? MetadataSignature(string path) => File.Exists(path + ".meteo.json")
+        ? Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path + ".meteo.json"))) : null;
+    public string Name => System.IO.Path.GetFileName(Path);
+    public string Format => System.IO.Path.GetExtension(Path).ToLowerInvariant() switch
+    { ".nc" => "NetCDF", ".tif" or ".tiff" => "GeoTIFF", _ => "GRIB" };
+    public int Priority => Format switch { "NetCDF" => 0, "GRIB" => 1, _ => 2 };
     public void Validate()
     {
         var info = new FileInfo(Path);
-        if (!info.Exists || info.Length != Bytes || info.LastWriteTimeUtc.Ticks != ModifiedTicks)
+        if (!info.Exists || info.Length != Bytes || info.LastWriteTimeUtc.Ticks != ModifiedTicks || MetadataSignature(Path) != MetadataHash)
             throw new IOException("Файл ERA5 изменился. Повторно откройте архив.");
     }
 }
 
 internal sealed record CycleRead(SourceFile Source, int Cycle, int Steps, int Height, int Width,
-    int[] Rows, int[] Columns, int MaxReadMiB);
+    int[] Rows, int[] Columns, int MaxReadMiB, double[]? SourceLatitude = null, double[]? SourceLongitude = null,
+    double[]? Latitude = null, double[]? Longitude = null, RasterBandRead[]? Bands = null,
+    string Variable = "LSP", bool FlatTime = false);
 internal sealed record HourRecord(string Key, int Step, long CycleEpoch);
 
 internal sealed class Era5Index
 {
-    public Dictionary<long, HourRecord> Records { get; } = [];
+    public Dictionary<long, List<HourRecord>> Records { get; } = [];
     public Dictionary<string, CycleRead> Cycles { get; } = [];
     public List<SourceFile> Sources { get; } = [];
     public List<(long Epoch, string Key)> OrderedCycles { get; } = [];
@@ -32,10 +45,15 @@ internal sealed class Era5Index
     public long End { get; }
     public int Hours => checked((int)((End - Start) / 3600));
     public string Sha { get; }
-    public int Duplicates { get; }
+    public int Duplicates { get; private set; }
     public int Cells => Latitude.Length * Longitude.Length;
     public List<long[]> Coverage { get; } = [];
     public int Lookahead { get; }
+    public static bool Supported(string path) => Path.GetExtension(path).ToLowerInvariant() is ".nc" or ".grib" or ".grb" or ".grib2" or ".grb2" or ".tif" or ".tiff";
+    public static string[] Files(string path) => Directory.Exists(path)
+        ? Directory.GetFiles(path, "*", SearchOption.AllDirectories).Where(file => Supported(file) &&
+            !Path.GetRelativePath(path, file).Split(Path.DirectorySeparatorChar).Contains(".pending")).ToArray()
+        : File.Exists(path) && Supported(path) ? [path] : [];
 
     public static string Iso(long epoch) => DateTimeOffset.FromUnixTimeSeconds(epoch).ToString("yyyy-MM-dd'T'HH:mm:sszzz");
 
@@ -48,16 +66,74 @@ internal sealed class Era5Index
         Bbox = bbox;
         Lookahead = lookahead;
         path = Path.GetFullPath(path);
-        var files = Directory.Exists(path) ? Directory.GetFiles(path, "*.nc", SearchOption.AllDirectories)
-            : File.Exists(path) && Path.GetExtension(path) == ".nc" ? [path] : [];
-        if (files.Length == 0) throw new ArgumentException("Не найдены файлы ERA5 .nc.");
-        double[]? rawLatitude = null, rawLongitude = null;
-        int[] rows = [], columns = [];
-        foreach (var file in files.Order(StringComparer.Ordinal))
+        var files = Files(path);
+        if (files.Length == 0) throw new ArgumentException("Не найдены файлы .nc, .grib или GeoTIFF (.tif/.tiff).");
+        var latitudes = new SortedSet<double>();
+        var longitudes = new SortedSet<double>();
+        foreach (var file in files.OrderBy(file => Path.GetExtension(file).Equals(".nc", StringComparison.OrdinalIgnoreCase) ? 0 : 1).ThenBy(file => file, StringComparer.Ordinal))
         {
             var info = new FileInfo(file);
-            var source = new SourceFile(file, info.Length, info.LastWriteTimeUtc.Ticks);
+            var source = SourceFile.Create(file);
+            if (source.Format != "NetCDF")
+            {
+                var raster = RasterSources.Inspect(source, maxReadMiB);
+                foreach (var value in raster.Latitude.Where(value => value >= bbox[2] && value <= bbox[3])) latitudes.Add(value);
+                foreach (var value in raster.Longitude.Where(value => value >= bbox[0] && value <= bbox[1])) longitudes.Add(value);
+                foreach (var band in raster.Bands)
+                {
+                    var key = $"{Sources.Count}:{band.Band}";
+                    Add(band.Epoch, new HourRecord(key, 0, band.CycleEpoch));
+                    Cycles[key] = new CycleRead(source, band.Band, 1, raster.Height, raster.Width, [], [], maxReadMiB, Bands: [band]);
+                }
+                source.Validate();
+                Sources.Add(source);
+                continue;
+            }
             using var dataset = new NetCdfFile(file);
+            if (!dataset.TryVariable("LSP", out _) && dataset.TryVariable("lsp", out var cfVariable))
+            {
+                if (dataset.Text(cfVariable, "units") != "m" ||
+                    dataset.Text(cfVariable, "standard_name") != "lwe_thickness_of_stratiform_precipitation_amount" ||
+                    !dataset.Dimensions(cfVariable).Select(dimension => dimension.Name).SequenceEqual(new[] { "time", "latitude", "longitude" }))
+                    throw new InvalidDataException($"{info.Name}: нужен почасовой ERA5 CF-NetCDF LSP в метрах.");
+                var cfLat = dataset.Axis("latitude");
+                var cfLon = dataset.Axis("longitude");
+                var cfRows = Enumerable.Range(0, cfLat.Length).OrderBy(row => cfLat[row]).ToArray();
+                var cfColumns = Enumerable.Range(0, cfLon.Length).OrderBy(column => Normalize(cfLon[column])).ToArray();
+                var orderedCfLat = cfRows.Select(row => cfLat[row]).ToArray();
+                var orderedCfLon = cfColumns.Select(column => Normalize(cfLon[column])).ToArray();
+                GridAlignment.ValidateAxis(orderedCfLat, "latitude");
+                GridAlignment.ValidateAxis(orderedCfLon, "longitude");
+                foreach (var value in orderedCfLat.Where(value => value >= bbox[2] && value <= bbox[3])) latitudes.Add(value);
+                foreach (var value in orderedCfLon.Where(value => value >= bbox[0] && value <= bbox[1])) longitudes.Add(value);
+                var cfTime = dataset.Variable("time");
+                var cfCalendar = dataset.Text(cfTime, "calendar") ?? "standard";
+                if (cfCalendar is not ("standard" or "gregorian" or "proleptic_gregorian")) throw new InvalidDataException("Неподдерживаемый календарь CF-NetCDF.");
+                var cfUnits = dataset.Text(cfTime, "units") ?? "";
+                var cfMatch = Regex.Match(cfUnits, @"^(seconds?|minutes?|hours?|days?) since (.+)$");
+                if (!cfMatch.Success) throw new InvalidDataException($"Неподдерживаемое время: {cfUnits}");
+                var cfOrigin = DateTimeOffset.Parse(cfMatch.Groups[2].Value, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal).ToUnixTimeSeconds();
+                var cfMultiplier = cfMatch.Groups[1].Value[0] switch { 's' => 1, 'm' => 60, 'h' => 3600, _ => 86400 };
+                var cfTimes = dataset.Axis("time").Select(value => cfOrigin + value * cfMultiplier).ToArray();
+                if (cfTimes.Length == 0 || cfTimes.Any(value => value % 3600 != 0) || cfTimes.Zip(cfTimes.Skip(1)).Any(pair => pair.Second - pair.First != 3600))
+                    throw new InvalidDataException("В CF-NetCDF ожидаются последовательные целые часы UTC.");
+                // ERA5 CDS single-level accumulations are labelled by the END of
+                // the previous hour. NCAR forecast_hour=1 labels that same hour.
+                for (var startStep = 0; startStep < cfTimes.Length; startStep += 12)
+                {
+                    var steps = Math.Min(12, cfTimes.Length - startStep);
+                    if ((long)steps * cfLat.Length * cfLon.Length * 4 > maxReadMiB * 1048576L)
+                        throw new InvalidDataException("Исходный блок CF-NetCDF превышает MaxReadMiB.");
+                    var key = $"{Sources.Count}:{startStep}";
+                    var cycleEpoch = checked((long)cfTimes[startStep] - 3600);
+                    for (var step = 0; step < steps; step++) Add(checked((long)cfTimes[startStep + step] - 3600), new HourRecord(key, step, cycleEpoch));
+                    Cycles[key] = new CycleRead(source, startStep, steps, cfLat.Length, cfLon.Length, cfRows, cfColumns, maxReadMiB,
+                        orderedCfLat, orderedCfLon, Variable: "lsp", FlatTime: true);
+                }
+                source.Validate();
+                Sources.Add(source);
+                continue;
+            }
             var variable = dataset.Variable("LSP");
             var dimensions = dataset.Dimensions(variable);
             if (!dimensions.Select(dimension => dimension.Name).SequenceEqual(new[] { "forecast_initial_time", "forecast_hour", "latitude", "longitude" }) ||
@@ -65,20 +141,14 @@ internal sealed class Era5Index
                 throw new InvalidDataException($"{info.Name}: нужен NCAR ERA5 LSP ds633.0 в метрах.");
             var lat = dataset.Axis("latitude");
             var lon = dataset.Axis("longitude");
-            if (rawLatitude is null)
-            {
-                rawLatitude = lat;
-                rawLongitude = lon;
-                rows = Enumerable.Range(0, lat.Length).Where(index => lat[index] >= bbox[2] && lat[index] <= bbox[3]).OrderBy(index => lat[index]).ToArray();
-                columns = Enumerable.Range(0, lon.Length).Where(index => Normalize(lon[index]) >= bbox[0] && Normalize(lon[index]) <= bbox[1]).OrderBy(index => Normalize(lon[index])).ToArray();
-                if (rows.Length == 0 || columns.Length == 0) throw new ArgumentException("В области нет ячеек ERA5.");
-                var stride = Math.Max(1, (int)Math.Ceiling(Math.Sqrt((double)rows.Length * columns.Length / maxCells)));
-                while (((rows.Length + stride - 1) / stride) * ((columns.Length + stride - 1) / stride) > maxCells) stride++;
-                rows = rows.Where((_, index) => index % stride == 0).ToArray();
-                columns = columns.Where((_, index) => index % stride == 0).ToArray();
-            }
-            else if (!rawLatitude.SequenceEqual(lat) || !rawLongitude!.SequenceEqual(lon))
-                throw new InvalidDataException($"{info.Name}: географическая сетка отличается от остальных файлов.");
+            var rows = Enumerable.Range(0, lat.Length).OrderBy(index => lat[index]).ToArray();
+            var columns = Enumerable.Range(0, lon.Length).OrderBy(index => Normalize(lon[index])).ToArray();
+            var orderedLat = rows.Select(row => lat[row]).ToArray();
+            var orderedLon = columns.Select(column => Normalize(lon[column])).ToArray();
+            GridAlignment.ValidateAxis(orderedLat, "latitude");
+            GridAlignment.ValidateAxis(orderedLon, "longitude");
+            foreach (var value in orderedLat.Where(value => value >= bbox[2] && value <= bbox[3])) latitudes.Add(value);
+            foreach (var value in orderedLon.Where(value => value >= bbox[0] && value <= bbox[1])) longitudes.Add(value);
             var hours = dataset.Axis("forecast_hour");
             if (hours.Length is < 1 or > 12 || !hours.SequenceEqual(Enumerable.Range(1, hours.Length).Select(value => (double)value)))
                 throw new InvalidDataException("Ожидаются почасовые шаги от 1 до 12.");
@@ -101,24 +171,32 @@ internal sealed class Era5Index
                 if (seconds % 3600 != 0) throw new InvalidDataException("Цикл должен начинаться в целый час UTC.");
                 var epoch = checked((long)seconds);
                 var key = $"{Sources.Count}:{cycle}";
-                var used = false;
                 for (var step = 0; step < hours.Length; step++)
-                {
-                    if (Records.TryAdd(epoch + step * 3600, new HourRecord(key, step, epoch))) used = true;
-                    else Duplicates++;
-                }
-                if (used)
-                {
-                    Cycles[key] = new CycleRead(source, cycle, hours.Length, lat.Length, lon.Length, rows, columns, maxReadMiB);
-                    OrderedCycles.Add((epoch, key));
-                }
+                    Add(epoch + step * 3600, new HourRecord(key, step, epoch));
+                Cycles[key] = new CycleRead(source, cycle, hours.Length, lat.Length, lon.Length, rows, columns, maxReadMiB, orderedLat, orderedLon);
             }
             source.Validate();
             Sources.Add(source);
         }
         if (Records.Count == 0) throw new InvalidDataException("Нет почасовых данных ERA5.");
-        Latitude = rows.Select(index => rawLatitude![index]).ToArray();
-        Longitude = columns.Select(index => Normalize(rawLongitude![index])).ToArray();
+        if (latitudes.Count == 0 || longitudes.Count == 0) throw new ArgumentException("В выбранной области нет ячеек.");
+        var stride = Math.Max(1, (int)Math.Ceiling(Math.Sqrt((double)latitudes.Count * longitudes.Count / maxCells)));
+        while ((long)((latitudes.Count + stride - 1) / stride) * ((longitudes.Count + stride - 1) / stride) > maxCells) stride++;
+        Latitude = latitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
+        Longitude = longitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
+        foreach (var key in Cycles.Keys.ToArray()) Cycles[key] = Cycles[key] with { Latitude = Latitude, Longitude = Longitude };
+        foreach (var candidates in Records.Values)
+            candidates.Sort((left, right) =>
+            {
+                var a = Cycles[left.Key].Source;
+                var b = Cycles[right.Key].Source;
+                var comparison = a.Priority.CompareTo(b.Priority);
+                if (comparison != 0) return comparison;
+                comparison = StringComparer.Ordinal.Compare(a.Path, b.Path);
+                return comparison != 0 ? comparison : left.CycleEpoch.CompareTo(right.CycleEpoch);
+            });
+        foreach (var group in Records.GroupBy(pair => pair.Value[0].Key))
+            OrderedCycles.Add((group.Min(pair => pair.Key), group.Key));
         Start = Records.Keys.Min();
         End = Records.Keys.Max() + 3600;
         foreach (var epoch in Records.Keys.Order())
@@ -127,10 +205,17 @@ internal sealed class Era5Index
             else Coverage.Add([epoch, epoch + 3600]);
         }
         OrderedCycles.Sort((left, right) => left.Epoch.CompareTo(right.Epoch));
-        Sha = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(new { Sources, Bbox, Latitude, Longitude }))));
+        Sha = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(new { version = 2, Sources, Bbox, Latitude, Longitude,
+            imports = Sources.Where(source => File.Exists(source.Path + ".meteo.json")).Select(source => File.ReadAllText(source.Path + ".meteo.json")).ToArray() }))));
     }
 
-    private static double Normalize(double longitude) => ((longitude + 180) % 360 + 360) % 360 - 180;
+    private void Add(long epoch, HourRecord record)
+    {
+        if (Records.TryGetValue(epoch, out var candidates)) { candidates.Add(record); Duplicates++; }
+        else Records[epoch] = [record];
+    }
+
+    private static double Normalize(double longitude) => GridAlignment.Normalize(longitude);
 
     public object Catalog() => new
     {
@@ -140,8 +225,11 @@ internal sealed class Era5Index
         color_scale_from_full_scan = false, frame_bytes = Cells * 4, available_hours = Records.Count,
         gap_hours = Hours - Records.Count, duplicate_hours = Duplicates,
         available_ranges = Coverage.Select(pair => pair.Select(Iso).ToArray()),
+        formats = Sources.Select(source => source.Format).Distinct(),
+        source_priority = new[] { "NetCDF", "GRIB", "GeoTIFF" },
+        files = Sources.Select(source => new { name = source.Name, format = source.Format }),
         members = new[] { new { member = 0, first_hour = 0, hours = Hours, start_utc = Iso(Start), end_utc = Iso(End) } },
-        semantics = "ERA5 HRES previous-hour amounts; missing hours remain empty",
+        semantics = "LSP hourly amounts in mm, UTC; NetCDF > GRIB > GeoTIFF; missing cells filled from all matching sources",
         streaming = true, lookahead_cycles = Lookahead
     };
 

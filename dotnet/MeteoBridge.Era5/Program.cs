@@ -29,6 +29,7 @@ await LocalWebHost.RunAsync(address => CreateApplication(args, root, address));
 static WebApplication CreateApplication(string[] arguments, string root, string? address)
 {
     var builder = WebApplication.CreateBuilder(new WebApplicationOptions { Args = arguments, ContentRootPath = AppContext.BaseDirectory });
+    builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = ArchiveImports.MaxBytes);
     if (builder.Configuration["urls"] is null) builder.WebHost.UseUrls("http://127.0.0.1:8766");
     if (address is not null) builder.WebHost.UseUrls(address);
     builder.Logging.AddFilter("Microsoft.Extensions.Hosting.Internal.Host", LogLevel.Critical);
@@ -43,10 +44,15 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     var data = Path.GetFullPath(settings["Data"] ?? "data/era5", root);
     var bbox = settings.GetSection("Bbox").Get<double[]>() ?? [-180, 180, -90, 90];
     builder.Services.AddSingleton(_ => new ArchiveSession(data, bbox, maxCells, maxReadMiB, lookahead, root, workers, capacity));
-    builder.Services.AddSingleton(provider => new ArchiveDownloads(data, settings["ArchiveBaseUrl"], provider.GetRequiredService<ArchiveSession>().Changed));
+    builder.Services.AddSingleton(provider => new ArchiveDownloads(data, settings["ArchiveBaseUrl"], provider.GetRequiredService<ArchiveSession>().Changed,
+        settings["ArcoBaseUrl"]));
+    builder.Services.AddSingleton(provider => new ArchiveImports(data, bbox, maxCells, maxReadMiB, lookahead, provider.GetRequiredService<ArchiveSession>().Changed));
+    builder.Services.AddSingleton(provider => new ArchiveFiles(data, provider.GetRequiredService<ArchiveSession>(), provider.GetRequiredService<ArchiveDownloads>()));
     var app = builder.Build();
     var session = app.Services.GetRequiredService<ArchiveSession>();
     var downloads = app.Services.GetRequiredService<ArchiveDownloads>();
+    var imports = app.Services.GetRequiredService<ArchiveImports>();
+    var localFiles = app.Services.GetRequiredService<ArchiveFiles>();
     app.Use(async (context, next) =>
     {
         if (context.Connection.RemoteIpAddress is not { } remote || !System.Net.IPAddress.IsLoopback(remote))
@@ -62,33 +68,38 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
         }
         try { await next(context); }
         catch (OperationCanceledException) when (context.RequestAborted.IsCancellationRequested) { }
-        catch (Exception error) when (error is ArgumentException or IOException or FormatException or OverflowException or DllNotFoundException)
+        catch (Exception error) when (error is ArgumentException or IOException or InvalidDataException or FormatException or OverflowException or DllNotFoundException or ApplicationException)
         {
             context.Response.StatusCode = 422;
             await context.Response.WriteAsJsonAsync(new { detail = error.Message });
         }
         catch (HttpRequestException error)
         {
-        app.Logger.LogWarning(error, "Не удалось получить каталог NCAR");
+        app.Logger.LogWarning(error, "Не удалось получить данные архива");
             context.Response.StatusCode = 502;
-            await context.Response.WriteAsJsonAsync(new { detail = "Не удалось получить данные NCAR: " + error.Message });
+            await context.Response.WriteAsJsonAsync(new { detail = "Не удалось получить данные архива: " + error.Message });
         }
         catch (TaskCanceledException)
         {
             context.Response.StatusCode = 504;
-            await context.Response.WriteAsJsonAsync(new { detail = "NCAR не ответил вовремя. Повторите запрос." });
+            await context.Response.WriteAsJsonAsync(new { detail = "Источник не ответил вовремя. Повторите запрос." });
         }
     });
     app.MapGet("/health", () => new { status = "ok", engine = "csharp", application = "MeteoBridge.Era5",
         project_root = root, data_path = data, workers, lookahead_cycles = lookahead });
     app.MapGet("/", () =>
     {
-        var files = Directory.Exists(data) ? Directory.EnumerateFiles(data, "*.nc", SearchOption.AllDirectories).Any() : File.Exists(data);
+        var files = Era5Index.Files(data).Length > 0;
         return files ? Results.Content(MapPage.Create(session.ForViewer().Index), "text/html; charset=utf-8") : Results.Redirect("/downloads");
     });
     app.MapGet("/downloads", () => Results.File(Path.Combine(AppContext.BaseDirectory, "Assets", "archive_viewer.html"), "text/html; charset=utf-8"));
     app.MapGet("/api/archive/settings", () => downloads.Settings());
-    app.MapGet("/api/archive/files", async (HttpContext context, int year, int month = 0) => await downloads.FilesAsync(year, month, context.RequestAborted));
+    app.MapGet("/api/archive/local", () => localFiles.List());
+    app.MapPost("/api/archive/delete", (DeleteFileRequest request) => localFiles.Delete(request.Id));
+    app.MapPost("/api/archive/import", async (HttpRequest request, CancellationToken cancellation) =>
+        Results.Json(await imports.ImportAsync(request, cancellation)));
+    app.MapGet("/api/archive/files", async (HttpContext context, int year, int month = 0, string source = "amazon") =>
+        await downloads.FilesAsync(year, month, context.RequestAborted, source));
     app.MapPost("/api/archive/download", (DownloadRequest request) => downloads.Start(request.Key));
     app.MapPost("/api/archive/cancel", (DownloadRequest request) => downloads.Cancel(request.Key));
     app.MapGet("/grid", () => new { latitude = session.Current.Index.Latitude, longitude = session.Current.Index.Longitude });
@@ -121,6 +132,7 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
         context.Response.Headers["X-Frame-Start"] = Era5Index.Iso(current.Start + hour * 3600L);
         context.Response.Headers["X-Data-Available"] = frame.Available ? "true" : "false";
         context.Response.Headers["X-Cycle-UTC"] = frame.Cycle is { } cycle ? Era5Index.Iso(cycle) : "";
+        context.Response.Headers["X-Frame-Sources"] = Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(frame.Sources));
         context.Response.Headers["X-Manifest-SHA256"] = current.Sha;
         context.Response.Headers.CacheControl = "no-store";
         return Results.Bytes(frame.Bytes, "application/octet-stream");

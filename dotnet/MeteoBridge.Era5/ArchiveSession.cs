@@ -15,6 +15,18 @@ internal sealed class ArchiveSession(string data, double[] bbox, int maxCells, i
 
     public void Changed() => Interlocked.Increment(ref revision);
 
+    public void ChangeFiles(Action action)
+    {
+        lock (gate)
+        {
+            // Close native readers before deleting a file, including on Windows.
+            current?.Pipeline.Dispose();
+            current = null;
+            try { action(); }
+            finally { Interlocked.Increment(ref revision); }
+        }
+    }
+
     private ArchiveView Get(bool refresh)
     {
         lock (gate)

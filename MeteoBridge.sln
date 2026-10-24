@@ -40,8 +40,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{0750
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{09CD8C37-E61A-18A5-96E0-3FE8E871E0D0}"
 	ProjectSection(SolutionItems) = preProject
+		tests\archive_viewer.test.cjs = tests\archive_viewer.test.cjs
 		tests\map_viewer.test.cjs = tests\map_viewer.test.cjs
+		tests\raster_fixtures.py = tests\raster_fixtures.py
+		tests\test_archive_sources.py = tests\test_archive_sources.py
 		tests\test_era5_dotnet.py = tests\test_era5_dotnet.py
+		tests\test_multiformat.py = tests\test_multiformat.py
 		tests\test_project_layout.py = tests\test_project_layout.py
 	EndProjectSection
 EndProject

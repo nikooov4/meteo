@@ -46,11 +46,26 @@ button:focus-visible, a:focus-visible { outline: 2px solid #3876c5; outline-offs
 .state[data-state="downloaded"] { color: #25745a; font-weight: 600; }
 .state[data-state="failed"], .state[data-state="conflict"] { color: #a44738; }
 .action { min-width: 125px; }
+.delete-file { color: #a44738; min-width: 88px; }
+.local-file { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 0; border-bottom: 1px solid #e5edf3; }
+.local-file span { min-width: 0; overflow-wrap: anywhere; }
 progress { width: 100%; height: 7px; margin-top: 5px; accent-color: #3876b2; }
 .error { width: 100%; font-size: 12px; color: #a44738; overflow-wrap: anywhere; }
 .empty { color: #6b8294; padding: 30px 12px; text-align: center; }
 footer { margin-top: 20px; color: #7c8f9d; font-size: 12px; line-height: 1.6; }
 footer a { color: #356584; }
+.drop-zone { border: 2px dashed #bed3e3; border-radius: 12px; padding: 22px; text-align: center; background: #f7fbff; cursor: pointer; }
+.drop-zone[data-over="true"] { background: #dfedf8; border-color: #3876b2; }
+.drop-zone input { display: block; width: auto; max-width: 100%; margin: 12px auto 0; }
+.format-note { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+.format-note span { border-radius: 6px; padding: 4px 9px; background: #e3eef5; color: #356584; font-size: 12px; }
+.import-row { margin-top: 12px; border: 1px solid #dce5ed; border-radius: 10px; padding: 14px; }
+.import-options { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin: 12px 0; }
+.import-options label { display: flex; flex-direction: column; gap: 5px; color: #587186; font-size: 12px; }
+.import-options input, .import-options select { min-height: 34px; padding: 6px; border: 1px solid #cfdee9; border-radius: 6px; max-width: 100%; }
+.import-options input[type="datetime-local"] { width: 220px; }
+.import-status { display: block; margin-top: 9px; font-size: 12px; color: #356584; overflow-wrap: anywhere; }
+#local-files { font-size: 12px; color: #587186; line-height: 1.8; max-height: 200px; overflow: auto; overflow-wrap: anywhere; }
 @media(max-width:700px) {
   main { padding: 14px 10px 30px; }
   header { gap: 9px; flex-wrap: wrap; }
@@ -65,30 +80,55 @@ footer a { color: #356584; }
 <main>
   <header>
     <div class="brand" aria-hidden="true">E5</div>
-    <div><h1>Архив ERA5</h1><p class="subtitle">Реальные данные NCAR · крупномасштабные осадки</p></div>
+    <div><h1>Файлы карты</h1><p class="subtitle">Amazon S3 · Google ARCO · ERA5 LSP</p></div>
     <nav aria-label="Разделы сайта"><a href="/">Карта</a><a href="/downloads" aria-current="page">Архив ERA5</a></nav>
   </header>
   <section class="panel" aria-labelledby="catalog-title">
     <h2 id="catalog-title">Скачать данные для карты</h2>
-    <p class="intro">Выберите год и месяц. У каждого файла указан его точный промежуток в UTC.
+    <p class="intro">Выберите архив, год и месяц. Сайт скачает исходные .nc, проверит и подключит данные к карте без преобразования в другие форматы.
       Уже имеющиеся файлы отмечены как «Скачано». После завершения загрузки откройте вкладку «Карта» — новые периоды появятся в ней автоматически.</p>
     <form id="catalog-form">
+      <label>Архив<select id="source" aria-label="Архив данных">
+        <option value="amazon">Amazon S3 · NCAR ERA5</option><option value="google">Google · ARCO-ERA5</option>
+      </select></label>
       <label>Год<input id="year" type="number" min="1940" max="2100" required aria-label="Год архива"></label>
       <label>Месяц<select id="month" aria-label="Месяц архива"><option value="0">Весь год</option></select></label>
       <button type="submit" class="primary" id="show">Показать файлы</button>
     </form>
+    <p id="source-description" class="intro" role="status"></p>
+    <p class="intro"><a id="source-archive" href="https://nsf-ncar-era5.s3.us-west-2.amazonaws.com/?prefix=e5.oper.fc.sfc.accumu/" target="_blank" rel="noopener">Открыть выбранный архив ↗</a></p>
     <p class="directory">Папка загрузки: <span id="directory"></span></p>
   </section>
   <div id="alert" role="alert" hidden></div>
-  <div class="summary"><span id="summary" role="status">Читаю каталог NCAR…</span><button id="download-missing" hidden>Скачать отсутствующие</button></div>
+  <div class="summary"><span id="summary" role="status">Читаю каталог…</span><button id="download-missing" hidden>Скачать отсутствующие</button></div>
   <section id="files" aria-label="Файлы ERA5"></section>
+  <section class="panel" aria-labelledby="import-title">
+    <h2 id="import-title">Добавить свои файлы</h2>
+    <p class="intro">Карта ищет недостающие часы и ячейки во всех файлах. При пересечении приоритет: <strong>NetCDF → GRIB → GeoTIFF</strong>.
+      Загружайте крупномасштабные осадки LSP: суммарные осадки, температура и другие величины с ними не объединяются.</p>
+    <div class="format-note"><span>.nc · NetCDF</span><span>.grib / .grib2 · GRIB</span><span>.tif / .tiff · GeoTIFF</span></div>
+    <div id="drop-zone" class="drop-zone">
+      <label for="import-files">Перетащите файлы сюда или выберите несколько файлов<br>
+        <input id="import-files" type="file" multiple accept=".nc,.grib,.grb,.grib2,.grb2,.tif,.tiff"></label>
+    </div>
+    <p class="intro">NetCDF: NCAR ERA5 LSP или суточный ERA5 LSP из Google ARCO. GRIB: LSP / NCPCP с интервалами накопления.
+      Для GeoTIFF укажите UTC первого часа, единицы и тип накопления. Каждый канал — следующий час.
+      Для накопленных значений программа вычисляет разности соседних часов. До 8 ГиБ на файл.</p>
+    <div id="import-queue" aria-label="Очередь добавления файлов"></div>
+    <button id="import-all" class="primary" hidden>Добавить все выбранные файлы</button>
+    <p id="import-summary" role="status"></p>
+    <details><summary>Файлы, доступные карте</summary><div id="local-files">Читаю список…</div></details>
+  </section>
   <footer>Промежуток указан от начала первого часа до конца последнего; конечное время не включено.
-    Два файла покрывают первую и вторую половины месяца. Это LSP, крупномасштабная компонента осадков.
+    Оба архива содержат ERA5 LSP, крупномасштабную компоненту осадков. Скачиваются исходные .nc без изменения содержимого.
     Загрузки выполняются в фоне, максимум две одновременно; прерванную загрузку можно продолжить.
-    <a href="https://gdex.ucar.edu/datasets/d633000/" target="_blank" rel="noopener">Источник: NSF NCAR ERA5</a>.</footer>
+    Источники: <a href="https://gdex.ucar.edu/datasets/d633000/" target="_blank" rel="noopener">NSF NCAR ERA5</a> ·
+    <a href="https://github.com/google-research/arco-era5" target="_blank" rel="noopener">Google ARCO-ERA5</a>.</footer>
 </main>
 <script>
 const yearInput = document.getElementById('year'), monthInput = document.getElementById('month');
+const sourceInput = document.getElementById('source');
+let sources = [];
 const filesElement = document.getElementById('files'), summary = document.getElementById('summary');
 const alertBox = document.getElementById('alert'), missingButton = document.getElementById('download-missing');
 let files = [], timer = null, generation = 0, loading = false;
@@ -97,6 +137,95 @@ const labels = {available:'Не скачано',downloaded:'✓ Скачано',
                 validating:'Проверка файла',paused:'Приостановлено',failed:'Ошибка',conflict:'Другой локальный файл'};
 const date = value => value.slice(0,10).split('-').reverse().join('.')+' '+value.slice(11,16);
 const errorMessage = error => { alertBox.textContent=error.message; alertBox.hidden=false; };
+const importQueue = document.getElementById('import-queue'), importInput = document.getElementById('import-files');
+const importAll = document.getElementById('import-all');
+importAll.onclick = () => { for (const button of importQueue.querySelectorAll('button.primary:not(:disabled)')) button.click(); };
+const dropZone = document.getElementById('drop-zone');
+function deleteButton(file) {
+  const button = document.createElement('button'); button.className='delete-file'; button.textContent='Удалить';
+  button.setAttribute('aria-label','Удалить '+file.name);
+  button.onclick = async () => {
+    if (!window.confirm('Удалить файл «'+file.name+'» из локального архива?')) return;
+    button.disabled=true;
+    try {
+      await api('/api/archive/delete',{id:file.id || file.local_id});
+      generation++; await loadLocal(); await load();
+    } catch(error) { errorMessage(error); button.disabled=false; }
+  };
+  return button;
+}
+async function loadLocal() {
+  const result = await api('/api/archive/local');
+  const list = document.getElementById('local-files'); list.replaceChildren();
+  for (const file of result.files) {
+    const line = document.createElement('div'); line.className='local-file';
+    const name = document.createElement('span'); name.textContent = file.name + ' · ' + file.format + ' · ' + (file.bytes / 1e6).toFixed(1) + ' MB';
+    line.append(name,deleteButton(file));
+    list.append(line);
+  }
+  if (!result.files.length) list.textContent = 'Пока нет файлов. Скачайте ERA5 из выбранного архива или добавьте свои.';
+}
+function queueImports(selected) {
+  for (const file of selected) {
+    const row = document.createElement('article'); row.className = 'import-row';
+    const name = document.createElement('strong'); name.textContent = file.name + ' · ' + (file.size / 1e6).toFixed(1) + ' MB';
+    const options = document.createElement('div'); options.className = 'import-options';
+    function field(caption, control) { const label = document.createElement('label'); label.textContent = caption; label.append(control); options.append(label); return control; }
+    function select(items) { const control = document.createElement('select'); for (const [value, text] of items) {
+      const option = document.createElement('option'); option.value = value; option.textContent = text; control.append(option);
+    } return control; }
+    const nc = /\.nc$/i.test(file.name), tiff = /\.tiff?$/i.test(file.name);
+    const metadata = field('Время и единицы', select([['auto','Из файла'],['manual','Указать вручную']]));
+    metadata.value = tiff ? 'manual' : 'auto'; metadata.disabled = nc;
+    const start = field('Первый час · UTC', document.createElement('input')); start.type = 'datetime-local'; start.step = '3600';
+    const units = field('Единицы', select([['mm','мм'],['m','метры'],['kg m-2','кг/м²']]));
+    const accumulation = field('Значения каналов', select([['hourly','За каждый отдельный час'],['cumulative','Накопленные от начала прогноза']]));
+    const toggle = () => { for (const input of [start, units, accumulation]) input.disabled = metadata.value !== 'manual' || nc; };
+    metadata.onchange = toggle; toggle();
+    const upload = document.createElement('button'); upload.className = 'primary'; upload.textContent = 'Добавить на карту';
+    const cancel = document.createElement('button'); cancel.textContent = 'Убрать'; cancel.style.marginLeft = '8px';
+    const progress = document.createElement('progress'); progress.max = 100; progress.value = 0; progress.hidden = true;
+    progress.setAttribute('aria-label', 'Добавление ' + file.name);
+    const status = document.createElement('span'); status.className = 'import-status'; status.setAttribute('role','status');
+    row.append(name, options, upload, cancel, progress, status); importQueue.append(row); importAll.hidden = false;
+    let xhr = null;
+    cancel.onclick = () => { if (xhr) xhr.abort(); else row.remove(); };
+    upload.onclick = () => {
+      if (!/\.(nc|grib2?|grb2?|tiff?)$/i.test(file.name)) { status.textContent = 'Поддерживаются .nc, .grib и GeoTIFF.'; return; }
+      if (file.size === 0 || file.size > 8 * 1024 ** 3) { status.textContent = 'Выберите непустой файл до 8 ГиБ.'; return; }
+      if (metadata.value === 'manual' && (!start.value || !start.checkValidity() || new Date(start.value + 'Z').getUTCMinutes() !== 0)) {
+        status.textContent = 'Укажите целый час UTC первого канала.'; start.focus(); return;
+      }
+      const params = new URLSearchParams({name:file.name});
+      if (!nc && metadata.value === 'manual') {
+        params.set('metadata','manual'); params.set('start_utc',start.value + 'Z'); params.set('units',units.value); params.set('accumulation',accumulation.value);
+      }
+      upload.disabled = true; for (const input of options.querySelectorAll('input,select')) input.disabled = true;
+      progress.hidden = false; cancel.textContent = 'Отменить'; status.textContent = 'Загрузка…';
+      xhr = new XMLHttpRequest(); xhr.open('POST','/api/archive/import?' + params);
+      xhr.setRequestHeader('Content-Type','application/octet-stream');
+      xhr.upload.onprogress = event => { if (event.lengthComputable) { progress.value = event.loaded / event.total * 100;
+        status.textContent = progress.value < 100 ? 'Загружено ' + Math.floor(progress.value) + '%' : 'Проверка времени, величины и сетки…'; } };
+      const failed = message => { xhr = null; upload.disabled = false; cancel.textContent = 'Убрать'; status.textContent = message;
+        metadata.disabled = nc; toggle(); };
+      xhr.onerror = () => failed('Соединение прервано. Повторите загрузку.');
+      xhr.onabort = () => failed('Добавление отменено.');
+      xhr.onload = async () => {
+        let result; try { result = JSON.parse(xhr.responseText); } catch { failed('Не удалось прочитать ответ сервера.'); return; }
+        if (xhr.status < 200 || xhr.status >= 300) { failed(result.detail || 'Файл не прошёл проверку.'); return; }
+        xhr = null; progress.value = 100; upload.textContent = '✓ Добавлен'; cancel.textContent = 'Убрать';
+        status.textContent = result.format + ' · ' + result.hours + ' ч · ' + date(result.start_utc) + ' — ' + date(result.end_utc) + ' UTC';
+        document.getElementById('import-summary').textContent = 'Файлы добавлены. Откройте карту — она обновит доступные периоды.';
+        await loadLocal().catch(errorMessage);
+      };
+      xhr.send(file);
+    };
+  }
+}
+importInput.onchange = () => { queueImports(importInput.files); importInput.value = ''; };
+dropZone.ondragover = event => { event.preventDefault(); dropZone.dataset.over = 'true'; };
+dropZone.ondragleave = () => { dropZone.dataset.over = 'false'; };
+dropZone.ondrop = event => { event.preventDefault(); dropZone.dataset.over = 'false'; queueImports(event.dataTransfer.files); };
 async function api(url, body) {
   const response = await fetch(url, body === undefined ? {} : {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   const result = await response.json();
@@ -110,7 +239,7 @@ function render() {
     const main=document.createElement('div'); main.className='file-main';
     const period=document.createElement('div'); period.className='period';
     period.textContent=date(file.start_utc)+' — '+date(file.end_utc)+' UTC';
-    const name=document.createElement('div'); name.className='filename'; name.textContent=file.name;
+    const name=document.createElement('div'); name.className='filename'; name.textContent=file.name + ' · ' + (file.format || 'NetCDF') + ' · ' + (file.provider || 'NSF NCAR ERA5');
     main.append(period,name);
     const aside=document.createElement('div'); aside.className='file-aside';
     const size=document.createElement('div'); size.className='size'; size.textContent=(file.bytes/1e6).toFixed(1)+' MB';
@@ -127,14 +256,16 @@ function render() {
     button.setAttribute('aria-label',button.textContent+' · '+date(file.start_utc)+' — '+date(file.end_utc)+' UTC');
     button.onclick=async () => {
       button.disabled=true;
-      try { await api('/api/archive/'+(busy(file)?'cancel':'download'),{key:file.key}); await load(); }
+      try { await api('/api/archive/'+(busy(file)?'cancel':'download'),{key:file.key}); await load(); await loadLocal(); }
       catch(error) { errorMessage(error); button.disabled=false; }
     };
-    aside.append(size,status,button); row.append(main,aside);
+    aside.append(size,status,button);
+    if (file.downloaded && file.local_id) aside.append(deleteButton(file));
+    row.append(main,aside);
     if (file.error) { const error=document.createElement('div'); error.className='error'; error.textContent=file.error; row.append(error); }
     filesElement.append(row);
   }
-  if (files.length===0) { const empty=document.createElement('p'); empty.className='empty'; empty.textContent='В каталоге NCAR нет файлов LSP за выбранный период.'; filesElement.append(empty); }
+  if (files.length===0) { const empty=document.createElement('p'); empty.className='empty'; empty.textContent='В выбранном источнике нет файлов LSP за этот период. Попробуйте другой источник или добавьте свой файл.'; filesElement.append(empty); }
   summary.textContent='Файлов: '+files.length+' · скачано: '+files.filter(file=>file.downloaded).length+' · в работе: '+files.filter(busy).length;
   missingButton.hidden=!files.some(file=>!file.downloaded && !busy(file) && file.state!=='conflict');
 }
@@ -142,7 +273,7 @@ async function load() {
   if (loading) return;
   loading=true; clearTimeout(timer); const token=generation;
   try {
-    const result=await api('/api/archive/files?'+new URLSearchParams({year:yearInput.value,month:monthInput.value}));
+    const result=await api('/api/archive/files?'+new URLSearchParams({year:yearInput.value,month:monthInput.value,source:sourceInput.value}));
     if (token!==generation) return;
     files=result; alertBox.hidden=true; render();
   } catch(error) { if (token===generation) errorMessage(error); }
@@ -152,7 +283,17 @@ async function load() {
     else if (files.some(busy)) timer=setTimeout(load,2000);
   }
 }
-document.getElementById('catalog-form').onsubmit=event => { event.preventDefault(); generation++; summary.textContent='Читаю каталог NCAR…'; load(); };
+function changeCatalog() {
+  generation++; files=[]; filesElement.replaceChildren(); missingButton.hidden=true;
+  summary.textContent='Читаю каталог…';
+  const source=sources.find(source=>source.id===sourceInput.value);
+  document.getElementById('source-description').textContent=source?.description || '';
+  const archive=document.getElementById('source-archive');
+  archive.href=source?.archive_url || '#'; archive.textContent='Открыть архив '+(source?.label || '')+' ↗';
+  load();
+}
+sourceInput.onchange=changeCatalog;
+document.getElementById('catalog-form').onsubmit=event => { event.preventDefault(); changeCatalog(); };
 missingButton.onclick=async () => {
   missingButton.disabled=true;
   try { for (const file of files.filter(file=>!file.downloaded && !busy(file) && file.state!=='conflict')) await api('/api/archive/download',{key:file.key}); }
@@ -163,11 +304,13 @@ async function initialize() {
   for (let month=1;month<=12;month++) { const option=document.createElement('option'); option.value=month;
     option.textContent=new Intl.DateTimeFormat('ru',{month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(2023,month-1,1))); monthInput.append(option); }
   const settings=await api('/api/archive/settings');
+  sources=settings.sources || [];
   document.getElementById('directory').textContent=settings.directory;
   yearInput.min=settings.first_year; yearInput.max=settings.last_year; yearInput.value=settings.default_year;
-  await load();
+  changeCatalog();
 }
 initialize().catch(errorMessage);
+loadLocal().catch(errorMessage);
 </script>
 </body>
 </html>

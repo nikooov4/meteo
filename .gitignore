@@ -12,6 +12,9 @@ runtime/licenses/
 runtime/manifest.json
 artifacts/logs/
 artifacts/publish/
+artifacts/nuget/
+artifacts/test-temp/
+artifacts/preview/
 artifacts/validation/*.xml
 !artifacts/validation/era5-archive-full.xml
 !artifacts/validation/era5-dotnet-full.xml
@@ -39,6 +42,10 @@ artifacts/validation/*.xml
 *.nc4
 *.grib
 *.grib2
+*.grb
+*.grb2
+*.tif
+*.tiff
 *.parquet
 data/raw/
 data/downloads/

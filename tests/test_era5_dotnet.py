@@ -47,9 +47,12 @@ def dotnet_archive(tmp_path, request):
     log = (tmp_path / "server.log").open("w", encoding="utf8")
     arguments = ["dotnet", str(DLL), "--urls", f"http://127.0.0.1:{port}", "--Era5:Data", str(folder),
                  "--Era5:Workers", "2", "--Era5:LookaheadCycles", "3"]
-    if getattr(request, "param", None) == "downloads":
+    if getattr(request, "param", None) in {"downloads", "sources"}:
         remote = request.getfixturevalue("fake_ncar")
         arguments.extend(["--Era5:ArchiveBaseUrl", remote["url"]])
+    if getattr(request, "param", None) == "sources":
+        remote = request.getfixturevalue("fake_arco")
+        arguments.extend(["--Era5:ArcoBaseUrl", remote["url"]])
     process = subprocess.Popen(
         arguments,
         cwd=ROOT, stdout=log, stderr=subprocess.STDOUT,
@@ -173,8 +176,26 @@ def test_dotnet_prefetch_is_parallel_bounded_and_reuses_cycles(dotnet_archive):
     for hour in [1, 12, 36, 48]:
         client.get("/map-archive/frame", params={**params, "hour": hour, "prefetch": "true"}).raise_for_status()
     after = client.get("/map-archive/metrics").json()
-    assert after["cycle_reads"] == 4
+    # The missing cell in hour 1 also probes the duplicate file for a valid fallback.
+    assert after["cycle_reads"] == 5
     assert after["cache_hits"] >= 4
+
+
+def test_parallel_frames_do_not_cancel_active_fallback_reads(dotnet_archive):
+    from concurrent.futures import ThreadPoolExecutor
+
+    client, _ = dotnet_archive
+    catalog = client.get("/map-archive/catalog").raise_for_status().json()
+
+    def read(hour):
+        response = client.get("/map-archive/frame", params={"hour": hour, "manifest_sha256": catalog["manifest_sha256"]})
+        assert response.is_success, response.text
+        assert len(response.content) == catalog["frame_bytes"]
+
+    with ThreadPoolExecutor(max_workers=8) as workers:
+        list(workers.map(read, [0, 1, 2, 12, 13, 36, 37, 48] * 2))
+    metrics = client.get("/map-archive/metrics").raise_for_status().json()
+    assert metrics["cached_cycles"] <= metrics["cache_limit"]
 
 
 def test_dotnet_rejects_changed_sources_and_invalid_selections(dotnet_archive):

@@ -2,6 +2,9 @@ using System.Diagnostics;
 
 namespace MeteoBridge.Era5;
 
+internal sealed record FrameSource(string Name, string Format, int Cells);
+internal sealed record MapFrame(byte[] Bytes, bool Available, long? Cycle, FrameSource[] Sources);
+
 internal sealed class CyclePipeline : IDisposable
 {
     private sealed record Entry(Task<byte[]> Payload, CancellationTokenSource Cancellation)
@@ -14,6 +17,8 @@ internal sealed class CyclePipeline : IDisposable
     private readonly int capacity;
     private readonly object gate = new();
     private readonly Dictionary<string, Entry> cache = [];
+    private readonly Dictionary<string, int> inUse = [];
+    private readonly SemaphoreSlim frameReaders;
     private readonly Dictionary<string, int> positions;
     private readonly CancellationTokenSource shutdown = new();
     private long clock, reads, hits, cancelled, requests;
@@ -24,6 +29,7 @@ internal sealed class CyclePipeline : IDisposable
     {
         this.index = index;
         this.capacity = capacity;
+        frameReaders = new SemaphoreSlim(capacity);
         pool = new ReaderPool(root, workers);
         positions = index.OrderedCycles.Select((cycle, position) => (cycle.Key, position)).ToDictionary(pair => pair.Key, pair => pair.position);
     }
@@ -53,7 +59,7 @@ internal sealed class CyclePipeline : IDisposable
         }
         while (cache.Count >= capacity)
         {
-            var victim = cache.Where(pair => !wanted.Contains(pair.Key)).MinBy(pair => pair.Value.Access);
+            var victim = cache.Where(pair => !wanted.Contains(pair.Key) && !inUse.ContainsKey(pair.Key)).MinBy(pair => pair.Value.Access);
             if (victim.Key is null) throw new InvalidOperationException("Prefetch window exceeds cache budget");
             Remove(victim.Key);
         }
@@ -80,13 +86,16 @@ internal sealed class CyclePipeline : IDisposable
     public void Prepare(int hour, int endHour)
     {
         if (hour < 0 || hour >= index.Hours || endHour <= hour || endHour > index.Hours) throw new ArgumentException("Час вне диапазона архива.");
-        if (!index.Records.TryGetValue(index.Start + hour * 3600L, out var record)) return;
+        if (!index.Records.TryGetValue(index.Start + hour * 3600L, out var records)) return;
+        var record = records[0];
         lock (gate)
         {
             ObjectDisposedException.ThrowIf(disposed, this);
-            var wanted = new HashSet<string> { record.Key };
+            if (!cache.ContainsKey(record.Key) && inUse.Count >= capacity) return;
+            var wanted = inUse.Keys.ToHashSet();
+            wanted.Add(record.Key);
             foreach (var next in index.OrderedCycles.Skip(positions[record.Key] + 1).Take(index.Lookahead))
-                if (next.Epoch < index.Start + endHour * 3600L) wanted.Add(next.Key);
+                if (next.Epoch < index.Start + endHour * 3600L && wanted.Count < capacity) wanted.Add(next.Key);
             foreach (var stale in cache.Where(pair => !wanted.Contains(pair.Key) && !pair.Value.Payload.IsCompleted).Select(pair => pair.Key).ToArray())
                 Remove(stale);
             Ensure(record.Key, wanted);
@@ -94,36 +103,72 @@ internal sealed class CyclePipeline : IDisposable
         }
     }
 
-    public async Task<(byte[] Bytes, bool Available, long? Cycle)> FrameAsync(int hour, int endHour, bool prefetch, CancellationToken cancellation)
+    public async Task<MapFrame> FrameAsync(int hour, int endHour, bool prefetch, CancellationToken cancellation)
     {
         if (hour < 0 || hour >= index.Hours || endHour <= hour || endHour > index.Hours) throw new ArgumentException("Час вне диапазона архива.");
         var epoch = index.Start + hour * 3600L;
         Interlocked.Increment(ref requests);
-        if (!index.Records.TryGetValue(epoch, out var record))
+        if (!index.Records.TryGetValue(epoch, out var records))
         {
             var empty = new float[index.Cells];
             Array.Fill(empty, float.NaN);
             var bytes = new byte[index.Cells * 4];
             Buffer.BlockCopy(empty, 0, bytes, 0, bytes.Length);
-            return (bytes, false, null);
+            return new MapFrame(bytes, false, null, []);
         }
-        index.Cycles[record.Key].Source.Validate();
         if (!prefetch) Prepare(hour, endHour);
-        Task<byte[]> payload;
-        lock (gate)
+        var result = new float[index.Cells];
+        Array.Fill(result, float.NaN);
+        var missing = index.Cells;
+        var sources = new List<FrameSource>();
+        long? primaryCycle = null;
+        foreach (var record in records)
         {
-            ObjectDisposedException.ThrowIf(disposed, this);
-            var wanted = new HashSet<string> { record.Key };
-            if (cache.TryGetValue(record.Key, out var cached) && cached.Payload.IsCompletedSuccessfully) hits++;
-            payload = Ensure(record.Key, wanted).Payload;
+            if (missing == 0) break;
+            cancellation.ThrowIfCancellationRequested();
+            var source = index.Cycles[record.Key].Source;
+            source.Validate();
+            byte[] cycle;
+            await frameReaders.WaitAsync(cancellation);
+            var pinned = false;
+            try
+            {
+                Task<byte[]> payload;
+                lock (gate)
+                {
+                    ObjectDisposedException.ThrowIf(disposed, this);
+                    inUse[record.Key] = inUse.GetValueOrDefault(record.Key) + 1;
+                    pinned = true;
+                    var wanted = new HashSet<string> { record.Key };
+                    if (cache.TryGetValue(record.Key, out var cached) && cached.Payload.IsCompletedSuccessfully) hits++;
+                    payload = Ensure(record.Key, wanted).Payload;
+                }
+                cycle = await payload.WaitAsync(cancellation);
+            }
+            finally
+            {
+                lock (gate)
+                    if (pinned && --inUse[record.Key] == 0) inUse.Remove(record.Key);
+                frameReaders.Release();
+            }
+            source.Validate();
+            var contributed = 0;
+            for (var cell = 0; cell < result.Length; cell++)
+            {
+                if (float.IsFinite(result[cell])) continue;
+                var sample = BitConverter.ToSingle(cycle, (record.Step * index.Cells + cell) * 4);
+                if (!float.IsFinite(sample)) continue;
+                result[cell] = sample;
+                contributed++;
+            }
+            if (contributed == 0) continue;
+            primaryCycle ??= record.CycleEpoch;
+            missing -= contributed;
+            sources.Add(new FrameSource(source.Name, source.Format, contributed));
         }
-        var cycle = await payload.WaitAsync(cancellation);
-        index.Cycles[record.Key].Source.Validate();
-        var frame = cycle.AsSpan(record.Step * index.Cells * 4, index.Cells * 4).ToArray();
-        var any = false;
-        for (var offset = 0; offset < frame.Length; offset += 4)
-            if (float.IsFinite(BitConverter.ToSingle(frame, offset))) { any = true; break; }
-        return (frame, any, record.CycleEpoch);
+        var frame = new byte[index.Cells * 4];
+        Buffer.BlockCopy(result, 0, frame, 0, frame.Length);
+        return new MapFrame(frame, missing < index.Cells, primaryCycle, sources.ToArray());
     }
 
     public object Metrics()

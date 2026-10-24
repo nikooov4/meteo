@@ -28,6 +28,11 @@
   #cycle-hint { display: block; min-height: 16px; font-size: 11px; color: #64748b; }
   #cycle-hint[data-new="true"] { color: #8c5c19; }
   #archive-size { font-size: 11px; color: #64748b; }
+  .map-player { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .map-player.is-expanded { position: fixed; inset: 0; z-index: 1000; width: 100%; height: 100dvh;
+                            padding: 12px; background: #edf2f7; overflow: hidden; }
+  .map-player.is-expanded .map-stage { flex: 1 1 0; height: auto !important; }
+  body.map-expanded { overflow: hidden; }
   .map-stage { flex: none; min-height: 0; display: flex; align-items: center; justify-content: center;
                overflow: hidden; position: relative; background: white; border: 1px solid #dce5ed; border-radius: 16px;
                box-shadow: 0 4px 20px #193b5810; }
@@ -39,7 +44,13 @@
   #play { width: 42px; color: white; background: #2866ae; border-color: #2866ae; }
   .controls { flex: none; display: flex; align-items: center; gap: 12px; padding: 10px 12px;
               background: white; border: 1px solid #dce5ed; border-radius: 12px; }
+  .timeline-control { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 160px; }
+  #fullscreen { display: grid; place-items: center; width: 38px; padding: 8px; flex: none; }
+  #fullscreen svg { width: 18px; height: 18px; }
   #timeline { min-width: 40px; flex: 1; accent-color: #2866ae; cursor: pointer; }
+  #frame-source { position: absolute; top: 10px; left: 210px; right: 150px; z-index: 2; margin: 0;
+                  font-size: 14px; font-weight: 600; color: #244f70; text-align: center;
+                  overflow-wrap: anywhere; line-height: 1.3; }
   #hour { font-variant-numeric: tabular-nums; font-size: 12px; color: #52647a; white-space: nowrap; }
   details { flex: none; padding: 1px 4px 2px; color: #64748b; font-size: 12px; max-height: 180px; overflow: auto; }
   summary { cursor: pointer; width: fit-content; }
@@ -72,7 +83,10 @@
   .top-nav[hidden] { display: none; }
   .top-nav a { color: #4b687e; text-decoration: none; padding: 7px 11px; border-radius: 7px; font-size: 13px; white-space: nowrap; }
   .top-nav a[aria-current="page"] { background: #163e64; color: white; }
-  @media (max-width: 850px) { .source-badge { display: none; } }
+  @media (max-width: 850px) {
+    .source-badge { display: none; }
+    #frame-source { left: 190px; font-size: 13px; }
+  }
   @media (max-width: 600px) {
     .viewer { padding: 10px 8px; gap: 8px; }
     h1 { font-size: 18px; }
@@ -82,9 +96,10 @@
     .date-field { flex: 1; min-width: 140px; }
     #period input { width: 100%; }
     .controls { gap: 8px; flex-wrap: wrap; padding: 8px; }
-    #hour { flex-basis: 100%; text-align: center; }
+    .timeline-control { flex-basis: 100%; order: 1; }
     button { padding: 6px 9px; }
     .window-tools { right: 4px; }
+    #frame-source { top: 54px; left: 12px; right: 12px; font-size: 12px; text-align: left; }
   }
 </style>
 <script>
@@ -93,6 +108,8 @@ window.initMeteoMap = function(gd) {
   const info = window.meteoMapInfo;
   document.getElementById('site-nav').hidden = !info.downloads_available;
   const stage = document.getElementById('map-stage');
+  const player = document.getElementById('map-player');
+  const fullscreen = document.getElementById('fullscreen');
   const timeline = document.getElementById('timeline');
   const play = document.getElementById('play');
   const status = document.getElementById('map-status');
@@ -106,6 +123,8 @@ window.initMeteoMap = function(gd) {
   let catalog = null, selection = null, sourceOffset = 0, frameToken = 0, lastCycle = null;
   let rangeToken = 0, redraw = Promise.resolve();
   let requestEpoch = 0, prefetchAnchor = 0, preparedCycle = null;
+  let displayedFrame = null, displayedIndex = null;
+  let expanded = false, scrollBeforeExpand = 0;
   const frameCache = new Map(), loads = new Map();
   const cacheLimit = () => catalog?.streaming ? 12 : 4;
   const firstEpoch = Date.parse(info.intervals[0][0]);
@@ -154,7 +173,9 @@ window.initMeteoMap = function(gd) {
       if (epoch !== requestEpoch) throw new DOMException('Selection changed', 'AbortError');
       if (bytes.byteLength !== catalog.frame_bytes) throw new Error('Неполный кадр');
       const cached = {flat:new Float32Array(bytes), available:response.headers.get('X-Data-Available') !== 'false',
-                      cycle:response.headers.get('X-Cycle-UTC')};
+                      cycle:response.headers.get('X-Cycle-UTC'), sources:[]};
+      const sources = response.headers.get('X-Frame-Sources');
+      if (sources) cached.sources = JSON.parse(decodeURIComponent(sources));
       frameCache.set(key,cached);
       while (frameCache.size > cacheLimit()) frameCache.delete(frameCache.keys().next().value);
       return cached;
@@ -174,7 +195,7 @@ window.initMeteoMap = function(gd) {
     }
     window.meteoMapInfo.cached_frames = frameCache.size;
   }
-  async function frame(i) {
+  async function frame(i, transition = false) {
     const token = ++frameToken;
     index = i; timeline.value = i;
     const pair = pairAt(i);
@@ -208,17 +229,48 @@ window.initMeteoMap = function(gd) {
     const flat = cached.flat;
     const rows = Array.from({length:catalog.grid_shape[0]}, (_,y) =>
       flat.subarray(y*catalog.grid_shape[1], (y+1)*catalog.grid_shape[1]));
-    const title = 'Осадки · ' + (catalog.kind === 'era5' ? 'ERA5 LSP' : 'Синтетика v2 · LSP') + '<br><sup>' + pair[0].slice(0,10) + ' · ' +
-                  pair[0].slice(11,16) + '–' + pair[1].slice(11,16) + ' UTC</sup>';
+    const title = 'Осадки · ' + (catalog.kind === 'era5' ? 'LSP' : 'Синтетика v2 · LSP');
     // Finish an in-flight redraw before displaying a newer hour. A late response
     // must not repaint an older field after the user has moved the slider.
-    redraw = redraw.catch(()=>{}).then(() => {
+    redraw = redraw.catch(()=>{}).then(async () => {
       if (token !== frameToken) return;
-      return Plotly.update(gd, {z:[rows]}, {'title.text':title, 'coloraxis.showscale':cached.available}, [0]);
+      const previous = displayedFrame;
+      const sourceKey = value => (value?.sources || []).map(source => source.Name + ':' + source.Format).join('|');
+      const smooth = transition && playing && i === displayedIndex + 1 && previous?.available && cached.available &&
+        sourceKey(previous) !== sourceKey(cached) &&
+        typeof requestAnimationFrame === 'function' && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      if (smooth) {
+        const duration = Math.min(160, Number(speed.value) * .6);
+        let beginning = null, fraction = 0;
+        while (fraction < 1) {
+          const now = await new Promise(resolve => requestAnimationFrame(resolve));
+          if (token !== frameToken) return;
+          if (!playing) break;
+          beginning ??= now;
+          fraction = Math.min(1, (now - beginning) / duration);
+          if (fraction >= 1) break;
+          const weight = fraction * fraction * (3 - 2 * fraction);
+          const blended = Float32Array.from(flat, (value, cell) =>
+            Number.isFinite(value) && Number.isFinite(previous.flat[cell])
+              ? previous.flat[cell] * (1 - weight) + value * weight : value);
+          const intermediate = Array.from({length:catalog.grid_shape[0]}, (_,y) =>
+            blended.subarray(y*catalog.grid_shape[1], (y+1)*catalog.grid_shape[1]));
+          document.getElementById('playback-state').textContent = 'Плавный переход между источниками…';
+          await Plotly.update(gd, {z:[intermediate]}, {}, [0]);
+        }
+      }
+      if (token !== frameToken) return;
+      await Plotly.update(gd, {z:[rows]}, {'title.text':title, 'coloraxis.showscale':cached.available}, [0]);
+      displayedFrame = cached; displayedIndex = i;
     });
     await redraw;
     if (token !== frameToken) return;
     showTime();
+    const validCells = cached.sources.reduce((sum, source) => sum + source.Cells, 0);
+    const sourceText = cached.sources.map(source => source.Name + ' · ' + source.Format +
+      (cached.sources.length > 1 ? ' (' + Math.round(source.Cells / validCells * 100) + '%)' : '')).join(' + ');
+    document.getElementById('frame-source').textContent = !cached.available ? 'Кадры файла: нет данных за этот час'
+      : 'Кадры файла: ' + (sourceText || info.label);
     noData.hidden = cached.available;
     noData.textContent = cached.available ? '' : 'В данном промежутке данные не найдены';
     status.textContent = '';
@@ -229,7 +281,7 @@ window.initMeteoMap = function(gd) {
     if (catalog.kind === 'era5') {
       hint.dataset.new = 'false';
       hint.textContent = cached.available
-        ? 'Цикл ERA5 · ' + (cached.cycle || '').slice(0,16).replace('T',' ') + ' UTC'
+        ? 'Основной цикл · ' + (cached.cycle || '').slice(0,16).replace('T',' ') + ' UTC'
         : 'Нет данных за ' + document.getElementById('hour').textContent;
     } else {
       hint.textContent = (hint.dataset.new === 'true' ? 'Новый независимый эпизод · ' : 'Независимый эпизод · ') +
@@ -239,12 +291,14 @@ window.initMeteoMap = function(gd) {
     window.meteoMapInfo.selection = selection;
     window.meteoMapInfo.cached_frames = frameCache.size;
     window.meteoMapInfo.data_available = cached.available;
+    window.meteoMapInfo.frame_sources = cached.sources;
   }
   async function tick(token) {
     if (!playing || token !== generation) return;
-    try { await frame((index + 1) % count); }
+    const began = Date.now();
+    try { await frame((index + 1) % count, true); }
     catch (error) { if (token === generation) { pause(); fail(error); } return; }
-    if (playing && token === generation) timer = setTimeout(() => tick(token), Number(speed.value));
+    if (playing && token === generation) timer = setTimeout(() => tick(token), Math.max(0, Number(speed.value) - (Date.now() - began)));
   }
   play.onclick = () => {
     if (playing) { pause(); return; }
@@ -264,16 +318,9 @@ window.initMeteoMap = function(gd) {
   const world = () => Plotly.relayout(gd, {'xaxis.range': info.bbox.slice(0,2),
                                           'yaxis.range': info.bbox.slice(2,4)});
   document.getElementById('world').onclick = () => world().catch(fail);
-  document.getElementById('png').onclick = () => Plotly.downloadImage(gd,
-    {format: 'png', filename: 'meteobridge-lsp-' + pairAt(index)[1].slice(0,16).replaceAll(':','-'),
+  for (const format of ['png','jpeg']) document.getElementById(format).onclick = () => Plotly.downloadImage(gd,
+    {format, filename: 'meteobridge-lsp-' + pairAt(index)[1].slice(0,16).replaceAll(':','-'),
      width: 1800, height: 960}).catch(fail);
-  const fullscreen = document.getElementById('fullscreen');
-  fullscreen.hidden = !document.fullscreenEnabled;
-  fullscreen.onclick = async () => {
-    try { if (document.fullscreenElement) await document.exitFullscreen();
-          else await document.documentElement.requestFullscreen(); }
-    catch (error) { fail(error); }
-  };
   // Keep geographic proportions using the canvas size, never axis/domain
   // constraints. Domain stays [0,1] through zoom, animation and container resize.
   async function fit() {
@@ -282,25 +329,75 @@ window.initMeteoMap = function(gd) {
     try {
       do {
         resizeAgain = false;
-        const box = info.bbox, titleHeight = 66, sideWidth = 76;
+        const source = document.getElementById('frame-source');
+        const topMargin = Math.max(62, (source.offsetTop || 0) + (source.offsetHeight || 0) + 8);
+        const box = info.bbox, titleHeight = topMargin + 4, sideWidth = 76;
         const aspect = (box[1]-box[0]) * Math.cos((box[2]+box[3])/2 * Math.PI/180) / (box[3]-box[2]);
         const width = Math.max(150, stage.clientWidth);
-        const height = Math.max(160, (width-sideWidth)/aspect+titleHeight);
-        stage.style.height = Math.round(height) + 'px';
+        const height = expanded ? Math.max(1, stage.clientHeight) : Math.max(160, (width-sideWidth)/aspect+titleHeight);
+        let horizontalPadding = 0, verticalPadding = 0;
+        if (expanded) {
+          const mapWidth = Math.max(1, width-sideWidth), mapHeight = Math.max(1, height-titleHeight);
+          if (mapWidth/mapHeight > aspect) horizontalPadding = (mapWidth-mapHeight*aspect)/2;
+          else verticalPadding = (mapHeight-mapWidth/aspect)/2;
+        } else stage.style.height = Math.round(height) + 'px';
         gd.style.width = Math.round(width) + 'px';
         gd.style.height = Math.round(height) + 'px';
+        // Fit the map into both screen dimensions without stretching cells.
+        // Keep the title fixed inside the header as the plotting margins grow.
         await Plotly.relayout(gd, {width: Math.round(width), height: Math.round(height),
+                                  'margin.l': 8+horizontalPadding, 'margin.r': 68+horizontalPadding,
+                                  'margin.t': topMargin+verticalPadding, 'margin.b': 4+verticalPadding,
+                                  'title.y': 1, 'title.yref': 'container',
+                                  'title.yanchor': 'top', 'title.pad.t': 16,
+                                  'title.x': 0, 'title.xref': 'container', 'title.xanchor': 'left', 'title.pad.l': 14,
                                   'xaxis.domain': [0,1], 'yaxis.domain': [0,1]});
       } while (resizeAgain);
     } catch (error) { fail(error); }
     finally { resizing = false; }
   }
-  new ResizeObserver(fit).observe(document.querySelector('.viewer'));
+  function setExpanded(active) {
+    if (active && !expanded) scrollBeforeExpand = window.scrollY || 0;
+    const wasExpanded = expanded;
+    expanded = active;
+    player.classList.toggle('is-expanded', active);
+    document.body.classList.toggle('map-expanded', active);
+    const label = active ? 'Выйти из полного экрана' : 'На весь экран';
+    fullscreen.title = label;
+    fullscreen.setAttribute('aria-label', label);
+    fullscreen.setAttribute('aria-pressed', String(active));
+    if (wasExpanded && !active) {
+      window.scrollTo?.(0, scrollBeforeExpand);
+      fullscreen.focus();
+    }
+    fit();
+  }
+  fullscreen.onclick = async () => {
+    try {
+      if (expanded) {
+        if (document.fullscreenElement === player) await document.exitFullscreen();
+        setExpanded(false);
+      } else {
+        if (document.fullscreenEnabled && player.requestFullscreen) {
+          try { await player.requestFullscreen(); }
+          catch { /* Embedded browsers can deny native fullscreen; expand within the window. */ }
+        }
+        setExpanded(true);
+      }
+    } catch (error) { fail(error); }
+  };
+  document.addEventListener('fullscreenchange', () => setExpanded(document.fullscreenElement === player));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && expanded) return fullscreen.onclick();
+  });
+  const sizeObserver = new ResizeObserver(fit);
+  for (const element of [player, document.getElementById('frame-source'), document.querySelector('.controls')])
+    sizeObserver.observe(element);
   for (const panel of document.querySelectorAll('details')) panel.addEventListener('toggle', fit);
   document.addEventListener('visibilitychange', () => { if(document.hidden) pause(); });
   document.getElementById('data-summary').textContent = info.origin === 'synthetic'
     ? 'Синтетические LSP v2 · сетка ' + info.grid_shape.join(' × ')
-    : 'Архив ERA5 LSP · сетка ' + info.grid_shape.join(' × ');
+    : 'Архив LSP · сетка ' + info.grid_shape.join(' × ');
   identify();
   function limits() {
     const member = catalog ? catalog.members.find(m => m.member === Number(memberInput.value)) : null;
@@ -378,7 +475,9 @@ window.initMeteoMap = function(gd) {
         }
         document.getElementById('semantics').textContent = 'Крупномасштабная компонента осадков (LSP). ' +
           'Кадр показывает количество за отдельный час. Временная шкала включает часы без данных: ' +
-          'в них карта пустая. Колёсико — зум, перетаскивание — сдвиг.';
+          'пустые ячейки заполняются из всех файлов с приоритетом NetCDF → GRIB → GeoTIFF. ' +
+          'Единая сетка, единицы мм за час и время UTC. Плавный переход при смене источника — только эффект воспроизведения; ' +
+          'на паузе и при перемотке показаны точные значения выбранного часа. Колёсико — зум, перетаскивание — сдвиг.';
       }
       const top=catalog.color_max_mm;
       const thresholds=[[0,'#edf5fa'],[.1,'#bee8ed'],[.5,'#61c9ae'],[1,'#3d9bd3'],[2,'#4865bd'],[5,'#8b4ca8'],[10,'#cf6896'],[20,'#e6a34b']];
@@ -405,16 +504,16 @@ window.initMeteoMap = function(gd) {
 <main class="viewer">
   <header class="app-header">
     <div class="brand-mark" aria-hidden="true">E5</div>
-    <div><h1>Атлас осадков</h1><p class="subtitle">ERA5 · почасовая карта</p></div>
+    <div><h1>Атлас осадков</h1><p class="subtitle">LSP · почасовая карта</p></div>
     <nav class="top-nav" id="site-nav" aria-label="Разделы сайта" hidden>
       <a href="/" aria-current="page">Карта</a><a href="/downloads">Архив ERA5</a>
     </nav>
     <span class="source-badge">Архивные данные</span>
   </header>
   <details id="coverage-panel" class="coverage-panel" open hidden>
-    <summary>Доступные периоды ERA5 <span id="available-range-count"></span></summary>
+    <summary>Доступные периоды <span id="available-range-count"></span></summary>
     <p class="coverage-help">Выберите период, чтобы показать его на карте. Всё время указано в UTC; конечный час не включён.</p>
-    <div id="available-ranges" aria-label="Доступные периоды ERA5"></div>
+    <div id="available-ranges" aria-label="Доступные периоды"></div>
   </details>
   <div class="period-panel">
     <form id="period" aria-label="Диапазон времени UTC">
@@ -426,11 +525,13 @@ window.initMeteoMap = function(gd) {
     </form>
     <div class="period-meta"><span id="cycle-hint"></span><span class="utc-note">Конечный час не включён</span><span id="playback-state" role="status"></span></div>
   </div>
+  <div id="map-player" class="map-player">
   <section id="map-stage" class="map-stage" aria-label="Карта осадков">
     <div id="no-data" role="status" aria-live="polite" hidden></div>
+    <p id="frame-source" role="status" aria-live="polite">Кадры файла: загрузка…</p>
     <div class="window-tools">
       <button id="png" title="Скачать карту PNG" aria-label="Скачать карту PNG">PNG</button>
-      <button id="fullscreen" title="На весь экран" aria-label="На весь экран">⛶</button>
+      <button id="jpeg" title="Скачать карту JPEG" aria-label="Скачать карту JPEG">JPEG</button>
     </div>
     <!-- MAP_PLOT -->
   </section>
@@ -441,9 +542,17 @@ window.initMeteoMap = function(gd) {
       <option value="1000">1 кадр/с</option><option value="250" selected>4 кадра/с</option>
       <option value="100">10 кадров/с</option>
     </select>
-    <input id="timeline" type="range" min="0" max="11" value="0" step="1" aria-label="Час осадков">
-    <span id="hour"></span>
+    <div class="timeline-control">
+      <input id="timeline" type="range" min="0" max="11" value="0" step="1" aria-label="Час осадков">
+      <span id="hour"></span>
+    </div>
+    <button id="fullscreen" title="На весь экран" aria-label="На весь экран" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M8 3H3v5m13-5h5v5M3 16v5h5m8 0h5v-5"/>
+      </svg>
+    </button>
   </nav>
+  </div>
   <details>
     <summary id="data-summary">Об архиве</summary>
     <p id="semantics">Крупномасштабная компонента осадков (LSP), не суммарные осадки. Каждый 12-часовой эпизод независим;

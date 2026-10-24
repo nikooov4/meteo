@@ -7,6 +7,11 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MaxRev.Gdal.Core" Version="3.13.3.557" />
+    <PackageReference Include="MaxRev.Gdal.WindowsRuntime.Minimal" Version="3.13.3.557" Condition="$([MSBuild]::IsOSPlatform('Windows'))" />
+    <PackageReference Include="MaxRev.Gdal.LinuxRuntime.Minimal.x64" Version="3.13.3.557" Condition="$([MSBuild]::IsOSPlatform('Linux'))" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="../../web/*.html" Link="Assets/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../web/assets/land.json" Link="Assets/land.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../../runtime/plotly/plotly.min.js" Condition="Exists('../../runtime/plotly/plotly.min.js')" Link="Assets/plotly.min.js" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
