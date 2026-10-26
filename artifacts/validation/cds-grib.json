@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-25",
+  "feature": "Copernicus CDS ERA5 LSP original GRIB downloads",
+  "release_build": "passed; zero warnings and errors",
+  "python_full_suite": { "passed": 27, "report": "cds-grib-full.xml" },
+  "cds_suite_after_recovery_changes": { "passed": 8, "report": "cds-grib-recovery.xml" },
+  "javascript_tests": { "passed": 33 },
+  "archive_ui": "One downloaded button per completed file; manual import panel removed",
+  "playback_end": "Stops at the final frame and preserves expanded mode; replay starts at the first frame. Native and fallback modes covered by JavaScript tests; expanded browser mode checked visually.",
+  "persistent_credentials_and_queue_suite": { "passed": 36, "report": "cds-persistence-full.xml" },
+  "live_persistence_check": {
+    "token_encrypted_with_windows_dpapi": true,
+    "token_loaded_after_restart_without_reentry": true,
+    "active_request_automatically_resumed": "cds:2023-03-22",
+    "completed_files": ["era5-cds-lsp-20230320.grib", "era5-cds-lsp-20230321.grib", "era5-cds-lsp-20230322.grib"],
+    "march22_request_to_download_minutes": 39.0,
+    "daily_grib_bytes": 49838112,
+    "pending_file_size_estimate_bytes": 49838112,
+    "cds_preparation_percentage": "not supplied by the service; UI shows indeterminate progress and elapsed waiting time"
+  },
+  "cds_access_error_tests": { "passed": 12, "report": "cds-access-errors.xml" },
+  "ruff": "passed",
+  "git_diff_check": "passed",
+  "verified": [
+    "Daily CDS processing API request, all 24 UTC validity times, LSP only, GRIB unarchived",
+    "Original GRIB1 bytes, UTC intervals and metre-to-millimetre conversion",
+    "All 24 animation frames and NetCDF priority over GRIB at intersections",
+    "Different GRIB footprints, missing values and valid zero rainfall",
+    "CDS queue pause/resume, persisted request ID, byte resume after app restart",
+    "Downloaded marker recovered after restart without loading a token",
+    "Expired request retry, rejected access, untrusted storage URL rejected",
+    "Storage responses with and without HTTP Range",
+    "Geographic cell centres preserved, projected GeoTIFF regression checks"
+  ],
+  "live_cds_download": {
+    "result": "passed after the user accepted dataset terms",
+    "file": "era5-cds-lsp-20230320.grib",
+    "bytes": 49838112,
+    "verified_hours": 24,
+    "maximum_difference_from_google_era5_mm": 0.00024991875654731266,
+    "report": "cds-live-download.json"
+  }
+}

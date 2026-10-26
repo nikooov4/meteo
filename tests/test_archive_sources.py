@@ -114,8 +114,8 @@ def test_google_original_netcdf_download_and_fill_map(dotnet_archive, fake_arco)
     client, directory = dotnet_archive
     source = "google"
     settings = client.get("/api/archive/settings").raise_for_status().json()
-    assert [item["id"] for item in settings["sources"]] == ["amazon", "google"]
-    assert all(item["format"] == "NetCDF" for item in settings["sources"])
+    assert [item["id"] for item in settings["sources"]] == ["amazon", "google", "cds"]
+    assert [item["format"] for item in settings["sources"]] == ["NetCDF", "NetCDF", "GRIB"]
     files = client.get("/api/archive/files", params={"year": 2023, "month": 1, "source": source}).raise_for_status().json()
     assert len(files) == 2
     assert files[0]["format"] == "NetCDF" and files[0]["provider"] == "Google ARCO-ERA5"

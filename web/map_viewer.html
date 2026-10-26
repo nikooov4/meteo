@@ -65,6 +65,28 @@
   .coverage-panel { flex: none; padding: 12px 14px; border: 1px solid #c4d8e8;
                     border-radius: 14px; background: #f7fbff; max-height: none; overflow: visible; }
   .coverage-panel[hidden] { display: none; }
+  .priority-panel { padding: 12px 14px; border: 1px solid #c4d8e8; border-radius: 14px; background: #f7fbff;
+                    max-height: none; overflow: visible; }
+  .priority-panel[hidden] { display: none; }
+  .priority-panel summary { cursor: pointer; color: #244f70; font-size: 15px; font-weight: 650; }
+  .priority-help { margin: 9px 0; color: #5b7488; font-size: 12px; line-height: 1.5; }
+  #priority-archives { list-style: none; padding: 0; margin: 10px 0; }
+  .priority-archive { display: flex; align-items: center; gap: 10px; padding: 9px 5px; border-bottom: 1px solid #dce5ed;
+                      position: relative; cursor: grab; touch-action: none; user-select: none; }
+  .priority-archive[aria-disabled="true"] { cursor: default; }
+  .priority-archive[data-dragging="true"] { opacity: .8; cursor: grabbing; z-index: 1; background: #e8f3fd;
+                                         box-shadow: 0 3px 12px #193b5828; border-radius: 8px; }
+  .priority-archive[data-drop]::after { content: ''; position: absolute; left: 0; right: 0; height: 3px;
+                                     background: #3876c5; border-radius: 2px; pointer-events: none; }
+  .priority-archive[data-drop="before"]::after { top: -2px; }
+  .priority-archive[data-drop="after"]::after { bottom: -2px; }
+  .priority-grip { flex: none; color: #7b8e9d; font-size: 20px; user-select: none; }
+  .priority-rank { flex: none; min-width: 24px; color: #70899d; font-size: 12px; }
+  .priority-name { flex: 1; min-width: 0; overflow-wrap: anywhere; color: #294a64; font-size: 12px; line-height: 1.5; }
+  .priority-name small { display: block; color: #7b8e9d; }
+  .priority-move { display: flex; gap: 4px; flex: none; }
+  .priority-move button { width: 32px; height: 32px; padding: 4px; }
+  #priority-status { margin: 0; color: #587186; font-size: 12px; }
   .coverage-panel summary { font-size: 15px; font-weight: 650; color: #244f70; width: 100%; }
   #available-range-count { margin-left: 8px; font-size: 12px; font-weight: 400; color: #647b8e; }
   .coverage-help { margin: 7px 0 10px; font-size: 12px; color: #5b7488; }
@@ -124,6 +146,10 @@ window.initMeteoMap = function(gd) {
   let rangeToken = 0, redraw = Promise.resolve();
   let requestEpoch = 0, prefetchAnchor = 0, preparedCycle = null;
   let displayedFrame = null, displayedIndex = null;
+  const priorityPanel = document.getElementById('priority-panel');
+  const priorityList = document.getElementById('priority-archives');
+  const priorityStatus = document.getElementById('priority-status');
+  let priorityArchives = [], priorityDraft = [], prioritySaved = [], priorityBusy = false, priorityDragged = null;
   let expanded = false, scrollBeforeExpand = 0;
   const frameCache = new Map(), loads = new Map();
   const cacheLimit = () => catalog?.streaming ? 12 : 4;
@@ -155,6 +181,112 @@ window.initMeteoMap = function(gd) {
     requestEpoch++;
     for (const load of loads.values()) load.controller.abort();
     loads.clear(); frameCache.clear(); preparedCycle = null;
+  }
+  function priorityView(view) {
+    priorityArchives = view.archives;
+    priorityDraft = view.archives.map(archive => archive.id); prioritySaved = [...priorityDraft];
+    renderPriority();
+  }
+  function clearPriorityDrag() {
+    const drag = priorityDragged;
+    priorityDragged = null;
+    if (drag?.row.hasPointerCapture(drag.pointerId)) drag.row.releasePointerCapture(drag.pointerId);
+    for (const row of priorityList.children) { delete row.dataset.dragging; delete row.dataset.drop; row.style.transform = ''; }
+  }
+  function movePriorityDrag(event) {
+    const drag = priorityDragged;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    if (!drag.active && Math.abs(event.clientY - drag.startY) < 5) return;
+    event.preventDefault(); drag.active = true; drag.row.dataset.dragging = 'true';
+    drag.row.style.transform = 'translateY(' + (event.clientY - drag.startY) + 'px)';
+    const target = drag.bounds.find(item => event.clientY < item.top + item.height) || drag.bounds.at(-1);
+    drag.target = target.id; drag.side = event.clientY < target.top + target.height / 2 ? 'before' : 'after';
+    for (const row of priorityList.children) delete row.dataset.drop;
+    if (drag.target !== drag.id) target.row.dataset.drop = drag.side;
+  }
+  function finishPriorityDrag(event) {
+    const drag = priorityDragged;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    movePriorityDrag(event);
+    const bounds = priorityList.getBoundingClientRect();
+    clearPriorityDrag();
+    if (!drag.active || drag.target === drag.id || event.clientX < bounds.left || event.clientX > bounds.right) return;
+    const order = priorityDraft.filter(id => id !== drag.id);
+    order.splice(order.indexOf(drag.target) + (drag.side === 'after' ? 1 : 0), 0, drag.id);
+    if (order.join('|') === priorityDraft.join('|')) return;
+    priorityDraft = order;
+    return applyPriority([...order]);
+  }
+  function renderPriority() {
+    priorityList.replaceChildren();
+    for (const [rank, id] of priorityDraft.entries()) {
+      const archive = priorityArchives.find(archive => archive.id === id);
+      const row = document.createElement('li'); row.className = 'priority-archive'; row.dataset.id = id;
+      row.draggable = false; row.title = 'Перетащите архив вверх или вниз'; row.setAttribute('aria-disabled', String(priorityBusy));
+      row.onpointerdown = event => {
+        if (priorityBusy || priorityDragged !== null || event.button !== 0 || event.target.closest('button')) return;
+        event.preventDefault();
+        priorityDragged = {id, row, pointerId:event.pointerId, startY:event.clientY, active:false,
+          bounds:Array.from(priorityList.children).map(item => {
+            const bounds = item.getBoundingClientRect();
+            return {id:item.dataset.id, row:item, top:bounds.top, height:bounds.height};
+          })};
+        row.setPointerCapture(event.pointerId);
+      };
+      row.onpointermove = movePriorityDrag;
+      row.onpointerup = finishPriorityDrag;
+      row.onpointercancel = clearPriorityDrag;
+      row.onlostpointercapture = () => { if (priorityDragged?.id === id) clearPriorityDrag(); };
+      const grip = document.createElement('span'); grip.className = 'priority-grip'; grip.textContent = '⠿'; grip.setAttribute('aria-hidden', 'true');
+      const number = document.createElement('span'); number.className = 'priority-rank'; number.textContent = String(rank + 1);
+      const name = document.createElement('span'); name.className = 'priority-name'; name.textContent = archive.name + ' · ' + archive.format;
+      const count = document.createElement('small'); count.textContent = 'Файлов: ' + archive.file_count; name.append(count);
+      const actions = document.createElement('span'); actions.className = 'priority-move';
+      for (const [symbol, label, target] of [['⇈','В начало',0],['↑','Выше',rank-1],['↓','Ниже',rank+1]]) {
+        const button = document.createElement('button'); button.type = 'button'; button.textContent = symbol;
+        button.title = label; button.setAttribute('aria-label', label + ': ' + archive.name);
+        button.disabled = priorityBusy || target < 0 || target >= priorityDraft.length || target === rank;
+        button.onclick = () => {
+          priorityDraft.splice(rank, 1); priorityDraft.splice(target, 0, id);
+          return applyPriority([...priorityDraft]);
+        };
+        actions.append(button);
+      }
+      row.append(grip, number, name, actions); priorityList.append(row);
+    }
+  }
+  function prioritySemantics() {
+    if (catalog?.kind !== 'era5') return;
+    document.getElementById('archive-size').textContent = catalog.file_count + ' файлов · ' +
+      catalog.available_hours + ' ч с данными · ' + catalog.gap_hours + ' ч без данных';
+    document.getElementById('data-summary').textContent = 'Архив LSP · сетка ' + catalog.grid_shape.join(' × ');
+    document.getElementById('semantics').textContent = 'Крупномасштабная компонента осадков (LSP). Кадр показывает количество за отдельный час. ' +
+      'Порядок чтения архивов: ' + (catalog.archive_priority || ['amazon','google','cds']).map(id =>
+        ({amazon:'Amazon S3',google:'Google ARCO',cds:'Copernicus CDS'})[id]).join(' → ') + '. ' +
+      'Недостающие часы и ячейки заполняются из остальных файлов. Валидные нули сохраняются. Единая сетка, мм за час и UTC. ' +
+      'Плавный переход между источниками — эффект воспроизведения; на паузе и при перемотке показаны точные значения. Колёсико — зум, перетаскивание — сдвиг.';
+  }
+  async function applyPriority(order) {
+    if (priorityBusy) return;
+    const previousHour = index, first = pairAt(0)[0], last = pairAt(count - 1)[1];
+    priorityBusy = true; pause(); rangeToken++; frameToken++; clearRequests(); renderPriority();
+    priorityStatus.textContent = 'Обновляю карту и сохраняю порядок архивов…';
+    try {
+      const response = await fetch(info.archive_api + '/priority', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({order})});
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.detail || 'Не удалось сохранить приоритет');
+      catalog = result.catalog; info.catalog = catalog; info.manifest_sha256 = catalog.manifest_sha256; info.grid_shape = catalog.grid_shape;
+      priorityView(result.priority);
+      const params = new URLSearchParams({member:selection.member,start:first,end:last});
+      selection = await getJSON(info.archive_api + '/range?' + params);
+      rangeEpoch = Date.parse(selection.start_utc); count = selection.hours; timeline.max = count - 1;
+      const grid = await getJSON('/grid');
+      await Plotly.restyle(gd,{x:[grid.longitude],y:[grid.latitude]},[0]);
+      prioritySemantics(); identify();
+      await frame(Math.min(previousHour, count - 1));
+      priorityStatus.textContent = 'Порядок архивов сохранён.';
+    } catch(error) { priorityDraft = [...prioritySaved]; priorityStatus.textContent = error.message; }
+    finally { priorityBusy = false; renderPriority(); }
   }
   function loadFrame(i, prefetch) {
     const hour = selection.first_hour+i, key = selection.member + ':' + hour;
@@ -295,17 +427,31 @@ window.initMeteoMap = function(gd) {
   }
   async function tick(token) {
     if (!playing || token !== generation) return;
+    if (index >= count - 1) { finishPlayback(); return; }
     const began = Date.now();
-    try { await frame((index + 1) % count, true); }
+    try { await frame(index + 1, true); }
     catch (error) { if (token === generation) { pause(); fail(error); } return; }
-    if (playing && token === generation) timer = setTimeout(() => tick(token), Math.max(0, Number(speed.value) - (Date.now() - began)));
+    scheduleNext(token, Math.max(0, Number(speed.value) - (Date.now() - began)));
+  }
+  function finishPlayback() {
+    // Only playback stops. The selected frame and fullscreen state stay put.
+    pause(); document.getElementById('playback-state').textContent = 'Просмотр завершён';
+  }
+  function scheduleNext(token, delay) {
+    if (!playing || token !== generation) return;
+    if (index >= count - 1) { finishPlayback(); return; }
+    timer = setTimeout(() => tick(token), delay);
   }
   play.onclick = () => {
     if (playing) { pause(); return; }
     playing = true; play.textContent = 'Ⅱ'; play.title = 'Пауза';
     play.setAttribute('aria-label', 'Пауза'); play.setAttribute('aria-pressed', 'true');
     const token = ++generation;
-    timer = setTimeout(() => tick(token), Number(speed.value));
+    if (index >= count - 1) {
+      clearRequests();
+      frame(0).then(() => scheduleNext(token, Number(speed.value)))
+        .catch(error => { if (token === generation) { pause(); fail(error); } });
+    } else scheduleNext(token, Number(speed.value));
   };
   timeline.max = count - 1;
   timeline.oninput = async () => {
@@ -313,7 +459,7 @@ window.initMeteoMap = function(gd) {
     clearTimeout(timer); clearRequests();
     try { await frame(Number(timeline.value)); }
     catch (error) { if (token === generation) { pause(); fail(error); } return; }
-    if (playing && token === generation) timer = setTimeout(() => tick(token), Number(speed.value));
+    scheduleNext(token, Number(speed.value));
   };
   const world = () => Plotly.relayout(gd, {'xaxis.range': info.bbox.slice(0,2),
                                           'yaxis.range': info.bbox.slice(2,4)});
@@ -388,6 +534,7 @@ window.initMeteoMap = function(gd) {
   };
   document.addEventListener('fullscreenchange', () => setExpanded(document.fullscreenElement === player));
   document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && priorityDragged !== null) return clearPriorityDrag();
     if (event.key === 'Escape' && expanded) return fullscreen.onclick();
   });
   const sizeObserver = new ResizeObserver(fit);
@@ -473,11 +620,7 @@ window.initMeteoMap = function(gd) {
           };
           ranges.appendChild(button);
         }
-        document.getElementById('semantics').textContent = 'Крупномасштабная компонента осадков (LSP). ' +
-          'Кадр показывает количество за отдельный час. Временная шкала включает часы без данных: ' +
-          'пустые ячейки заполняются из всех файлов с приоритетом NetCDF → GRIB → GeoTIFF. ' +
-          'Единая сетка, единицы мм за час и время UTC. Плавный переход при смене источника — только эффект воспроизведения; ' +
-          'на паузе и при перемотке показаны точные значения выбранного часа. Колёсико — зум, перетаскивание — сдвиг.';
+        prioritySemantics();
       }
       const top=catalog.color_max_mm;
       const thresholds=[[0,'#edf5fa'],[.1,'#bee8ed'],[.5,'#61c9ae'],[1,'#3d9bd3'],[2,'#4865bd'],[5,'#8b4ca8'],[10,'#cf6896'],[20,'#e6a34b']];
@@ -495,6 +638,13 @@ window.initMeteoMap = function(gd) {
     startInput.value=inputTime(selection ? Date.parse(selection.start_utc) : firstEpoch);
     endInput.value=inputTime(selection ? Date.parse(selection.end_utc) : Date.parse(info.intervals.at(-1)[1]));
     limits(); identify(); await frame(0); await fit();
+    if (info.priority_available && info.archive_api) {
+      priorityPanel.hidden = false;
+      try {
+        priorityView(await getJSON(info.archive_api + '/priority'));
+        priorityStatus.textContent = 'Изменения применяются и сохраняются автоматически.';
+      } catch(error) { priorityStatus.textContent = error.message; }
+    }
   }
   initialize().catch(fail);
 };
@@ -514,6 +664,13 @@ window.initMeteoMap = function(gd) {
     <summary>Доступные периоды <span id="available-range-count"></span></summary>
     <p class="coverage-help">Выберите период, чтобы показать его на карте. Всё время указано в UTC; конечный час не включён.</p>
     <div id="available-ranges" aria-label="Доступные периоды"></div>
+  </details>
+  <details id="priority-panel" class="priority-panel" hidden>
+    <summary>Приоритет чтения файлов из архива</summary>
+    <p class="priority-help">Чем выше архив в списке, тем раньше карта читает его файлы. Недостающие часы и ячейки дополняются из следующих архивов.
+      Перетаскивайте архивы вверх и вниз или пользуйтесь стрелками — карта обновляется, а настройки сохраняются автоматически. Порядок действует и для новых загрузок.</p>
+    <ol id="priority-archives" aria-label="Порядок чтения архивов"></ol>
+    <p id="priority-status" role="status"></p>
   </details>
   <div class="period-panel">
     <form id="period" aria-label="Диапазон времени UTC">

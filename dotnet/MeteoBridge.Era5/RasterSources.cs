@@ -50,6 +50,20 @@ internal static class RasterSources
         if (string.IsNullOrWhiteSpace(projection)) throw new InvalidDataException("В файле отсутствует географическая привязка (CRS).");
         using var target = new SpatialReference("");
         target.ImportFromEPSG(4326);
+        using var original = new SpatialReference(projection);
+        var transform = new double[6];
+        dataset.GetGeoTransform(transform);
+        // ERA5's spherical geographic CRS uses the same degree coordinates.
+        // An unnecessary warp makes non-square cells square and shifts their
+        // centres, creating artificial intersections/gaps between archives.
+        if (original.IsGeographic() != 0 && transform[2] == 0 && transform[4] == 0 &&
+            Math.Abs(original.GetAngularUnits() - Math.PI / 180) < 1e-12 &&
+            double.TryParse(original.GetAttrValue("PRIMEM", 1), NumberStyles.Float, CultureInfo.InvariantCulture, out var meridian) && meridian == 0)
+        {
+            using var copy = new GDALTranslateOptions(["-of", "VRT"]);
+            return Gdal.wrapper_GDALTranslate("", dataset, copy, null, null)
+                ?? throw new InvalidDataException("Не удалось открыть географическую сетку.");
+        }
         target.ExportToWkt(out var wkt, null);
         using var options = new GDALWarpAppOptions(["-of", "VRT", "-t_srs", wkt, "-r", "near",
             "-dstnodata", mask ? "0" : "nan", "-wo", mask ? "INIT_DEST=0" : "INIT_DEST=NO_DATA"]);
@@ -93,9 +107,17 @@ internal static class RasterSources
 
         var bands = new List<RasterBandRead>();
         var windows = new List<(int Band, long Start, long End, long Cycle, double Factor)>();
+        var grib1 = source.Format == "GRIB" && options is null ? Grib1Intervals.Read(source.Path) : null;
+        if (grib1 is not null && grib1.Length != dataset.RasterCount) throw new InvalidDataException("Количество сообщений GRIB1 не соответствует слоям GDAL.");
         for (var number = 1; number <= dataset.RasterCount; number++)
         {
             using var band = dataset.GetRasterBand(number);
+            if (grib1 is not null)
+            {
+                var interval = grib1[number - 1];
+                if (interval.Lsp) windows.Add((number, interval.Start, interval.End, interval.Cycle, UnitFactor(band.GetMetadataItem("GRIB_UNIT", ""))));
+                continue;
+            }
             if (source.Format == "GRIB")
             {
                 var element = band.GetMetadataItem("GRIB_ELEMENT", "") ?? "";

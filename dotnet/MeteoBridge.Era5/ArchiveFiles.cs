@@ -45,7 +45,7 @@ internal sealed class ArchiveFiles(string data, ArchiveSession session, ArchiveD
         downloads.DeleteFile(path, () => session.ChangeFiles(() =>
         {
             File.Delete(path);
-            foreach (var suffix in new[] { ".download.json", ".meteo.json", ".aux.xml", ".msk" })
+            foreach (var suffix in new[] { ".download.json", ".cds-request.json", ".meteo.json", ".aux.xml", ".msk" })
             {
                 // Removing the data file is the operation; stale optional metadata
                 // must not turn a successful deletion into a misleading failure.

@@ -44,7 +44,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{09CD8C37
 		tests\map_viewer.test.cjs = tests\map_viewer.test.cjs
 		tests\raster_fixtures.py = tests\raster_fixtures.py
 		tests\test_archive_sources.py = tests\test_archive_sources.py
+		tests\test_cds_archive.py = tests\test_cds_archive.py
 		tests\test_era5_dotnet.py = tests\test_era5_dotnet.py
+		tests\test_map_priority.py = tests\test_map_priority.py
 		tests\test_multiformat.py = tests\test_multiformat.py
 		tests\test_project_layout.py = tests\test_project_layout.py
 	EndProjectSection
@@ -62,6 +64,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "validation", "validation", "{5419DBCB-5B58-6578-54FE-784337E1E2EC}"
 	ProjectSection(SolutionItems) = preProject
+		artifacts\validation\cds-grib.json = artifacts\validation\cds-grib.json
+		artifacts\validation\cds-live-download.json = artifacts\validation\cds-live-download.json
 		artifacts\validation\era5-archive-full.xml = artifacts\validation\era5-archive-full.xml
 		artifacts\validation\era5-dotnet-benchmark.json = artifacts\validation\era5-dotnet-benchmark.json
 		artifacts\validation\era5-dotnet-full.xml = artifacts\validation\era5-dotnet-full.xml

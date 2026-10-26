@@ -12,7 +12,7 @@ import numpy as np
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-DLL = ROOT / "dotnet/MeteoBridge.Era5/bin/Release/net10.0/MeteoBridge.Era5.dll"
+DLL = Path(os.environ.get("METEOBRIDGE_TEST_DLL", ROOT / "dotnet/MeteoBridge.Era5/bin/Release/net10.0/MeteoBridge.Era5.dll"))
 
 
 @pytest.fixture
@@ -53,6 +53,9 @@ def dotnet_archive(tmp_path, request):
     if getattr(request, "param", None) == "sources":
         remote = request.getfixturevalue("fake_arco")
         arguments.extend(["--Era5:ArcoBaseUrl", remote["url"]])
+    if getattr(request, "param", None) == "cds":
+        remote = request.getfixturevalue("fake_cds")
+        arguments.extend(["--Era5:CdsBaseUrl", remote["url"] + "/api/retrieve/v1"])
     process = subprocess.Popen(
         arguments,
         cwd=ROOT, stdout=log, stderr=subprocess.STDOUT,
@@ -79,6 +82,17 @@ def dotnet_archive(tmp_path, request):
             process.kill()
             process.wait(timeout=5)
         log.close()
+
+
+def test_archive_html_is_current_and_cannot_be_reused_from_browser_cache(dotnet_archive):
+    client, _ = dotnet_archive
+    response = client.get("/downloads").raise_for_status()
+    assert response.headers["Cache-Control"] == "no-store"
+    assert response.text == (ROOT / "web/archive_viewer.html").read_text(encoding="utf8")
+    refreshed = client.get("/downloads", headers={"If-Modified-Since": "Wed, 31 Dec 2099 23:59:59 GMT",
+                                                "If-None-Match": '"old-screen"'}).raise_for_status()
+    assert refreshed.status_code == 200
+    assert refreshed.text == response.text
 
 
 def test_dotnet_runs_without_python_or_research_directories(dotnet_archive, tmp_path):

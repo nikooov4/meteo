@@ -1,6 +1,7 @@
 """Small real GeoTIFF/GRIB fixtures, using the GDAL runtime shipped with the app."""
 import ctypes as c
 import os
+import struct
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -8,6 +9,42 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 _handles = []
+
+
+def grib1(path, values, *, valid=None, duration=1, parameter=142):
+    """Real GRIB1 simple packing, ECMWF table 128, metres (precision .001)."""
+    valid = valid or datetime(2023, 1, 2, 7, tzinfo=timezone.utc)
+    start = valid - timedelta(hours=duration)
+    array = np.asarray(values, dtype="float64")
+    height, width = array.shape
+
+    def uint24(value):
+        return value.to_bytes(3, "big")
+
+    def coordinate(value):
+        return uint24(abs(value) | (0x800000 if value < 0 else 0))
+
+    pds = bytearray(28)
+    pds[:3] = uint24(28)
+    pds[3:10] = bytes([128, 98, 255, 255, 192, parameter, 1])
+    pds[12:21] = bytes([start.year % 100, start.month, start.day, start.hour, start.minute, 1, 0, duration, 4])
+    pds[24] = start.year // 100 + 1
+    pds[26:28] = (3).to_bytes(2, "big")
+    gds = bytearray(32)
+    gds[:6] = uint24(32) + bytes([0, 255, 0])
+    gds[6:10] = struct.pack(">HH", width, height)
+    gds[10:17] = coordinate(42000) + coordinate(-1000) + bytes([128])
+    gds[17:23] = coordinate(42000 - (height - 1) * 2000) + coordinate(-1000 + (width - 1) * 1000)
+    gds[23:27] = struct.pack(">HH", 1000, 2000)
+    present = np.isfinite(array).ravel()
+    bitmap = np.packbits(present).tobytes()
+    bms = uint24(6 + len(bitmap)) + bytes([(-len(present)) % 8, 0, 0]) + bitmap
+    encoded = np.rint(array.ravel()[present] * 1000).astype(">u2").tobytes()
+    bds = uint24(11 + len(encoded)) + bytes(7) + bytes([16]) + encoded
+    size = 8 + len(pds) + len(gds) + len(bms) + len(bds) + 4
+    payload = b"GRIB" + uint24(size) + b"\x01" + pds + gds + bms + bds + b"7777"
+    path.write_bytes(payload)
+    return payload
 
 
 def native_path(path):

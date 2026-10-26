@@ -5,12 +5,27 @@ using System.Text.RegularExpressions;
 
 namespace MeteoBridge.Era5;
 
-internal sealed record SourceFile(string Path, long Bytes, long ModifiedTicks, string? MetadataHash = null)
+internal sealed record SourceFile(string Path, long Bytes, long ModifiedTicks, string? MetadataHash = null, string? ArchiveId = null)
 {
     public static SourceFile Create(string path)
     {
         var info = new FileInfo(path);
-        return new SourceFile(path, info.Length, info.LastWriteTimeUtc.Ticks, MetadataSignature(path));
+        var name = info.Name;
+        string? archive = name.StartsWith("e5.oper.fc.sfc.accumu.", StringComparison.OrdinalIgnoreCase) ? "amazon" :
+            name.StartsWith("era5-arco-lsp-", StringComparison.OrdinalIgnoreCase) ? "google" :
+            name.StartsWith("era5-cds-lsp-", StringComparison.OrdinalIgnoreCase) ? "cds" : null;
+        if (archive is null && info.Extension.Equals(".nc", StringComparison.OrdinalIgnoreCase))
+        {
+            // Recognise the supported NCAR/ARCO layouts in existing renamed files.
+            lock (NativeNetCdf.Gate)
+            {
+                using var dataset = new NetCdfFile(path);
+                if (dataset.TryVariable("LSP", out var ncar) && dataset.Text(ncar, "rda_dataset") == "ds633.0") archive = "amazon";
+                else if (dataset.TryVariable("lsp", out var arco) &&
+                    dataset.Text(arco, "standard_name") == "lwe_thickness_of_stratiform_precipitation_amount") archive = "google";
+            }
+        }
+        return new SourceFile(path, info.Length, info.LastWriteTimeUtc.Ticks, MetadataSignature(path), archive);
     }
     private static string? MetadataSignature(string path) => File.Exists(path + ".meteo.json")
         ? Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path + ".meteo.json"))) : null;
@@ -37,6 +52,9 @@ internal sealed class Era5Index
     public Dictionary<long, List<HourRecord>> Records { get; } = [];
     public Dictionary<string, CycleRead> Cycles { get; } = [];
     public List<SourceFile> Sources { get; } = [];
+    public SourceFile[] ReadingOrder { get; }
+    public bool CustomPriority { get; }
+    public string[] ArchivePriority { get; }
     public List<(long Epoch, string Key)> OrderedCycles { get; } = [];
     public double[] Latitude { get; }
     public double[] Longitude { get; }
@@ -185,15 +203,19 @@ internal sealed class Era5Index
         Latitude = latitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
         Longitude = longitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
         foreach (var key in Cycles.Keys.ToArray()) Cycles[key] = Cycles[key] with { Latitude = Latitude, Longitude = Longitude };
+        var savedPriority = new MapPriorities(path).Load();
+        ArchivePriority = MapPriorities.EffectiveOrder(savedPriority);
+        CustomPriority = !ArchivePriority.SequenceEqual(MapPriorities.DefaultOrder);
+        ReadingOrder = MapPriorities.Order(Sources, savedPriority);
+        var ranks = ReadingOrder.Select((source, rank) => (source.Path, rank)).ToDictionary(item => item.Path, item => item.rank);
         foreach (var candidates in Records.Values)
             candidates.Sort((left, right) =>
             {
                 var a = Cycles[left.Key].Source;
                 var b = Cycles[right.Key].Source;
-                var comparison = a.Priority.CompareTo(b.Priority);
+                var comparison = ranks[a.Path].CompareTo(ranks[b.Path]);
                 if (comparison != 0) return comparison;
-                comparison = StringComparer.Ordinal.Compare(a.Path, b.Path);
-                return comparison != 0 ? comparison : left.CycleEpoch.CompareTo(right.CycleEpoch);
+                return left.CycleEpoch.CompareTo(right.CycleEpoch);
             });
         foreach (var group in Records.GroupBy(pair => pair.Value[0].Key))
             OrderedCycles.Add((group.Min(pair => pair.Key), group.Key));
@@ -205,7 +227,8 @@ internal sealed class Era5Index
             else Coverage.Add([epoch, epoch + 3600]);
         }
         OrderedCycles.Sort((left, right) => left.Epoch.CompareTo(right.Epoch));
-        Sha = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(new { version = 2, Sources, Bbox, Latitude, Longitude,
+        Sha = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(new { version = 4, Sources, Bbox, Latitude, Longitude,
+            reading_order = ReadingOrder.Select(source => ArchiveFiles.Id(source.Path)).ToArray(), ArchivePriority,
             imports = Sources.Where(source => File.Exists(source.Path + ".meteo.json")).Select(source => File.ReadAllText(source.Path + ".meteo.json")).ToArray() }))));
     }
 
@@ -227,9 +250,13 @@ internal sealed class Era5Index
         available_ranges = Coverage.Select(pair => pair.Select(Iso).ToArray()),
         formats = Sources.Select(source => source.Format).Distinct(),
         source_priority = new[] { "NetCDF", "GRIB", "GeoTIFF" },
+        custom_priority = CustomPriority,
+        archive_priority = ArchivePriority,
+        file_priority = ReadingOrder.Select(source => ArchiveFiles.Id(source.Path)),
         files = Sources.Select(source => new { name = source.Name, format = source.Format }),
         members = new[] { new { member = 0, first_hour = 0, hours = Hours, start_utc = Iso(Start), end_utc = Iso(End) } },
-        semantics = "LSP hourly amounts in mm, UTC; NetCDF > GRIB > GeoTIFF; missing cells filled from all matching sources",
+        semantics = "LSP hourly amounts in mm, UTC; archive order: " + string.Join(" > ", ArchivePriority) +
+            "; missing cells filled from all matching sources",
         streaming = true, lookahead_cycles = Lookahead
     };
 

@@ -24,6 +24,7 @@ artifacts/validation/*.xml
 *.pyc
 
 # Local credentials and application state
+**/.meteo-settings/
 .env
 .env.*
 !.env.example

@@ -45,7 +45,7 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     var bbox = settings.GetSection("Bbox").Get<double[]>() ?? [-180, 180, -90, 90];
     builder.Services.AddSingleton(_ => new ArchiveSession(data, bbox, maxCells, maxReadMiB, lookahead, root, workers, capacity));
     builder.Services.AddSingleton(provider => new ArchiveDownloads(data, settings["ArchiveBaseUrl"], provider.GetRequiredService<ArchiveSession>().Changed,
-        settings["ArcoBaseUrl"]));
+        settings["ArcoBaseUrl"], settings["CdsBaseUrl"], settings["CdsToken"]));
     builder.Services.AddSingleton(provider => new ArchiveImports(data, bbox, maxCells, maxReadMiB, lookahead, provider.GetRequiredService<ArchiveSession>().Changed));
     builder.Services.AddSingleton(provider => new ArchiveFiles(data, provider.GetRequiredService<ArchiveSession>(), provider.GetRequiredService<ArchiveDownloads>()));
     var app = builder.Build();
@@ -53,6 +53,7 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     var downloads = app.Services.GetRequiredService<ArchiveDownloads>();
     var imports = app.Services.GetRequiredService<ArchiveImports>();
     var localFiles = app.Services.GetRequiredService<ArchiveFiles>();
+    var priorities = new MapPriorities(data);
     app.Use(async (context, next) =>
     {
         if (context.Connection.RemoteIpAddress is not { } remote || !System.Net.IPAddress.IsLoopback(remote))
@@ -92,8 +93,17 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
         var files = Era5Index.Files(data).Length > 0;
         return files ? Results.Content(MapPage.Create(session.ForViewer().Index), "text/html; charset=utf-8") : Results.Redirect("/downloads");
     });
-    app.MapGet("/downloads", () => Results.File(Path.Combine(AppContext.BaseDirectory, "Assets", "archive_viewer.html"), "text/html; charset=utf-8"));
+    app.MapGet("/downloads", async (HttpContext context) =>
+    {
+        // Read the current workspace template in development; standalone
+        // deployments keep using the bundled copy. Do not cache HTML screens.
+        var source = Path.Combine(root, "web", "archive_viewer.html");
+        var path = File.Exists(source) ? source : Path.Combine(AppContext.BaseDirectory, "Assets", "archive_viewer.html");
+        context.Response.Headers.CacheControl = "no-store";
+        return Results.Content(await File.ReadAllTextAsync(path, context.RequestAborted), "text/html; charset=utf-8");
+    });
     app.MapGet("/api/archive/settings", () => downloads.Settings());
+    app.MapPost("/api/archive/cds-token", (CdsCredentials credentials) => downloads.ConfigureCds(credentials.Token));
     app.MapGet("/api/archive/local", () => localFiles.List());
     app.MapPost("/api/archive/delete", (DeleteFileRequest request) => localFiles.Delete(request.Id));
     app.MapPost("/api/archive/import", async (HttpRequest request, CancellationToken cancellation) =>
@@ -113,6 +123,16 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
             : Results.Problem("Не найден Plotly: выполните scripts/setup_runtime.ps1 или задайте METEOBRIDGE_PLOTLY_JS.", statusCode: 503);
     });
     app.MapGet("/map-archive/catalog", () => session.Current.Index.Catalog());
+    app.MapGet("/map-archive/priority", (HttpContext context) =>
+    {
+        context.Response.Headers.CacheControl = "no-store";
+        return priorities.View();
+    });
+    app.MapPost("/map-archive/priority", (MapPriorityRequest request) =>
+    {
+        session.ChangeFiles(() => priorities.Save(request.Order));
+        return new { priority = priorities.View(), catalog = session.Current.Index.Catalog() };
+    });
     app.MapGet("/map-archive/range", (string start, string end, int member = 0) => session.Current.Index.Selection(member, start, end));
     app.MapGet("/map-archive/metrics", () => session.Current.Pipeline.Metrics());
     app.MapGet("/map-archive/prefetch", (int hour, int end_hour, string manifest_sha256) =>

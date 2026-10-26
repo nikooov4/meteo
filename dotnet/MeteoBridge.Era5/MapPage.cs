@@ -12,7 +12,7 @@ internal static class MapPage
         {
             bbox = index.Bbox, intervals = new[] { new[] { first, Era5Index.Iso(index.Start + 3600) } },
             origin = "original", label = "LSP · " + string.Join(" / ", index.Sources.Select(source => source.Format).Distinct()), grid_shape = new[] { index.Latitude.Length, index.Longitude.Length },
-            member = 0, archive_api = "/map-archive", first_hour = 0, manifest_sha256 = index.Sha, downloads_available = true,
+            member = 0, archive_api = "/map-archive", first_hour = 0, manifest_sha256 = index.Sha, downloads_available = true, priority_available = true,
             initial_selection = new { first_hour = 0, hours = index.Hours, member = 0, start_utc = first, end_utc = end }
         };
         var template = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Assets", "map_viewer.html"));

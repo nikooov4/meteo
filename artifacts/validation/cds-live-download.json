@@ -1,0 +1,14 @@
+{
+  "source": "era5-cds-lsp-20230320.grib",
+  "reference": "era5-arco-lsp-20230320.nc",
+  "bytes": 49838112,
+  "verified_hours": 24,
+  "grid_shape": [
+    181,
+    360
+  ],
+  "start_utc": "2023-03-19T23:00:00+00:00",
+  "end_utc": "2023-03-20T23:00:00+00:00",
+  "maximum_difference_mm": 0.00024991875654731266,
+  "result": "passed"
+}
