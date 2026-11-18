@@ -23,6 +23,7 @@ artifacts/validation/*.xml
 !artifacts/validation/era5-dotnet-full.xml
 !artifacts/validation/project-reorganization-full.xml
 !artifacts/validation/site-only-full.xml
+!artifacts/validation/unified-project-full.xml
 *.partial
 *.pyc
 

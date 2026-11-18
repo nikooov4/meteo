@@ -1,0 +1,299 @@
+{
+  "status": "success",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.13 (main, Aug  7 2026, 02:26:41) [MSC v.1944 64 bit (AMD64)]",
+  "precision": "float32",
+  "backend": "cpu",
+  "wsl": false,
+  "model": "GraphCast_small",
+  "source_commit": "08cf73625c9d12bd9aaa038868bcb2fe488f2a22",
+  "lead_hours": [
+    6,
+    12,
+    18,
+    24
+  ],
+  "step_seconds": [
+    53.583576400065795,
+    20.84884449990932,
+    12.477247100090608,
+    11.08386979997158
+  ],
+  "system_ram_bytes": 16779808768,
+  "cpu_logical_count": 16,
+  "packages": {
+    "jax": "0.4.38",
+    "jaxlib": "0.4.38",
+    "dm-haiku": "0.0.13",
+    "numpy": "1.26.4",
+    "xarray": "2024.11.0",
+    "scipy": "1.14.1",
+    "netCDF4": "1.7.2"
+  },
+  "jax_devices": [
+    "TFRT_CPU_0"
+  ],
+  "model_config": {
+    "resolution": 1.0,
+    "mesh_size": 5,
+    "latent_size": 512,
+    "gnn_msg_steps": 16,
+    "hidden_layers": 1,
+    "radius_query_fraction_edge_length": 0.6,
+    "mesh2grid_edge_normalization_factor": 0.6180338738074472
+  },
+  "task_config": {
+    "input_variables": [
+      "2m_temperature",
+      "mean_sea_level_pressure",
+      "10m_v_component_of_wind",
+      "10m_u_component_of_wind",
+      "total_precipitation_6hr",
+      "temperature",
+      "geopotential",
+      "u_component_of_wind",
+      "v_component_of_wind",
+      "vertical_velocity",
+      "specific_humidity",
+      "toa_incident_solar_radiation",
+      "year_progress_sin",
+      "year_progress_cos",
+      "day_progress_sin",
+      "day_progress_cos",
+      "geopotential_at_surface",
+      "land_sea_mask"
+    ],
+    "target_variables": [
+      "2m_temperature",
+      "mean_sea_level_pressure",
+      "10m_v_component_of_wind",
+      "10m_u_component_of_wind",
+      "total_precipitation_6hr",
+      "temperature",
+      "geopotential",
+      "u_component_of_wind",
+      "v_component_of_wind",
+      "vertical_velocity",
+      "specific_humidity"
+    ],
+    "forcing_variables": [
+      "toa_incident_solar_radiation",
+      "year_progress_sin",
+      "year_progress_cos",
+      "day_progress_sin",
+      "day_progress_cos"
+    ],
+    "pressure_levels": [
+      50,
+      100,
+      150,
+      200,
+      250,
+      300,
+      400,
+      500,
+      600,
+      700,
+      850,
+      925,
+      1000
+    ],
+    "input_duration": "12h"
+  },
+  "forecast_reference_time_utc": "2022-01-01T06:00:00.000000000",
+  "input_sizes": {
+    "batch": 1,
+    "time": 2,
+    "lat": 181,
+    "lon": 360,
+    "level": 13
+  },
+  "output_variables": [
+    "2m_temperature",
+    "mean_sea_level_pressure",
+    "10m_v_component_of_wind",
+    "10m_u_component_of_wind",
+    "total_precipitation_6hr",
+    "temperature",
+    "geopotential",
+    "u_component_of_wind",
+    "v_component_of_wind",
+    "vertical_velocity",
+    "specific_humidity"
+  ],
+  "future_weather_passed_to_model": false,
+  "preparation_seconds": 5.91852170007769,
+  "peak_rss_bytes": 2827505664,
+  "minimum_available_bytes": 3308806144,
+  "stage": "complete",
+  "wall_seconds": 104.45087580010295,
+  "forecast_seconds_including_compilation": 98.00682280003093,
+  "saved_netcdf_verified": true,
+  "output_sizes": {
+    "time": 4,
+    "batch": 1,
+    "lat": 181,
+    "lon": 360,
+    "level": 13
+  },
+  "output_file": "C:\\Users\\m9164\\OneDrive\\Рабочий стол\\Погода\\graphcast-windows\\outputs\\forecast_24h.nc",
+  "output_bytes": 86537992,
+  "output_sha256": "8fa5f6c0f95a679b27baee45d1abb1362e160ff809ee81d957cb8cfee4d73654",
+  "verification_one_case": {
+    "2m_temperature": {
+      "units": "K",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.3356645703315735,
+          "rmse": 0.5489744544029236,
+          "persistence_rmse": 2.9559993743896484
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.40274667739868164,
+          "rmse": 0.6524789333343506,
+          "persistence_rmse": 3.4146111011505127
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.4426339268684387,
+          "rmse": 0.7080287933349609,
+          "persistence_rmse": 3.0257761478424072
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.455256849527359,
+          "rmse": 0.7057675719261169,
+          "persistence_rmse": 2.5231072902679443
+        }
+      ]
+    },
+    "mean_sea_level_pressure": {
+      "units": "hPa",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.30490174889564514,
+          "rmse": 0.4066428244113922,
+          "persistence_rmse": 2.7698793411254883
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.32316988706588745,
+          "rmse": 0.4430781304836273,
+          "persistence_rmse": 3.8816606998443604
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.40615248680114746,
+          "rmse": 0.5785195231437683,
+          "persistence_rmse": 5.163808822631836
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.4151574969291687,
+          "rmse": 0.5988318920135498,
+          "persistence_rmse": 5.857673168182373
+        }
+      ]
+    },
+    "10m_u_component_of_wind": {
+      "units": "m/s",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.4535181224346161,
+          "rmse": 0.6380475163459778,
+          "persistence_rmse": 2.265235424041748
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.5109195113182068,
+          "rmse": 0.7290055155754089,
+          "persistence_rmse": 3.112569808959961
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.6073321104049683,
+          "rmse": 0.864549994468689,
+          "persistence_rmse": 3.5638012886047363
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.6242377758026123,
+          "rmse": 0.9109541177749634,
+          "persistence_rmse": 3.8527700901031494
+        }
+      ]
+    },
+    "10m_v_component_of_wind": {
+      "units": "m/s",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.4676699936389923,
+          "rmse": 0.6555415987968445,
+          "persistence_rmse": 2.4549052715301514
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.5287497043609619,
+          "rmse": 0.7614573240280151,
+          "persistence_rmse": 3.5314855575561523
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.6316294074058533,
+          "rmse": 0.9141535758972168,
+          "persistence_rmse": 4.092469692230225
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.6436237096786499,
+          "rmse": 0.9366968274116516,
+          "persistence_rmse": 4.442745208740234
+        }
+      ]
+    },
+    "total_precipitation_6hr": {
+      "units": "mm/6h",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.2734300196170807,
+          "rmse": 0.7603178024291992,
+          "persistence_rmse": 2.5057809352874756
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.36876726150512695,
+          "rmse": 1.1180343627929688,
+          "persistence_rmse": 2.936669111251831
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.45311975479125977,
+          "rmse": 1.8038290739059448,
+          "persistence_rmse": 3.2358453273773193
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.43063884973526,
+          "rmse": 1.5425214767456055,
+          "persistence_rmse": 3.023268938064575
+        }
+      ]
+    }
+  },
+  "temperature_24h_celsius_range": [
+    -54.89897766113279,
+    44.97866210937502
+  ],
+  "negative_precipitation_values": 14615,
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "precipitation_range_mm_per_6h": [
+    -0.487006880575791,
+    106.7131757736206
+  ]
+}

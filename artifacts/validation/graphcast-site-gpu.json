@@ -1,0 +1,43 @@
+{
+  "url": "http://127.0.0.1:8776",
+  "runs": [
+    {
+      "id": "37851f8112374456a5f139f7737c4590",
+      "wall_seconds": 18.428576600000042,
+      "pid": 22464,
+      "model_load_count": 1,
+      "start_utc": "2022-01-01T06:00:00Z",
+      "end_utc": "2022-01-02T06:00:00Z",
+      "calculation_seconds": 13.953952200000003,
+      "compile_count_before": 0,
+      "compile_count_after": 2,
+      "step_seconds": [
+        7.987188399999923,
+        4.055961499999967,
+        0.8889864000000216,
+        0.8799696000000949
+      ]
+    },
+    {
+      "id": "a4bf532cf9584234b9aa6f8172dda5f7",
+      "wall_seconds": 4.830924099999947,
+      "pid": 22464,
+      "model_load_count": 1,
+      "start_utc": "2022-01-02T06:00:00Z",
+      "end_utc": "2022-01-03T06:00:00Z",
+      "calculation_seconds": 3.9205223000001297,
+      "compile_count_before": 2,
+      "compile_count_after": 2,
+      "step_seconds": [
+        0.9411989000000176,
+        0.9251076000000467,
+        0.8923915000000306,
+        0.8885947999999644
+      ]
+    }
+  ],
+  "deletion_verified": true,
+  "resident_model_verified": true,
+  "main_map_verified": true,
+  "status": "success"
+}

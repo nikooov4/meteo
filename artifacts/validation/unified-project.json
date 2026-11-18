@@ -1,0 +1,52 @@
+{
+  "status": "success",
+  "date": "2026-11-05",
+  "build": {
+    "configuration": "Release",
+    "warnings": 0,
+    "errors": 0
+  },
+  "pytest": {
+    "tests": 47,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "javascript_tests": {
+    "passed": 38,
+    "failed": 0
+  },
+  "gpu_live_report": "graphcast-site-gpu.json",
+  "ui_workflow": [
+    "generate_one_day",
+    "saved_in_archive",
+    "opened_on_main_map",
+    "played_four_frames",
+    "fullscreen",
+    "graphcast_in_priority_list"
+  ],
+  "ui_forecast": {
+    "id": "c605ba52d4ee421b812f6d36a8abf49d",
+    "start_utc": "2022-01-01T06:00:00Z",
+    "end_utc": "2022-01-02T06:00:00Z",
+    "duration_hours": 24,
+    "step_hours": 6,
+    "device": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "pid": 22464,
+    "model_load_count": 1,
+    "compile_count_before": 2,
+    "compile_count_after": 2,
+    "seconds": 4.333541100000048
+  },
+  "screenshots": [
+    "artifacts/preview/unified-grathcast-map.jpg",
+    "artifacts/preview/grathcast-priority.jpg"
+  ],
+  "cleanup": {
+    "unused_logical_gib": 4.37,
+    "standalone_cli_removed": true,
+    "cpu_environment_removed": true,
+    "duplicate_map_removed": true
+  },
+  "input_limitation": "Prepared full-state global 1-degree GraphCast NetCDF required; an LSP-only file is insufficient."
+}

@@ -1,0 +1,319 @@
+{
+  "status": "success",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.12.13 (main, Aug  7 2026, 02:26:41) [MSC v.1944 64 bit (AMD64)]",
+  "precision": "float32",
+  "backend": "cuda",
+  "wsl": false,
+  "model": "GraphCast_small",
+  "source_commit": "f2f2c5117d2f864e2d5e7c2f9f220db5e1049dd3",
+  "lead_hours": [
+    6,
+    12,
+    18,
+    24
+  ],
+  "step_seconds": [
+    13.693059799959883,
+    1.6930408000480384,
+    1.7565572999883443,
+    1.6951221999479458
+  ],
+  "cuda_root": "C:\\Users\\m9164\\OneDrive\\Рабочий стол\\Погода\\graphcast-windows\\.venv-gpu\\Lib\\site-packages\\nvidia\\cu13",
+  "cuda_root_short": "C:\\Users\\m9164\\OneDrive\\F0A5~1\\6868~1\\GRAPHC~1\\VENV-G~1\\Lib\\SITE-P~1\\nvidia\\cu13",
+  "xla_flags": "--xla_gpu_autotune_level=0 --xla_gpu_enable_triton_gemm=false",
+  "system_ram_bytes": 16779808768,
+  "cpu_logical_count": 16,
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-12500H",
+  "packages": {
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "dm-haiku": "0.0.17",
+    "numpy": "2.5.4",
+    "xarray": "2026.2.0",
+    "scipy": "1.18.1",
+    "netCDF4": "1.7.5.1.post1"
+  },
+  "jax_devices": [
+    "cuda:0"
+  ],
+  "device_kind": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "winjax_version": "0.11.2",
+  "model_config": {
+    "resolution": 1.0,
+    "mesh_size": 5,
+    "latent_size": 512,
+    "gnn_msg_steps": 16,
+    "hidden_layers": 1,
+    "radius_query_fraction_edge_length": 0.6,
+    "mesh2grid_edge_normalization_factor": 0.6180338738074472
+  },
+  "task_config": {
+    "input_variables": [
+      "2m_temperature",
+      "mean_sea_level_pressure",
+      "10m_v_component_of_wind",
+      "10m_u_component_of_wind",
+      "total_precipitation_6hr",
+      "temperature",
+      "geopotential",
+      "u_component_of_wind",
+      "v_component_of_wind",
+      "vertical_velocity",
+      "specific_humidity",
+      "toa_incident_solar_radiation",
+      "year_progress_sin",
+      "year_progress_cos",
+      "day_progress_sin",
+      "day_progress_cos",
+      "geopotential_at_surface",
+      "land_sea_mask"
+    ],
+    "target_variables": [
+      "2m_temperature",
+      "mean_sea_level_pressure",
+      "10m_v_component_of_wind",
+      "10m_u_component_of_wind",
+      "total_precipitation_6hr",
+      "temperature",
+      "geopotential",
+      "u_component_of_wind",
+      "v_component_of_wind",
+      "vertical_velocity",
+      "specific_humidity"
+    ],
+    "forcing_variables": [
+      "toa_incident_solar_radiation",
+      "year_progress_sin",
+      "year_progress_cos",
+      "day_progress_sin",
+      "day_progress_cos"
+    ],
+    "pressure_levels": [
+      50,
+      100,
+      150,
+      200,
+      250,
+      300,
+      400,
+      500,
+      600,
+      700,
+      850,
+      925,
+      1000
+    ],
+    "input_duration": "12h"
+  },
+  "forecast_reference_time_utc": "2022-01-01T06:00:00.000000000",
+  "input_sizes": {
+    "batch": 1,
+    "time": 2,
+    "lat": 181,
+    "lon": 360,
+    "level": 13
+  },
+  "output_variables": [
+    "2m_temperature",
+    "mean_sea_level_pressure",
+    "10m_v_component_of_wind",
+    "10m_u_component_of_wind",
+    "total_precipitation_6hr",
+    "temperature",
+    "geopotential",
+    "u_component_of_wind",
+    "v_component_of_wind",
+    "vertical_velocity",
+    "specific_humidity"
+  ],
+  "future_weather_passed_to_model": false,
+  "preparation_seconds": 9.258664500084706,
+  "gpu_memory_stats": {
+    "num_allocs": 1226,
+    "bytes_in_use": 21635328,
+    "peak_bytes_in_use": 1997967616,
+    "largest_alloc_size": 1755818240,
+    "bytes_limit": 3221225472,
+    "bytes_reserved": 0,
+    "peak_bytes_reserved": 0,
+    "largest_free_block_bytes": 2147483648,
+    "pool_bytes": 2413821952,
+    "peak_pool_bytes": 2413821952
+  },
+  "peak_rss_bytes": 2097692672,
+  "minimum_available_bytes": 5051330560,
+  "gpu_total_bytes": 4294967296,
+  "gpu_baseline_used_bytes": 140509184,
+  "gpu_peak_device_used_bytes": 2659704832,
+  "stage": "complete",
+  "wall_seconds": 30.57639719999861,
+  "forecast_seconds_including_compilation": 18.846467099967413,
+  "saved_netcdf_verified": true,
+  "output_sizes": {
+    "time": 4,
+    "batch": 1,
+    "lat": 181,
+    "lon": 360,
+    "level": 13
+  },
+  "output_file": "C:\\Users\\m9164\\OneDrive\\Рабочий стол\\Погода\\graphcast-windows\\outputs-gpu\\forecast_24h.nc",
+  "output_bytes": 86538028,
+  "output_sha256": "8d9b64d7c9d56d69043058941be1c6e77ae825d8565eb58a7018009bcf7bd38e",
+  "verification_one_case": {
+    "2m_temperature": {
+      "units": "K",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.3357822597026825,
+          "rmse": 0.5490979552268982,
+          "persistence_rmse": 2.956024408340454
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.4028215706348419,
+          "rmse": 0.6524767279624939,
+          "persistence_rmse": 3.414639949798584
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.442654550075531,
+          "rmse": 0.7079644799232483,
+          "persistence_rmse": 3.025801658630371
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.4551795721054077,
+          "rmse": 0.7056498527526855,
+          "persistence_rmse": 2.5231285095214844
+        }
+      ]
+    },
+    "mean_sea_level_pressure": {
+      "units": "hPa",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.3048892915248871,
+          "rmse": 0.4066360890865326,
+          "persistence_rmse": 2.7699027061462402
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.322926789522171,
+          "rmse": 0.44286519289016724,
+          "persistence_rmse": 3.8816933631896973
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.4058118164539337,
+          "rmse": 0.5782532691955566,
+          "persistence_rmse": 5.163852691650391
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.4145326614379883,
+          "rmse": 0.5981318950653076,
+          "persistence_rmse": 5.857722282409668
+        }
+      ]
+    },
+    "10m_u_component_of_wind": {
+      "units": "m/s",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.4535261392593384,
+          "rmse": 0.6380400061607361,
+          "persistence_rmse": 2.265254497528076
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.5110020637512207,
+          "rmse": 0.7290940284729004,
+          "persistence_rmse": 3.112596035003662
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.6074183583259583,
+          "rmse": 0.8645634651184082,
+          "persistence_rmse": 3.563831329345703
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.6243250370025635,
+          "rmse": 0.9109436273574829,
+          "persistence_rmse": 3.8528025150299072
+        }
+      ]
+    },
+    "10m_v_component_of_wind": {
+      "units": "m/s",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.4676814377307892,
+          "rmse": 0.655561089515686,
+          "persistence_rmse": 2.454926013946533
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.528795063495636,
+          "rmse": 0.7614929676055908,
+          "persistence_rmse": 3.531515121459961
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.6317141056060791,
+          "rmse": 0.9142807126045227,
+          "persistence_rmse": 4.092504024505615
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.6437302231788635,
+          "rmse": 0.9369650483131409,
+          "persistence_rmse": 4.442782878875732
+        }
+      ]
+    },
+    "total_precipitation_6hr": {
+      "units": "mm/6h",
+      "scores": [
+        {
+          "lead_hours": 6,
+          "mae": 0.27346304059028625,
+          "rmse": 0.7601031064987183,
+          "persistence_rmse": 2.5058019161224365
+        },
+        {
+          "lead_hours": 12,
+          "mae": 0.3688887655735016,
+          "rmse": 1.118428111076355,
+          "persistence_rmse": 2.9366936683654785
+        },
+        {
+          "lead_hours": 18,
+          "mae": 0.453079491853714,
+          "rmse": 1.803574562072754,
+          "persistence_rmse": 3.235872507095337
+        },
+        {
+          "lead_hours": 24,
+          "mae": 0.4307425320148468,
+          "rmse": 1.5424468517303467,
+          "persistence_rmse": 3.023294448852539
+        }
+      ]
+    }
+  },
+  "temperature_24h_celsius_range": [
+    -54.9057678222656,
+    44.97176513671877
+  ],
+  "negative_precipitation_values": 14530,
+  "precipitation_range_mm_per_6h": [
+    -0.49252621829509735,
+    106.76094144582748
+  ]
+}

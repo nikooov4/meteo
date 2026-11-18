@@ -32,6 +32,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{23B57060-024D-D0A2-EB27-A6D69176D1B7}"
 	ProjectSection(SolutionItems) = preProject
 		docs\era5_dotnet.md = docs\era5_dotnet.md
+		docs\graphcast.md = docs\graphcast.md
 		docs\project_layout.md = docs\project_layout.md
 	EndProjectSection
 EndProject
@@ -69,10 +70,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "validation", "validation", 
 		artifacts\validation\era5-dotnet-benchmark.json = artifacts\validation\era5-dotnet-benchmark.json
 		artifacts\validation\era5-dotnet-full.xml = artifacts\validation\era5-dotnet-full.xml
 		artifacts\validation\era5-download-real.json = artifacts\validation\era5-download-real.json
+		artifacts\validation\graphcast-site-gpu.json = artifacts\validation\graphcast-site-gpu.json
+		artifacts\validation\graphcast-standalone-cpu.json = artifacts\validation\graphcast-standalone-cpu.json
+		artifacts\validation\graphcast-standalone-gpu.json = artifacts\validation\graphcast-standalone-gpu.json
 		artifacts\validation\project-reorganization-full.xml = artifacts\validation\project-reorganization-full.xml
 		artifacts\validation\project-reorganization.json = artifacts\validation\project-reorganization.json
 		artifacts\validation\site-only-full.xml = artifacts\validation\site-only-full.xml
 		artifacts\validation\site-only.json = artifacts\validation\site-only.json
+		artifacts\validation\unified-project-full.xml = artifacts\validation\unified-project-full.xml
+		artifacts\validation\unified-project.json = artifacts\validation\unified-project.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4100A16A-C842-8D27-5B85-FC280EC0BEE9}"
