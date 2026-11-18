@@ -1,0 +1,14 @@
+{
+  "upstream-gpu": {
+    "repo": "google-deepmind/weathernext",
+    "commit": "f2f2c5117d2f864e2d5e7c2f9f220db5e1049dd3",
+    "url": "https://codeload.github.com/google-deepmind/weathernext/zip/f2f2c5117d2f864e2d5e7c2f9f220db5e1049dd3",
+    "sha256": "20fff05c19812ede964f538c399e078eab08a85b6d81aa20827bb5d5ef4e4125"
+  },
+  "xarray-jax": {
+    "repo": "google-deepmind/xarray_jax",
+    "commit": "16e47fa429fb580e872455fc262ed68824e2f2b8",
+    "url": "https://codeload.github.com/google-deepmind/xarray_jax/zip/16e47fa429fb580e872455fc262ed68824e2f2b8",
+    "sha256": "6d68e3ffc26a9b117b3c63a5781f6ddf4a92f3e2f7d03eb8280699b87601d9aa"
+  }
+}

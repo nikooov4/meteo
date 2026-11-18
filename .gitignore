@@ -6,10 +6,13 @@ __pycache__/
 .ruff_cache/
 .hypothesis/
 data/era5/
+data/graphcast/
+data/graphcast-inputs/
 runtime/netcdf/
 runtime/plotly/
 runtime/licenses/
 runtime/manifest.json
+runtime/graphcast/
 artifacts/logs/
 artifacts/publish/
 artifacts/nuget/
