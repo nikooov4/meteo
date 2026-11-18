@@ -32,7 +32,7 @@ internal static class LocalWebHost
                 continue;
             }
             var address = app.Urls.First();
-            Console.WriteLine($"Карта ERA5: {address}/");
+            Console.WriteLine($"MeteoBridge: {address}/");
             if (app.Configuration.GetValue("Era5:OpenBrowser", false))
             {
                 try { Process.Start(new ProcessStartInfo(address) { UseShellExecute = true }); }

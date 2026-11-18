@@ -6,7 +6,7 @@ namespace MeteoBridge.Era5;
 
 internal sealed record DeleteFileRequest(string Id);
 
-internal sealed class ArchiveFiles(string data, ArchiveSession session, ArchiveDownloads downloads)
+internal sealed class ArchiveFiles(string data, ArchiveSession session, ArchiveDownloads downloads, GraphCastArchiveInputs graphcastInputs)
 {
     private readonly string directory = Path.TrimEndingDirectorySeparator(File.Exists(data) ? Path.GetDirectoryName(data)! : data);
 
@@ -42,7 +42,7 @@ internal sealed class ArchiveFiles(string data, ArchiveSession session, ArchiveD
             if (parent.LinkTarget is not null) throw new IOException("Удаление файлов через ссылку на папку не поддерживается.");
             if (string.Equals(parent.FullName, Path.GetFullPath(directory), OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal)) break;
         }
-        downloads.DeleteFile(path, () => session.ChangeFiles(() =>
+        downloads.DeleteFile(path, () => graphcastInputs.DeleteFile(path, () => session.ChangeFiles(() =>
         {
             File.Delete(path);
             foreach (var suffix in new[] { ".download.json", ".cds-request.json", ".meteo.json", ".aux.xml", ".msk" })
@@ -53,7 +53,7 @@ internal sealed class ArchiveFiles(string data, ArchiveSession session, ArchiveD
                 catch (IOException) { }
                 catch (UnauthorizedAccessException) { }
             }
-        }));
+        })));
         return new { deleted = true, name = Path.GetFileName(path) };
     }
 }

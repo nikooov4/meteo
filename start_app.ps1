@@ -19,6 +19,6 @@ if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'runtime/plotly/plotly
 $env:DOTNET_CLI_HOME = Join-Path $PSScriptRoot '.dotnet-home'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 $env:MSBuildEnableWorkloadResolver = 'false'
-Write-Host 'Запускаю карту ERA5. Адрес появится после запуска сервера.'
+Write-Host 'Запускаю MeteoBridge: карта, архив и генерация. Адрес появится после запуска сервера.'
 & dotnet run --project dotnet/MeteoBridge.Era5 -c Release --no-launch-profile -- --urls "http://127.0.0.1:$Port" --Era5:Data $Data --Era5:Workers $Workers
 exit $LASTEXITCODE

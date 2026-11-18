@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MeteoBridge · Генерация GrathCast</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf2f7;color:#233247;font:14px 'Segoe UI',Arial,sans-serif}
+main{max-width:1120px;margin:auto;padding:22px}header{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.brand{display:grid;place-items:center;width:44px;height:44px;border-radius:13px;background:#163e64;color:white;font-weight:700}
+h1{margin:0;font-size:22px;color:#173852}.subtitle{margin:4px 0 0;color:#6d8295;font-size:12px}nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:#365f7f;text-decoration:none;padding:9px 11px;border-radius:8px}nav a[aria-current]{background:#dcebf7;font-weight:600}
+.panel{background:white;border:1px solid #dce5ed;border-radius:15px;padding:24px;margin-bottom:16px}h2{margin:0 0 12px;font-size:18px;color:#244f70}
+p{line-height:1.65;color:#5d7488}label{display:block;font-size:13px;color:#526b7e;margin:18px 0 7px}select{display:block;width:100%;margin-bottom:10px}
+select,button,.button{font:inherit;border:1px solid #cddde9;border-radius:9px;padding:11px 15px;background:#f8fafc;color:#294a64}
+button,.button{cursor:pointer;text-decoration:none;display:inline-block}button.primary{background:#24649b;color:white;border-color:#24649b;font-weight:600}
+button:disabled{opacity:.55;cursor:default}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:20px}
+.badge{display:inline-block;padding:7px 12px;border-radius:30px;background:#edf2f7;color:#61788c;font-size:12px}.badge[data-ready=true]{background:#e3f2e9;color:#286445}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center}.muted{font-size:12px;color:#7890a2}.error{background:#fff1ee;border:1px solid #edc8be;color:#973f30;padding:15px;border-radius:10px;margin-bottom:16px;white-space:pre-wrap}
+progress{width:100%;height:10px;margin:18px 0 10px;accent-color:#24649b}.status{font-weight:600;color:#355974}.upload{border-top:1px solid #e5edf3;margin-top:24px;padding-top:4px}
+input[type=file]{max-width:100%;font:inherit}.result{border-color:#bad8c7;background:#f8fdfa}[hidden]{display:none!important}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #3876c5;outline-offset:3px}
+@media(max-width:700px){main{padding:15px 10px}nav{margin:6px 0 0;width:100%}.panel{padding:18px}.row{align-items:start;flex-direction:column}}
+</style>
+</head>
+<body><main>
+<header><div class="brand">GC</div><div><h1>Генерация GrathCast</h1><p class="subtitle">Глобальный прогноз на следующие 24 часа</p></div>
+<nav aria-label="Разделы сайта"><a href="/">Карта</a><a href="/downloads?source=graphcast">Архив</a><a href="/generation" aria-current="page">Генерация</a><a href="/comparison">Сравнение</a></nav></header>
+<div id="error" class="error" role="alert" hidden></div>
+<section class="panel"><div class="row"><h2>Создать суточный прогноз</h2><span id="model" class="badge">Модель не загружена</span></div>
+<p>Выберите скачанный архив ERA5, подготовленный NetCDF или предыдущий прогноз. Модель рассчитывает следующие 24 часа четырьмя шагами по 6 часов.</p>
+<form id="generate-form"><label for="input-file">Входной файл</label><select id="input-file" required disabled aria-describedby="input-note"><option value="">Загрузка списка…</option></select>
+<div id="input-note" class="muted">Здесь показаны только готовые входы. Выбор подготовленного суточного архива ERA5 сразу запускает прогноз. Остальные суточные файлы можно подготовить во вкладке <a href="/downloads?source=google">«Архив»</a>.</div>
+<div class="actions"><button id="generate" class="primary" type="submit" disabled>Сгенерировать 1 день</button><button id="refresh" type="button">Обновить файлы</button></div></form>
+<div class="upload"><label for="upload-file">Добавить подготовленный файл .nc</label><input id="upload-file" type="file" accept=".nc"><button id="upload" type="button">Добавить файл</button><p id="upload-status" class="muted" role="status"></p></div>
+</section>
+<section class="panel" aria-labelledby="progress-title"><h2 id="progress-title">Состояние генерации</h2><div id="status" class="status" role="status">Проверка состояния…</div>
+<progress id="progress" max="4" value="0" hidden></progress><p id="details" class="muted">При первой генерации модель загружается в видеопамять. Пока приложение работает, последующие генерации используют уже загруженную модель.</p></section>
+<section id="result" class="panel result" hidden><h2>Прогноз сохранён</h2><p id="result-name"></p><div class="actions"><a id="open-map" class="button" href="/comparison">Сравнить с архивом</a><a id="download" class="button">Скачать NetCDF</a><a class="button" href="/downloads?source=graphcast">Открыть архив GrathCast</a></div></section>
+</main>
+<script>
+const byId=id=>document.getElementById(id);
+const select=byId('input-file');
+let files=[],busy=false,starting=false,uploading=false,lastResult=null;
+let inputRequest=null,inputsLoaded=false,disconnected=false,connectionErrorShown=false;
+class ConnectionError extends Error {}
+function showError(error){
+ connectionErrorShown=error instanceof ConnectionError;
+ if(connectionErrorShown){
+  disconnected=true;
+  byId('status').textContent='Ожидание связи с MeteoBridge…';
+  if(!inputsLoaded)select.replaceChildren(placeholder('Нет связи с сервером'));
+  buttons();
+ }
+ byId('error').textContent=error.message;
+ byId('error').hidden=false;
+}
+function restored(){
+ disconnected=false;
+ if(connectionErrorShown){byId('error').hidden=true;connectionErrorShown=false;}
+}
+async function api(url,body){
+ const options={signal:AbortSignal.timeout(url.endsWith('/status')?5000:20000)};
+ if(body!==undefined)Object.assign(options,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+ let response;
+ try{response=await fetch(url,options);}
+ catch{throw new ConnectionError('Нет связи с сервером MeteoBridge. Страница повторит запрос.');}
+ const data=await response.json().catch(()=>null);
+ if(!response.ok||data===null)throw Error(data?.detail||'Не удалось получить ответ MeteoBridge.');
+ return data;
+}
+const pending=file=>['queued','downloading','preparing','stopping'].includes(file.preparation?.state);
+const ready=file=>file.compatible||file.preparation?.state==='ready';
+const selection=()=>files.find(file=>file.id===select.value&&ready(file));
+function placeholder(label){
+ const option=document.createElement('option');
+ option.value='';option.textContent=label;
+ return option;
+}
+function buttons(){
+ select.disabled=disconnected||busy||starting||uploading||!files.some(ready);
+ byId('generate').disabled=select.disabled||!selection();
+}
+function loadInputs(){
+ if(inputRequest)return inputRequest;
+ inputRequest=api('/api/graphcast/inputs').then(input=>{
+  files=input;inputsLoaded=true;restored();
+  const selected=select.value,available=files.filter(ready);
+  select.replaceChildren(placeholder(available.length?'Выберите входной файл':'Нет готовых входных файлов'));
+  const groups=new Map();
+  for(const file of available){
+   if(!groups.has(file.archive)){const group=document.createElement('optgroup');group.label=file.archive;groups.set(file.archive,group);select.append(group);}
+   const option=document.createElement('option');
+   option.value=file.id;
+   option.textContent=file.name+(file.preparation?.state==='ready'?' · Готов для ИИ':'');
+   groups.get(file.archive).append(option);
+  }
+  select.value=available.some(file=>file.id===selected)?selected:'';
+  buttons();
+ }).finally(()=>{inputRequest=null;});
+ return inputRequest;
+}
+async function refreshStatus(){try{const state=await api('/api/graphcast/status');if(starting)return;const reconnect=disconnected;restored();busy=state.busy;byId('model').textContent=state.model_loaded?'Модель в видеопамяти':'Модель не загружена';byId('model').dataset.ready=String(state.model_loaded);byId('status').textContent=state.message;byId('progress').hidden=!busy;byId('progress').value=state.step;
+ if(busy){byId('details').textContent=(state.input_name?state.input_name+' · ':'')+(state.model_loaded?'Модель загружена · ':'')+'Рассчитано '+state.step+' из 4 шагов';}
+ else if(state.state==='completed'){byId('details').textContent='1 день · рассчитано 4 из 4 шагов · модель остаётся в видеопамяти для следующего запроса.';}
+ else {byId('details').textContent=state.model_loaded?'Модель уже в видеопамяти и готова к следующей генерации.':'При первой генерации модель загрузится в видеопамять и останется в ней до закрытия приложения.';}
+ if(state.state==='error'){showError(Error(state.message));}
+ if(state.result_id&&state.result_id!==lastResult){lastResult=state.result_id;byId('result').hidden=false;const product=await api('/api/graphcast/metadata?id='+encodeURIComponent(lastResult));byId('result-name').textContent=product.name+' · '+product.start_utc.slice(0,16).replace('T',' ')+' — '+product.end_utc.slice(0,16).replace('T',' ')+' UTC · 1 день';byId('open-map').href='/comparison?forecast='+encodeURIComponent(lastResult);byId('download').href='/api/graphcast/file?id='+encodeURIComponent(lastResult);await loadInputs();}
+ if(!state.result_id&&!busy){byId('result').hidden=true;lastResult=null;}
+ if(reconnect||!inputsLoaded||(!busy&&files.some(pending)))await loadInputs();
+ buttons();}catch(error){showError(error);}finally{setTimeout(refreshStatus,busy?700:2500);}}
+async function startGeneration(){
+ const file=selection();
+ if(disconnected||busy||starting||uploading||!file)return;
+ starting=true;buttons();byId('error').hidden=true;byId('result').hidden=true;
+ try{
+  const state=await api('/api/graphcast/generate',{id:file.id});
+  busy=state.busy;byId('status').textContent=state.message;
+ }catch(error){showError(error);}
+ finally{starting=false;buttons();}
+}
+select.onchange=()=>{
+ buttons();
+ if(selection()?.archive==='ERA5')return startGeneration();
+};
+byId('refresh').onclick=()=>loadInputs().catch(showError);
+byId('generate-form').onsubmit=event=>{event.preventDefault();return startGeneration();};
+byId('upload').onclick=async()=>{const file=byId('upload-file').files[0];if(!file){showError(Error('Выберите файл .nc'));return;}uploading=true;buttons();byId('upload').disabled=true;byId('upload-status').textContent='Загрузка и проверка файла…';try{const response=await fetch('/api/graphcast/import?name='+encodeURIComponent(file.name),{method:'POST',headers:{'Content-Type':'application/octet-stream'},body:file});const result=await response.json();if(!response.ok)throw Error(result.detail||'Не удалось добавить файл');await loadInputs();byId('input-file').value=result.id;byId('upload-status').textContent='Файл добавлен';byId('error').hidden=true;}catch(error){byId('upload-status').textContent='';showError(error);}finally{uploading=false;byId('upload').disabled=false;buttons();}};
+refreshStatus();
+</script></body></html>

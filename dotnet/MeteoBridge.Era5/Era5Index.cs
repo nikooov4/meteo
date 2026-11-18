@@ -25,8 +25,10 @@ internal sealed record SourceFile(string Path, long Bytes, long ModifiedTicks, s
                     dataset.Text(arco, "standard_name") == "lwe_thickness_of_stratiform_precipitation_amount") archive = "google";
             }
         }
-        return new SourceFile(path, info.Length, info.LastWriteTimeUtc.Ticks, MetadataSignature(path), archive);
+        return Snapshot(info) with { ArchiveId = archive };
     }
+    public static SourceFile Snapshot(FileInfo info) =>
+        new(info.FullName, info.Length, info.LastWriteTimeUtc.Ticks, MetadataSignature(info.FullName));
     private static string? MetadataSignature(string path) => File.Exists(path + ".meteo.json")
         ? Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path + ".meteo.json"))) : null;
     public string Name => System.IO.Path.GetFileName(Path);

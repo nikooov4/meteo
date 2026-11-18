@@ -42,19 +42,33 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     if (workers is < 1 or > 4 || lookahead is < 0 or > 6 || capacity < lookahead + 1 || capacity > 12 || maxReadMiB is < 1 or > 1024)
         throw new ArgumentException("Workers: 1..4, LookaheadCycles: 0..6, CacheCycles: LookaheadCycles+1..12, MaxReadMiB: 1..1024.");
     var data = Path.GetFullPath(settings["Data"] ?? "data/era5", root);
+    var archiveDirectory = File.Exists(data) ? Path.GetDirectoryName(data)! : data;
+    var forecastData = Path.GetFullPath(builder.Configuration["GraphCast:Data"] ?? "data", root);
     var bbox = settings.GetSection("Bbox").Get<double[]>() ?? [-180, 180, -90, 90];
     builder.Services.AddSingleton(_ => new ArchiveSession(data, bbox, maxCells, maxReadMiB, lookahead, root, workers, capacity));
+    builder.Services.AddSingleton(_ => new CdsArchive(settings["CdsBaseUrl"], settings["CdsToken"],
+        Path.Combine(archiveDirectory, ".meteo-settings", "cds-token.bin")));
+    builder.Services.AddSingleton(_ => new GraphCastRuntime(root));
+    builder.Services.AddSingleton(provider => new GraphCastArchiveInputs(root, data, Path.Combine(forecastData, "graphcast-inputs"),
+        builder.Configuration["GraphCast:ArcoFieldsUrl"], provider.GetRequiredService<GraphCastRuntime>()));
     builder.Services.AddSingleton(provider => new ArchiveDownloads(data, settings["ArchiveBaseUrl"], provider.GetRequiredService<ArchiveSession>().Changed,
-        settings["ArcoBaseUrl"], settings["CdsBaseUrl"], settings["CdsToken"]));
+        settings["ArcoBaseUrl"], provider.GetRequiredService<CdsArchive>(), provider.GetRequiredService<GraphCastArchiveInputs>()));
     builder.Services.AddSingleton(provider => new ArchiveImports(data, bbox, maxCells, maxReadMiB, lookahead, provider.GetRequiredService<ArchiveSession>().Changed));
-    builder.Services.AddSingleton(provider => new ArchiveFiles(data, provider.GetRequiredService<ArchiveSession>(), provider.GetRequiredService<ArchiveDownloads>()));
+    builder.Services.AddSingleton(provider => new ArchiveFiles(data, provider.GetRequiredService<ArchiveSession>(),
+        provider.GetRequiredService<ArchiveDownloads>(), provider.GetRequiredService<GraphCastArchiveInputs>()));
+    builder.Services.AddSingleton(provider => new GraphCastService(root, data, forecastData, provider.GetRequiredService<GraphCastRuntime>(),
+        provider.GetRequiredService<GraphCastArchiveInputs>(), provider.GetRequiredService<ArchiveSession>()));
     var app = builder.Build();
     var session = app.Services.GetRequiredService<ArchiveSession>();
     var downloads = app.Services.GetRequiredService<ArchiveDownloads>();
     var imports = app.Services.GetRequiredService<ArchiveImports>();
     var localFiles = app.Services.GetRequiredService<ArchiveFiles>();
+    var graphcast = app.Services.GetRequiredService<GraphCastService>();
+    var graphcastInputs = app.Services.GetRequiredService<GraphCastArchiveInputs>();
+    app.Lifetime.ApplicationStarted.Register(graphcastInputs.Resume);
     var priorities = new MapPriorities(data);
     var playback = new MapPlayback(session, priorities, data);
+    var comparison = new ArchiveComparison(data, root, session, graphcast);
     app.Use(async (context, next) =>
     {
         if (context.Connection.RemoteIpAddress is not { } remote || !System.Net.IPAddress.IsLoopback(remote))
@@ -89,9 +103,11 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     });
     app.MapGet("/health", () => new { status = "ok", engine = "csharp", application = "MeteoBridge.Era5",
         project_root = root, data_path = data, workers, lookahead_cycles = lookahead });
-    app.MapGet("/", (HttpContext context) =>
+    app.MapGet("/", (HttpContext context, string? forecast, string? source) =>
     {
         context.Response.Headers.CacheControl = "no-store";
+        if (forecast is not null || source == "graphcast")
+            return Results.Redirect(forecast is null ? "/comparison" : "/comparison?forecast=" + Uri.EscapeDataString(forecast));
         return Results.Content(MapPage.Create(playback.Get(), root), "text/html; charset=utf-8");
     });
     app.MapGet("/downloads", async (HttpContext context) =>
@@ -106,11 +122,38 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     app.MapGet("/api/archive/settings", () => downloads.Settings());
     app.MapPost("/api/archive/cds-token", (CdsCredentials credentials) => downloads.ConfigureCds(credentials.Token));
     app.MapGet("/api/archive/local", () => localFiles.List());
-    app.MapPost("/api/archive/delete", (DeleteFileRequest request) => localFiles.Delete(request.Id));
+    app.MapPost("/api/archive/delete", (DeleteFileRequest request) =>
+        request.Id.Length == 32 ? graphcast.Delete(request.Id) : graphcast.DeleteArchive(request.Id, () => localFiles.Delete(request.Id)));
     app.MapPost("/api/archive/import", async (HttpRequest request, CancellationToken cancellation) =>
         Results.Json(await imports.ImportAsync(request, cancellation)));
     app.MapGet("/api/archive/files", async (HttpContext context, int year, int month = 0, string source = "amazon") =>
-        await downloads.FilesAsync(year, month, context.RequestAborted, source));
+        source == "graphcast" ? graphcast.Files(year, month) : await downloads.FilesAsync(year, month, context.RequestAborted, source));
+    async Task<IResult> GraphCastPage(string name, HttpContext context)
+    {
+        var source = Path.Combine(root, "web", name);
+        var path = File.Exists(source) ? source : Path.Combine(AppContext.BaseDirectory, "Assets", name);
+        context.Response.Headers.CacheControl = "no-store";
+        return Results.Content(await File.ReadAllTextAsync(path, context.RequestAborted), "text/html; charset=utf-8");
+    }
+    app.MapGet("/generation", (Delegate)((HttpContext context) => GraphCastPage("generation_viewer.html", context)));
+    app.MapGet("/comparison", (Delegate)((HttpContext context) => GraphCastPage("comparison_viewer.html", context)));
+    app.MapGet("/graphcast/map", (string? id) => Results.Redirect(id is null ? "/comparison" : "/comparison?forecast=" + Uri.EscapeDataString(id)));
+    app.MapGet("/api/comparison/files", (string forecast) => comparison.Files(forecast));
+    app.MapGet("/api/comparison/grid", (string file) => comparison.Grid(file));
+    app.MapGet("/api/comparison/frame", async (string forecast, string file, int step, CancellationToken cancellation) =>
+        Results.Bytes(await comparison.FrameAsync(forecast, file, step, cancellation), "application/octet-stream"));
+    app.MapGet("/api/graphcast/status", () => graphcast.Status());
+    app.MapGet("/api/graphcast/inputs", () => graphcast.InputFiles());
+    app.MapPost("/api/graphcast/prepare", (GraphCastRequest request) => graphcastInputs.Start(request.Id));
+    app.MapPost("/api/graphcast/cancel-preparation", (GraphCastRequest request) => graphcastInputs.Cancel(request.Id));
+    app.MapPost("/api/graphcast/import", (HttpRequest request, CancellationToken cancellation) => graphcast.ImportAsync(request, cancellation));
+    app.MapPost("/api/graphcast/generate", (GraphCastRequest request) => graphcast.Start(request.Id));
+    app.MapGet("/api/graphcast/files", () => graphcast.Files());
+    app.MapPost("/api/graphcast/delete", (GraphCastRequest request) => graphcast.Delete(request.Id));
+    app.MapGet("/api/graphcast/metadata", (string id) => graphcast.Metadata(id));
+    app.MapGet("/api/graphcast/frame", (string id, int index) => Results.Bytes(graphcast.Frame(id, index), "application/octet-stream"));
+    app.MapGet("/api/graphcast/file", (string id) => Results.File(graphcast.Download(id), "application/x-netcdf",
+        graphcast.Metadata(id).GetProperty("name").GetString()));
     app.MapPost("/api/archive/download", (DownloadRequest request) => downloads.Start(request.Key));
     app.MapPost("/api/archive/cancel", (DownloadRequest request) => downloads.Cancel(request.Key));
     app.MapGet("/grid", () => new { latitude = session.Current.Index.Latitude, longitude = session.Current.Index.Longitude });

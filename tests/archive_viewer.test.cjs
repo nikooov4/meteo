@@ -8,7 +8,7 @@ const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const settle = () => new Promise(resolve => setImmediate(resolve));
 
 async function viewer({initialState='available',cdsState='available',cdsError=null,cdsErrorCode=null,cdsConfigured=false,
-  cdsBytes=0,cdsReceived=0,cdsEstimate=0,cdsElapsed=0,confirm=true}={}) {
+  cdsBytes=0,cdsReceived=0,cdsEstimate=0,cdsElapsed=0,confirm=true,graphcast=null}={}) {
   const elements = new Map(), requests = [], held = new Map(), confirmations=[];
   const element = () => ({children:[],value:'',hidden:false,disabled:false,dataset:{},style:{},textContent:'',
     append(...children) {this.children.push(...children);}, appendChild(child) {this.children.push(child);},
@@ -32,9 +32,12 @@ async function viewer({initialState='available',cdsState='available',cdsError=nu
         received_bytes:source==='cds'?cdsReceived:0,estimated_bytes:source==='cds'?cdsEstimate:0,
         elapsed_seconds:source==='cds'?cdsElapsed:0,source,state:states[source],
         error:source==='cds'?cdsError:null,error_code:source==='cds'?cdsErrorCode:null,
-        downloaded:states[source]==='downloaded',local_id:states[source]==='downloaded'?source+'-id':null}];
+        downloaded:states[source]==='downloaded',local_id:states[source]==='downloaded'?source+'-id':null,
+        graphcast:source==='google'?graphcast:null}];
       else if (url.endsWith('/cds-token')) data={configured:!!JSON.parse(options.body).token};
       else if (url.endsWith('/delete')) {states.google='available';data={deleted:true};}
+      else if (url.endsWith('/graphcast/prepare')) data=graphcast={state:'queued',message:'Подготовка для ИИ в очереди'};
+      else if (url.endsWith('/graphcast/cancel-preparation')) data=graphcast={state:'paused',message:'Подготовка для ИИ остановлена'};
       else {states.google='validating'; data={status:'queued'};}
       return {ok:true,json:async()=>data};
     },
@@ -42,8 +45,39 @@ async function viewer({initialState='available',cdsState='available',cdsError=nu
   await settle(); await settle();
   const text = node => node.textContent+' '+node.children?.map(text).join(' ');
   return {get,requests,held,text,confirmations,
+    setPreparation(value) { graphcast=value; },
     async source(value) {get('source').value=value; get('source').onchange(); await settle(); await settle();}};
 }
+
+test('an existing daily archive can be prepared, stopped and marked ready without redownloading LSP',async()=>{
+  const page=await viewer({initialState:'downloaded',graphcast:{state:'available'}});
+  await page.source('google');
+  assert.equal(page.get('cds-credentials').hidden,true);
+  assert.equal(page.get('daily-download-note').hidden,false);
+  const actions=()=>page.get('files').children[0].children[1].children;
+  assert.equal(actions()[2].textContent,'Подготовить для ИИ');
+  await actions()[2].onclick();
+  assert.deepEqual(JSON.parse(page.requests.find(request=>request.url.endsWith('/graphcast/prepare')).options.body),{id:'google-id'});
+  assert.match(page.text(page.get('files')),/Подготовка для ИИ в очереди/);
+  assert.equal(actions().at(-1).disabled,true);
+  await actions()[2].onclick();
+  assert.match(page.text(page.get('files')),/Подготовка для ИИ остановлена/);
+  page.setPreparation({state:'ready'});
+  await page.source('google');
+  assert.match(page.text(page.get('files')),/Готов для ИИ/);
+  assert.doesNotMatch(page.text(page.get('files')),/Подготовить для ИИ/);
+  assert.ok(!page.requests.some(request=>request.url.endsWith('/archive/download')));
+});
+
+test('a model-input download failure can be retried without uploading an archive',async()=>{
+  const page=await viewer({initialState:'downloaded',
+    graphcast:{state:'failed',message:'Не удалось скачать поля Google ARCO-ERA5.'}});
+  await page.source('google');
+  const row=page.get('files').children[0];
+  const note=row.children[0].children.find(child=>child.className==='model-status');
+  assert.match(note.textContent,/Google ARCO-ERA5/);
+  assert.equal(row.children[1].children[2].textContent,'Повторить подготовку');
+});
 
 test('the download catalog switches between two original NetCDF archives and links to the selected one',async()=>{
   const page=await viewer();

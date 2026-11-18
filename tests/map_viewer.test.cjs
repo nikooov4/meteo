@@ -148,13 +148,14 @@ async function createViewer(width = 1200, {sourceAt = () => [{Name:'осадки
   };
 }
 
-test('the main player keeps the archive timeline hourly', async () => {
+test('the main player keeps the archive timeline hourly and links to the comparison page', async () => {
   const viewer=await createViewer(1200,{playback:true});
   assert.equal(viewer.element('timeline').max,23);
   assert.match(viewer.hour,/06:00–07:00/);
   assert.equal(viewer.titles.at(-1),'Осадки · LSP');
   assert.equal(viewer.updates.at(-1).layout['coloraxis.colorbar.title.text'],'мм за час');
   assert.doesNotMatch(html,/map-forecast|GrathCast/);
+  assert.match(html,/href="\/comparison"/);
 });
 
 test('seeking while playing continues from the chosen hour with one timer', async () => {

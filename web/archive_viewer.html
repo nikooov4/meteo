@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MeteoBridge · Архив ERA5</title>
+<title>MeteoBridge · Архив</title>
 <style>
 * { box-sizing: border-box; }
 body { margin: 0; background: #edf2f7; color: #233247; font: 14px "Segoe UI", Arial, sans-serif; }
@@ -50,6 +50,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid #3876c5; outline-offs
 .file-main { flex: 1; min-width: 240px; }
 .period { font-weight: 600; font-size: 14px; color: #234c6c; line-height: 1.5; }
 .filename { margin-top: 5px; color: #8092a1; font-size: 11px; overflow-wrap: anywhere; }
+.model-status { margin: 6px 0 0; color: #526b7e; font-size: 12px; overflow-wrap: anywhere; }
+.model-status[data-state="ready"] { color: #286445; font-weight: 600; }
+.model-status[data-state="failed"] { color: #a44738; }
+.model-status a { color: #356584; margin-left: 8px; }
 .file-aside { display: flex; align-items: center; justify-content: end; gap: 16px; flex-wrap: wrap; }
 .size { min-width: 72px; font-size: 12px; color: #667d8f; }
 .state { min-width: 132px; color: #62798c; font-size: 13px; }
@@ -76,20 +80,20 @@ footer a { color: #356584; }
 <body>
 <main>
   <header>
-    <div class="brand" aria-hidden="true">E5</div>
-    <div><h1>Файлы карты</h1><p class="subtitle">Amazon S3 · Google ARCO · Copernicus CDS · ERA5 LSP</p></div>
-    <nav aria-label="Разделы сайта"><a href="/">Карта</a><a href="/downloads" aria-current="page">Архив ERA5</a></nav>
+    <div class="brand" aria-hidden="true">M</div>
+    <div><h1>Файлы карты</h1><p class="subtitle">Архивы ERA5 и суточные прогнозы GrathCast</p></div>
+    <nav aria-label="Разделы сайта"><a href="/">Карта</a><a href="/downloads" aria-current="page">Архив</a><a href="/generation">Генерация</a><a href="/comparison">Сравнение</a></nav>
   </header>
   <section class="panel" aria-labelledby="catalog-title">
-    <h2 id="catalog-title">Скачать данные для карты</h2>
-    <p class="intro">Выберите архив, год и месяц. Сайт скачает исходные NetCDF или GRIB, проверит и подключит данные к карте без преобразования в другие форматы.
+    <h2 id="catalog-title">Файлы архива</h2>
+    <p class="intro" id="catalog-intro">Выберите архив, год и месяц. Сайт скачает исходные NetCDF или GRIB, проверит и подключит данные к карте без преобразования в другие форматы.
       Уже имеющиеся файлы отмечены как «Скачано». После завершения загрузки откройте вкладку «Карта» — новые периоды появятся в ней автоматически.</p>
     <form id="catalog-form">
       <label>Архив<select id="source" aria-label="Архив данных">
         <option value="amazon">Amazon S3 · NCAR ERA5 · NC</option><option value="google">Google · ARCO-ERA5 · NC</option><option value="cds">Copernicus CDS · ERA5 · GRIB</option>
       </select></label>
-      <label>Год<input id="year" type="number" min="1940" max="2100" required aria-label="Год архива"></label>
-      <label>Месяц<select id="month" aria-label="Месяц архива"><option value="0">Весь год</option></select></label>
+      <label id="year-label">Год<input id="year" type="number" min="1940" max="2100" required aria-label="Год архива"></label>
+      <label id="month-label">Месяц<select id="month" aria-label="Месяц архива"><option value="0">Весь год</option></select></label>
       <button type="submit" class="primary" id="show">Показать файлы</button>
     </form>
     <div id="cds-credentials" hidden>
@@ -106,19 +110,21 @@ footer a { color: #356584; }
       <p class="intro">Токен сохраняется между запусками приложения. На Windows он хранится в зашифрованном виде для вашей учётной записи.
         Получите его в <a href="https://cds.climate.copernicus.eu/how-to-api" target="_blank" rel="noopener">профиле CDS</a>
         и <a href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download#manage-licences" target="_blank" rel="noopener">примите условия ERA5</a>
-        в аккаунте владельца токена. При остановке загрузки запрос CDS сохраняется; «Продолжить» подключится к нему снова.</p>
+        в аккаунте владельца токена.</p>
       </form>
     </div>
     <p id="source-description" class="intro" role="status"></p>
+    <p id="daily-download-note" class="intro" hidden>Для подготовки каждого суточного архива приложение скачивает поля для ИИ из Google ARCO-ERA5.
+      Когда появится отметка «Готов для ИИ», прогноз можно запускать из локального файла.</p>
     <p class="intro"><a id="source-archive" href="https://nsf-ncar-era5.s3.us-west-2.amazonaws.com/?prefix=e5.oper.fc.sfc.accumu/" target="_blank" rel="noopener">Открыть выбранный архив ↗</a></p>
-    <p class="directory">Папка загрузки: <span id="directory"></span></p>
+    <p class="directory" id="archive-directory">Папка загрузки: <span id="directory"></span></p>
   </section>
   <div id="alert" role="alert" hidden></div>
   <div class="summary"><span id="summary" role="status">Читаю каталог…</span><button id="download-missing" hidden>Скачать отсутствующие</button></div>
-  <section id="files" aria-label="Файлы ERA5"></section>
-  <footer>Промежуток указан от начала первого часа до конца последнего; конечное время не включено.
+  <section id="files" aria-label="Файлы архива"></section>
+  <footer id="archive-footer">Промежуток указан от начала первого часа до конца последнего; конечное время не включено.
     Все три архива содержат ERA5 LSP, крупномасштабную компоненту осадков. Скачиваются исходные NetCDF или GRIB без изменения содержимого.
-    Загрузки выполняются в фоне, максимум две одновременно; прерванную загрузку можно продолжить.
+    Загрузки архивов выполняются в фоне, максимум две одновременно. Прерванную загрузку можно продолжить.
     Источники: <a href="https://gdex.ucar.edu/datasets/d633000/" target="_blank" rel="noopener">NSF NCAR ERA5</a> ·
     <a href="https://github.com/google-research/arco-era5" target="_blank" rel="noopener">Google ARCO-ERA5</a> ·
     <a href="https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels" target="_blank" rel="noopener">Copernicus CDS</a>.</footer>
@@ -127,10 +133,12 @@ footer a { color: #356584; }
 const yearInput = document.getElementById('year'), monthInput = document.getElementById('month');
 const sourceInput = document.getElementById('source');
 let sources = [], cdsConfigured = false, cdsEditing = false;
+const originalIntro=document.getElementById('catalog-intro').textContent;
 const filesElement = document.getElementById('files'), summary = document.getElementById('summary');
 const alertBox = document.getElementById('alert'), missingButton = document.getElementById('download-missing');
 let files = [], timer = null, generation = 0, loading = false;
 const busy = file => ['queued','requesting','waiting','preparing','downloading','validating'].includes(file.state);
+const preparing = file => ['queued','downloading','preparing','stopping'].includes(file.graphcast?.state);
 const labels = {available:'Не скачано',queued:'В очереди приложения',downloading:'Загружается',
                 requesting:'Отправка запроса CDS',waiting:'В очереди CDS',preparing:'CDS готовит GRIB',
                 validating:'Проверка файла',paused:'Приостановлено',failed:'Ошибка',conflict:'Другой локальный файл'};
@@ -157,7 +165,7 @@ document.getElementById('cds-token-editor').onsubmit=async event => {
   const apply=document.getElementById('cds-apply-token'); apply.disabled=true;
   try {
     const result=await api('/api/archive/cds-token',{token:input.value});
-    input.value=''; cdsConfigured=result.configured; cdsEditing=false; cdsStatus(); alertBox.hidden=true; render();
+    input.value=''; cdsConfigured=result.configured; cdsEditing=false; cdsStatus(); alertBox.hidden=true; render(); await load();
   } catch(error) { input.value=''; errorMessage(error); }
   finally { apply.disabled=false; }
 };
@@ -173,6 +181,30 @@ function deleteButton(file) {
     } catch(error) { errorMessage(error); button.disabled=false; }
   };
   return button;
+}
+function preparationControls(file, main, aside) {
+  const prep=file.graphcast;
+  if (!prep) return;
+  const status=document.createElement('p');
+  status.className='model-status'; status.dataset.state=prep.state;
+  status.textContent=prep.state==='ready' ? 'Готов для ИИ' : prep.message || 'Нужны поля для ИИ';
+  main.append(status);
+  if (['ready','runtime_required'].includes(prep.state)) return;
+  const cancel=preparing(file);
+  const button=document.createElement('button');
+  button.textContent=cancel ? 'Остановить подготовку' : prep.state==='failed' ? 'Повторить подготовку' :
+    prep.state==='paused' ? 'Продолжить подготовку' : 'Подготовить для ИИ';
+  button.disabled=prep.state==='stopping';
+  button.setAttribute('aria-label',button.textContent+' · '+file.name);
+  button.onclick=async () => {
+    button.disabled=true;
+    try {
+      file.graphcast=await api('/api/graphcast/'+(cancel?'cancel-preparation':'prepare'),{id:file.local_id});
+      render();
+      await load();
+    } catch(error) { errorMessage(error); button.disabled=false; }
+  };
+  aside.append(button);
 }
 async function api(url, body) {
   const response = await fetch(url, body === undefined ? {} : {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -226,24 +258,35 @@ function render() {
       catch(error) { errorMessage(error); button.disabled=false; }
     };
     aside.append(size);
+    if (file.source==='graphcast') {
+      const map=document.createElement('a'); map.href='/comparison?forecast='+encodeURIComponent(file.id); map.textContent='Сравнить с архивом';
+      const download=document.createElement('a'); download.href='/api/graphcast/file?id='+encodeURIComponent(file.id); download.textContent='Скачать NetCDF';
+      aside.append(map,download,deleteButton(file)); row.append(main,aside); filesElement.append(row); continue;
+    }
     if (!file.downloaded) aside.append(status);
     aside.append(button);
-    if (file.downloaded && file.local_id) aside.append(deleteButton(file));
+    if (file.downloaded && file.local_id) {
+      preparationControls(file,main,aside);
+      const remove=deleteButton(file);
+      remove.disabled=preparing(file);
+      aside.append(remove);
+    }
     row.append(main,aside);
     if (file.error && !file.downloaded) {
       const error=document.createElement('div'); error.className='error'; error.textContent=file.error;
-      if (file.error_code==='licence_required') {
+      if (file.action_url || file.error_code==='licence_required') {
         const link=document.createElement('a');
-        link.href='https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download#manage-licences';
-        link.target='_blank'; link.rel='noopener'; link.textContent='Принять условия ERA5 ↗';
+        link.href=file.action_url || 'https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download#manage-licences';
+        link.target='_blank'; link.rel='noopener';
+        link.textContent=file.error_code==='licence_required' ? 'Принять условия ERA5 ↗' : 'Запросы в CDS ↗';
         error.append(document.createElement('br'),link);
       }
       row.append(error);
     }
     filesElement.append(row);
   }
-  if (files.length===0) { const empty=document.createElement('p'); empty.className='empty'; empty.textContent='В выбранном источнике нет файлов LSP за этот период. Попробуйте другой источник.'; filesElement.append(empty); }
-  summary.textContent='Файлов: '+files.length+' · скачано: '+files.filter(file=>file.downloaded).length+' · в работе: '+files.filter(busy).length;
+  if (files.length===0) { const empty=document.createElement('p'); empty.className='empty'; empty.textContent=sourceInput.value==='graphcast' ? 'В выбранном периоде нет прогнозов GrathCast. Создайте прогноз на вкладке «Генерация».' : 'В выбранном источнике нет файлов LSP за этот период. Попробуйте другой источник.'; filesElement.append(empty); }
+  summary.textContent='Файлов: '+files.length+' · скачано: '+files.filter(file=>file.downloaded).length+' · в работе: '+files.filter(file=>busy(file)||preparing(file)).length;
   missingButton.hidden=!files.some(file=>!file.downloaded && !busy(file) && file.state!=='conflict');
   missingButton.disabled=sourceInput.value==='cds' && !cdsConfigured;
 }
@@ -251,22 +294,29 @@ async function load() {
   if (loading) return;
   loading=true; clearTimeout(timer); const token=generation;
   try {
-    const result=await api('/api/archive/files?'+new URLSearchParams({year:yearInput.value,month:monthInput.value,source:sourceInput.value}));
+    const result=await api('/api/archive/files?'+new URLSearchParams({year:sourceInput.value==='graphcast'?'0':yearInput.value,month:sourceInput.value==='graphcast'?'0':monthInput.value,source:sourceInput.value}));
     if (token!==generation) return;
     files=result; alertBox.hidden=true; render();
   } catch(error) { if (token===generation) errorMessage(error); }
   finally {
     loading=false;
     if (token!==generation) load();
-    else if (files.some(busy)) timer=setTimeout(load,files.some(file=>file.state==='downloading')?500:2000);
+    else if (files.some(file=>busy(file)||preparing(file))) timer=setTimeout(load,files.some(file=>file.state==='downloading')?500:2000);
   }
 }
 function changeCatalog() {
   generation++; files=[]; filesElement.replaceChildren(); missingButton.hidden=true;
   summary.textContent='Читаю каталог…';
   const source=sources.find(source=>source.id===sourceInput.value);
+  const daily=['google','cds'].includes(sourceInput.value);
   document.getElementById('cds-credentials').hidden=sourceInput.value!=='cds'; cdsStatus();
+  document.getElementById('daily-download-note').hidden=!daily;
   document.getElementById('source-description').textContent=source?.description || '';
+  document.getElementById('catalog-intro').textContent=sourceInput.value==='graphcast' ? 'Суточные прогнозы, созданные на вкладке «Генерация». Выберите прогноз для сравнения, скачивания или удаления.' : originalIntro;
+  document.getElementById('archive-footer').hidden=sourceInput.value==='graphcast';
+  document.getElementById('archive-directory').hidden=sourceInput.value==='graphcast';
+  yearInput.disabled=monthInput.disabled=sourceInput.value==='graphcast';
+  document.getElementById('year-label').hidden=document.getElementById('month-label').hidden=sourceInput.value==='graphcast';
   const archive=document.getElementById('source-archive');
   archive.href=source?.archive_url || '#'; archive.textContent='Открыть архив '+(source?.label || '')+' ↗';
   load();
@@ -292,7 +342,8 @@ async function initialize() {
       option.textContent=source.label+' · '+(source.format==='NetCDF'?'NC':source.format || '');
       sourceInput.append(option);
     }
-    sourceInput.value=sources.some(source=>source.id===selected)?selected:sources[0].id;
+    const requested=new URLSearchParams(globalThis.location?.search || '').get('source') || selected;
+    sourceInput.value=sources.some(source=>source.id===requested)?requested:sources[0].id;
   }
   cdsConfigured=!!settings.cds_configured;
   document.getElementById('directory').textContent=settings.directory;

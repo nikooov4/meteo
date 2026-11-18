@@ -654,7 +654,7 @@ window.initMeteoMap = function(gd) {
     endInput.value=inputTime(selection ? Date.parse(selection.end_utc) : Date.parse(info.intervals.at(-1)[1]));
     if (count) { limits(); identify(); await frame(0); }
     else { play.disabled=true; timeline.disabled=true; period.hidden=true; noData.hidden=false;
-      noData.textContent='В выбранном архиве пока нет файлов. Добавьте данные в архиве.'; }
+      noData.textContent='В выбранном архиве пока нет файлов. Добавьте данные в архиве или создайте прогноз.'; }
     await fit();
     if (info.priority_available && info.archive_api) {
       priorityPanel.hidden = false;
@@ -674,7 +674,7 @@ window.initMeteoMap = function(gd) {
     <div class="brand-mark" aria-hidden="true">M</div>
     <div><h1>Атлас осадков</h1><p id="map-subtitle" class="subtitle">Архивы осадков</p></div>
     <nav class="top-nav" id="site-nav" aria-label="Разделы сайта" hidden>
-      <a href="/" aria-current="page">Карта</a><a href="/downloads">Архив</a>
+      <a href="/" aria-current="page">Карта</a><a href="/downloads">Архив</a><a href="/generation">Генерация</a><a href="/comparison">Сравнение</a>
     </nav>
     <span id="source-badge" class="source-badge">Архивные данные</span>
   </header>

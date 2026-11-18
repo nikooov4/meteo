@@ -14,6 +14,9 @@ internal sealed record RemoteEra5File(string Key, string Name, long Bytes, strin
 {
     public string Format => Source == "cds" ? "GRIB" : "NetCDF";
     public string Provider => Source switch { "amazon" => "Amazon S3 · NCAR ERA5", "cds" => "Copernicus CDS · ERA5", _ => "Google ARCO-ERA5" };
+    public bool Daily => Source is "google" or "cds" ||
+        DateTimeOffset.TryParse(Start, CultureInfo.InvariantCulture, out var first) &&
+        DateTimeOffset.TryParse(End, CultureInfo.InvariantCulture, out var last) && last - first == TimeSpan.FromDays(1);
 }
 internal sealed record DownloadRequest(string Key);
 
@@ -36,6 +39,7 @@ internal sealed class ArchiveDownloads : IDisposable
     private readonly Uri arcoBucket, arcoCatalog;
     private readonly HttpClient client;
     private readonly CdsArchive cds;
+    private readonly GraphCastArchiveInputs graphcastInputs;
     private readonly string queuePath;
     private readonly HashSet<string> wantedCds = [];
     private long estimatedCdsBytes;
@@ -48,8 +52,8 @@ internal sealed class ArchiveDownloads : IDisposable
     private readonly object jobGate = new();
     private static readonly Regex FilePattern = new(@"^e5\.oper\.fc\.sfc\.accumu/(?<month>\d{6})/e5\.oper\.fc\.sfc\.accumu\.128_142_lsp\.ll025sc\.(?<start>\d{10})_(?<end>\d{10})\.nc$", RegexOptions.Compiled);
 
-    public ArchiveDownloads(string data, string? baseUrl, Action changed, string? arcoBaseUrl = null,
-        string? cdsBaseUrl = null, string? cdsToken = null)
+    public ArchiveDownloads(string data, string? baseUrl, Action changed, string? arcoBaseUrl,
+        CdsArchive cds, GraphCastArchiveInputs graphcastInputs)
     {
         directory = File.Exists(data) ? Path.GetDirectoryName(data)! : data;
         bucket = new Uri((baseUrl ?? "https://nsf-ncar-era5.s3.us-west-2.amazonaws.com").TrimEnd('/') + "/");
@@ -63,7 +67,8 @@ internal sealed class ArchiveDownloads : IDisposable
             { Timeout = TimeSpan.FromSeconds(60), MaxResponseContentBufferSize = 4 * 1048576 };
         this.changed = changed;
         var settings = Path.Combine(directory, ".meteo-settings");
-        cds = new CdsArchive(cdsBaseUrl, cdsToken, Path.Combine(settings, "cds-token.bin"));
+        this.cds = cds;
+        this.graphcastInputs = graphcastInputs;
         queuePath = Path.Combine(settings, "cds-queue.json");
         if (File.Exists(queuePath))
         {
@@ -136,7 +141,10 @@ internal sealed class ArchiveDownloads : IDisposable
                     description = "Исходные суточные NetCDF ERA5 LSP из Google ARCO. Файлы сохраняются без преобразования и читаются картой напрямую." },
                 new { id = "cds", label = "Copernicus CDS · ERA5", format = "GRIB", provider = "Copernicus CDS · ERA5",
                     archive_url = "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download",
-                    description = "Суточные запросы ERA5 LSP в исходном GRIB, все 24 часа UTC, весь мир. Размер известен после подготовки CDS. Нужны API-токен и принятие условий ERA5 на сайте CDS. Последние 6 дней не запрашиваются." }
+                    description = "Суточные запросы ERA5 LSP в исходном GRIB, все 24 часа UTC, весь мир. Размер известен после подготовки CDS. Нужны API-токен и принятие условий ERA5 на сайте CDS. Последние 6 дней не запрашиваются." },
+                new { id = "graphcast", label = "GrathCast", format = "NetCDF", provider = "GrathCast",
+                    archive_url = "/generation",
+                    description = "Сгенерированные глобальные прогнозы на 24 часа. Суммарные осадки с шагом 6 часов; файлы можно открыть на карте, скачать и удалить." }
             } };
     }
 
@@ -299,13 +307,17 @@ internal sealed class ArchiveDownloads : IDisposable
             partial.Exists || file.Source == "cds" && File.Exists(Path.Combine(directory, file.Name + ".cds-request.json")) ? "paused" : "available";
         var size = file.Bytes > 0 ? file.Bytes : downloaded ? existing.Length : 0;
         var received = downloaded ? size : job is not null ? Interlocked.Read(ref job.Received) : partial.Exists ? partial.Length : 0;
+        var graphcast = downloaded && file.Daily ? graphcastInputs.View(existing) : null;
+        if (graphcast?.State == "available" && job is { State: "validating" })
+            graphcast = new("queued", "Подготовка для ИИ в очереди");
         return new { key = file.Key, name = file.Name, bytes = size, start_utc = file.Start, end_utc = file.End,
             estimated_bytes = file.Source == "cds" && size == 0 ? Interlocked.Read(ref estimatedCdsBytes) : 0,
             elapsed_seconds = job is null ? 0 : Math.Max(0, (int)(DateTime.UtcNow - job.StartedUtc).TotalSeconds),
             state, received_bytes = received, error = job?.Error, error_code = job?.ErrorCode, action_url = job?.ActionUrl,
             downloaded, format = file.Format, provider = file.Provider,
             source = file.Source, saved_bytes = downloaded ? existing.Length : (long?)null,
-            local_id = existing.Exists ? ArchiveFiles.Id(path) : null };
+            local_id = existing.Exists ? ArchiveFiles.Id(path) : null,
+            graphcast };
     }
 
     public object Start(string key)
@@ -317,6 +329,7 @@ internal sealed class ArchiveDownloads : IDisposable
             if (target.Exists)
             {
                 if (!Downloaded(file, target)) throw new IOException("Локальный файл отличается от выбранного источника. Он не будет перезаписан.");
+                if (file.Daily) graphcastInputs.ScheduleDownloaded(target.FullName);
                 if (file.Source == "cds") ForgetCds(key);
                 return Snapshot(file);
             }
@@ -518,10 +531,12 @@ internal sealed class ArchiveDownloads : IDisposable
                 }
             }
             token.ThrowIfCancellationRequested();
-            File.Move(partial, Path.Combine(directory, file.Name), overwrite: false);
+            var saved = Path.Combine(directory, file.Name);
+            File.Move(partial, saved, overwrite: false);
+            changed();
+            if (file.Daily) graphcastInputs.ScheduleDownloaded(saved);
             job.State = "downloaded";
             if (file.Source == "cds") ForgetCds(file.Key);
-            changed();
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested) { job.State = "paused"; }
         catch (Exception error)
@@ -538,6 +553,5 @@ internal sealed class ArchiveDownloads : IDisposable
     {
         shutdown.Cancel();
         client.Dispose();
-        cds.Dispose();
     }
 }

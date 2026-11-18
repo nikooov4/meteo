@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Сравнение · Атлас осадков</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#edf3f8;color:#142b41;font:15px "Segoe UI",Arial,sans-serif}
+  main{max-width:1600px;margin:auto;padding:24px}header{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+  .brand{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#153b60;color:white;font-weight:700}
+  h1,h2,p{margin:0}h1{font-size:25px}h2{font-size:16px}.muted{color:#506579}
+  nav{display:flex;flex-wrap:wrap;padding:5px;background:#f6f9fc;border:1px solid #d0dce7;border-radius:14px;margin-left:auto}
+  nav a{color:#2a4d72;padding:10px 13px;border-radius:9px;text-decoration:none}
+  nav a[aria-current]{background:#153b60;color:white}
+  .controls,article{background:white;border:1px solid #d0dce7;border-radius:14px}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;padding:16px;margin-bottom:14px}
+  label{display:grid;min-width:0;gap:5px;font-weight:600}select,button{font:inherit;color:inherit;border:1px solid #a9bccd;border-radius:8px;background:#f6f9fc;padding:8px}
+  select{width:100%}button{cursor:pointer}button:disabled{cursor:default;opacity:.5}
+  .timeline{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+  .timeline input{min-width:100px;max-width:260px;flex:1;accent-color:#153b60}output{font-variant-numeric:tabular-nums}
+  #status{grid-column:1/-1;color:#506579}#status[data-error]{color:#a42326}
+  .maps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}article{overflow:hidden}
+  article>div:first-child{padding:13px 14px;display:flex;justify-content:space-between;gap:6px 12px;flex-wrap:wrap}
+  .plot{width:100%;height:clamp(200px,28vw,440px);background:#e8f0f6}
+  @media(max-width:740px){main{padding:14px}nav{margin-left:0}.controls,.maps{grid-template-columns:1fr}.plot{height:clamp(210px,52vw,450px)}}
+</style>
+<script src="/plotly.min.js" defer></script>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand" aria-hidden="true">M</div><h1>Сравнение осадков</h1>
+    <nav aria-label="Разделы сайта"><a href="/">Карта</a><a href="/downloads">Архив</a><a href="/generation">Генерация</a><a href="/comparison" aria-current="page">Сравнение</a></nav>
+  </header>
+  <section class="controls" aria-label="Файлы и время">
+    <label>Файл ERA5<select id="archive" disabled></select></label>
+    <label>Прогноз GrathCast<select id="forecast" disabled></select></label>
+    <div class="timeline">
+      <button id="previous" type="button" aria-label="Предыдущий интервал" disabled>←</button>
+      <input id="step" type="range" min="0" max="3" value="0" aria-label="Шестичасовой интервал" disabled>
+      <button id="next" type="button" aria-label="Следующий интервал" disabled>→</button>
+      <output id="interval" for="step"></output>
+    </div>
+    <p id="status" role="status">Загрузка сохранённых прогнозов…</p>
+  </section>
+  <section class="maps" aria-label="Карты осадков">
+    <article><div><h2>Архив ERA5</h2><span class="muted">Крупномасштабные осадки · мм за 6 ч</span></div><div id="archive-map" class="plot"></div></article>
+    <article><div><h2>Прогноз GrathCast</h2><span class="muted">Суммарные осадки · мм за 6 ч</span></div><div id="forecast-map" class="plot"></div></article>
+  </section>
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const get = id => document.getElementById(id);
+  const archive = get('archive'), forecast = get('forecast'), step = get('step');
+  const maps = [get('archive-map'), get('forecast-map')];
+  const previous = get('previous'), next = get('next');
+  const status = get('status');
+  let request, products = [], land, grid;
+  let redraw = Promise.resolve();
+  let syncing = false;
+  const formatted = time => time.slice(0,16).replace('T',' ');
+  const notice = (message, error = false) => {
+    status.textContent = message;
+    status.toggleAttribute('data-error', error);
+  };
+  async function api(path, signal, binary = false) {
+    const response = await fetch(path, {signal});
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({}));
+      throw Error(detail.detail || 'Ошибка загрузки данных ('+response.status+')');
+    }
+    return binary ? response.arrayBuffer() : response.json();
+  }
+  function options(select, files, label, empty) {
+    select.replaceChildren(...(files.length ? files.map(file => new Option(label(file), file.id)) : [new Option(empty,'')]));
+    select.disabled = files.length === 0;
+  }
+  function draw(map, coordinates, buffer) {
+    const z = buffer ? new Float32Array(buffer) : [];
+    const lat = coordinates.latitude, lon = coordinates.longitude;
+    const rows = lat.map((_,i) => buffer ? Array.from(z.subarray(i*lon.length,(i+1)*lon.length), value => Number.isFinite(value) ? value : null) : []);
+    return Plotly.react(map, [
+      {type:'heatmap',x:lon,y:lat,z:rows,coloraxis:'coloraxis',hoverongaps:false,connectgaps:false,
+        hovertemplate:'%{y:.2f}°, %{x:.2f}°<br>%{z:.2f} мм за 6 ч<extra></extra>'},
+      {type:'scatter',x:land.longitude,y:land.latitude,mode:'lines',line:{color:'#52687b',width:.6},hoverinfo:'skip',showlegend:false}
+    ], {
+      margin:{l:5,r:46,t:4,b:4},paper_bgcolor:'#e8f0f6',plot_bgcolor:'#e8f0f6',dragmode:'pan',uirevision:'comparison',
+      xaxis:{visible:false,range:[-180,180],minallowed:-180,maxallowed:180},
+      yaxis:{visible:false,range:[-90,90],minallowed:-90,maxallowed:90,scaleanchor:'x'},
+      coloraxis:{cmin:0,cmax:50,colorscale:'Blues',colorbar:{thickness:9,len:.9,outlinewidth:0}}
+    }, {responsive:true,displayModeBar:false,scrollZoom:true});
+  }
+  function coastlines(data) {
+    const latitude = [], longitude = [];
+    for (const geometry of data.geometries) {
+      const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+      for (const polygon of polygons) for (const ring of polygon) {
+        let last;
+        for (const [x,y] of ring) {
+          if (last !== undefined && Math.abs(x-last)>180) { latitude.push(null); longitude.push(null); }
+          longitude.push(x); latitude.push(y); last=x;
+        }
+        latitude.push(null); longitude.push(null);
+      }
+    }
+    return {latitude,longitude};
+  }
+  async function render(signal) {
+    const metadata = products.find(file => file.id === forecast.value);
+    if (!metadata) return;
+    const index = Number(step.value);
+    const time = hours => new Date(Date.parse(metadata.start_utc)+hours*3600000).toISOString();
+    get('interval').textContent = formatted(time(index*6))+' → '+formatted(time((index+1)*6))+' UTC';
+    step.disabled = false;
+    previous.disabled = index === 0;
+    next.disabled = index === 3;
+    const params = new URLSearchParams({forecast:forecast.value,file:archive.value,step:index});
+    notice('Загрузка интервала…');
+    const [baseline, comparison] = await Promise.all([
+      archive.value ? api('/api/comparison/frame?'+params,signal,true) : null,
+      api('/api/graphcast/frame?'+new URLSearchParams({id:forecast.value,index}),signal,true)
+    ]);
+    if (signal.aborted) return;
+    const archiveGrid = grid || metadata;
+    redraw = redraw.catch(() => {}).then(() => {
+      if (!signal.aborted) return Promise.all([draw(maps[0],archiveGrid,baseline),draw(maps[1],metadata,comparison)]);
+    });
+    await redraw;
+    if (signal.aborted) return;
+    const hasArchive = baseline && new Float32Array(baseline).some(Number.isFinite);
+    notice(hasArchive ? '' : 'Для этого интервала нет полных шести часов в выбранном архиве ERA5.');
+  }
+  function update(action) {
+    request?.abort();
+    request = new AbortController();
+    const signal = request.signal;
+    action(signal).catch(error => { if (!signal.aborted) notice(error.message,true); });
+  }
+  async function loadArchive(signal) {
+    grid = null;
+    options(archive, [], () => '', 'Поиск совпадающих файлов…');
+    step.disabled = previous.disabled = next.disabled = true;
+    const files = await api('/api/comparison/files?forecast='+encodeURIComponent(forecast.value),signal);
+    if (signal.aborted) return;
+    const params = new URLSearchParams(location.search);
+    options(archive,files,file=>file.name+' · '+file.coveredHours+' из 24 ч','Скачайте ERA5 за период прогноза');
+    if (files.some(file=>file.id===params.get('archive'))) archive.value=params.get('archive');
+    await selectArchive(signal);
+  }
+  async function selectArchive(signal) {
+    step.disabled = previous.disabled = next.disabled = true;
+    const selected = await api('/api/graphcast/metadata?id='+encodeURIComponent(forecast.value),signal);
+    const coordinates = archive.value ? await api('/api/comparison/grid?file='+encodeURIComponent(archive.value),signal) : null;
+    if (signal.aborted) return;
+    Object.assign(products.find(file=>file.id===forecast.value),selected);
+    grid = coordinates;
+    const params = new URLSearchParams({forecast:forecast.value});
+    if (archive.value) params.set('archive',archive.value);
+    history.replaceState(null,'','/comparison?'+params);
+    await render(signal);
+  }
+  try {
+    const [files, coastline] = await Promise.all([api('/api/graphcast/files'),api('/land.json')]);
+    land = coastlines(coastline);
+    products = files;
+    const blank = {latitude:[],longitude:[]};
+    await Promise.all(maps.map(map=>draw(map,blank,null)));
+    maps.forEach((map,index)=>map.on('plotly_relayout',async event=>{
+      if (syncing) return;
+      const changes = Object.fromEntries(Object.entries(event).filter(([key])=>/^[xy]axis\.(range|autorange)/.test(key)));
+      if (!Object.keys(changes).length) return;
+      syncing = true;
+      try { await Plotly.relayout(maps[1-index],changes); } finally { syncing=false; }
+    }));
+    options(forecast,products,file=>file.name+' · '+formatted(file.start_utc)+' UTC','Нет сохранённых прогнозов');
+    if (!products.length) { notice('Создайте прогноз на вкладке «Генерация».'); return; }
+    const requested = new URLSearchParams(location.search).get('forecast');
+    if (products.some(file=>file.id===requested)) forecast.value=requested;
+    forecast.onchange = () => { step.value='0'; update(loadArchive); };
+    archive.onchange = () => update(selectArchive);
+    step.oninput = () => update(render);
+    previous.onclick = () => { step.stepDown(); update(render); };
+    next.onclick = () => { step.stepUp(); update(render); };
+    update(loadArchive);
+  } catch (error) { notice(error.message,true); }
+});
+</script>
+</body>
+</html>
