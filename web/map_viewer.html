@@ -105,6 +105,7 @@
   .top-nav[hidden] { display: none; }
   .top-nav a { color: #4b687e; text-decoration: none; padding: 7px 11px; border-radius: 7px; font-size: 13px; white-space: nowrap; }
   .top-nav a[aria-current="page"] { background: #163e64; color: white; }
+  [hidden] { display:none!important; }
   @media (max-width: 850px) {
     .source-badge { display: none; }
     #frame-source { left: 190px; font-size: 13px; }
@@ -159,7 +160,8 @@ window.initMeteoMap = function(gd) {
   const inputTime = milliseconds => new Date(milliseconds).toISOString().slice(0,16);
   const stamp = value => Date.parse(value + 'Z');
   const pairAt = i => catalog
-    ? [new Date(rangeEpoch+i*3600000).toISOString(), new Date(rangeEpoch+(i+1)*3600000).toISOString()]
+    ? catalog.frames ? [catalog.frames[selection.first_hour+i].start_utc, catalog.frames[selection.first_hour+i].end_utc]
+      : [new Date(rangeEpoch+i*3600000).toISOString(), new Date(rangeEpoch+(i+1)*3600000).toISOString()]
     : info.intervals[sourceOffset+i];
   async function getJSON(url) {
     const response = await fetch(url);
@@ -169,7 +171,7 @@ window.initMeteoMap = function(gd) {
   }
   function identify() {
     document.getElementById('identity').textContent =
-      'Источник: ' + info.label + (info.member === null || catalog?.kind === 'era5' ? '' : ' · сценарий ' + info.member) +
+      'Источник: ' + info.label + (info.member === null || catalog?.kind === 'era5' || catalog?.kind === 'playback' ? '' : ' · сценарий ' + info.member) +
       (info.manifest_sha256 ? (catalog?.kind === 'era5' ? '. ID архива: ' : '. Manifest SHA256: ') + info.manifest_sha256 : '');
   }
   function pause() {
@@ -256,7 +258,7 @@ window.initMeteoMap = function(gd) {
     }
   }
   function prioritySemantics() {
-    if (catalog?.kind !== 'era5') return;
+    if (catalog?.kind !== 'era5' && catalog?.kind !== 'playback') return;
     document.getElementById('archive-size').textContent = catalog.file_count + ' файлов · ' +
       catalog.available_hours + ' ч с данными · ' + catalog.gap_hours + ' ч без данных';
     document.getElementById('data-summary').textContent = 'Архив LSP · сетка ' + catalog.grid_shape.join(' × ');
@@ -268,7 +270,8 @@ window.initMeteoMap = function(gd) {
   }
   async function applyPriority(order) {
     if (priorityBusy) return;
-    const previousHour = index, first = pairAt(0)[0], last = pairAt(count - 1)[1];
+    const previousHour = index, previousTime = count ? pairAt(index)[0] : null,
+      first = count ? pairAt(0)[0] : null, last = count ? pairAt(count - 1)[1] : null;
     priorityBusy = true; pause(); rangeToken++; frameToken++; clearRequests(); renderPriority();
     priorityStatus.textContent = 'Обновляю карту и сохраняю порядок архивов…';
     try {
@@ -277,13 +280,15 @@ window.initMeteoMap = function(gd) {
       if (!response.ok) throw new Error(result.detail || 'Не удалось сохранить приоритет');
       catalog = result.catalog; info.catalog = catalog; info.manifest_sha256 = catalog.manifest_sha256; info.grid_shape = catalog.grid_shape;
       priorityView(result.priority);
+      if (!count) { prioritySemantics(); priorityStatus.textContent = 'Порядок архивов сохранён.'; return; }
       const params = new URLSearchParams({member:selection.member,start:first,end:last});
       selection = await getJSON(info.archive_api + '/range?' + params);
       rangeEpoch = Date.parse(selection.start_utc); count = selection.hours; timeline.max = count - 1;
-      const grid = await getJSON('/grid');
+      const grid = await getJSON(info.grid_api || '/grid');
       await Plotly.restyle(gd,{x:[grid.longitude],y:[grid.latitude]},[0]);
       prioritySemantics(); identify();
-      await frame(Math.min(previousHour, count - 1));
+      const sameTime = catalog.frames?.findIndex(item => Date.parse(item.start_utc) <= Date.parse(previousTime) && Date.parse(item.end_utc) > Date.parse(previousTime));
+      await frame(sameTime >= 0 ? Math.max(0,sameTime-selection.first_hour) : Math.min(previousHour, count - 1));
       priorityStatus.textContent = 'Порядок архивов сохранён.';
     } catch(error) { priorityDraft = [...prioritySaved]; priorityStatus.textContent = error.message; }
     finally { priorityBusy = false; renderPriority(); }
@@ -303,9 +308,10 @@ window.initMeteoMap = function(gd) {
       if (!response.ok) throw new Error((await response.json()).detail || 'Ошибка чтения кадра');
       const bytes = await response.arrayBuffer();
       if (epoch !== requestEpoch) throw new DOMException('Selection changed', 'AbortError');
-      if (bytes.byteLength !== catalog.frame_bytes) throw new Error('Неполный кадр');
+      const descriptor = catalog.frames?.[hour], grid = descriptor ? catalog.grids[descriptor.grid] : null;
+      if (bytes.byteLength !== (grid ? grid.latitude.length*grid.longitude.length*4 : catalog.frame_bytes)) throw new Error('Неполный кадр');
       const cached = {flat:new Float32Array(bytes), available:response.headers.get('X-Data-Available') !== 'false',
-                      cycle:response.headers.get('X-Cycle-UTC'), sources:[]};
+                      cycle:response.headers.get('X-Cycle-UTC'), sources:[], descriptor, grid};
       const sources = response.headers.get('X-Frame-Sources');
       if (sources) cached.sources = JSON.parse(decodeURIComponent(sources));
       frameCache.set(key,cached);
@@ -350,7 +356,7 @@ window.initMeteoMap = function(gd) {
     catch (error) { if (error.name === 'AbortError') return; throw error; }
     if (token !== frameToken) return;
     frameCache.delete(key); frameCache.set(key,cached);
-    if (catalog.streaming && cached.available && preparedCycle !== cached.cycle) {
+    if (catalog.streaming && catalog.kind !== 'playback' && cached.available && preparedCycle !== cached.cycle) {
       preparedCycle = cached.cycle;
       const params = new URLSearchParams({hour, end_hour:selection.first_hour+count, manifest_sha256:catalog.manifest_sha256});
       const epoch = requestEpoch;
@@ -359,9 +365,9 @@ window.initMeteoMap = function(gd) {
     prefetchFrames();
     if (token !== frameToken) return;
     const flat = cached.flat;
-    const rows = Array.from({length:catalog.grid_shape[0]}, (_,y) =>
-      flat.subarray(y*catalog.grid_shape[1], (y+1)*catalog.grid_shape[1]));
-    const title = 'Осадки · ' + (catalog.kind === 'era5' ? 'LSP' : 'Синтетика v2 · LSP');
+    const shape = cached.grid ? [cached.grid.latitude.length,cached.grid.longitude.length] : catalog.grid_shape;
+    const rows = Array.from({length:shape[0]}, (_,y) => flat.subarray(y*shape[1], (y+1)*shape[1]));
+    const title = 'Осадки · ' + (catalog.kind === 'era5' || catalog.kind === 'playback' ? 'LSP' : 'Синтетика v2 · LSP');
     // Finish an in-flight redraw before displaying a newer hour. A late response
     // must not repaint an older field after the user has moved the slider.
     redraw = redraw.catch(()=>{}).then(async () => {
@@ -369,6 +375,7 @@ window.initMeteoMap = function(gd) {
       const previous = displayedFrame;
       const sourceKey = value => (value?.sources || []).map(source => source.Name + ':' + source.Format).join('|');
       const smooth = transition && playing && i === displayedIndex + 1 && previous?.available && cached.available &&
+        previous.flat.length === flat.length && previous.descriptor?.kind === cached.descriptor?.kind &&
         sourceKey(previous) !== sourceKey(cached) &&
         typeof requestAnimationFrame === 'function' && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
       if (smooth) {
@@ -392,7 +399,11 @@ window.initMeteoMap = function(gd) {
         }
       }
       if (token !== frameToken) return;
-      await Plotly.update(gd, {z:[rows]}, {'title.text':title, 'coloraxis.showscale':cached.available}, [0]);
+      const values = {z:[rows]};
+      if (cached.grid) { values.x = [cached.grid.longitude]; values.y = [cached.grid.latitude];
+        values.hovertemplate = ['%{y:.2f}°N, %{x:.2f}°E<br>%{z:.4f} мм за час<extra></extra>']; }
+      await Plotly.update(gd, values, {'title.text':title, 'coloraxis.showscale':cached.available,
+        'coloraxis.colorbar.title.text':'мм за час'}, [0]);
       displayedFrame = cached; displayedIndex = i;
     });
     await redraw;
@@ -410,7 +421,11 @@ window.initMeteoMap = function(gd) {
     const cycle = catalog.start_epoch + Math.floor(hour/12)*12*3600;
     const hint = document.getElementById('cycle-hint');
     hint.dataset.new = String(lastCycle !== null && lastCycle !== cycle);
-    if (catalog.kind === 'era5') {
+    if (catalog.kind === 'playback') {
+      hint.dataset.new = 'false';
+      hint.textContent = cached.available ? 'ERA5 · крупномасштабные осадки LSP за час' : 'Нет данных за выбранный час';
+      document.getElementById('map-subtitle').textContent = 'ERA5 · LSP, шаг 1 час';
+    } else if (catalog.kind === 'era5') {
       hint.dataset.new = 'false';
       hint.textContent = cached.available
         ? 'Основной цикл · ' + (cached.cycle || '').slice(0,16).replace('T',' ') + ' UTC'
@@ -585,7 +600,7 @@ window.initMeteoMap = function(gd) {
   async function initialize() {
     if (info.archive_api) {
       catalog = await getJSON(info.archive_api + '/catalog');
-      memberInput.hidden = catalog.kind === 'era5';
+    memberInput.hidden = catalog.kind === 'era5' || catalog.kind === 'playback';
       if(catalog.manifest_sha256 !== info.manifest_sha256) throw new Error('Архив изменён; пересоберите HTML для выбранного manifest.');
       memberInput.innerHTML='';
       for (const m of catalog.members) {
@@ -593,7 +608,7 @@ window.initMeteoMap = function(gd) {
       }
       memberInput.value=info.member;
       document.getElementById('archive-size').textContent=(catalog.data_bytes/1e9).toFixed(2)+' GB';
-      if (catalog.kind === 'era5') {
+      if (catalog.kind === 'era5' || catalog.kind === 'playback') {
         memberInput.hidden = true; info.member = null;
         document.getElementById('archive-size').textContent = catalog.file_count + ' файлов · ' +
           catalog.available_hours + ' ч с данными · ' + catalog.gap_hours + ' ч без данных';
@@ -637,7 +652,10 @@ window.initMeteoMap = function(gd) {
     }
     startInput.value=inputTime(selection ? Date.parse(selection.start_utc) : firstEpoch);
     endInput.value=inputTime(selection ? Date.parse(selection.end_utc) : Date.parse(info.intervals.at(-1)[1]));
-    limits(); identify(); await frame(0); await fit();
+    if (count) { limits(); identify(); await frame(0); }
+    else { play.disabled=true; timeline.disabled=true; period.hidden=true; noData.hidden=false;
+      noData.textContent='В выбранном архиве пока нет файлов. Добавьте данные в архиве.'; }
+    await fit();
     if (info.priority_available && info.archive_api) {
       priorityPanel.hidden = false;
       try {
@@ -653,12 +671,12 @@ window.initMeteoMap = function(gd) {
 <body>
 <main class="viewer">
   <header class="app-header">
-    <div class="brand-mark" aria-hidden="true">E5</div>
-    <div><h1>Атлас осадков</h1><p class="subtitle">LSP · почасовая карта</p></div>
+    <div class="brand-mark" aria-hidden="true">M</div>
+    <div><h1>Атлас осадков</h1><p id="map-subtitle" class="subtitle">Архивы осадков</p></div>
     <nav class="top-nav" id="site-nav" aria-label="Разделы сайта" hidden>
-      <a href="/" aria-current="page">Карта</a><a href="/downloads">Архив ERA5</a>
+      <a href="/" aria-current="page">Карта</a><a href="/downloads">Архив</a>
     </nav>
-    <span class="source-badge">Архивные данные</span>
+    <span id="source-badge" class="source-badge">Архивные данные</span>
   </header>
   <details id="coverage-panel" class="coverage-panel" open hidden>
     <summary>Доступные периоды <span id="available-range-count"></span></summary>
@@ -668,7 +686,8 @@ window.initMeteoMap = function(gd) {
   <details id="priority-panel" class="priority-panel" hidden>
     <summary>Приоритет чтения файлов из архива</summary>
     <p class="priority-help">Чем выше архив в списке, тем раньше карта читает его файлы. Недостающие часы и ячейки дополняются из следующих архивов.
-      Перетаскивайте архивы вверх и вниз или пользуйтесь стрелками — карта обновляется, а настройки сохраняются автоматически. Порядок действует и для новых загрузок.</p>
+      Перетаскивайте архивы вверх и вниз или пользуйтесь стрелками. Карта обновляется, а настройки сохраняются автоматически.
+      Между LSP и суммарными осадками выбирается целый кадр; его тип и интервал указаны на карте.</p>
     <ol id="priority-archives" aria-label="Порядок чтения архивов"></ol>
     <p id="priority-status" role="status"></p>
   </details>
@@ -700,7 +719,7 @@ window.initMeteoMap = function(gd) {
       <option value="100">10 кадров/с</option>
     </select>
     <div class="timeline-control">
-      <input id="timeline" type="range" min="0" max="11" value="0" step="1" aria-label="Час осадков">
+      <input id="timeline" type="range" min="0" max="11" value="0" step="1" aria-label="Время осадков">
       <span id="hour"></span>
     </div>
     <button id="fullscreen" title="На весь экран" aria-label="На весь экран" aria-pressed="false">

@@ -34,6 +34,8 @@ internal sealed class MapPriorities
             var order = JsonSerializer.Deserialize<string[]>(File.ReadAllText(settingsPath)) ?? [];
             // File-level settings from the previous UI do not define an archive order.
             if (order.Length == 0 || order.All(id => id is not null && Regex.IsMatch(id, "^[a-f0-9]{64}$"))) return [];
+            if (order.Length == 4 && order.Count(id => id == "graphcast") == 1)
+                order = order.Where(id => id != "graphcast").ToArray();
             if (!Valid(order)) throw new JsonException();
             return order;
         }
@@ -61,7 +63,8 @@ internal sealed class MapPriorities
             {
                 var archive = Archives.Single(archive => archive.Id == id);
                 var matching = files.Where(file => file.ArchiveId == id).ToArray();
-                return new { id, name = archive.Name, format = archive.Format, file_count = matching.Length, bytes = matching.Sum(file => file.Bytes) };
+                return new { id, name = archive.Name, format = archive.Format,
+                    file_count = matching.Length, bytes = matching.Sum(file => file.Bytes) };
             }).ToArray()
         };
     }

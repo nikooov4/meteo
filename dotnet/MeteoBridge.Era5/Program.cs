@@ -54,6 +54,7 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     var imports = app.Services.GetRequiredService<ArchiveImports>();
     var localFiles = app.Services.GetRequiredService<ArchiveFiles>();
     var priorities = new MapPriorities(data);
+    var playback = new MapPlayback(session, priorities, data);
     app.Use(async (context, next) =>
     {
         if (context.Connection.RemoteIpAddress is not { } remote || !System.Net.IPAddress.IsLoopback(remote))
@@ -88,10 +89,10 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
     });
     app.MapGet("/health", () => new { status = "ok", engine = "csharp", application = "MeteoBridge.Era5",
         project_root = root, data_path = data, workers, lookahead_cycles = lookahead });
-    app.MapGet("/", () =>
+    app.MapGet("/", (HttpContext context) =>
     {
-        var files = Era5Index.Files(data).Length > 0;
-        return files ? Results.Content(MapPage.Create(session.ForViewer().Index), "text/html; charset=utf-8") : Results.Redirect("/downloads");
+        context.Response.Headers.CacheControl = "no-store";
+        return Results.Content(MapPage.Create(playback.Get(), root), "text/html; charset=utf-8");
     });
     app.MapGet("/downloads", async (HttpContext context) =>
     {
@@ -121,6 +122,25 @@ static WebApplication CreateApplication(string[] arguments, string root, string?
                        Path.Combine(root, "runtime", "plotly", "plotly.min.js") }.FirstOrDefault(File.Exists);
         return File.Exists(path) ? Results.File(path, "text/javascript")
             : Results.Problem("Не найден Plotly: выполните scripts/setup_runtime.ps1 или задайте METEOBRIDGE_PLOTLY_JS.", statusCode: 503);
+    });
+    app.MapGet("/map-playback/{scope}/catalog", (string scope) => playback.Get(scope).Catalog());
+    app.MapGet("/map-playback/{scope}/grid", (string scope) =>
+    {
+        var grid = playback.Get(scope).FirstGrid;
+        return new { latitude = grid.Latitude, longitude = grid.Longitude };
+    });
+    app.MapGet("/map-playback/{scope}/range", (string scope, string start, string end) => playback.Get(scope).Selection(start, end));
+    app.MapGet("/map-playback/all/priority", () => priorities.View());
+    app.MapPost("/map-playback/all/priority", (MapPriorityRequest request) =>
+    {
+        session.ChangeFiles(() => priorities.Save(request.Order));
+        return new { priority = priorities.View(), catalog = playback.Get().Catalog() };
+    });
+    app.MapGet("/map-playback/{scope}/frame", async (HttpContext context, string scope, int hour, string manifest_sha256, bool prefetch = false) =>
+    {
+        var view = playback.Get(scope);
+        if (manifest_sha256 != view.Sha) return Results.Conflict(new { detail = "Архив изменился. Обновите карту." });
+        return Results.Bytes(await playback.FrameAsync(view, hour, prefetch, context.Response, context.RequestAborted), "application/octet-stream");
     });
     app.MapGet("/map-archive/catalog", () => session.Current.Index.Catalog());
     app.MapGet("/map-archive/priority", (HttpContext context) =>

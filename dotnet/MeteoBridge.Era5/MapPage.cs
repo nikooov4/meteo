@@ -4,18 +4,20 @@ namespace MeteoBridge.Era5;
 
 internal static class MapPage
 {
-    public static string Create(Era5Index index)
+    public static string Create(PlaybackView view, string root)
     {
-        var first = Era5Index.Iso(index.Start);
-        var end = Era5Index.Iso(index.End);
+        var first = Era5Index.Iso(view.Start);
+        var end = Era5Index.Iso(view.End);
         var info = new
         {
-            bbox = index.Bbox, intervals = new[] { new[] { first, Era5Index.Iso(index.Start + 3600) } },
-            origin = "original", label = "LSP · " + string.Join(" / ", index.Sources.Select(source => source.Format).Distinct()), grid_shape = new[] { index.Latitude.Length, index.Longitude.Length },
-            member = 0, archive_api = "/map-archive", first_hour = 0, manifest_sha256 = index.Sha, downloads_available = true, priority_available = true,
-            initial_selection = new { first_hour = 0, hours = index.Hours, member = 0, start_utc = first, end_utc = end }
+            bbox = new[] { -180d, 180, -90, 90 }, intervals = new[] { new[] { first, end } },
+            origin = "original", label = "Архивы осадков", grid_shape = new[] { view.FirstGrid.Latitude.Length, view.FirstGrid.Longitude.Length },
+            member = 0, archive_api = "/map-playback/all", grid_api = "/map-playback/all/grid",
+            first_hour = 0, manifest_sha256 = view.Sha, downloads_available = true, priority_available = true,
+            initial_selection = view.Selection()
         };
-        var template = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Assets", "map_viewer.html"));
+        var path = Path.Combine(root, "web", "map_viewer.html");
+        var template = File.ReadAllText(File.Exists(path) ? path : Path.Combine(AppContext.BaseDirectory, "Assets", "map_viewer.html"));
         var plot = """
             <div id="era5-plot"></div>
             <script src="/plotly.min.js"></script>
@@ -23,7 +25,7 @@ internal static class MapPage
             document.addEventListener('DOMContentLoaded', async () => {
               try {
                 const [grid, land] = await Promise.all([
-                  fetch('/grid').then(response => response.json()),
+                  fetch(window.meteoMapInfo.grid_api).then(response => response.json()),
                   fetch('/land.json').then(response => response.json())
                 ]);
                 const longitude = [], latitude = [];

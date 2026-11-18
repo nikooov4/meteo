@@ -75,7 +75,7 @@ internal sealed class Era5Index
 
     public static string Iso(long epoch) => DateTimeOffset.FromUnixTimeSeconds(epoch).ToString("yyyy-MM-dd'T'HH:mm:sszzz");
 
-    public Era5Index(string path, double[] bbox, int maxCells, int maxReadMiB, int lookahead)
+    public Era5Index(string path, double[] bbox, int maxCells, int maxReadMiB, int lookahead, PlaybackGrid? target = null)
     {
         if (bbox.Length != 4 || bbox.Any(value => !double.IsFinite(value)) ||
             !(bbox[0] >= -180 && bbox[0] < bbox[1] && bbox[1] <= 180 && bbox[2] >= -90 && bbox[2] < bbox[3] && bbox[3] <= 90))
@@ -200,8 +200,8 @@ internal sealed class Era5Index
         if (latitudes.Count == 0 || longitudes.Count == 0) throw new ArgumentException("В выбранной области нет ячеек.");
         var stride = Math.Max(1, (int)Math.Ceiling(Math.Sqrt((double)latitudes.Count * longitudes.Count / maxCells)));
         while ((long)((latitudes.Count + stride - 1) / stride) * ((longitudes.Count + stride - 1) / stride) > maxCells) stride++;
-        Latitude = latitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
-        Longitude = longitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
+        Latitude = target?.Latitude ?? latitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
+        Longitude = target?.Longitude ?? longitudes.Where((_, ordinal) => ordinal % stride == 0).ToArray();
         foreach (var key in Cycles.Keys.ToArray()) Cycles[key] = Cycles[key] with { Latitude = Latitude, Longitude = Longitude };
         var savedPriority = new MapPriorities(path).Load();
         ArchivePriority = MapPriorities.EffectiveOrder(savedPriority);

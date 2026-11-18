@@ -9,7 +9,7 @@ const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const settle = () => new Promise(resolve => setImmediate(resolve));
 
 async function createViewer(width = 1200, {sourceAt = () => [{Name:'осадки.nc',Format:'NetCDF',Cells:1}], animate = false,
-  fullscreenApi = 'native', reducedMotion = false, priorityAvailable = false, valueAt = hour => hour} = {}) {
+  fullscreenApi = 'native', reducedMotion = false, priorityAvailable = false, valueAt = hour => hour, playback = false} = {}) {
   const elements = new Map();
   const makeElement = () => ({
     style: {}, dataset: {}, value: '0', textContent: '', hidden: false, attributes: new Map(), children: [], scrollTop: 0,
@@ -40,7 +40,14 @@ async function createViewer(width = 1200, {sourceAt = () => [{Name:'осадки
     available_hours: 24, gap_hours: 0, available_ranges: [], color_max_mm: 50,
     members: [{ member: 0, hours: 24, start_utc: origin, end_utc: end }],
   };
-  const timers = new Map(), held = new Set(), pending = new Map(), displayed = [], exports = [], layouts = [], titles = [];
+  if (playback) {
+    catalog.kind='playback';
+    catalog.frames=Array.from({length:24},(_,i)=>({kind:'era5',grid:'era5',
+      start_utc:new Date(Date.parse(origin)+i*3600000).toISOString(),
+      end_utc:new Date(Date.parse(origin)+(i+1)*3600000).toISOString()}));
+    catalog.grids={era5:{latitude:[0],longitude:[0]}};
+  }
+  const timers = new Map(), held = new Set(), pending = new Map(), displayed = [], exports = [], layouts = [], titles = [], updates = [];
   const priorityArchives = [{id:'amazon',name:'Amazon S3 · NCAR ERA5',format:'NC',file_count:4},
     {id:'google',name:'Google · ARCO-ERA5',format:'NC',file_count:6},
     {id:'cds',name:'Copernicus CDS · ERA5',format:'GRIB',file_count:2}];
@@ -66,7 +73,7 @@ async function createViewer(width = 1200, {sourceAt = () => [{Name:'осадки
     if (fullscreenApi === 'denied') throw new Error('Denied by embedded browser');
     document.fullscreenElement = player; events.get('fullscreenchange')();
   };
-  const window = {matchMedia: () => ({matches: reducedMotion})};
+  const window = {matchMedia: () => ({matches: reducedMotion}),location:{href:'/'}};
   runInNewContext(script.replace('__MAP_INFO_JSON__', JSON.stringify(info)), {
     window, document, URLSearchParams, AbortController, DOMException, Float32Array,
     setTimeout(callback, delay) { const handle = ++timerId; timers.set(handle, { callback, delay }); return handle; },
@@ -76,7 +83,7 @@ async function createViewer(width = 1200, {sourceAt = () => [{Name:'осадки
     Plotly: {
       async relayout(target, layout) { layouts.push(layout); },
       async restyle() {},
-      async update(target, data, layout) { displayed.push(data.z[0][0][0]); if (layout['title.text']) titles.push(layout['title.text']); },
+      async update(target, data, layout) { updates.push({data,layout}); displayed.push(data.z[0][0][0]); if (layout['title.text']) titles.push(layout['title.text']); },
       async downloadImage(target, options) { exports.push(options); },
     },
     async fetch(url, options) {
@@ -128,7 +135,7 @@ async function createViewer(width = 1200, {sourceAt = () => [{Name:'осадки
       await settle();
     },
     async exportImage(format) { await element(format).onclick(); },
-    exports, layouts, titles,
+    exports, layouts, titles, updates,
     clickPlay() { element('play').onclick(); },
     async seek(hour) { element('timeline').value = String(hour); await element('timeline').oninput(); await settle(); },
     async tick() {
@@ -140,6 +147,15 @@ async function createViewer(width = 1200, {sourceAt = () => [{Name:'осадки
     async resize(nextWidth) { stage.clientWidth = nextWidth; await resize(); await settle(); },
   };
 }
+
+test('the main player keeps the archive timeline hourly', async () => {
+  const viewer=await createViewer(1200,{playback:true});
+  assert.equal(viewer.element('timeline').max,23);
+  assert.match(viewer.hour,/06:00–07:00/);
+  assert.equal(viewer.titles.at(-1),'Осадки · LSP');
+  assert.equal(viewer.updates.at(-1).layout['coloraxis.colorbar.title.text'],'мм за час');
+  assert.doesNotMatch(html,/map-forecast|GrathCast/);
+});
 
 test('seeking while playing continues from the chosen hour with one timer', async () => {
   const viewer = await createViewer();
