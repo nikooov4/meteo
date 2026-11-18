@@ -1,11 +1,12 @@
 $ErrorActionPreference = 'Stop'
 $project = Split-Path -Parent $PSScriptRoot
 $projectId = '{8B883C39-9DAB-4786-BDE8-5D8374D78083}'
+$testsId = '{2DFA50DF-8313-4D10-83A9-CDCAC1E36DA8}'
 $folderType = '{2150E333-8FDC-42A3-9474-1A3956D46DE8}'
 $groups = @{
     'web' = 'Web'; 'docs' = 'Documentation'; 'scripts' = 'Tools'; 'tests' = 'Tests';
     'data' = 'Data'; 'runtime' = 'Runtime'; 'artifacts' = 'Validation';
-    '.github' = 'CI'
+    '.github' = 'CI'; 'workers' = 'Workers'
 }
 
 function Get-FolderId([string]$Name) {
@@ -45,6 +46,8 @@ try {
     @('Microsoft Visual Studio Solution File, Format Version 12.00', '# Visual Studio Version 18',
         'VisualStudioVersion = 18.0.0.0', 'MinimumVisualStudioVersion = 10.0.40219.1',
         ('Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeteoBridge.Era5", "dotnet\MeteoBridge.Era5\MeteoBridge.Era5.csproj", "' + $projectId + '"'),
+        'EndProject',
+        ('Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeteoBridge.Era5.Tests", "dotnet\MeteoBridge.Era5.Tests\MeteoBridge.Era5.Tests.csproj", "' + $testsId + '"'),
         'EndProject') | ForEach-Object { [void]$text.AppendLine($_) }
     $ordered = @('Solution files') + @($folders.Keys | Where-Object { $_ -ne 'Solution files' } | Sort-Object)
     foreach ($name in $ordered) {
@@ -71,6 +74,8 @@ try {
     foreach ($configuration in @('Debug', 'Release')) {
         [void]$text.AppendLine("`t`t$projectId.$configuration|Any CPU.ActiveCfg = $configuration|Any CPU")
         [void]$text.AppendLine("`t`t$projectId.$configuration|Any CPU.Build.0 = $configuration|Any CPU")
+        [void]$text.AppendLine("`t`t$testsId.$configuration|Any CPU.ActiveCfg = $configuration|Any CPU")
+        [void]$text.AppendLine("`t`t$testsId.$configuration|Any CPU.Build.0 = $configuration|Any CPU")
     }
     [void]$text.AppendLine("`tEndGlobalSection")
     [void]$text.AppendLine("`tGlobalSection(SolutionProperties) = preSolution")

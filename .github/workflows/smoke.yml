@@ -26,7 +26,6 @@ jobs:
         run: ./scripts/setup_runtime.ps1
       - if: runner.os == 'Linux'
         run: mkdir -p runtime/plotly && cp .venv/lib/python3.12/site-packages/plotly/package_data/plotly.min.js runtime/plotly/
-      - run: dotnet build MeteoBridge.sln -c Release
       - run: uv run ruff check .
-      - run: uv run pytest -p no:cacheprovider
-      - run: node --test tests/map_viewer.test.cjs tests/archive_viewer.test.cjs
+      - run: dotnet test MeteoBridge.sln -c Release
+      - run: node --test tests/map_viewer.test.cjs tests/archive_viewer.test.cjs tests/comparison_viewer.test.cjs tests/generation_viewer.test.cjs
