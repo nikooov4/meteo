@@ -363,22 +363,10 @@ internal sealed class ArchiveDownloads : IDisposable
 
     private async Task<HttpResponseMessage> StorageAsync(RemoteEra5File file, Uri url, long first, long last, CancellationToken token)
     {
-        for (var redirects = 0; ; redirects++)
+        if (file.Source == "cds")
         {
-            if (file.Source == "cds") cds.ValidateStorage(url);
-            using var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Range = new RangeHeaderValue(first, last);
-            if (file.Etag.Length > 0) request.Headers.IfMatch.ParseAdd(file.Etag);
-            var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, token);
-            if (file.Source == "cds" && (int)response.StatusCode is 301 or 302 or 303 or 307 or 308)
-            {
-                var location = response.Headers.Location;
-                response.Dispose();
-                if (redirects >= 4 || location is null) throw new IOException("Слишком много перенаправлений хранилища CDS.");
-                url = new Uri(url, location);
-                continue;
-            }
-            if (file.Source == "cds" && response.StatusCode is HttpStatusCode.Forbidden or HttpStatusCode.NotFound or HttpStatusCode.Gone)
+            var response = await cds.OpenResultAsync(url, first, last, token);
+            if (CdsArchive.ResultExpired(response))
             {
                 response.Dispose();
                 File.Delete(Path.Combine(directory, file.Name + ".cds-request.json"));
@@ -386,6 +374,10 @@ internal sealed class ArchiveDownloads : IDisposable
             }
             return response;
         }
+        using var request = new HttpRequestMessage(HttpMethod.Get, url);
+        request.Headers.Range = new RangeHeaderValue(first, last);
+        if (file.Etag.Length > 0) request.Headers.IfMatch.ParseAdd(file.Etag);
+        return await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, token);
     }
 
     private async Task TransferAsync(Job job)
